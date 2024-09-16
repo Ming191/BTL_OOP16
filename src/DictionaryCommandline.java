@@ -18,5 +18,6 @@ public class DictionaryCommandline {
         System.out.println(
                 "======================================================"
         );
+        public
     }
 }

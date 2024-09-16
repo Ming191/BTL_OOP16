@@ -9,13 +9,20 @@ public class Word {
     Word(){
 
     }
-    public String getWordTarget(){
+
+    public String getWordTarget() {
         return wordTarget;
     }
-    public String getWordExpla(){
-            return wordTarget;
+
+    public void setWordTarget(String wordTarget) {
+        this.wordTarget = wordTarget;
     }
-    public void setWordTarget(String p_WordTarget){
-        this.wordTarget = p_WordTarget;
+
+    public String getWordExplain() {
+        return wordExplain;
+    }
+
+    public void setWordExplain(String wordExplain) {
+        this.wordExplain = wordExplain;
     }
 }
