@@ -1,10 +1,16 @@
+import java.util.Dictionary;
+import java.util.Scanner;
+
 public class DictionaryCommandline {
+    private DictionaryManagement dictionaryManagement;
+    private State appState;
 
-    public void showAllWords() {
-
+    DictionaryCommandline() {
+        appState = new State();
+        dictionaryAdvance();
     }
 
-    public  void dictionaryBasic() {
+    public void showAllWords() {
 
     }
 
@@ -15,9 +21,25 @@ public class DictionaryCommandline {
         System.out.println(
                 "Welcome to My Application!"
         );
+
+        appState.printStatesList();
+
         System.out.println(
                 "======================================================"
         );
-        public
+        System.out.println(
+                "YOUR ACTION: "
+        );
+
+        Scanner sc = new Scanner(System.in);
+        int request = sc.nextInt();
+        while (request > 10 || request < 0) {
+            System.out.println("ACTION IS NOT SUPPORTED");
+            System.out.println(
+                    "YOUR ACTION: "
+            );
+            request = sc.nextInt();
+        }
+        appState.setCurrentState(request);
     }
 }

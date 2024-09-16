@@ -6,6 +6,7 @@ public class Word {
     Word(String wordTarget, String wordExplain){
 
     }
+
     Word(){
 
     }
