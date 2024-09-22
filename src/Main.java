@@ -6,3 +6,4 @@ public class Main {
         DictionaryCommandline controller = new DictionaryCommandline(dict);
     }
 }
+

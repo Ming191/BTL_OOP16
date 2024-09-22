@@ -6,11 +6,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class DictionaryManagement {
-    public static void showAllWords(Dictionary dictionary) {
-        for (Word word : dictionary.getWordList() ) {
-            System.out.println(word.getWordTarget() + ":" + word.getWordExplain());
-        }
-    }
+
     public static void insertFromCommandLine(Dictionary dictionary, Scanner sc) {
         System.out.print("Nhập số lượng từ vựng: ");
         int num = sc.nextInt();
@@ -24,6 +20,7 @@ public class DictionaryManagement {
             Word newWordObj = new Word(newWord, meaning);
             dictionary.getWordList().add(newWordObj);
         }
+        Collections.sort(dictionary.getWordList());
         System.out.println("Press OK to continue...");
         sc.nextLine();
     }
@@ -43,7 +40,7 @@ public class DictionaryManagement {
             return;
         }
 
-        System.out.println("[" + pos + "]. " + dictionary.getWordList().get(pos).getWordTarget() + " : " + dictionary.getWordList().get(pos).getWordExplain());
+        System.out.println("[" + pos + 1 + "]. " + dictionary.getWordList().get(pos).getWordTarget() + " : " + dictionary.getWordList().get(pos).getWordExplain());
         System.out.println("Press OK to continue...");
         sc.nextLine();
     }
@@ -52,10 +49,15 @@ public class DictionaryManagement {
         System.out.print("Nhập vào từ cần update: ");
         String word = sc.nextLine();
         int pos = CommonFunc.binarySearch(dictionary.getWordList(),0,dictionary.getWordList().size(),word);
-        System.out.println("Nghĩa ban đầu: " + dictionary.getWordList().get(pos).getWordExplain());
-        System.out.print("Nhập ý nghĩa sửa lại: ");
-        String newMeaning = sc.nextLine();
-        dictionary.getWordList().get(pos).setWordExplain(newMeaning);
+        if(pos == -1) {
+            System.out.println("Không tìm thấy từ: " + word);
+        }
+        else {
+            System.out.println("Nghĩa ban đầu: " + dictionary.getWordList().get(pos).getWordExplain());
+            System.out.print("Nhập ý nghĩa sửa lại: ");
+            String newMeaning = sc.nextLine();
+            dictionary.getWordList().get(pos).setWordExplain(newMeaning);
+        }
         System.out.println("Press OK to continue...");
         sc.nextLine();
     }
@@ -63,15 +65,29 @@ public class DictionaryManagement {
     public static void removeWord(Dictionary dictionary, Scanner sc){
         System.out.print("Nhập từ muốn xóa: ");
         String word = sc.nextLine();
-        int pos = CommonFunc.binarySearch(dictionary.getWordList(),0,dictionary.getWordList().size(),word);
-        dictionary.getWordList().remove(pos);
-        System.out.println("Press OK to continue...");
-        sc.nextLine();
+        int pos = CommonFunc.binarySearch(dictionary.getWordList(),0,dictionary.getWordList().size()-1,word);
+        if(pos == -1) {
+            System.out.println("Không tìm được từ: " + word);
+        }
+        else {
+            System.out.println("Bạn có chắc chắn muốn xóa từ: " + word);
+            System.out.println("Press Y/N to confirm:");
+            char confirm = sc.nextLine().charAt(0);
+            if(confirm == 'Y' || confirm == 'y') {
+                dictionary.getWordList().remove(pos);
+                System.out.println("Xoá thành công!");
+            }
+            else {
+                System.out.println("Hủy thao tác xóa.");
+            }
+        }
+            System.out.println("Press OK to continue...");
+            sc.nextLine();
     }
 
     public static void dictionaryImportFromFile(Dictionary dictionary) {
         try{
-            File wordFile = new File("word.txt");
+            File wordFile = new File("dictionaries.txt");
             Scanner myReader = new Scanner(wordFile);
             while(myReader.hasNextLine()){
                 String data = myReader.nextLine();
@@ -92,13 +108,13 @@ public class DictionaryManagement {
 
     public static void dictionaryExportToFile(Dictionary dictionary) {
         try {
-            FileWriter fileWriter = new FileWriter("word.txt",true);
+            FileWriter fileWriter = new FileWriter("dictionaries.txt",true);
             if(dictionary.getWordList().isEmpty()) {
-                System.out.println("Không có từ trong danh sách");
+                System.out.println("Không có từ trong từ điển");
                 return;
             }
             for(Word word : dictionary.getWordList()) {
-                if(CommonFunc.wordCheck("word.txt", word.getWordTarget())) {
+                if(CommonFunc.wordCheck("dictionaries.txt", word.getWordTarget())) {
                     continue;
                 }
                 fileWriter.write(word.getWordTarget() + " : " + word.getWordExplain() + "\n");
