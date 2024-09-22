@@ -9,6 +9,7 @@ public class Dictionary {
     }
 
     Dictionary(Word word) {
+        wordList = new ArrayList<>();
         wordList.add(word);
     }
 
