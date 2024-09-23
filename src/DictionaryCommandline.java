@@ -1,8 +1,38 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class DictionaryCommandline {
     DictionaryCommandline(Dictionary dictionary) {
         advanceDictionary(dictionary);
+    }
+
+    public static void showAllWords(Dictionary dictionary) {
+        System.out.printf("%-5s | %-20s | %-20s%n", "No", "English", "Vietnamese");
+        System.out.println("------------------------------------------------");
+        if(dictionary.getWordList().isEmpty()) {
+            System.out.println("Từ điển trống!");
+        }
+        int index = 1;
+        for (Word word : dictionary.getWordList()) {
+            System.out.printf("%-5d | %-20s | %-20s%n", index++,
+                    word.getWordTarget(), word.getWordExplain());
+        }
+    }
+
+    public static void dictionarySearcher(Dictionary dictionary, Scanner sc) {
+        System.out.print("Nhập vào từ muốn search:");
+        String s = sc.nextLine().toLowerCase();
+        boolean found = false;
+
+        for (Word word : dictionary.getWordList()) {
+            if (word.getWordTarget().toLowerCase().startsWith(s)) {
+                System.out.printf("%-20s | %-20s%n", word.getWordTarget(), word.getWordExplain());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Không tìm được từ cần tìm.");
+        }
     }
 
     public static void advanceDictionary(Dictionary dictionary) {
@@ -26,7 +56,7 @@ public class DictionaryCommandline {
             lastRequest = sc.nextInt();
             sc.nextLine();
             if(lastRequest > 9 || lastRequest < 0) {
-                System.out.println("Invalid option");
+                System.out.println("Action not supported");
                 continue;
             }
             switch (lastRequest) {
@@ -40,10 +70,13 @@ public class DictionaryCommandline {
                     DictionaryManagement.updateWord(dictionary,sc);
                     break;
                 case 4:
-                    DictionaryManagement.showAllWords(dictionary);
+                    showAllWords(dictionary);
                     break;
                 case 5:
-                    DictionaryManagement.dictionaryLookup(dictionary,sc);
+                    DictionaryManagement.dictionaryLookup(dictionary, sc);
+                    break;
+                case 6:
+                    dictionarySearcher(dictionary, sc);
                     break;
                 case 8:
                     DictionaryManagement.dictionaryImportFromFile(dictionary);
@@ -61,3 +94,4 @@ public class DictionaryCommandline {
         }
     }
 }
+//
