@@ -1,9 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 public class DictionaryManagement {
 
@@ -13,10 +11,14 @@ public class DictionaryManagement {
         sc.nextLine();
 
         for(int i = 0; i < num; i++) {
-            System.out.println("Nhập vào từ thứ " + (i+1) + ":");
+            System.out.print("Nhập vào từ thứ " + (i+1) + ":");
             String newWord = sc.nextLine();
-            System.out.println("Nhập giải thích:");
+            newWord = CommonFunc.formatWord(newWord);
+
+            System.out.print("Nhập giải thích: ");
             String meaning = sc.nextLine();
+            meaning = CommonFunc.formatWord(meaning);
+
             Word newWordObj = new Word(newWord, meaning);
             dictionary.getWordList().add(newWordObj);
         }
@@ -34,6 +36,7 @@ public class DictionaryManagement {
         }
         System.out.print("Nhập từ tiếng anh cần tra cứu: ");
         String word=sc.nextLine();
+        word = CommonFunc.formatWord(word);
         int pos = CommonFunc.binarySearch(dictionary.getWordList(),0,dictionary.getWordList().size(),word);
         if(pos == -1) {
             System.out.println("Không tìm thấy từ");
@@ -113,10 +116,11 @@ public class DictionaryManagement {
                 System.out.println("Không có từ trong từ điển");
                 return;
             }
+
+            Set<String> existingWords = CommonFunc.existingWords("dictionaries.txt");
+
             for(Word word : dictionary.getWordList()) {
-                if(CommonFunc.wordCheck("dictionaries.txt", word.getWordTarget())) {
-                    continue;
-                }
+                if(existingWords.contains(word.getWordTarget())) continue;
                 fileWriter.write(word.getWordTarget() + " : " + word.getWordExplain() + "\n");
             }
             fileWriter.close();

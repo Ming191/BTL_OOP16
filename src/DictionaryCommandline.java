@@ -6,32 +6,60 @@ public class DictionaryCommandline {
         advanceDictionary(dictionary);
     }
 
-    public static void showAllWords(Dictionary dictionary) {
+    public static void showAllWords(Dictionary dictionary,Scanner sc) {
         System.out.printf("%-5s | %-20s | %-20s%n", "No", "English", "Vietnamese");
         System.out.println("------------------------------------------------");
         if(dictionary.getWordList().isEmpty()) {
             System.out.println("Từ điển trống!");
+            System.out.println("Press OK to continue...");
+            sc.nextLine();
+            return;
         }
         int index = 1;
         for (Word word : dictionary.getWordList()) {
             System.out.printf("%-5d | %-20s | %-20s%n", index++,
                     word.getWordTarget(), word.getWordExplain());
         }
+        System.out.println("Press OK to continue...");
+        sc.nextLine();
     }
 
     public static void dictionarySearcher(Dictionary dictionary, Scanner sc) {
         System.out.print("Nhập vào từ muốn search:");
-        String s = sc.nextLine().toLowerCase();
+        String s = sc.nextLine();
+        s = CommonFunc.formatWord(s);
         boolean found = false;
 
         for (Word word : dictionary.getWordList()) {
-            if (word.getWordTarget().toLowerCase().startsWith(s)) {
+            if (word.getWordTarget().startsWith(s)) {
                 System.out.printf("%-20s | %-20s%n", word.getWordTarget(), word.getWordExplain());
                 found = true;
             }
         }
         if (!found) {
             System.out.println("Không tìm được từ cần tìm.");
+        }
+        System.out.println("Press OK to continue...");
+        sc.nextLine();
+    }
+
+    public static void playGame(Dictionary dictionary, Scanner sc) {
+        boolean firstGame = true;
+        boolean continueGame = false;
+
+        while (firstGame || continueGame) {
+            firstGame = false;
+            HangMan newGame = new HangMan(sc, dictionary);
+            newGame.render();
+            while (newGame.isOver() == false) {
+                char input = newGame.getInput(sc);
+                newGame.Update(input);
+                newGame.render();
+            }
+            if(newGame.lost()) {
+                System.out.println("The answer is: " + newGame.getSecretWord());
+            }
+            continueGame = newGame.wannaContinue(sc);
         }
     }
 
@@ -70,13 +98,16 @@ public class DictionaryCommandline {
                     DictionaryManagement.updateWord(dictionary,sc);
                     break;
                 case 4:
-                    showAllWords(dictionary);
+                    showAllWords(dictionary,sc);
                     break;
                 case 5:
                     DictionaryManagement.dictionaryLookup(dictionary, sc);
                     break;
                 case 6:
                     dictionarySearcher(dictionary, sc);
+                    break;
+                case 7:
+                    playGame(dictionary, sc);
                     break;
                 case 8:
                     DictionaryManagement.dictionaryImportFromFile(dictionary);
