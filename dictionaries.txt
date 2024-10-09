@@ -1,6 +1,0 @@
-Big : to
-By : boi
-Bye : Tam biet
-Hello : Xin chao
-Small : Nho
-Large : lon
