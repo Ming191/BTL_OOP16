@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <right>
+      <HBox prefHeight="574.0" prefWidth="239.0" styleClass="right_side_pane" stylesheets="@../../../../java/css/style.css" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <children>
+            <AnchorPane prefHeight="574.0" prefWidth="244.0">
+               <children>
+                  <Text fill="#faf5f5" layoutX="17.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First time joining us huh?">
+                     <font>
+                        <Font name="Verdana Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#edeaea" layoutX="62.0" layoutY="221.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up for our greatest library system" wrappingWidth="157.1419219970703" />
+                  <Label alignment="CENTER" layoutX="39.0" layoutY="287.0" prefHeight="46.0" prefWidth="172.0" styleClass="signin_button" stylesheets="@../../../../java/css/style.css" text="SIGN UP">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </right>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="574.0" prefWidth="587.0">
+               <children>
+                  <Text layoutX="123.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME TO 2MIN LIBRARY BABE!">
+                     <font>
+                        <Font name="Verdana Bold" size="17.0" />
+                     </font>
+                     <fill>
+                        <RadialGradient centerX="1.0" centerY="0.5933806146572105" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.7435764074325562" green="0.75" blue="0.3645833432674408" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.07437865436077118" green="0.7493146657943726" blue="0.8684210777282715" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </fill>
+                  </Text>
+                  <VBox layoutX="104.0" layoutY="179.0" prefHeight="349.0" prefWidth="379.0">
+                     <children>
+                        <Label alignment="CENTER" opacity="0.5" prefHeight="44.0" prefWidth="379.0" text="ACCOUNT">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="31.0" prefWidth="379.0" />
+                        <Label alignment="CENTER" opacity="0.5" prefHeight="46.0" prefWidth="379.0" text="PASSWORD">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField prefHeight="38.0" prefWidth="379.0" />
+                        <Label alignment="CENTER" prefHeight="46.0" prefWidth="379.0" styleClass="signin_button" stylesheets="@../../../../java/css/style.css" text="SIGN IN">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="16.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" opacity="0.85" prefHeight="46.0" prefWidth="379.0" text="Already fotgot password huh?">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="18.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

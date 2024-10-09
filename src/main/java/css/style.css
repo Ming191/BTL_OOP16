@@ -1,0 +1,14 @@
+.right_side_pane{
+    -fx-background-color: #A4C4B5;
+}
+
+.signin_button{
+    -fx-background-color: #A4C4B5;
+    -fx-border-width: 3px 3px 3px 3px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-border-style: solid;
+    -fx-border-color: #353A56;
+    -fx-text-fill: white;
+}
+
