@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.LoginController">
    <right>
       <HBox prefHeight="574.0" prefWidth="239.0" styleClass="right_side_pane" stylesheets="@../../../style.css" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -25,13 +25,13 @@
          <children>
             <AnchorPane prefHeight="574.0" prefWidth="244.0" styleClass="right_side_pane" stylesheets="@../../../style.css">
                <children>
-                  <Text fill="#faf5f5" layoutX="17.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First time joining us huh?">
+                  <Text fill="#faf5f5" layoutX="25.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already joining us huh?">
                      <font>
                         <Font name="Verdana Bold" size="15.0" />
                      </font>
                   </Text>
-                  <Text fill="#edeaea" layoutX="62.0" layoutY="221.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up for our greatest library system" wrappingWidth="157.1419219970703" />
-                  <Button layoutX="12.0" layoutY="304.0" mnemonicParsing="false" onAction="#SwitchToSignUpScene" prefHeight="53.0" prefWidth="226.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN UP">
+                  <Text fill="#edeaea" layoutX="62.0" layoutY="221.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="157.1419219970703" />
+                  <Button layoutX="11.0" layoutY="289.0" mnemonicParsing="false" onAction="#SwitchToLoginScene" prefHeight="51.0" prefWidth="242.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN IN">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -46,7 +46,7 @@
          <children>
             <AnchorPane prefHeight="574.0" prefWidth="587.0">
                <children>
-                  <Text layoutX="124.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME TO 2MIN LIBRARY BABE!">
+                  <Text layoutX="176.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN IN INFORMATION" textAlignment="CENTER">
                      <font>
                         <Font name="Verdana Bold" size="17.0" />
                      </font>
@@ -67,31 +67,57 @@
                         </RadialGradient>
                      </fill>
                   </Text>
-                  <VBox layoutX="104.0" layoutY="211.0" prefHeight="349.0" prefWidth="379.0">
+                  <VBox layoutX="97.0" layoutY="159.0" prefHeight="401.0" prefWidth="394.0">
                      <children>
-                        <Label alignment="CENTER" opacity="0.5" prefHeight="44.0" prefWidth="379.0" text="ACCOUNT">
+                        <Label alignment="CENTER" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="NAME">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="31.0" prefWidth="379.0" />
-                        <Label alignment="CENTER" opacity="0.5" prefHeight="46.0" prefWidth="379.0" text="PASSWORD">
+                        <TextField prefHeight="12.0" prefWidth="394.0" />
+                        <Label alignment="CENTER" opacity="0.5" prefHeight="26.0" prefWidth="379.0" text="AGE">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="12.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="5.0" />
+                              <Insets />
                            </VBox.margin>
                         </Label>
-                        <TextField prefHeight="38.0" prefWidth="379.0" />
-                        <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="378.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN IN">
+                        <TextField prefHeight="0.0" prefWidth="394.0" />
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="86.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="ACCOUNT">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="10.0" layoutY="132.0" prefHeight="21.0" prefWidth="394.0" />
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="170.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="PASSWORD">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="10.0" layoutY="140.0" prefHeight="21.0" prefWidth="394.0" />
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="165.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="VERIFY PASSWORD" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="21.0" prefWidth="394.0" />
+                        <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="378.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN UP">
                            <font>
                               <Font size="16.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="24.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
                         </Button>
+                        <Label alignment="CENTER" opacity="0.85" prefHeight="46.0" prefWidth="379.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="18.0" />
+                           </VBox.margin>
+                        </Label>
                      </children>
                   </VBox>
                   <ImageView fitHeight="113.0" fitWidth="122.0" layoutX="233.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
