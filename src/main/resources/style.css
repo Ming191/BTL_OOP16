@@ -14,4 +14,20 @@
     -fx-font-size: 21px;
 }
 
+.menu-item {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-padding: 10;
+    -fx-alignment: center-left;
+    -fx-font-size: 14px;
+}
+
+.menu-item:hover {
+    -fx-background-color: #333;
+}
+
+.menu-item.selected {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
 
