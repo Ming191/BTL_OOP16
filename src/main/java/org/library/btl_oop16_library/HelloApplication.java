@@ -19,13 +19,6 @@ public class HelloApplication extends Application {
         //stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-
-        DatabaseConnector databaseConnector = new DatabaseConnector();
-        boolean isConnected = databaseConnector.isConnectionValid();
-
-        if(isConnected){
-            System.out.println("OK");
-        }
     }
 
     public static void main(String[] args) {

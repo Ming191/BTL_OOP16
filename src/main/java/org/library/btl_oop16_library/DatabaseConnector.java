@@ -6,22 +6,26 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnector {
+    public static void main(String[] args) {
 
+        String url = "jdbc:sqlite:my.db";
 
-    public boolean isConnectionValid() {
-        String url = "jdbc:mysql://localhost:3306/LibraryManagement";
-        String user = "root";
-        String password = "Minh1901";
+        var names = new String[] {"Raw Materials", "Semifinished Goods", "Finished Goods"};
+        var capacities = new int[] {3000,4000,5000};
 
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            if (conn != null && !conn.isClosed()) {
-                System.out.println("Connection successful!");
-                return true;
+        String sql = "INSERT INTO warehouses(name,capacity) VALUES(?,?)";
+
+        try (var conn = DriverManager.getConnection(url);
+             var pstmt = conn.prepareStatement(sql)) {
+
+            for(int i = 0; i < 3; i++){
+                pstmt.setString(1, names[i]);
+                pstmt.setDouble(2, capacities[i]);
+                pstmt.executeUpdate();
             }
+
         } catch (SQLException e) {
-            System.out.println("Failed to connect to the database.");
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
-        return false;
     }
 }
