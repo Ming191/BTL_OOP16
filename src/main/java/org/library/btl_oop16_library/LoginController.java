@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -17,14 +19,21 @@ public class LoginController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    private BorderPane rootPane;
-
+    @FXML
+    private TextField account_text_field;
 
     @FXML
-    public void SwitchToLoginScene(ActionEvent event) throws IOException {
-        Node currentRoot = ((Node) event.getSource()).getScene().getRoot();
-        makeFadeOut(currentRoot, "login.fxml",event);
-    }
+    private TextField password_text_field;
+
+    @FXML
+    private BorderPane rootPane;
+
+    @FXML
+    private Button sign_in_button;
+
+    @FXML
+    private Button sign_up_button;
+
 
     @FXML
     public void SwitchToSignUpScene(ActionEvent event) throws IOException {
@@ -37,7 +46,13 @@ public class LoginController {
 //        stage.show();
     }
 
-    private void makeFadeOut(Node node, String fxmlFile, ActionEvent event) {
+    @FXML
+    public void SwitchToLoginScene(ActionEvent event) throws IOException {
+        Node currentRoot = ((Node) event.getSource()).getScene().getRoot();
+        makeFadeOut(currentRoot, "login.fxml",event);
+    }
+
+    public void makeFadeOut(Node node, String fxmlFile, ActionEvent event) {
         FadeTransition fadeTransition = new FadeTransition();
         fadeTransition.setNode(node);
         fadeTransition.setDuration(Duration.millis(1000));

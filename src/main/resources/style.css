@@ -1,4 +1,4 @@
-.right_side_pane{
+.right_side_pane_login{
     -fx-background-color: #A4C4B5;
 }
 
@@ -20,6 +20,7 @@
     -fx-padding: 10;
     -fx-alignment: center-left;
     -fx-font-size: 14px;
+    -fx-font-family: "Roboto Light";
 }
 
 .menu-item:hover {
@@ -30,4 +31,11 @@
     -fx-background-color: white;
     -fx-text-fill: black;
 }
+
+.left_side_pane_forgot_password{
+    -fx-background-color: #A4C4B5;
+    -fx-background-radius: 0px 50px 50px 0px;
+
+}
+
 

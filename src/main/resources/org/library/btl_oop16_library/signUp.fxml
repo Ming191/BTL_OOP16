@@ -23,7 +23,7 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <AnchorPane prefHeight="574.0" prefWidth="244.0" styleClass="right_side_pane" stylesheets="@../../../style.css">
+            <AnchorPane prefHeight="574.0" prefWidth="244.0" styleClass="right_side_pane_login" stylesheets="@../../../style.css">
                <children>
                   <Text fill="#faf5f5" layoutX="25.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already joining us huh?">
                      <font>
@@ -31,7 +31,7 @@
                      </font>
                   </Text>
                   <Text fill="#edeaea" layoutX="62.0" layoutY="221.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="157.1419219970703" />
-                  <Button layoutX="11.0" layoutY="289.0" mnemonicParsing="false" onAction="#SwitchToLoginScene" prefHeight="51.0" prefWidth="242.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN IN">
+                  <Button fx:id="sign_in_button" layoutX="11.0" layoutY="289.0" mnemonicParsing="false" onAction="#SwitchToLoginScene" prefHeight="51.0" prefWidth="242.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN IN">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -74,7 +74,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="12.0" prefWidth="394.0" />
+                        <TextField fx:id="name_text_field" prefHeight="12.0" prefWidth="394.0" />
                         <Label alignment="CENTER" opacity="0.5" prefHeight="26.0" prefWidth="379.0" text="AGE">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -83,26 +83,20 @@
                               <Insets />
                            </VBox.margin>
                         </Label>
-                        <TextField prefHeight="0.0" prefWidth="394.0" />
+                        <TextField fx:id="age_text_field" prefHeight="0.0" prefWidth="394.0" />
                         <Label alignment="CENTER" layoutX="10.0" layoutY="86.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="ACCOUNT">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="10.0" layoutY="132.0" prefHeight="21.0" prefWidth="394.0" />
+                        <TextField fx:id="account_text_field" layoutX="10.0" layoutY="132.0" prefHeight="21.0" prefWidth="394.0" />
                         <Label alignment="CENTER" layoutX="10.0" layoutY="170.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="PASSWORD">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="10.0" layoutY="140.0" prefHeight="21.0" prefWidth="394.0" />
-                        <Label alignment="CENTER" layoutX="10.0" layoutY="165.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="VERIFY PASSWORD" textAlignment="CENTER">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField prefHeight="21.0" prefWidth="394.0" />
-                        <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="378.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN UP">
+                        <TextField fx:id="password_text_field" layoutX="10.0" layoutY="140.0" prefHeight="21.0" prefWidth="394.0" />
+                        <Button fx:id="sign_up_button" mnemonicParsing="false" prefHeight="53.0" prefWidth="378.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN UP">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -123,6 +117,11 @@
                   <ImageView fitHeight="113.0" fitWidth="122.0" layoutX="233.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../java/img/logo_2min.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="114.0" fitWidth="113.0" layoutX="230.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/logo.png" />
                      </image>
                   </ImageView>
                </children>
