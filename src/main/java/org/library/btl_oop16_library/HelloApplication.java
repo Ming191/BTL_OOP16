@@ -11,13 +11,21 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        stage.resizableProperty().setValue(Boolean.FALSE);
+        Parent root = FXMLLoader.load(getClass().getResource("bookView.fxml"));
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("/style.css").toExternalForm();
         scene.getStylesheets().add(css);
         //stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
+        DatabaseConnector databaseConnector = new DatabaseConnector();
+        boolean isConnected = databaseConnector.isConnectionValid();
+
+        if(isConnected){
+            System.out.println("OK");
+        }
     }
 
     public static void main(String[] args) {

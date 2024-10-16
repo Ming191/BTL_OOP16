@@ -23,7 +23,7 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <AnchorPane prefHeight="574.0" prefWidth="244.0" styleClass="right_side_pane_login" stylesheets="@../../../style.css">
+            <AnchorPane prefHeight="574.0" prefWidth="244.0" styleClass="right_side_pane" stylesheets="@../../../style.css">
                <children>
                   <Text fill="#faf5f5" layoutX="17.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First time joining us huh?">
                      <font>
@@ -31,7 +31,7 @@
                      </font>
                   </Text>
                   <Text fill="#edeaea" layoutX="62.0" layoutY="221.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up for our greatest library system" wrappingWidth="157.1419219970703" />
-                  <Button fx:id="sign_up_button" layoutX="12.0" layoutY="304.0" mnemonicParsing="false" onAction="#SwitchToSignUpScene" prefHeight="53.0" prefWidth="226.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN UP">
+                  <Button layoutX="12.0" layoutY="304.0" mnemonicParsing="false" onAction="#SwitchToSignUpScene" prefHeight="53.0" prefWidth="226.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN UP">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -74,7 +74,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="account_text_field" prefHeight="31.0" prefWidth="379.0" />
+                        <TextField prefHeight="31.0" prefWidth="379.0" />
                         <Label alignment="CENTER" opacity="0.5" prefHeight="46.0" prefWidth="379.0" text="PASSWORD">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -83,8 +83,8 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="password_text_field" prefHeight="38.0" prefWidth="379.0" />
-                        <Button fx:id="sign_in_button" mnemonicParsing="false" prefHeight="53.0" prefWidth="378.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN IN">
+                        <TextField prefHeight="38.0" prefWidth="379.0" />
+                        <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="378.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN IN">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -96,7 +96,7 @@
                   </VBox>
                   <ImageView fitHeight="113.0" fitWidth="122.0" layoutX="233.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/logo.png" />
+                        <Image url="@../../../../resources/img/logo_2min.png" />
                      </image>
                   </ImageView>
                </children>
