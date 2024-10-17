@@ -1,17 +1,35 @@
 package org.library.btl_oop16_library;
 
 public class Book {
+    private int id;
     private String title;
     private String author;
     private String type;
     private String language;
-    private String available;
+    private int available;
+
+    Book(int id, String title, String author, String type, String language, int available) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.type = type;
+        this.language = language;
+        this.available = available;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getAuthor() {
         return author;
     }
 
-    public String getAvailable() {
+    public int getAvailable() {
         return available;
     }
 
@@ -31,7 +49,7 @@ public class Book {
         this.author = author;
     }
 
-    public void setAvailable(String available) {
+    public void setAvailable(int available) {
         this.available = available;
     }
 

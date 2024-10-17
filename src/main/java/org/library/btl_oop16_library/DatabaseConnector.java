@@ -1,31 +1,53 @@
 package org.library.btl_oop16_library;
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DatabaseConnector {
-    public static void main(String[] args) {
+    private void openDB() {
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:my.db");
 
-        String url = "jdbc:sqlite:my.db";
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Opened database successfully");
+    }
 
-        var names = new String[] {"Raw Materials", "Semifinished Goods", "Finished Goods"};
-        var capacities = new int[] {3000,4000,5000};
+    public void selectFromDB(Library library) {
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:my.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
 
-        String sql = "INSERT INTO warehouses(name,capacity) VALUES(?,?)";
+            stmt = c.createStatement();
 
-        try (var conn = DriverManager.getConnection(url);
-             var pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery("SELECT * FROM book");
 
-            for(int i = 0; i < 3; i++){
-                pstmt.setString(1, names[i]);
-                pstmt.setDouble(2, capacities[i]);
-                pstmt.executeUpdate();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String author = rs.getString("author");
+                String type = rs.getString("type");
+                String language = rs.getString("language");
+                int available = rs.getInt("available");
+                Book book = new Book(id, title, author, type, language, available);
+                library.getBooks().add(book);
             }
 
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
         }
+        System.out.println("Operation done successfully");
     }
 }
