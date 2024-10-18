@@ -65,7 +65,7 @@ public class DatabaseConnector {
             ResultSet rs = stmt.executeQuery(q);
             int count = rs.getInt(1);
             if (count != 0) {
-                String q1 = "update book set quantity = quantity + 1";
+                String q1 = "update book set quantity = quantity + 1 where title = '" + book.getTitle() + "'";
                 stmt.executeUpdate(q1);
             }
             else {
