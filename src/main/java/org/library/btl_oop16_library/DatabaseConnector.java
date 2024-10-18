@@ -36,7 +36,7 @@ public class DatabaseConnector {
                 String author = rs.getString("author");
                 String type = rs.getString("type");
                 String language = rs.getString("language");
-                int available = rs.getInt("available");
+                String available = rs.getString("available");
                 Book book = new Book(id, title, author, type, language, available);
                 library.getBooks().add(book);
             }
@@ -50,4 +50,40 @@ public class DatabaseConnector {
         }
         System.out.println("Operation done successfully");
     }
+
+    public void add_book (Library library, Book book) {
+        Connection c = null;
+        Statement stmt = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c =  DriverManager.getConnection("jdbc:sqlite:my.db");
+
+            stmt = c.createStatement();
+
+            String query = "INSERT INTO book (id, title, author, type, language, available) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = c.prepareStatement(query);
+            try {
+                pstmt.setInt(1, book.getId());
+                pstmt.setString(2, book.getTitle());
+                pstmt.setString(3, book.getAuthor());
+                pstmt.setString(4, book.getType());
+                pstmt.setString(5, book.getLanguage());
+                pstmt.setString(6, book.getAvailable());
+
+                pstmt.executeUpdate();
+                //rs = stmt.executeQuery(query);
+            }
+            catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+            library.getBooks().add(book);
+        }
+        catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+
 }
