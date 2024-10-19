@@ -51,7 +51,7 @@ public class DatabaseConnector {
         System.out.println("Operation done successfully");
     }
 
-    public void add_book (Library library, Book book) {
+    public void add_book (Book book) {
         Connection c = null;
         Statement stmt = null;
 
@@ -69,7 +69,7 @@ public class DatabaseConnector {
                 stmt.executeUpdate(q1);
             }
             else {
-                String query = "INSERT INTO book (id, title, author, type, language, available) VALUES (?, ?, ?, ?, ?, ?)";
+                String query = "INSERT INTO book (id, title, author, type, language, available, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement pstmt = c.prepareStatement(query);
                 try {
                     pstmt.setInt(1, book.getId());
@@ -78,13 +78,13 @@ public class DatabaseConnector {
                     pstmt.setString(4, book.getType());
                     pstmt.setString(5, book.getLanguage());
                     pstmt.setString(6, book.getAvailable());
-
+                    pstmt.setInt(7, 1);
                     pstmt.executeUpdate();
                     //rs = stmt.executeQuery(query);
                 } catch (Exception e) {
                     System.err.println(e.getClass().getName() + ": " + e.getMessage());
                 }
-                library.getBooks().add(book);
+                //library.getBooks().add(book);
             }
         }
         catch (Exception e) {
@@ -93,5 +93,40 @@ public class DatabaseConnector {
         }
     }
 
+    public void delete_book (Book book) {
+        Connection c = null;
+        Statement stmt = null;
 
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c =  DriverManager.getConnection("jdbc:sqlite:my.db");
+
+            stmt = c.createStatement();
+
+            String q = "select count(*) from book where title = '" + book.getTitle() + "' and quantity > 1";
+            ResultSet rs = stmt.executeQuery(q);
+            int count = rs.getInt(1);
+            if (count != 0) {
+                String q1 = "update book set quantity = quantity - 1 where title = '" + book.getTitle() + "'";
+                stmt.executeUpdate(q1);
+            }
+            else {
+                String query = "delete from book where title = '" + book.getTitle() + "'";
+                stmt.executeUpdate(query);
+            }
+
+        }
+        catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+
+    /*public static void main(String[] args) {
+        DatabaseConnector db = new DatabaseConnector();
+        Library library = new Library();
+        Book book = new Book(23, "a", "d", "d", "sd", "cc");
+        db.delete_book(book);
+    }*/
 }
