@@ -23,7 +23,7 @@ public class DatabaseConnector {
                 String author = rs.getString("author");
                 String type = rs.getString("type");
                 String language = rs.getString("language");
-                int available = rs.getInt("available");
+                String available = rs.getString("available");
                 Book book = new Book(id, title, author, type, language, available);
                 bookList.getBooks().add(book);
             }
@@ -59,7 +59,7 @@ public class DatabaseConnector {
                 String updateQuery = "update book set available = available + ? where title = ?";
                 PreparedStatement psmtUpdate = c.prepareStatement(updateQuery);
                 try {
-                    psmtUpdate.setInt(1, book.getAvailable());
+                    psmtUpdate.setString(1, book.getAvailable());
                     psmtUpdate.setString(2, book.getTitle());
                     psmtUpdate.executeUpdate();
                 } catch (SQLException e) {
@@ -74,7 +74,7 @@ public class DatabaseConnector {
                     psmtInsert.setString(2, book.getAuthor());
                     psmtInsert.setString(3, book.getType());
                     psmtInsert.setString(4, book.getLanguage());
-                    psmtInsert.setInt(5, book.getAvailable());
+                    psmtInsert.setString(5, book.getAvailable());
 
                     psmtInsert.executeUpdate();
                 } catch (Exception e) {

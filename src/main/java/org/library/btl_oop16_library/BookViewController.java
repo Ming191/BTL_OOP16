@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,13 +33,13 @@ public class BookViewController {
     private TableColumn<Book, String> languageCol;
 
     @FXML
-    private Button menuBook;
+    private ButtonBar menuBook;
 
     @FXML
-    private Button menuDashboard;
+    private ButtonBar menuDashboard;
 
     @FXML
-    private Button menuUser;
+    private ButtonBar menuUser;
 
     @FXML
     private VBox menuVbox;

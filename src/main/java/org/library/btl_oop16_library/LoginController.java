@@ -39,11 +39,6 @@ public class LoginController {
     public void SwitchToSignUpScene(ActionEvent event) throws IOException {
         Node currentRoot = ((Node)(event.getSource())).getScene().getRoot();
         makeFadeOut(currentRoot,"signup.fxml",event);
-//        Parent root = FXMLLoader.load(getClass().getResource("signUp.fxml"));
-//        stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
     }
 
     @FXML

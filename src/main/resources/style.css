@@ -14,17 +14,21 @@
     -fx-font-size: 21px;
 }
 
+.signin_button:hover {
+    -fx-background-color: light blue;
+}
+
 .menu-item {
-    -fx-background-color: black;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-padding: 10;
+    -fx-font-size: 18px;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
     -fx-alignment: center-left;
-    -fx-font-size: 14px;
-    -fx-font-family: "Roboto Light";
 }
 
 .menu-item:hover {
-    -fx-background-color: #333;
+    -fx-background-color: white;
 }
 
 .menu-item.selected {
@@ -35,7 +39,5 @@
 .left_side_pane_forgot_password{
     -fx-background-color: #A4C4B5;
     -fx-background-radius: 0px 50px 50px 0px;
-
 }
-
 

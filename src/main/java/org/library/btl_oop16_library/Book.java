@@ -6,9 +6,9 @@ public class Book {
     private String author;
     private String type;
     private String language;
-    private int available;
+    private String available;
 
-    Book(String title, String author, String type, String language, int available) {
+    Book(String title, String author, String type, String language, String available) {
         this.id = -1;
         this.title = title;
         this.author = author;
@@ -17,7 +17,7 @@ public class Book {
         this.available = available;
     }
 
-    Book(int id, String title, String author, String type, String language, int available) {
+    Book(int id, String title, String author, String type, String language, String available) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -38,7 +38,7 @@ public class Book {
         return author;
     }
 
-    public int getAvailable() {
+    public String getAvailable() {
         return available;
     }
 
@@ -58,7 +58,7 @@ public class Book {
         this.author = author;
     }
 
-    public void setAvailable(int available) {
+    public void setAvailable(String available) {
         this.available = available;
     }
 

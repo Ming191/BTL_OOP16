@@ -27,19 +27,19 @@
                            </image>
                         </ImageView>
                         <ButtonBar layoutX="34.0" layoutY="493.0" prefHeight="40.0" prefWidth="200.0">
-                          <buttons>
+                           <buttons>
                               <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                          </buttons>
+                           </buttons>
                         </ButtonBar>
                         <ButtonBar fx:id="menuDashboard" layoutY="229.0" prefHeight="75.0" prefWidth="245.0" styleClass="menu-item" stylesheets="@../../../style.css">
-                          <buttons>
+                           <buttons>
                               <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/dashboard.png" />
                                  </image>
                               </ImageView>
                               <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" styleClass="menu-item" stylesheets="@../../../style.css" text="Dashboard" />
-                          </buttons>
+                           </buttons>
                         </ButtonBar>
                         <ButtonBar fx:id="menuUser" layoutY="304.0" prefHeight="75.0" prefWidth="245.0" styleClass="menu-item" stylesheets="@../../../style.css">
                            <buttons>
@@ -81,19 +81,17 @@
                <children>
                   <VBox layoutX="153.0" layoutY="123.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="addBookButton" mnemonicParsing="false" onAction="#addBookButtonOnClick" prefHeight="91.0" prefWidth="181.0" text="Add book" />
-                           </children></HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" />
                         <TableView fx:id="table" prefHeight="700.0" prefWidth="1180.0">
-                          <columns>
-                            <TableColumn fx:id="idCol" editable="false" prefWidth="65.0" reorderable="false" resizable="false" sortable="true" text="ID" />
-                            <TableColumn fx:id="titleCol" editable="false" prefWidth="317.0" resizable="false" sortable="false" text="TITLE" />
-                              <TableColumn fx:id="authorCol" editable="false" prefWidth="212.0" resizable="false" sortable="false" text="AUTHOR" />
-                              <TableColumn fx:id="typeCol" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="TYPE" />
-                              <TableColumn fx:id="languageCol" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="LANGUAGE" />
-                              <TableColumn fx:id="availableCol" editable="false" prefWidth="165.0" resizable="false" text="AVAILABLE" />
-                          </columns>
+                           <columns>
+                              <TableColumn fx:id="idCol" editable="false" prefWidth="65.0" reorderable="false" resizable="false" sortable="true" text="ID" />
+                              <TableColumn fx:id="titleCol" editable="false" prefWidth="228.0" resizable="false" sortable="false" text="NAME" />
+                              <TableColumn fx:id="authorCol" editable="false" prefWidth="167.0" resizable="false" sortable="false" text="EMAIL" />
+                              <TableColumn fx:id="typeCol" editable="false" prefWidth="161.0" resizable="false" sortable="false" text="ACCOUNT" />
+                              <TableColumn fx:id="languageCol" editable="false" prefWidth="124.5" resizable="false" sortable="false" text="PASSWORD" />
+                              <TableColumn fx:id="availableCol" editable="false" prefWidth="313.5" resizable="false" text="ACTION" />
+                              <TableColumn prefWidth="75.0" text="albam" />
+                           </columns>
                            <rotationAxis>
                               <Point3D />
                            </rotationAxis>
@@ -103,7 +101,8 @@
                         </TableView>
                      </children>
                   </VBox>
-               </children></AnchorPane>
+               </children>
+            </AnchorPane>
          </center>
       </BorderPane>
    </children>

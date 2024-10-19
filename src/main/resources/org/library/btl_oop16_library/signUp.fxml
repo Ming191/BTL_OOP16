@@ -75,27 +75,24 @@
                            </font>
                         </Label>
                         <TextField fx:id="name_text_field" prefHeight="12.0" prefWidth="394.0" />
-                        <Label alignment="CENTER" opacity="0.5" prefHeight="26.0" prefWidth="379.0" text="AGE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Label>
-                        <TextField fx:id="age_text_field" prefHeight="0.0" prefWidth="394.0" />
-                        <Label alignment="CENTER" layoutX="10.0" layoutY="86.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="ACCOUNT">
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="86.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="EMAIL">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="account_text_field" layoutX="10.0" layoutY="132.0" prefHeight="21.0" prefWidth="394.0" />
-                        <Label alignment="CENTER" layoutX="10.0" layoutY="170.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="PASSWORD">
+                        <TextField fx:id="email_text_field" layoutX="10.0" layoutY="132.0" prefHeight="21.0" prefWidth="394.0" />
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="170.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="ACCOUNT">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="password_text_field" layoutX="10.0" layoutY="140.0" prefHeight="21.0" prefWidth="394.0" />
+                        <TextField fx:id="account_text_field" layoutX="10.0" layoutY="140.0" prefHeight="21.0" prefWidth="394.0" />
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="165.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="PASSWORD">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="password_text_field" layoutX="10.0" layoutY="192.0" prefHeight="21.0" prefWidth="394.0" />
                         <Button fx:id="sign_up_button" mnemonicParsing="false" prefHeight="53.0" prefWidth="378.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN UP">
                            <font>
                               <Font size="16.0" />
@@ -121,7 +118,7 @@
                   </ImageView>
                   <ImageView fitHeight="114.0" fitWidth="113.0" layoutX="230.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/logo.png" />
+                        <Image url="@../../../img/logo_2min.png" />
                      </image>
                   </ImageView>
                </children>

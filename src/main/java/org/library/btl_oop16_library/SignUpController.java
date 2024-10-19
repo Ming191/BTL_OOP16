@@ -13,10 +13,10 @@ public class SignUpController {
     private TextField account_text_field;
 
     @FXML
-    private TextField age_text_field;
+    private TextField name_text_field;
 
     @FXML
-    private TextField name_text_field;
+    private TextField email_text_field;
 
     @FXML
     private TextField password_text_field;
