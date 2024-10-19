@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="245.0" prefWidth="381.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.deleteBookDialogController">
+    <children>
+        <VBox layoutY="30.0" prefHeight="216.0" prefWidth="382.0" spacing="10.0">
+            <children>
+                <TextField fx:id="titleField" prefHeight="25.0" prefWidth="284.0" promptText="Title" />
+                <TextField fx:id="quantityField" prefHeight="25.0" prefWidth="284.0" promptText="Quantity" />
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                    <children>
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
+                        <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirmButtonClick" text="Confirm" />
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

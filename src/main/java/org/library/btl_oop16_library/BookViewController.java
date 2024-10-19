@@ -94,4 +94,21 @@ public class BookViewController {
         table.getItems().addAll(bookList.getBooks());
     }
 
+    @FXML
+    void deleteBookButtonOnClick () throws IOException {
+        Stage deleteBookStage = new Stage();
+        deleteBookStage.setResizable(false);
+        deleteBookStage.initModality(Modality.APPLICATION_MODAL);
+        deleteBookStage.setTitle("Delete Book");
+
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("deleteBookDialog.fxml"));
+        Parent root = loader1.load();
+        deleteBookStage.setScene(new Scene(root));
+        deleteBookStage.showAndWait();
+
+        table.getItems().clear();
+        bookList.getBooks().clear();
+        bookDB.selectFromDB(bookList);
+        table.getItems().addAll(bookList.getBooks());
+    }
 }
