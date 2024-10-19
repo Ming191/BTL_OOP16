@@ -94,4 +94,55 @@ public class DatabaseConnector {
             }
         }
     }
+
+    public void deleteBook (Book book) throws SQLException {
+        Connection c = null;
+        ResultSet rs = null;
+        int count = 0;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:my.db");
+
+            int quantity = book.getAvailable();
+            String countQuery = "select available from book where title = '" + book.getTitle() + "'";
+            PreparedStatement pstmtCount = c.prepareStatement(countQuery);
+            try {
+                rs = pstmtCount.executeQuery();
+
+                if (rs.next()) {
+                    count = rs.getInt(1);
+                }
+
+                if (quantity < count) {
+                    String updateCountQuery = "update book set available = available - ? where title = ?";
+                    PreparedStatement pstmCounttUpdate = c.prepareStatement(updateCountQuery);
+                    pstmCounttUpdate.setInt(1, quantity);
+                    pstmCounttUpdate.setString(2, book.getTitle());
+                    pstmCounttUpdate.executeUpdate();
+                }
+                else {
+                    String deleteQuery = "delete from book where title = '" + book.getTitle() + "'";
+                    PreparedStatement pstmtdUpdate = c.prepareStatement(deleteQuery);
+                    pstmtdUpdate.executeUpdate();
+                }
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+
+            }
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (c != null) c.close();
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+        }
+
+    }
 }
+
+
