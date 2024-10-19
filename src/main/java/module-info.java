@@ -1,4 +1,4 @@
-module org.library.btl_oop16_library {
+module org.bookList.btl_oop16_library {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;

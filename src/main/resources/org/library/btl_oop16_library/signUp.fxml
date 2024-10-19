@@ -116,7 +116,7 @@
                   </VBox>
                   <ImageView fitHeight="113.0" fitWidth="122.0" layoutX="233.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../java/img/logo_2min.png" />
+                        <Image url="@../../../../resource/img/logo_2min.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="114.0" fitWidth="113.0" layoutX="230.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">

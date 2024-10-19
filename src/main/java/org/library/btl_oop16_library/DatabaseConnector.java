@@ -3,23 +3,10 @@ package org.library.btl_oop16_library;
 import java.sql.*;
 
 public class DatabaseConnector {
-    private void openDB() {
-        Connection c = null;
-        Statement stmt = null;
-        try {
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:my.db");
 
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-        System.out.println("Opened database successfully");
-    }
-
-    public void selectFromDB(Library library) {
-        Connection c = null;
-        Statement stmt = null;
+    public void selectFromDB(BookList bookList) {
+        Connection c;
+        Statement stmt;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:my.db");
@@ -36,9 +23,9 @@ public class DatabaseConnector {
                 String author = rs.getString("author");
                 String type = rs.getString("type");
                 String language = rs.getString("language");
-                String available = rs.getString("available");
+                int available = rs.getInt("available");
                 Book book = new Book(id, title, author, type, language, available);
-                library.getBooks().add(book);
+                bookList.getBooks().add(book);
             }
 
             rs.close();
@@ -51,47 +38,60 @@ public class DatabaseConnector {
         System.out.println("Operation done successfully");
     }
 
-    public void add_book (Library library, Book book) {
+    public void addBook (Book book) {
         Connection c = null;
-        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             Class.forName("org.sqlite.JDBC");
-            c =  DriverManager.getConnection("jdbc:sqlite:my.db");
+            c = DriverManager.getConnection("jdbc:sqlite:my.db");
 
-            stmt = c.createStatement();
+            String query = "select count(*) from book where title = '" + book.getTitle() + "'";
+            PreparedStatement psmtCount = c.prepareStatement(query);
+            rs = psmtCount.executeQuery();
 
-            String q = "select count(*) from book where title = '" + book.getTitle() + "'";
-            ResultSet rs = stmt.executeQuery(q);
-            int count = rs.getInt(1);
+            int count = 0;
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+
             if (count != 0) {
-                String q1 = "update book set quantity = quantity + 1 where title = '" + book.getTitle() + "'";
-                stmt.executeUpdate(q1);
+                String updateQuery = "update book set available = available + ? where title = ?";
+                PreparedStatement psmtUpdate = c.prepareStatement(updateQuery);
+                try {
+                    psmtUpdate.setInt(1, book.getAvailable());
+                    psmtUpdate.setString(2, book.getTitle());
+                    psmtUpdate.executeUpdate();
+                } catch (SQLException e) {
+                    System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                }
             }
             else {
-                String query = "INSERT INTO book (id, title, author, type, language, available) VALUES (?, ?, ?, ?, ?, ?)";
-                PreparedStatement pstmt = c.prepareStatement(query);
+                String insertQuery = "INSERT INTO book (title, author, type, language, available) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement psmtInsert = c.prepareStatement(insertQuery);
                 try {
-                    pstmt.setInt(1, book.getId());
-                    pstmt.setString(2, book.getTitle());
-                    pstmt.setString(3, book.getAuthor());
-                    pstmt.setString(4, book.getType());
-                    pstmt.setString(5, book.getLanguage());
-                    pstmt.setString(6, book.getAvailable());
+                    psmtInsert.setString(1, book.getTitle());
+                    psmtInsert.setString(2, book.getAuthor());
+                    psmtInsert.setString(3, book.getType());
+                    psmtInsert.setString(4, book.getLanguage());
+                    psmtInsert.setInt(5, book.getAvailable());
 
-                    pstmt.executeUpdate();
-                    //rs = stmt.executeQuery(query);
+                    psmtInsert.executeUpdate();
                 } catch (Exception e) {
                     System.err.println(e.getClass().getName() + ": " + e.getMessage());
                 }
-                library.getBooks().add(book);
             }
         }
         catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (c != null) c.close();
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
         }
     }
-
-
 }

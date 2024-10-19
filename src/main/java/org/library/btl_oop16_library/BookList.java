@@ -3,10 +3,10 @@ package org.library.btl_oop16_library;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Library {
+public class BookList {
     List<Book> books;
 
-    Library() {
+    BookList() {
         books = new ArrayList<Book>();
     }
 

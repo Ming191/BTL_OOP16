@@ -8,6 +8,15 @@ public class Book {
     private String language;
     private int available;
 
+    Book(String title, String author, String type, String language, int available) {
+        this.id = -1;
+        this.title = title;
+        this.author = author;
+        this.type = type;
+        this.language = language;
+        this.available = available;
+    }
+
     Book(int id, String title, String author, String type, String language, int available) {
         this.id = id;
         this.title = title;
