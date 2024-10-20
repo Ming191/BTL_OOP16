@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.TableColumn;
@@ -46,5 +47,10 @@ public class UserViewController {
 
     @FXML
     private TableView<User> table;
+
+    @FXML
+    void addUserButtonOnClick(ActionEvent event) {
+
+    }
 
 }
