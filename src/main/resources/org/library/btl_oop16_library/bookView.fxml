@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.BookViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.BookViewController">
    <children>
       <BorderPane layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -83,8 +83,26 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="addBookButton" mnemonicParsing="false" onAction="#addBookButtonOnClick" prefHeight="91.0" prefWidth="181.0" text="Add book" />
-                              <Button fx:id="addBookButton1" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteBookButtonOnClick" prefHeight="91.0" prefWidth="181.0" text="Delete book" />
+                              <ButtonBar fx:id="addBookButton" prefHeight="60.0" prefWidth="188.0" styleClass="add_box" stylesheets="@../../../style.css">
+                                 <buttons>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../img/add.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Button minWidth="43.0" mnemonicParsing="false" onAction="#addBookButtonOnClick" prefHeight="27.0" prefWidth="131.0" styleClass="add_button" stylesheets="@../../../style.css" text="Add book" />
+                                 </buttons>
+                              </ButtonBar>
+                              <ButtonBar fx:id="deleteBookButton" prefHeight="60.0" prefWidth="188.0" styleClass="add_box" stylesheets="@../../../style.css">
+                                 <buttons>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../img/delete.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Button minWidth="43.0" mnemonicParsing="false" onAction="#deleteBookButtonOnClick" prefHeight="27.0" prefWidth="131.0" styleClass="add_button" stylesheets="@../../../style.css" text="Delete book" />
+                                 </buttons>
+                              </ButtonBar>
                            </children></HBox>
                         <TableView fx:id="table" prefHeight="700.0" prefWidth="1180.0">
                           <columns>

@@ -45,6 +45,9 @@ public class BookViewController {
     private VBox menuVbox;
 
     @FXML
+    private ButtonBar addBookButton;
+
+    @FXML
     private TableView<Book> table;
 
     @FXML

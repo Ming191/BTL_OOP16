@@ -41,3 +41,24 @@
     -fx-background-radius: 0px 50px 50px 0px;
 }
 
+.add_box{
+    -fx-background-color:#A4C4B5;
+    -fx-border-width: 3px 3px 3px 3px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-border-style: solid;
+    -fx-alignment: center;
+}
+
+
+.add_button{
+    -fx-background-color:#A4C4B5 ;
+    -fx-border-width: 3px 3px 3px 3px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-font-weight: bold;
+    -fx-font-family: Verdana;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+}
+

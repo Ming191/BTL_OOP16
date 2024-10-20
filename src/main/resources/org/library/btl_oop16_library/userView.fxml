@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.BookViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.UserViewController">
    <children>
       <BorderPane layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -81,15 +81,27 @@
                <children>
                   <VBox layoutX="153.0" layoutY="123.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0" />
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ButtonBar fx:id="addUserButtonOnClick" prefHeight="60.0" prefWidth="188.0" styleClass="add_box" stylesheets="@../../../style.css">
+                                <buttons>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../img/add.png" />
+                                       </image>
+                                    </ImageView>
+                                  <Button minWidth="43.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" styleClass="add_button" stylesheets="@../../../style.css" text="Add user" />
+                                </buttons>
+                              </ButtonBar>
+                           </children></HBox>
                         <TableView fx:id="table" prefHeight="700.0" prefWidth="1180.0">
                            <columns>
                               <TableColumn fx:id="idCol" editable="false" prefWidth="65.0" reorderable="false" resizable="false" sortable="true" text="ID" />
-                              <TableColumn fx:id="titleCol" editable="false" prefWidth="228.0" resizable="false" sortable="false" text="NAME" />
-                              <TableColumn fx:id="authorCol" editable="false" prefWidth="167.0" resizable="false" sortable="false" text="EMAIL" />
-                              <TableColumn fx:id="typeCol" editable="false" prefWidth="161.0" resizable="false" sortable="false" text="ACCOUNT" />
-                              <TableColumn fx:id="languageCol" editable="false" prefWidth="124.5" resizable="false" sortable="false" text="PASSWORD" />
-                              <TableColumn fx:id="availableCol" editable="false" prefWidth="313.5" resizable="false" text="ACTION" />
+                              <TableColumn fx:id="nameCol" editable="false" prefWidth="228.0" resizable="false" sortable="false" text="NAME" />
+                              <TableColumn fx:id="emailCol" editable="false" prefWidth="167.0" resizable="false" sortable="false" text="EMAIL" />
+                              <TableColumn fx:id="accountCol" editable="false" prefWidth="161.0" resizable="false" sortable="false" text="ACCOUNT" />
+                              <TableColumn fx:id="passwordCol" editable="false" prefWidth="124.5" resizable="false" sortable="false" text="PASSWORD" />
+                              <TableColumn fx:id="actionCol" editable="false" prefWidth="313.5" resizable="false" text="ACTION" />
                               <TableColumn prefWidth="75.0" text="albam" />
                            </columns>
                            <rotationAxis>
