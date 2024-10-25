@@ -1,22 +1,39 @@
 package org.library.btl_oop16_library;
 
-import javafx.animation.FadeTransition;
+import javafx.animation.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Transtition {
     public static void fadeTransition(Stage stage, Scene currentScene, Scene nextScene) {
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), currentScene.getRoot());
-        fadeOut.setFromValue(1.0);
-        fadeOut.setToValue(0.0);
-        fadeOut.setOnFinished(event -> {
+        try {
+            // Load the next scene's root from FXML
+            Parent nextRoot = nextScene.getRoot();
+            nextRoot.setOpacity(0);
             stage.setScene(nextScene);
-            FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), nextScene.getRoot());
-            fadeIn.setFromValue(0.0);
-            fadeIn.setToValue(1.0);
-            fadeIn.play();
-        });
-        fadeOut.play();
+
+            Timeline timeline = new Timeline();
+
+            KeyValue fadeOutValue = new KeyValue(currentScene.getRoot().opacityProperty(), 0);
+            KeyFrame fadeOutKeyFrame = new KeyFrame(Duration.seconds(1), fadeOutValue);
+
+            KeyValue fadeInValue = new KeyValue(nextRoot.opacityProperty(), 1);
+            KeyFrame fadeInKeyFrame = new KeyFrame(Duration.seconds(1), fadeInValue);
+
+            timeline.getKeyFrames().addAll(fadeOutKeyFrame, fadeInKeyFrame);
+
+            timeline.play();
+
+            timeline.setOnFinished(event -> {
+                stage.setScene(nextScene);
+                nextRoot.setOpacity(1); // Ensure nextRoot is fully visible
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle exceptions like loading FXML
+        }
     }
 }

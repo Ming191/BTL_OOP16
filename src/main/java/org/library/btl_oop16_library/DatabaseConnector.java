@@ -179,7 +179,7 @@ public class DatabaseConnector {
         System.out.println("Operation done successfully");
     }
 
-    public void addUser(User user) {
+    public static void addUser(User user) {
         Connection c = null;
         ResultSet rs = null;
 
@@ -207,7 +207,7 @@ public class DatabaseConnector {
                 psmtInsert.setString(2, user.getAccount());
                 psmtInsert.setString(3, user.getPassword());
                 psmtInsert.setString(4, user.getEmail());
-                psmtInsert.setBoolean(5, user.isAdmin());
+                psmtInsert.setInt(5, user.isAdmin()? 1:0);
                 psmtInsert.executeUpdate();
             }
         } catch (Exception e) {

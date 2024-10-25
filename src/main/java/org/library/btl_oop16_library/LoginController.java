@@ -1,17 +1,14 @@
 package org.library.btl_oop16_library;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -50,5 +47,12 @@ public class LoginController {
                 ApplicationAlert.wrongUsernameOrPassword();
             }
         }
+    }
+
+    @FXML
+    public void switchToSignUpScene(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("signUp.fxml"));
+        Scene signUpScene = new Scene(loader.load());
+        Transtition.fadeTransition((Stage) sign_up_button.getScene().getWindow(), sign_up_button.getScene(), signUpScene);
     }
 }

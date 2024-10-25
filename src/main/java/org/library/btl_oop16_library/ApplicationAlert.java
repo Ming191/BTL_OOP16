@@ -18,4 +18,28 @@ public class ApplicationAlert {
         alert.setContentText("Please enter a valid username or password.");
         alert.showAndWait();
     }
+
+    public static void signUpSuccess() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sign up success");
+        alert.setHeaderText("Sign up success");
+        alert.setContentText("Your account has been created successfully.");
+        alert.showAndWait();
+    }
+
+    public static void signInSuccess() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sign in success");
+        alert.setHeaderText("Sign in success");
+        alert.setContentText("Your account has been logged in successfully.");
+        alert.showAndWait();
+    }
+
+    public static void missingInformation() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Missing Information");
+        alert.setHeaderText("Missing Information");
+        alert.setContentText("Please enter a valid information.");
+        alert.showAndWait();
+    }
 }
