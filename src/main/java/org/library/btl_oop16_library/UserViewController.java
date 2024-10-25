@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -15,6 +16,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class UserViewController {
+    DatabaseConnector userDB;
+    UserList userList;
 
     @FXML
     private TableColumn<User, String> accountCol;
@@ -57,6 +60,22 @@ public class UserViewController {
     private TableView<User> table;
 
     @FXML
+    void initialize() {
+        userDB = new DatabaseConnector();
+        userList = new UserList();
+
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
+        accountCol.setCellValueFactory(new PropertyValueFactory<>("account"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        actionCol.setCellValueFactory(new PropertyValueFactory<>("action"));
+
+        userDB.selectUsersFromDB(userList);
+        table.getItems().addAll(userList.getUsers());
+    }
+
+    @FXML
     void addUserButtonOnClick(ActionEvent event) throws IOException {
         Stage adduserstage = new Stage();
         adduserstage.setResizable(false);
@@ -68,6 +87,12 @@ public class UserViewController {
             Parent root = fxmlLoader.load();
             adduserstage.setScene(new Scene(root));
             adduserstage.showAndWait();
+
+            table.getItems().clear();
+            userList.getUsers().clear();
+
+            userDB.selectUsersFromDB(userList);
+            table.getItems().addAll(userList.getUsers());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,6 +110,12 @@ public class UserViewController {
             Parent root = fxmlLoader.load();
             deleteuserstage.setScene(new Scene(root));
             deleteuserstage.showAndWait();
+
+            table.getItems().clear();
+            userList.getUsers().clear();
+
+            userDB.selectUsersFromDB(userList);
+            table.getItems().addAll(userList.getUsers());
         } catch (IOException e) {
             e.printStackTrace();
         }

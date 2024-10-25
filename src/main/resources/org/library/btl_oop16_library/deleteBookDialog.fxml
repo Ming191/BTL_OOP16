@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="245.0" prefWidth="381.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.deleteBookDialogController">
+<AnchorPane prefHeight="245.0" prefWidth="381.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.DeleteBookDialogController">
     <children>
         <VBox layoutY="30.0" prefHeight="216.0" prefWidth="382.0" spacing="10.0">
             <children>

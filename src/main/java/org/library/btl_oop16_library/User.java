@@ -8,6 +8,11 @@ public class User {
     private String password;
     private boolean isAdmin;
 
+    User(String account, String email) {
+        this.account = account;
+        this.email = email;
+    }
+
     User(int id, String name, String email, String account, String password) {
         this.id = id;
         this.name = name;
@@ -32,6 +37,7 @@ public class User {
         this.email = email;
         this.account = account;
         this.password = password;
+        this.isAdmin = false;
     }
 
     public int getId() {

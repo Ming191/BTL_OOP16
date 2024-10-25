@@ -122,8 +122,9 @@ public class DatabaseConnector {
                     pstmCounttUpdate.executeUpdate();
                 }
                 else {
-                    String deleteQuery = "delete from book where title = '" + book.getTitle() + "'";
+                    String deleteQuery = "update book set available = 0 where title = ?";
                     PreparedStatement pstmtdUpdate = c.prepareStatement(deleteQuery);
+                    pstmtdUpdate.setString(1, book.getTitle());
                     pstmtdUpdate.executeUpdate();
                 }
             } catch (SQLException e) {
@@ -247,9 +248,15 @@ public class DatabaseConnector {
             } catch (SQLException e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
+
         }
     }
 
+   /*public static void main(String[] args) {
+        DatabaseConnector dbc = new DatabaseConnector();
+        User user = new User(1, "loc", "loc", "loc", "loc" );
+        dbc.addUser(user);
+    }*/
 }
 
 

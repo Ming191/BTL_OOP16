@@ -6,19 +6,28 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class deleteBookDialogController {
+public class AddBookDialogController {
 
     @FXML
-    private TextField titleField;
-
-    @FXML
-    private TextField quantityField;
+    private TextField authorField;
 
     @FXML
     private Button cancelButton;
 
     @FXML
     private Button confirmButton;
+
+    @FXML
+    private TextField languageField;
+
+    @FXML
+    private TextField quantityField;
+
+    @FXML
+    private TextField titleField;
+
+    @FXML
+    private TextField typeField;
 
     @FXML
     void onCancelButtonClick(ActionEvent event) {
@@ -29,6 +38,9 @@ public class deleteBookDialogController {
     @FXML
     void onConfirmButtonClick(ActionEvent event) {
         String title = titleField.getText();
+        String author = authorField.getText();
+        String language = languageField.getText();
+        String type = typeField.getText();
         int quantity;
         try {
             quantity = Integer.parseInt(quantityField.getText());
@@ -38,14 +50,9 @@ public class deleteBookDialogController {
         }
 
         DatabaseConnector db = new DatabaseConnector();
-        try {
-            db.deleteBook(new Book(title, quantity));
-            Stage stage = (Stage) confirmButton.getScene().getWindow();
-            stage.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        db.addBook(new Book(title, author, language, type, quantity));
+        Stage stage = (Stage) confirmButton.getScene().getWindow();
+        stage.close();
     }
 
 }
