@@ -33,19 +33,25 @@ public class BookViewController {
     private TableColumn<Book, String> languageCol;
 
     @FXML
-    private ButtonBar menuBook;
+    private Button logOut;
 
     @FXML
-    private ButtonBar menuDashboard;
+    private Button menuBook;
 
     @FXML
-    private ButtonBar menuUser;
+    private Button menuDashboard;
+
+    @FXML
+    private Button menuUser;
 
     @FXML
     private VBox menuVbox;
 
     @FXML
-    private ButtonBar addBookButton;
+    private Button addBookButton;
+
+    @FXML
+    private Button deleteBookButton;
 
     @FXML
     private TableView<Book> table;

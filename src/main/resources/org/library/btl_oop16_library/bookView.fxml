@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -26,51 +25,42 @@
                               <Image url="@../../../img/logo_2min.png" />
                            </image>
                         </ImageView>
-                        <ButtonBar layoutX="34.0" layoutY="493.0" prefHeight="40.0" prefWidth="200.0">
-                          <buttons>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                          </buttons>
-                        </ButtonBar>
-                        <ButtonBar fx:id="menuDashboard" layoutY="229.0" prefHeight="75.0" prefWidth="245.0" styleClass="menu-item" stylesheets="@../../../style.css">
-                          <buttons>
-                              <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                        <Button fx:id="menuDashboard" graphicTextGap="30.0" layoutY="229.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menu-item" stylesheets="@../../../style.css" text="Dashboard">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/dashboard.png" />
                                  </image>
                               </ImageView>
-                              <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" styleClass="menu-item" stylesheets="@../../../style.css" text="Dashboard" />
-                          </buttons>
-                        </ButtonBar>
-                        <ButtonBar fx:id="menuUser" layoutY="304.0" prefHeight="75.0" prefWidth="245.0" styleClass="menu-item" stylesheets="@../../../style.css">
-                           <buttons>
-                              <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                           </graphic>
+                        </Button>
+                        <Button fx:id="menuUser" graphicTextGap="30.0" layoutY="304.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menu-item" stylesheets="@../../../style.css" text="User">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/user.png" />
                                  </image>
                               </ImageView>
-                              <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" styleClass="menu-item" stylesheets="@../../../style.css" text="User" />
-                           </buttons>
-                        </ButtonBar>
-                        <ButtonBar fx:id="menuBook" layoutY="379.0" prefHeight="75.0" prefWidth="245.0" styleClass="menu-item" stylesheets="@../../../style.css">
-                           <buttons>
-                              <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                           </graphic>
+                        </Button>
+                        <Button fx:id="menuBook" graphicTextGap="30.0" layoutY="379.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menu-item" stylesheets="@../../../style.css" text="Book">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/book.png" />
                                  </image>
                               </ImageView>
-                              <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" styleClass="menu-item" stylesheets="@../../../style.css" text="Book" />
-                           </buttons>
-                        </ButtonBar>
-                        <ButtonBar fx:id="menuBook1" layoutY="643.0" prefHeight="75.0" prefWidth="250.0" styleClass="menu-item" stylesheets="@../../../style.css">
-                           <buttons>
-                              <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                           </graphic>
+                        </Button>
+                        <Button fx:id="logOut" graphicTextGap="30.0" layoutY="645.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menu-item" stylesheets="@../../../style.css" text="LogOut">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/logout.png" />
                                  </image>
                               </ImageView>
-                              <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" styleClass="menu-item" stylesheets="@../../../style.css" text="LogOut" />
-                           </buttons>
-                        </ButtonBar>
+                           </graphic>
+                        </Button>
                      </children>
                   </AnchorPane>
                </children>
@@ -81,28 +71,26 @@
                <children>
                   <VBox layoutX="153.0" layoutY="123.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox prefHeight="29.0" prefWidth="1045.0">
                            <children>
-                              <ButtonBar fx:id="addBookButton" prefHeight="60.0" prefWidth="188.0" styleClass="add_box" stylesheets="@../../../style.css">
-                                 <buttons>
+                              <Button fx:id="addBookButton" graphicTextGap="30.0" mnemonicParsing="false" onAction="#addBookButtonOnClick" prefHeight="60.0" prefWidth="175.0" styleClass="add_button" stylesheets="@../../../style.css" text="Add book" textAlignment="CENTER">
+                                 <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../../img/add.png" />
                                        </image>
                                     </ImageView>
-                                    <Button minWidth="43.0" mnemonicParsing="false" onAction="#addBookButtonOnClick" prefHeight="27.0" prefWidth="131.0" styleClass="add_button" stylesheets="@../../../style.css" text="Add book" />
-                                 </buttons>
-                              </ButtonBar>
-                              <ButtonBar fx:id="deleteBookButton" prefHeight="60.0" prefWidth="188.0" styleClass="add_box" stylesheets="@../../../style.css">
-                                 <buttons>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="deleteBookButton" graphicTextGap="20.0" layoutX="198.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteBookButtonOnClick" prefHeight="60.0" prefWidth="175.0" styleClass="add_button" stylesheets="@../../../style.css" text="Delete book" textAlignment="CENTER">
+                                 <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../../img/delete.png" />
                                        </image>
                                     </ImageView>
-                                    <Button minWidth="43.0" mnemonicParsing="false" onAction="#deleteBookButtonOnClick" prefHeight="27.0" prefWidth="131.0" styleClass="add_button" stylesheets="@../../../style.css" text="Delete book" />
-                                 </buttons>
-                              </ButtonBar>
+                                 </graphic>
+                              </Button>
                            </children></HBox>
                         <TableView fx:id="table" prefHeight="700.0" prefWidth="1180.0">
                           <columns>

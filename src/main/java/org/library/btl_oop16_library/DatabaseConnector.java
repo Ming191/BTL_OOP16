@@ -144,6 +144,112 @@ public class DatabaseConnector {
 
     }
 
+    public void selectUsersFromDB(UserList userList) {
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:my.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM user");
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String account = rs.getString("account");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+
+                User user = new User(id, name, account, password, email);
+                userList.getUsers().add(user);
+            }
+
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Operation done successfully");
+    }
+
+    public void addUser(User user) {
+        Connection c = null;
+        ResultSet rs = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:my.db");
+
+            String query = "select count(*) from user where account = ?";
+            PreparedStatement psmtCount = c.prepareStatement(query);
+            psmtCount.setString(1, user.getAccount());
+            rs = psmtCount.executeQuery();
+
+            int count = 0;
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+            if (count != 0) {
+                System.out.println("User account already exists.");
+            } else {
+                String insertQuery = "INSERT INTO user (name, account, password, email) VALUES (?, ?, ?, ?)";
+                PreparedStatement psmtInsert = c.prepareStatement(insertQuery);
+
+                psmtInsert.setString(1, user.getName());
+                psmtInsert.setString(2, user.getAccount());
+                psmtInsert.setString(3, user.getPassword());
+                psmtInsert.setString(4, user.getEmail());
+                psmtInsert.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (c != null) c.close();
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+        }
+    }
+
+    public void deleteUser(User user) {
+        Connection c = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:my.db");
+
+            String deleteQuery = "DELETE FROM user WHERE account = ?";
+            PreparedStatement psmtDelete = c.prepareStatement(deleteQuery);
+            psmtDelete.setString(1, user.getAccount());
+            int rowsAffected = psmtDelete.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("User deleted successfully.");
+            } else {
+                System.out.println("User not found.");
+            }
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        } finally {
+            try {
+                if (c != null) c.close();
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+        }
+    }
+
 }
 
 

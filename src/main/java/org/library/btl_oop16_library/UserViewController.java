@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ButtonBar;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
@@ -29,22 +29,23 @@ public class UserViewController {
     private TableColumn<User, Integer> idCol;
 
     @FXML
-    private ButtonBar menuBook;
+    private Button logOut;
 
     @FXML
-    private ButtonBar menuBook1;
+    private Button menuBook;
 
     @FXML
-    private ButtonBar menuDashboard;
+    private Button menuDashboard;
 
     @FXML
-    private ButtonBar menuUser;
+    private Button menuUser;
+
 
     @FXML
     private VBox menuVbox;
 
     @FXML
-    private ButtonBar addUserButton;
+    private Button addUserButton;
 
     @FXML
     private TableColumn<User, String> nameCol;
@@ -70,9 +71,23 @@ public class UserViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    void deleteUserButtonOnClick(ActionEvent event) throws IOException {
+        Stage deleteuserstage = new Stage();
+        deleteuserstage.setResizable(false);
+        deleteuserstage.initModality(Modality.APPLICATION_MODAL);
+        deleteuserstage.setTitle("Delete User");
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deleteUserDialog.fxml"));
 
-
+        try {
+            Parent root = fxmlLoader.load();
+            deleteuserstage.setScene(new Scene(root));
+            deleteuserstage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
