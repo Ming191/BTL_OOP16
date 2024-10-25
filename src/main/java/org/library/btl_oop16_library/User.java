@@ -31,7 +31,7 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    User(String name, String email, String account, String password) {
+    User(String name, String account, String password, String email) {
         this.id = -1;
         this.name = name;
         this.email = email;
