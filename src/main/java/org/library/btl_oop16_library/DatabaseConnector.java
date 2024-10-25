@@ -114,17 +114,17 @@ public class DatabaseConnector {
                     count = rs.getInt(1);
                 }
 
-                if (quantity < count) {
+                if (quantity <= count) {
                     String updateCountQuery = "update book set available = available - ? where title = ?";
                     PreparedStatement pstmCounttUpdate = c.prepareStatement(updateCountQuery);
                     pstmCounttUpdate.setInt(1, quantity);
                     pstmCounttUpdate.setString(2, book.getTitle());
                     pstmCounttUpdate.executeUpdate();
-                }
-                else {
-                    String deleteQuery = "delete from book where title = '" + book.getTitle() + "'";
-                    PreparedStatement pstmtdUpdate = c.prepareStatement(deleteQuery);
-                    pstmtdUpdate.executeUpdate();
+                } else {
+                    String updateCountQuery = "update book set available = 0 where title = ?";
+                    PreparedStatement pstmCounttUpdate = c.prepareStatement(updateCountQuery);
+                    pstmCounttUpdate.setString(1, book.getTitle());
+                    pstmCounttUpdate.executeUpdate();
                 }
             } catch (SQLException e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -142,6 +142,39 @@ public class DatabaseConnector {
             }
         }
 
+    }
+
+    public void addUser(UserList userList, User user) throws SQLException {
+        Connection c = null;
+        ResultSet rs = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:my.db");
+
+            String query = "insert into user(name, email, account, password) values (?, ?, ?, ?)";
+            PreparedStatement psmtInsert = c.prepareStatement(query);
+            try {
+                psmtInsert.setString(1, user.getName());
+                psmtInsert.setString(2, user.getEmail());
+                psmtInsert.setString(3, user.getAccount());
+                psmtInsert.setString(4, user.getPassword());
+                psmtInsert.executeUpdate();
+
+                userList.getUsers().add(user);
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (c != null) c.close();
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+        }
     }
 
 }
