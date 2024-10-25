@@ -200,13 +200,14 @@ public class DatabaseConnector {
             if (count != 0) {
                 System.out.println("User account already exists.");
             } else {
-                String insertQuery = "INSERT INTO user (name, account, password, email) VALUES (?, ?, ?, ?)";
+                String insertQuery = "INSERT INTO user (name, account, password, email, isAdmin) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement psmtInsert = c.prepareStatement(insertQuery);
 
                 psmtInsert.setString(1, user.getName());
                 psmtInsert.setString(2, user.getAccount());
                 psmtInsert.setString(3, user.getPassword());
                 psmtInsert.setString(4, user.getEmail());
+                psmtInsert.setBoolean(5, user.isAdmin());
                 psmtInsert.executeUpdate();
             }
         } catch (Exception e) {
