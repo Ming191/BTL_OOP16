@@ -12,7 +12,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage.resizableProperty().setValue(Boolean.FALSE);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("userView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("catalogView.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

@@ -6,6 +6,7 @@ public class User {
     private String email;
     private String account;
     private String password;
+    private boolean isAdmin;
 
     User(int id, String name, String email, String account, String password) {
         this.id = id;
@@ -13,6 +14,16 @@ public class User {
         this.email = email;
         this.account = account;
         this.password = password;
+        this.isAdmin = false;
+    }
+
+    User(int id, String name, String email, String account, String password, boolean isAdmin) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.account = account;
+        this.password = password;
+        this.isAdmin = isAdmin;
     }
 
     public int getId() {
