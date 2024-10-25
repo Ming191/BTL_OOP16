@@ -17,7 +17,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class BookViewController {
-    private DatabaseConnector bookDB;
     private BookList bookList;
 
     @FXML
@@ -80,18 +79,11 @@ public class BookViewController {
         addBookStage.setScene(new Scene(root));
         addBookStage.showAndWait();
 
-        table.getItems().clear();
-        bookList.getBooks().clear();
-
-        bookDB.selectFromDB(bookList);
-        table.getItems().addAll(bookList.getBooks());
+        refresh();
     }
 
     @FXML
     void initialize() {
-        bookDB = new DatabaseConnector();
-        bookList = new BookList();
-
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -99,7 +91,21 @@ public class BookViewController {
         languageCol.setCellValueFactory(new PropertyValueFactory<>("language"));
         availableCol.setCellValueFactory(new PropertyValueFactory<>("available"));
 
-        bookDB.selectFromDB(bookList);
+        loadBook();
+    }
+
+    void refresh() {
+        table.getItems().clear();
+        bookList.getBooks().clear();
+
+        DatabaseConnector.selectFromDB(bookList);
+        table.getItems().addAll(bookList.getBooks());
+    }
+
+    void loadBook() {
+        bookList = new BookList();
+
+        DatabaseConnector.selectFromDB(bookList);
         table.getItems().addAll(bookList.getBooks());
     }
 
@@ -115,9 +121,6 @@ public class BookViewController {
         deleteBookStage.setScene(new Scene(root));
         deleteBookStage.showAndWait();
 
-        table.getItems().clear();
-        bookList.getBooks().clear();
-        bookDB.selectFromDB(bookList);
-        table.getItems().addAll(bookList.getBooks());
+        refresh();
     }
 }

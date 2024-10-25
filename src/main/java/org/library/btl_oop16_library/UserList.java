@@ -14,7 +14,7 @@ public class UserList {
         return users;
     }
 
-    public void setBooks(List<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 }

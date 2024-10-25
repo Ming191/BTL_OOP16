@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DatabaseConnector {
 
-    public void selectFromDB(BookList bookList) {
+    public static void selectFromDB(BookList bookList) {
         Connection c;
         Statement stmt;
         try {
@@ -252,11 +252,45 @@ public class DatabaseConnector {
         }
     }
 
-   /*public static void main(String[] args) {
-        DatabaseConnector dbc = new DatabaseConnector();
-        User user = new User(1, "loc", "loc", "loc", "loc" );
-        dbc.addUser(user);
-    }*/
+    public static User checkUser(String username, String password) {
+        Connection c = null;
+        ResultSet rs = null;
+        PreparedStatement psmt = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:my.db");
+
+            String query = "select * from user where account = ? and password = ?";
+            psmt = c.prepareStatement(query);
+            psmt.setString(1, username);
+            psmt.setString(2, password);
+            rs = psmt.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String account = rs.getString("account");
+                String password1 = rs.getString("password");
+                String email = rs.getString("email");
+                boolean isAdmin = rs.getBoolean("isAdmin");
+                return new User(id, name, account, password1, email,isAdmin);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        } finally {
+            try {
+                if (c!=null) c.close();
+                if (rs != null) rs.close();
+                if (psmt != null) psmt.close();
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+        }
+        return null;
+    }
 }
 
 

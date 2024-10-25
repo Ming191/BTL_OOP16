@@ -34,40 +34,21 @@ public class LoginController {
     @FXML
     private Button sign_up_button;
 
-
     @FXML
-    public void SwitchToSignUpScene(ActionEvent event) throws IOException {
-        Node currentRoot = ((Node)(event.getSource())).getScene().getRoot();
-        makeFadeOut(currentRoot,"signup.fxml",event);
-    }
-
-    @FXML
-    public void SwitchToLoginScene(ActionEvent event) throws IOException {
-        Node currentRoot = ((Node) event.getSource()).getScene().getRoot();
-        makeFadeOut(currentRoot, "login.fxml",event);
-    }
-
-    public void makeFadeOut(Node node, String fxmlFile, ActionEvent event) {
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setNode(node);
-        fadeTransition.setDuration(Duration.millis(1000));
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-
-        fadeTransition.setOnFinished(e -> {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource(fxmlFile)); // Load new scene from the provided FXML file
-                stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+    public void signInOnClick(ActionEvent event) throws IOException {
+        if(account_text_field.getText().isEmpty() || password_text_field.getText().isEmpty()) {
+            ApplicationAlert.emptyAccountOrPassword();
+            return;
+        } else {
+            User user = DatabaseConnector.checkUser(account_text_field.getText(), password_text_field.getText());
+            if(user != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
+                Scene mainMenuScene = new Scene(loader.load());
+                Stage stage = (Stage) sign_in_button.getScene().getWindow();
+                Transtition.fadeTransition(stage, sign_in_button.getScene(),mainMenuScene);
+            } else {
+                ApplicationAlert.wrongUsernameOrPassword();
             }
-        });
-
-        fadeTransition.play();
-
+        }
     }
-
 }
