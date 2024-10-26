@@ -7,6 +7,7 @@ public class DatabaseConnector {
     public static void selectFromDB(BookList bookList) {
         Connection c;
         Statement stmt;
+
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:my.db");

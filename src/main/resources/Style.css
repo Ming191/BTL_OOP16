@@ -1,8 +1,8 @@
-.right_side_pane_login{
+.rightSidePaneLogin{
     -fx-background-color: #A4C4B5;
 }
 
-.signin_button {
+.signinButton {
     -fx-background-color: #A4C4B5;
     -fx-border-width: 3px 3px 3px 3px;
     -fx-border-radius: 50px;
@@ -14,24 +14,25 @@
     -fx-font-size: 21px;
 }
 
-.signin_button:hover {
+.signinButton:hover {
     -fx-background-color:#ADD8E6;
 }
 
-.menu-item {
+.menuItem {
     -fx-text-fill: black;
     -fx-padding: 10;
     -fx-font-size: 18px;
     -fx-font-family: "Verdana";
     -fx-font-weight: bold;
     -fx-alignment: center-left;
+    -fx-background-color: #A4C4B5;
 }
 
-.menu-item:hover {
+.menuItem:hover {
     -fx-background-color: white;
 }
 
-.menu-item.pressed {
+.menuItem.pressed {
     -fx-background-color: white;
     -fx-text-fill: black;
 }
@@ -42,7 +43,7 @@
 }
 
 
-.add_button{
+.addButton{
     -fx-background-color:#A4C4B5 ;
     -fx-border-width: 3px 3px 3px 3px;
     -fx-border-radius: 50px;
@@ -53,7 +54,7 @@
     -fx-alignment: center-left;
 }
 
-.add_button:hover{
+.addButton:hover{
     -fx-background-color: yellow;
     -fx-text-fill: black;
 }

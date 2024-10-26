@@ -1,6 +1,7 @@
 package org.library.btl_oop16_library;
 
 public class Book {
+
     private int id;
     private String title;
     private String author;

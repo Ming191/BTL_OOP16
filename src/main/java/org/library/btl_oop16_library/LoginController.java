@@ -13,36 +13,39 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginController {
+
     private Stage stage;
     private Scene scene;
     private Parent root;
     @FXML
-    private TextField account_text_field;
+    private TextField accountField;
 
     @FXML
-    private TextField password_text_field;
+    private TextField passwordField;
 
     @FXML
     private BorderPane rootPane;
 
     @FXML
-    private Button sign_in_button;
+    private Button signInButton;
 
     @FXML
-    private Button sign_up_button;
+    private Button signUpButton;
 
     @FXML
     public void signInOnClick(ActionEvent event) throws IOException {
-        if(account_text_field.getText().isEmpty() || password_text_field.getText().isEmpty()) {
+
+        if (accountField.getText().isEmpty() || passwordField.getText().isEmpty()) {
             ApplicationAlert.emptyAccountOrPassword();
             return;
         } else {
-            User user = DatabaseConnector.checkUser(account_text_field.getText(), password_text_field.getText());
+            User user = DatabaseConnector.checkUser(accountField.getText(), passwordField.getText());
+
             if(user != null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
                 Scene mainMenuScene = new Scene(loader.load());
-                Stage stage = (Stage) sign_in_button.getScene().getWindow();
-                Transtition.fadeTransition(stage, sign_in_button.getScene(),mainMenuScene);
+                Stage stage = (Stage) signInButton.getScene().getWindow();
+                Transtition.fadeTransition(stage, signInButton.getScene(),mainMenuScene);
             } else {
                 ApplicationAlert.wrongUsernameOrPassword();
             }
@@ -51,8 +54,8 @@ public class LoginController {
 
     @FXML
     public void switchToSignUpScene(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("signUp.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
         Scene signUpScene = new Scene(loader.load());
-        Transtition.fadeTransition((Stage) sign_up_button.getScene().getWindow(), sign_up_button.getScene(), signUpScene);
+        Transtition.fadeTransition((Stage) signUpButton.getScene().getWindow(), signUpButton.getScene(), signUpScene);
     }
 }

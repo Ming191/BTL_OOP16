@@ -12,11 +12,11 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage.resizableProperty().setValue(Boolean.FALSE);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("BookView.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("/style.css").toExternalForm();
+        String css = this.getClass().getResource("/Style.css").toExternalForm();
         scene.getStylesheets().add(css);
 
         stage.setTitle("2Min Library!");

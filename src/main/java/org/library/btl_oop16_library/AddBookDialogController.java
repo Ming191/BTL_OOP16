@@ -42,6 +42,7 @@ public class AddBookDialogController {
         String language = languageField.getText();
         String type = typeField.getText();
         int quantity;
+
         try {
             quantity = Integer.parseInt(quantityField.getText());
         } catch (NumberFormatException e) {

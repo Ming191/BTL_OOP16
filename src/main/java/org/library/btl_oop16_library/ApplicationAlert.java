@@ -3,6 +3,7 @@ package org.library.btl_oop16_library;
 import javafx.scene.control.Alert;
 
 public class ApplicationAlert {
+
     public static void emptyAccountOrPassword() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Empty account or password");
@@ -42,4 +43,5 @@ public class ApplicationAlert {
         alert.setContentText("Please enter a valid information.");
         alert.showAndWait();
     }
+
 }

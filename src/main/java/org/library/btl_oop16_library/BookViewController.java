@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -73,7 +72,7 @@ public class BookViewController {
         addBookStage.initModality(Modality.APPLICATION_MODAL);
         addBookStage.setTitle("Add Book");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("addBookDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBookDialog.fxml"));
         Parent root = loader.load();
 
         addBookStage.setScene(new Scene(root));
@@ -111,12 +110,13 @@ public class BookViewController {
 
     @FXML
     void deleteBookButtonOnClick () throws IOException {
+
         Stage deleteBookStage = new Stage();
         deleteBookStage.setResizable(false);
         deleteBookStage.initModality(Modality.APPLICATION_MODAL);
         deleteBookStage.setTitle("Delete Book");
 
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("deleteBookDialog.fxml"));
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("DeleteBookDialog.fxml"));
         Parent root = loader1.load();
         deleteBookStage.setScene(new Scene(root));
         deleteBookStage.showAndWait();

@@ -82,7 +82,7 @@ public class UserViewController {
         adduserstage.initModality(Modality.APPLICATION_MODAL);
         adduserstage.setTitle("Add User");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addUserDialog.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddUserDialog.fxml"));
         try {
             Parent root = fxmlLoader.load();
             adduserstage.setScene(new Scene(root));
@@ -104,7 +104,7 @@ public class UserViewController {
         deleteuserstage.initModality(Modality.APPLICATION_MODAL);
         deleteuserstage.setTitle("Delete User");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deleteUserDialog.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DeleteUserDialog.fxml"));
 
         try {
             Parent root = fxmlLoader.load();
