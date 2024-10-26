@@ -17,14 +17,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.LoginController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.LoginController">
    <right>
-      <HBox prefHeight="574.0" prefWidth="239.0" styleClass="right_side_pane" stylesheets="@../../../Style.css" BorderPane.alignment="CENTER">
+      <HBox prefHeight="574.0" prefWidth="239.0" styleClass="right_side_pane" stylesheets="@../../../../css/Style.css" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <AnchorPane prefHeight="574.0" prefWidth="244.0" styleClass="rightSidePaneLogin" stylesheets="@../../../Style.css">
+            <AnchorPane prefHeight="574.0" prefWidth="244.0" styleClass="rightSidePaneLogin" stylesheets="@../../../../css/Style.css">
                <children>
                   <Text fill="#faf5f5" layoutX="17.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First time joining us huh?">
                      <font>
@@ -32,7 +32,7 @@
                      </font>
                   </Text>
                   <Text fill="#edeaea" layoutX="62.0" layoutY="221.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up for our greatest bookList system" wrappingWidth="157.1419219970703" />
-                  <Button fx:id="signUpButton" layoutX="12.0" layoutY="304.0" mnemonicParsing="false" onAction="#switchToSignUpScene" prefHeight="53.0" prefWidth="226.0" styleClass="signinButton" stylesheets="@../../../Style.css" text="SIGN UP">
+                  <Button fx:id="signUpButton" layoutX="12.0" layoutY="304.0" mnemonicParsing="false" onAction="#switchToSignUpScene" prefHeight="53.0" prefWidth="226.0" styleClass="signinButton" stylesheets="@../../../../css/Style.css" text="SIGN UP">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -85,7 +85,7 @@
                            </VBox.margin>
                         </Label>
                         <PasswordField fx:id="passwordField" prefHeight="38.0" prefWidth="379.0" />
-                        <Button fx:id="signInButton" mnemonicParsing="false" onAction="#signInOnClick" prefHeight="53.0" prefWidth="378.0" styleClass="signinButton" stylesheets="@../../../Style.css" text="SIGN IN">
+                        <Button fx:id="signInButton" mnemonicParsing="false" onAction="#signInOnClick" prefHeight="53.0" prefWidth="378.0" styleClass="signinButton" stylesheets="@../../../../css/Style.css" text="SIGN IN">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -97,7 +97,7 @@
                   </VBox>
                   <ImageView fitHeight="113.0" fitWidth="122.0" layoutX="233.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/logo_2min.png" />
+                        <Image url="@../../../../img/logo_2min.png" />
                      </image>
                   </ImageView>
                </children>

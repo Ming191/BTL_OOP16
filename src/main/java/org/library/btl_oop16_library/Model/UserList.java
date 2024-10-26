@@ -1,12 +1,12 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserList {
-    List<User> users;
+    public List<User> users;
 
-    UserList() {
+    public UserList() {
         users = new ArrayList<User>();
     }
 

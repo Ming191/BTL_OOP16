@@ -1,7 +1,6 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Util;
 
 import javafx.animation.*;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

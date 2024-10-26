@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.library.btl_oop16_library.Util.ApplicationAlert;
+import org.library.btl_oop16_library.Util.DatabaseConnector;
+import org.library.btl_oop16_library.Util.Transtition;
+import org.library.btl_oop16_library.Model.User;
 
 import java.io.IOException;
 
@@ -42,7 +46,7 @@ public class LoginController {
             User user = DatabaseConnector.checkUser(accountField.getText(), passwordField.getText());
 
             if(user != null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/MainMenu.fxml"));
                 Scene mainMenuScene = new Scene(loader.load());
                 Stage stage = (Stage) signInButton.getScene().getWindow();
                 Transtition.fadeTransition(stage, signInButton.getScene(),mainMenuScene);
@@ -54,7 +58,7 @@ public class LoginController {
 
     @FXML
     public void switchToSignUpScene(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SignUp.fxml"));
         Scene signUpScene = new Scene(loader.load());
         Transtition.fadeTransition((Stage) signUpButton.getScene().getWindow(), signUpButton.getScene(), signUpScene);
     }

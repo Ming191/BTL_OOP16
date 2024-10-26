@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.BookViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookViewController">
    <children>
       <BorderPane layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -22,41 +22,41 @@
                      <children>
                         <ImageView fitHeight="220.0" fitWidth="257.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../img/logo_2min.png" />
+                              <Image url="@../../../../img/logo_2min.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="menuDashboard" graphicTextGap="30.0" layoutY="229.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../Style.css" text="Dashboard">
+                        <Button fx:id="menuDashboard" graphicTextGap="30.0" layoutY="229.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../../css/Style.css" text="Dashboard">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../img/dashboard.png" />
+                                    <Image url="@../../../../img/dashboard.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="menuUser" graphicTextGap="30.0" layoutY="304.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../Style.css" text="User">
+                        <Button fx:id="menuUser" graphicTextGap="30.0" layoutY="304.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../../css/Style.css" text="User">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../img/user.png" />
+                                    <Image url="@../../../../img/user.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="menuBook" graphicTextGap="30.0" layoutY="379.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../Style.css" text="Book">
+                        <Button fx:id="menuBook" graphicTextGap="30.0" layoutY="379.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../../css/Style.css" text="Book">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../img/book.png" />
+                                    <Image url="@../../../../img/book.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="logOut" graphicTextGap="30.0" layoutY="645.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../Style.css" text="LogOut">
+                        <Button fx:id="logOut" graphicTextGap="30.0" layoutY="645.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../../css/Style.css" text="LogOut">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../img/logout.png" />
+                                    <Image url="@../../../../img/logout.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -73,20 +73,20 @@
                      <children>
                         <HBox prefHeight="29.0" prefWidth="1045.0">
                            <children>
-                              <Button fx:id="addBookButton" graphicTextGap="30.0" mnemonicParsing="false" onAction="#addBookButtonOnClick" prefHeight="60.0" prefWidth="175.0" styleClass="addButton" stylesheets="@../../../Style.css" text="Add book" textAlignment="CENTER">
+                              <Button fx:id="addBookButton" graphicTextGap="30.0" mnemonicParsing="false" onAction="#addBookButtonOnClick" prefHeight="60.0" prefWidth="175.0" styleClass="addButton" stylesheets="@../../../../css/Style.css" text="Add book" textAlignment="CENTER">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../img/add.png" />
+                                          <Image url="@../../../../img/add.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="deleteBookButton" graphicTextGap="20.0" layoutX="198.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteBookButtonOnClick" prefHeight="60.0" prefWidth="175.0" styleClass="addButton" stylesheets="@../../../Style.css" text="Delete book" textAlignment="CENTER">
+                              <Button fx:id="deleteBookButton" graphicTextGap="20.0" layoutX="198.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteBookButtonOnClick" prefHeight="60.0" prefWidth="175.0" styleClass="addButton" stylesheets="@../../../../css/Style.css" text="Delete book" textAlignment="CENTER">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../img/delete.png" />
+                                          <Image url="@../../../../img/delete.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

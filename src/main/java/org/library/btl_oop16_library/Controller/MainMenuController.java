@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

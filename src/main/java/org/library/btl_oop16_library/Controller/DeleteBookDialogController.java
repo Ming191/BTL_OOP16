@@ -1,24 +1,26 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.library.btl_oop16_library.Model.Book;
+import org.library.btl_oop16_library.Util.DatabaseConnector;
 
-public class DeleteUserDialogController {
+public class DeleteBookDialogController {
 
     @FXML
-    private TextField accountField;
+    private TextField titleField;
+
+    @FXML
+    private TextField quantityField;
 
     @FXML
     private Button cancelButton;
 
     @FXML
     private Button confirmButton;
-
-    @FXML
-    private TextField emailField;
 
     @FXML
     void onCancelButtonClick(ActionEvent event) {
@@ -28,12 +30,18 @@ public class DeleteUserDialogController {
 
     @FXML
     void onConfirmButtonClick(ActionEvent event) {
-        String account = accountField.getText();
-        String email = emailField.getText();
+        String title = titleField.getText();
+        int quantity;
+        try {
+            quantity = Integer.parseInt(quantityField.getText());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return;
+        }
 
         DatabaseConnector db = new DatabaseConnector();
         try {
-            db.deleteUser(new User(account, email));
+            db.deleteBook(new Book(title, quantity));
             Stage stage = (Stage) confirmButton.getScene().getWindow();
             stage.close();
         } catch (Exception e) {

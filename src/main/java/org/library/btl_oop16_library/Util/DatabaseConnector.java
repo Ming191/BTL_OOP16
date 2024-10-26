@@ -1,4 +1,9 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Util;
+
+import org.library.btl_oop16_library.Model.Book;
+import org.library.btl_oop16_library.Model.BookList;
+import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Model.UserList;
 
 import java.sql.*;
 
