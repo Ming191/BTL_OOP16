@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,14 +17,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.SignUpController">
    <right>
-      <HBox prefHeight="574.0" prefWidth="239.0" styleClass="right_side_pane" stylesheets="@../../../style.css" BorderPane.alignment="CENTER">
+      <HBox prefHeight="574.0" prefWidth="239.0" styleClass="right_side_pane" stylesheets="@../../../../css/Style.css" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <AnchorPane prefHeight="574.0" prefWidth="244.0" styleClass="right_side_pane_login" stylesheets="@../../../style.css">
+            <AnchorPane prefHeight="574.0" prefWidth="244.0" styleClass="rightSidePaneLogin" stylesheets="@../../../../css/Style.css">
                <children>
                   <Text fill="#faf5f5" layoutX="25.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already joining us huh?">
                      <font>
@@ -31,7 +32,7 @@
                      </font>
                   </Text>
                   <Text fill="#edeaea" layoutX="62.0" layoutY="221.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="157.1419219970703" />
-                  <Button fx:id="sign_in_button" layoutX="11.0" layoutY="289.0" mnemonicParsing="false" onAction="#SwitchToLoginScene" prefHeight="51.0" prefWidth="242.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN IN">
+                  <Button fx:id="signInButton" layoutX="11.0" layoutY="289.0" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="51.0" prefWidth="242.0" styleClass="signinButton" stylesheets="@../../../../css/Style.css" text="SIGN IN">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -74,26 +75,26 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="name_text_field" prefHeight="12.0" prefWidth="394.0" />
+                        <TextField fx:id="nameField" prefHeight="12.0" prefWidth="394.0" />
                         <Label alignment="CENTER" layoutX="10.0" layoutY="86.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="EMAIL">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="email_text_field" layoutX="10.0" layoutY="132.0" prefHeight="21.0" prefWidth="394.0" />
+                        <TextField fx:id="emailField" layoutX="10.0" layoutY="132.0" prefHeight="21.0" prefWidth="394.0" />
                         <Label alignment="CENTER" layoutX="10.0" layoutY="170.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="ACCOUNT">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="account_text_field" layoutX="10.0" layoutY="140.0" prefHeight="21.0" prefWidth="394.0" />
+                        <TextField fx:id="accountField" layoutX="10.0" layoutY="140.0" prefHeight="21.0" prefWidth="394.0" />
                         <Label alignment="CENTER" layoutX="10.0" layoutY="165.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="PASSWORD">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="password_text_field" layoutX="10.0" layoutY="192.0" prefHeight="21.0" prefWidth="394.0" />
-                        <Button fx:id="sign_up_button" mnemonicParsing="false" prefHeight="53.0" prefWidth="378.0" styleClass="signin_button" stylesheets="@../../../style.css" text="SIGN UP">
+                        <PasswordField fx:id="passwordField" prefHeight="21.0" prefWidth="394.0" />
+                        <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signUpOnClick" prefHeight="53.0" prefWidth="378.0" styleClass="signinButton" stylesheets="@../../../../css/Style.css" text="SIGN UP">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -101,24 +102,16 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Button>
-                        <Label alignment="CENTER" opacity="0.85" prefHeight="46.0" prefWidth="379.0">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="18.0" />
-                           </VBox.margin>
-                        </Label>
                      </children>
                   </VBox>
                   <ImageView fitHeight="113.0" fitWidth="122.0" layoutX="233.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../resource/img/logo_2min.png" />
+                        <Image url="@../../../../img/logo_2min.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="114.0" fitWidth="113.0" layoutX="230.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/logo_2min.png" />
+                        <Image url="@../../../../img/logo_2min.png" />
                      </image>
                   </ImageView>
                </children>

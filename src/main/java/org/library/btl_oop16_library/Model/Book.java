@@ -1,6 +1,7 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Model;
 
 public class Book {
+
     private int id;
     private String title;
     private String author;
@@ -8,12 +9,12 @@ public class Book {
     private String language;
     private int available;
 
-    Book(String title, int available) {
+    public Book(String title, int available) {
         this.title = title;
         this.available = available;
     }
 
-    Book(String title, String author, String type, String language, int available) {
+    public Book(String title, String author, String type, String language, int available) {
         this.id = -1;
         this.title = title;
         this.author = author;
@@ -22,7 +23,7 @@ public class Book {
         this.available = available;
     }
 
-    Book(int id, String title, String author, String type, String language, int available) {
+    public Book(int id, String title, String author, String type, String language, int available) {
         this.id = id;
         this.title = title;
         this.author = author;

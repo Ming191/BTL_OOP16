@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Model;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ public class BookLending {
     private Date startDate;
     private Date dueDate;
 
-    BookLending(int id, User user, Book book, Date startDate, Date dueDate, int amount) {
+    public BookLending(int id, User user, Book book, Date startDate, Date dueDate, int amount) {
         this.id = id;
         this.user = user;
         this.book = book;

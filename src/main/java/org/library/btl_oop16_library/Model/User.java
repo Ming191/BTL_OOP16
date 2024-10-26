@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Model;
 
 public class User {
     private int id;
@@ -8,12 +8,12 @@ public class User {
     private String password;
     private boolean isAdmin;
 
-    User(String account, String email) {
+    public User(String account, String email) {
         this.account = account;
         this.email = email;
     }
 
-    User(int id, String name, String account, String password, String email) {
+    public User(int id, String name, String account, String password, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -22,7 +22,7 @@ public class User {
         this.isAdmin = false;
     }
 
-    User(int id, String name, String email, String account, String password, boolean isAdmin) {
+    public User(int id, String name, String email, String account, String password, boolean isAdmin) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -31,7 +31,7 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    User(String name, String account, String password, String email) {
+    public User(String name, String account, String password, String email) {
         this.id = -1;
         this.name = name;
         this.email = email;

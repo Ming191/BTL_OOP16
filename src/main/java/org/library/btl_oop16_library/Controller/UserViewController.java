@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +12,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.library.btl_oop16_library.Util.DatabaseConnector;
+import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Model.UserList;
 
 import java.io.IOException;
 
@@ -82,7 +85,7 @@ public class UserViewController {
         adduserstage.initModality(Modality.APPLICATION_MODAL);
         adduserstage.setTitle("Add User");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addUserDialog.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/AddUserDialog.fxml"));
         try {
             Parent root = fxmlLoader.load();
             adduserstage.setScene(new Scene(root));
@@ -104,7 +107,7 @@ public class UserViewController {
         deleteuserstage.initModality(Modality.APPLICATION_MODAL);
         deleteuserstage.setTitle("Delete User");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deleteUserDialog.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DeleteUserDialog.fxml"));
 
         try {
             Parent root = fxmlLoader.load();

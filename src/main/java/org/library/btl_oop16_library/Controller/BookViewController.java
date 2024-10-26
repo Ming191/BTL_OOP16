@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Controller;
 
 import java.io.IOException;
 
@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,6 +14,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.library.btl_oop16_library.Model.Book;
+import org.library.btl_oop16_library.Model.BookList;
+import org.library.btl_oop16_library.Util.DatabaseConnector;
 
 public class BookViewController {
     private BookList bookList;
@@ -72,8 +74,8 @@ public class BookViewController {
         addBookStage.setResizable(false);
         addBookStage.initModality(Modality.APPLICATION_MODAL);
         addBookStage.setTitle("Add Book");
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("addBookDialog.fxml"));
+        System.out.println("Add Book button clicked.");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/AddBookDialog.fxml"));
         Parent root = loader.load();
 
         addBookStage.setScene(new Scene(root));
@@ -111,12 +113,13 @@ public class BookViewController {
 
     @FXML
     void deleteBookButtonOnClick () throws IOException {
+
         Stage deleteBookStage = new Stage();
         deleteBookStage.setResizable(false);
         deleteBookStage.initModality(Modality.APPLICATION_MODAL);
         deleteBookStage.setTitle("Delete Book");
 
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("deleteBookDialog.fxml"));
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DeleteBookDialog.fxml"));
         Parent root = loader1.load();
         deleteBookStage.setScene(new Scene(root));
         deleteBookStage.showAndWait();

@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 public class BookList {
     List<Book> books;
 
-    BookList() {
+    public BookList() {
         books = new ArrayList<Book>();
     }
 

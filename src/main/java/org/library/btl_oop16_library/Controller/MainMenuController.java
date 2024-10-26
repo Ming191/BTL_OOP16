@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library;
+package org.library.btl_oop16_library.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,10 +40,10 @@ public class MainMenuController {
 
     @FXML
     void initialize() {
-        assert menuBook != null : "fx:id=\"menuBook\" was not injected: check your FXML file 'mainMenu.fxml'.";
-        assert menuDashboard != null : "fx:id=\"menuDashboard\" was not injected: check your FXML file 'mainMenu.fxml'.";
-        assert menuUser != null : "fx:id=\"menuUser\" was not injected: check your FXML file 'mainMenu.fxml'.";
-        assert menuVbox != null : "fx:id=\"menuVbox\" was not injected: check your FXML file 'mainMenu.fxml'.";
+        assert menuBook != null : "fx:id=\"menuBook\" was not injected: check your FXML file 'MainMenu.fxml'.";
+        assert menuDashboard != null : "fx:id=\"menuDashboard\" was not injected: check your FXML file 'MainMenu.fxml'.";
+        assert menuUser != null : "fx:id=\"menuUser\" was not injected: check your FXML file 'MainMenu.fxml'.";
+        assert menuVbox != null : "fx:id=\"menuVbox\" was not injected: check your FXML file 'MainMenu.fxml'.";
 
     }
 
