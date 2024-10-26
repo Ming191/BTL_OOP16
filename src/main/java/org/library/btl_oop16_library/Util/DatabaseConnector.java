@@ -24,24 +24,23 @@ public class DatabaseConnector {
             ResultSet rs = stmt.executeQuery("SELECT * FROM book");
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String author = rs.getString("author");
-                String type = rs.getString("type");
-                String language = rs.getString("language");
-                int available = rs.getInt("available");
-                Book book = new Book(id, title, author, type, language, available);
+                Book book = new Book(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getString("type"),
+                        rs.getString("language"),
+                        rs.getInt("available")
+                );
                 bookList.getBooks().add(book);
             }
-
+            System.out.println("Operation done successfully");
             rs.close();
             stmt.close();
             c.close();
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
+            e.printStackTrace();
         }
-        System.out.println("Operation done successfully");
     }
 
     public void addBook (Book book) {
@@ -165,24 +164,22 @@ public class DatabaseConnector {
             ResultSet rs = stmt.executeQuery("SELECT * FROM user");
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String account = rs.getString("account");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-
-                User user = new User(id, name, account, password, email);
+                User user = new User(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("account"),
+                        rs.getString("password"),
+                        rs.getString("email")
+                );
                 userList.getUsers().add(user);
             }
-
+            System.out.println("Operation done successfully");
             rs.close();
             stmt.close();
             c.close();
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
+            e.printStackTrace();
         }
-        System.out.println("Operation done successfully");
     }
 
     public static void addUser(User user) {
@@ -298,6 +295,23 @@ public class DatabaseConnector {
         }
         return null;
     }
+
+    public static boolean isUserExist(String accountName) {
+        boolean exists = false;
+
+        try (Connection c = DriverManager.getConnection("jdbc:sqlite:my.db");
+             PreparedStatement psmt = c.prepareStatement("SELECT 1 FROM user WHERE account = ? LIMIT 1")) {
+            psmt.setString(1, accountName);
+            try (ResultSet rs = psmt.executeQuery()) {
+                exists = rs.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exists;
+    }
+
 }
 
 

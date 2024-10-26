@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -15,6 +16,7 @@ import org.library.btl_oop16_library.Util.Transtition;
 import org.library.btl_oop16_library.Model.User;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class SignUpController {
     @FXML
@@ -47,8 +49,22 @@ public class SignUpController {
             ApplicationAlert.missingInformation();
             return;
         }
-        User newUser = new User(nameField.getText(), emailField.getText(), accountField.getText(), passwordField.getText());
-        DatabaseConnector.addUser(newUser);
-        ApplicationAlert.signUpSuccess();
+
+        if (DatabaseConnector.isUserExist(accountField.getText())) {
+            ApplicationAlert.userAlreadyExists();
+            return;
+        }
+
+        Optional<ButtonType> result = ApplicationAlert.areYouSureAboutThat();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            User newUser = new User(nameField.getText(), emailField.getText(), accountField.getText(), passwordField.getText());
+            DatabaseConnector.addUser(newUser);
+            ApplicationAlert.signUpSuccess();
+        } else {
+            System.out.println("User cancelled the sign-up process.");
+        }
+
     }
 }
+
