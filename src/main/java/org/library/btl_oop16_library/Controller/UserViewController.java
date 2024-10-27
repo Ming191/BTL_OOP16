@@ -29,6 +29,9 @@ public class UserViewController {
     private TableColumn<?, ?> actionCol;
 
     @FXML
+    private Button menuCatalog;
+
+    @FXML
     private TableColumn<User, String> emailCol;
 
     @FXML
