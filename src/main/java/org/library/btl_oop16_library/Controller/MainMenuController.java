@@ -44,7 +44,6 @@ public class MainMenuController {
         assert menuDashboard != null : "fx:id=\"menuDashboard\" was not injected: check your FXML file 'MainMenu.fxml'.";
         assert menuUser != null : "fx:id=\"menuUser\" was not injected: check your FXML file 'MainMenu.fxml'.";
         assert menuVbox != null : "fx:id=\"menuVbox\" was not injected: check your FXML file 'MainMenu.fxml'.";
-
     }
 
 

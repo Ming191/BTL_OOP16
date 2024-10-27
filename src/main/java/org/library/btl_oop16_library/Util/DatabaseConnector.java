@@ -400,6 +400,12 @@ public class DatabaseConnector {
             psmt.setDate(4, new java.sql.Date(System.currentTimeMillis()));
             psmt.setDate(5, new java.sql.Date(System.currentTimeMillis()));
             psmt.executeUpdate();
+
+            String updateBookDB = "update book set available = available - ? where id = ?";
+            psmt = c.prepareStatement(updateBookDB);
+            psmt.setInt(1, amount);
+            psmt.setInt(2, book.getId());
+            psmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
