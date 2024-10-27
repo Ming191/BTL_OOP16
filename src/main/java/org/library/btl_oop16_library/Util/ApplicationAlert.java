@@ -62,4 +62,12 @@ public class ApplicationAlert {
         return alert.showAndWait();
     }
 
+    public static void wrongEmailPattern() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Wrong email pattern");
+        alert.setHeaderText("Wrong email pattern");
+        alert.setContentText("Please enter a valid email.");
+        alert.showAndWait();
+    }
+
 }

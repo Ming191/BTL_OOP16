@@ -1,11 +1,12 @@
 package org.library.btl_oop16_library.Util;
 
-import org.library.btl_oop16_library.Model.Book;
-import org.library.btl_oop16_library.Model.BookList;
-import org.library.btl_oop16_library.Model.User;
-import org.library.btl_oop16_library.Model.UserList;
+import org.library.btl_oop16_library.Model.*;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+import java.text.SimpleDateFormat;
 
 public class DatabaseConnector {
 
@@ -182,11 +183,21 @@ public class DatabaseConnector {
         }
     }
 
-    public static void addUser(User user) {
+    public static boolean addUserFromDB(User user) {
         Connection c = null;
         ResultSet rs = null;
+        boolean success = false;
+
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(emailRegex);
 
         try {
+            if (!pattern.matcher(user.getEmail()).matches()) {
+                System.out.println("Invalid email format: " + user.getEmail());
+                ApplicationAlert.wrongEmailPattern();
+                return false;
+            }
+
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:my.db");
 
@@ -213,6 +224,7 @@ public class DatabaseConnector {
                 psmtInsert.setInt(5, user.isAdmin()? 1:0);
                 psmtInsert.executeUpdate();
             }
+            success = true;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -224,6 +236,7 @@ public class DatabaseConnector {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
         }
+        return success;
     }
 
     public void deleteUser(User user) {
@@ -256,7 +269,7 @@ public class DatabaseConnector {
         }
     }
 
-    public static User checkUser(String username, String password) {
+    public static User getUser(String username, String password) {
         Connection c = null;
         ResultSet rs = null;
         PreparedStatement psmt = null;
@@ -310,6 +323,93 @@ public class DatabaseConnector {
         }
 
         return exists;
+    }
+
+    public static List<BookLending> loadBookLendingFromDB() {
+        List<BookLending> bookLendings = new ArrayList<BookLending>();
+
+        Connection c = null;
+        ResultSet rs = null;
+        PreparedStatement psmt = null;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:my.db");
+
+            String query = "SELECT * FROM bookLending";
+            psmt = c.prepareStatement(query);
+            rs = psmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int userId = rs.getInt("userId");
+                int bookId = rs.getInt("bookId");
+                int amount = rs.getInt("amount");
+                Date startDate = null;
+                Date dueDate = null;
+                try {
+                    String startDateStr = rs.getString("startDate");
+                    String dueDateStr = rs.getString("dueDate");
+
+                    if (startDateStr != null) {
+                        startDate = new java.sql.Date(sdf.parse(startDateStr).getTime());
+                    }
+                    if (dueDateStr != null) {
+                        dueDate = new java.sql.Date(sdf.parse(dueDateStr).getTime());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                String status = rs.getString("status");
+
+                BookLending bookLending = new BookLending(id, userId, bookId, startDate, dueDate, amount);
+                bookLendings.add(bookLending);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(rs != null) rs.close();
+                if(c != null) c.close();
+                if(psmt != null) psmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return bookLendings;
+    }
+
+    public static void addBookLendingToDB(Book book, User user,int amount) throws ClassNotFoundException {
+        Connection c = null;
+        ResultSet rs = null;
+        PreparedStatement psmt = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:my.db");
+            String query = "INSERT INTO bookLending (bookId, userId, amount, startDate, dueDate) VALUES (?, ?, ?, ?, ?)";
+            psmt = c.prepareStatement(query);
+
+            psmt.setInt(1, book.getId());
+            psmt.setInt(2, user.getId());
+            psmt.setInt(3, amount);
+            psmt.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+            psmt.setDate(5, new java.sql.Date(System.currentTimeMillis()));
+            psmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (c != null) c.close();
+                if (rs != null) rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

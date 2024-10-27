@@ -58,9 +58,9 @@ public class SignUpController {
         Optional<ButtonType> result = ApplicationAlert.areYouSureAboutThat();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            User newUser = new User(nameField.getText(), emailField.getText(), accountField.getText(), passwordField.getText());
-            DatabaseConnector.addUser(newUser);
-            ApplicationAlert.signUpSuccess();
+            User newUser = new User(nameField.getText(), accountField.getText(), passwordField.getText(), emailField.getText());
+            if(DatabaseConnector.addUserFromDB(newUser)) ApplicationAlert.signUpSuccess();
+            else return;
         } else {
             System.out.println("User cancelled the sign-up process.");
         }
