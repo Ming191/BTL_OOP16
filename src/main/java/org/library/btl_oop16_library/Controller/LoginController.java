@@ -43,7 +43,7 @@ public class LoginController {
             ApplicationAlert.emptyAccountOrPassword();
             return;
         } else {
-            User user = DatabaseConnector.checkUser(accountField.getText(), passwordField.getText());
+            User user = DatabaseConnector.getUser(accountField.getText(), passwordField.getText());
 
             if(user != null) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/MainMenu.fxml"));

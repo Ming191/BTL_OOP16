@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.UserViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.CatalogViewController">
    <children>
       <BorderPane layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -73,7 +73,7 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button graphicTextGap="30.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="175.0" styleClass="addButton" stylesheets="@../../../../css/Style.css" text="LendBook" textAlignment="CENTER">
+                              <Button fx:id="lendBookButton" graphicTextGap="30.0" mnemonicParsing="false" onAction="#lendBookButtonOnClick" prefHeight="60.0" prefWidth="175.0" styleClass="addButton" stylesheets="@../../../../css/Style.css" text="LendBook" textAlignment="CENTER">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -85,13 +85,13 @@
                            </children></HBox>
                         <TableView fx:id="table" prefHeight="700.0" prefWidth="1180.0">
                            <columns>
-                              <TableColumn fx:id="idCol" editable="false" prefWidth="83.99996948242188" reorderable="false" resizable="false" sortable="true" text="ID" />
-                              <TableColumn fx:id="nameCol" editable="false" prefWidth="210.0" resizable="false" sortable="false" text="USER ID" />
-                              <TableColumn fx:id="emailCol" editable="false" prefWidth="167.0" resizable="false" sortable="false" text="BOOK ID" />
-                              <TableColumn fx:id="accountCol" editable="false" prefWidth="72.6666259765625" resizable="false" sortable="false" text="AMOUNT" />
-                              <TableColumn fx:id="passwordCol" editable="false" prefWidth="213.33331298828125" resizable="false" sortable="false" text="DUE DATE" />
-                              <TableColumn fx:id="actionCol" editable="false" prefWidth="313.5" resizable="false" text="DATE &amp; TIME" />
-                              <TableColumn prefWidth="75.0" text="albam" />
+                              <TableColumn fx:id="idCol" editable="false" prefWidth="70.0" reorderable="false" resizable="false" sortable="true" text="ID" />
+                              <TableColumn fx:id="userIdCol" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="USER ID" />
+                              <TableColumn fx:id="bookIdCol" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="BOOK ID" />
+                              <TableColumn fx:id="amountCol" editable="false" prefWidth="72.6666259765625" resizable="false" sortable="false" text="AMOUNT" />
+                              <TableColumn fx:id="startDateCol" editable="false" prefWidth="250.0" resizable="false" text="DATE &amp; TIME" />
+                              <TableColumn fx:id="dueDateCol" editable="false" prefWidth="250.0" resizable="false" sortable="false" text="DUE DATE" />
+                              <TableColumn fx:id="statusCol" prefWidth="201.0" text="STATUS" />
                            </columns>
                            <rotationAxis>
                               <Point3D />

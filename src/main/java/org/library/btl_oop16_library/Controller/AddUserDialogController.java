@@ -43,7 +43,7 @@ public class AddUserDialogController {
         String email = emailField.getText();
 
         DatabaseConnector db = new DatabaseConnector();
-        db.addUser(new User(name, account, password, email));
+        db.addUserFromDB(new User(name, account, password, email));
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }

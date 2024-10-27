@@ -1,19 +1,29 @@
 package org.library.btl_oop16_library.Model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class BookLending {
     private int id;
-    private User user;
-    private Book book;
+    private int bookId;
+    private int userId;
     private int amount;
     private Date startDate;
     private Date dueDate;
+    private String status;
 
-    public BookLending(int id, User user, Book book, Date startDate, Date dueDate, int amount) {
+    public BookLending(int id, int userId, int bookId, Date startDate, Date dueDate, int amount) {
         this.id = id;
-        this.user = user;
-        this.book = book;
+        this.userId = userId;
+        this.bookId = bookId;
+        this.startDate = startDate;
+        this.dueDate = dueDate;
+        this.amount = amount;
+    }
+
+    public BookLending(int userId, int bookId, Date startDate, Date dueDate, int amount) {
+        this.id = -1;
+        this.userId = userId;
+        this.bookId = bookId;
         this.startDate = startDate;
         this.dueDate = dueDate;
         this.amount = amount;
@@ -25,31 +35,49 @@ public class BookLending {
     public void setId(int id) {
         this.id = id;
     }
-    public User getUser() {
-        return user;
+
+    public int getBookId() {
+        return bookId;
     }
-    public void setUser(User user) {
-        this.user = user;
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
-    public Book getBook() {
-        return book;
+
+    public int getUserId() {
+        return userId;
     }
-    public void setBook(Book book) {
-        this.book = book;
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
+
     public Date getStartDate() {
         return startDate;
     }
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
+
     public Date getDueDate() {
         return dueDate;
     }
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
+
     public int getAmount() {
         return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
