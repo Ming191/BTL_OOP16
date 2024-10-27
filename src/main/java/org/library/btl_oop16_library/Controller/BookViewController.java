@@ -43,6 +43,9 @@ public class BookViewController {
     private Button menuDashboard;
 
     @FXML
+    private Button menuCatalog;
+
+    @FXML
     private Button menuUser;
 
     @FXML

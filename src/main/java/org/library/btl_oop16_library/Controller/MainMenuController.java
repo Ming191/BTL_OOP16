@@ -23,6 +23,9 @@ public class MainMenuController {
     private Button menuDashboard;
 
     @FXML
+    private Button menuCatalog;
+
+    @FXML
     private Button menuUser;
 
     @FXML
