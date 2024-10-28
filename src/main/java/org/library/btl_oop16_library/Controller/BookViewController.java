@@ -33,23 +33,6 @@ public class BookViewController {
     @FXML
     private TableColumn<Book, String> languageCol;
 
-    @FXML
-    private Button logOut;
-
-    @FXML
-    private Button menuBook;
-
-    @FXML
-    private Button menuDashboard;
-
-    @FXML
-    private Button menuCatalog;
-
-    @FXML
-    private Button menuUser;
-
-    @FXML
-    private VBox menuVbox;
 
     @FXML
     private Button addBookButton;

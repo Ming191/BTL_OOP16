@@ -28,26 +28,12 @@ public class UserViewController {
     @FXML
     private TableColumn<?, ?> actionCol;
 
-    @FXML
-    private Button menuCatalog;
 
     @FXML
     private TableColumn<User, String> emailCol;
 
     @FXML
     private TableColumn<User, Integer> idCol;
-
-    @FXML
-    private Button logOut;
-
-    @FXML
-    private Button menuBook;
-
-    @FXML
-    private Button menuDashboard;
-
-    @FXML
-    private Button menuUser;
 
 
     @FXML

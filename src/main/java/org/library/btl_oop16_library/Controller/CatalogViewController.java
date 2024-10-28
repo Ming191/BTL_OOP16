@@ -51,23 +51,6 @@ public class CatalogViewController {
     @FXML
     private Button lendBookButton;
 
-    @FXML
-    private Button logOut;
-
-    @FXML
-    private Button menuBook;
-
-    @FXML
-    private Button menuDashboard;
-
-    @FXML
-    private Button menuCatalog;
-
-    @FXML
-    private Button menuUser;
-
-    @FXML
-    private VBox menuVbox;
 
     @FXML
     void lendBookButtonOnClick(ActionEvent event) throws IOException {

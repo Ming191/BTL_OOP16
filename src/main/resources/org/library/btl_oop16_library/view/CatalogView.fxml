@@ -15,66 +15,6 @@
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.CatalogViewController">
    <children>
       <BorderPane layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-            <VBox fx:id="menuVbox" prefHeight="720.0" prefWidth="0.0" style="-fx-background-color: #A4C4B5;" BorderPane.alignment="CENTER">
-               <children>
-                  <AnchorPane prefHeight="720.0" prefWidth="224.0">
-                     <children>
-                        <ImageView fitHeight="220.0" fitWidth="257.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../img/logo_2min.png" />
-                           </image>
-                        </ImageView>
-                        <Button fx:id="menuDashboard" graphicTextGap="30.0" layoutY="229.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../../css/Style.css" text="Dashboard">
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../img/dashboard.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="menuUser" graphicTextGap="30.0" layoutY="379.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../../css/Style.css" text="User">
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../img/user.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="menuBook" graphicTextGap="30.0" layoutY="454.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../../css/Style.css" text="Book">
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../img/book.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="logOut" graphicTextGap="30.0" layoutY="645.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../../css/Style.css" text="LogOut">
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../img/logout.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="menuCatalog" graphicTextGap="30.0" layoutY="304.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="235.0" styleClass="menuItem" stylesheets="@../../../../css/Style.css" text="Catalog">
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../img/catalog.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </VBox>
-         </left>
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #333;" BorderPane.alignment="CENTER">
                <children>
@@ -99,8 +39,8 @@
                               <TableColumn fx:id="bookIdCol" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="BOOK ID" />
                               <TableColumn fx:id="amountCol" editable="false" prefWidth="72.6666259765625" resizable="false" sortable="false" text="AMOUNT" />
                               <TableColumn fx:id="startDateCol" editable="false" prefWidth="250.0" resizable="false" text="DATE &amp; TIME" />
-                              <TableColumn fx:id="dueDateCol" editable="false" prefWidth="250.0" resizable="false" sortable="false" text="DUE DATE" />
-                              <TableColumn fx:id="statusCol" prefWidth="201.0" text="STATUS" />
+                              <TableColumn fx:id="dueDateCol" editable="false" prefWidth="349.5" resizable="false" sortable="false" text="DUE DATE" />
+                              <TableColumn fx:id="statusCol" prefWidth="336.5" text="STATUS" />
                            </columns>
                            <rotationAxis>
                               <Point3D />
