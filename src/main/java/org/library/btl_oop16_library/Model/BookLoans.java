@@ -2,15 +2,14 @@ package org.library.btl_oop16_library.Model;
 
 import java.sql.Date;
 
-public class BookLending {
+public class BookLoans {
     private int id;
     private int bookId;
     private int userId;
     private int amount;
     private Date startDate;
     private Date dueDate;
-    private String status;
-    public BookLending(int id, int userId, int bookId, Date startDate, Date dueDate, int amount) {
+    public BookLoans(int id, int userId, int bookId, Date startDate, Date dueDate, int amount) {
         this.id = id;
         this.userId = userId;
         this.bookId = bookId;
@@ -19,7 +18,7 @@ public class BookLending {
         this.amount = amount;
     }
 
-    public BookLending(int userId, int bookId, Date startDate, Date dueDate, int amount) {
+    public BookLoans(int userId, int bookId, Date startDate, Date dueDate, int amount) {
         this.id = -1;
         this.userId = userId;
         this.bookId = bookId;
@@ -72,11 +71,5 @@ public class BookLending {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-    public String getStatus() {
-        return status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

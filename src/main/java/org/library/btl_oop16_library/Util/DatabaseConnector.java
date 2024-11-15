@@ -325,8 +325,8 @@ public class DatabaseConnector {
         return exists;
     }
 
-    public static List<BookLending> loadBookLendingFromDB() {
-        List<BookLending> bookLendings = new ArrayList<BookLending>();
+    public static List<BookLoans> loadBookLendingFromDB() {
+        List<BookLoans> bookLendings = new ArrayList<BookLoans>();
 
         Connection c = null;
         ResultSet rs = null;
@@ -365,7 +365,7 @@ public class DatabaseConnector {
                 }
                 String status = rs.getString("status");
 
-                BookLending bookLending = new BookLending(id, userId, bookId, startDate, dueDate, amount);
+                BookLoans bookLending = new BookLoans(id, userId, bookId, startDate, dueDate, amount);
                 bookLendings.add(bookLending);
             }
         } catch (Exception e) {
@@ -383,7 +383,7 @@ public class DatabaseConnector {
         return bookLendings;
     }
 
-    public static void addBookLendingToDB(BookLending bookLending) throws ClassNotFoundException {
+    public static void addBookLendingToDB(BookLoans bookLending) throws ClassNotFoundException {
         Connection c = null;
         ResultSet rs = null;
         PreparedStatement psmt = null;

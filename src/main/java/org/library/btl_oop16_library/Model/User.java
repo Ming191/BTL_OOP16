@@ -4,42 +4,19 @@ public class User {
     private int id;
     private String name;
     private String email;
-    private String account;
-    private String password;
-    private boolean isAdmin;
+    private String phone;
+    private String address;
 
     public User() {}
-    public User(String account, String email) {
-        this.account = account;
-        this.email = email;
-    }
 
-    public User(int id, String name, String account, String password, String email) {
+    public User(int id, String name, String email, String phone, String address) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.account = account;
-        this.password = password;
-        this.isAdmin = false;
+        this.phone = phone;
+        this.address = address;
     }
 
-    public User(int id, String name, String email, String account, String password, boolean isAdmin) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.account = account;
-        this.password = password;
-        this.isAdmin = isAdmin;
-    }
-
-    public User(String name, String account, String password, String email) {
-        this.id = -1;
-        this.name = name;
-        this.email = email;
-        this.account = account;
-        this.password = password;
-        this.isAdmin = false;
-    }
 
     public int getId() {
         return id;
@@ -65,27 +42,19 @@ public class User {
         this.email = email;
     }
 
-    public String getAccount() {
-        return account;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

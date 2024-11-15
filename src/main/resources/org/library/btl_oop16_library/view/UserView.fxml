@@ -45,9 +45,9 @@
                            <columns>
                               <TableColumn fx:id="idCol" editable="false" prefWidth="65.0" reorderable="false" resizable="false" sortable="true" text="ID" />
                               <TableColumn fx:id="nameCol" editable="false" prefWidth="228.0" resizable="false" sortable="false" text="NAME" />
-                              <TableColumn fx:id="accountCol" editable="false" prefWidth="167.0" resizable="false" sortable="false" text="ACCOUNT" />
-                              <TableColumn fx:id="passwordCol" editable="false" prefWidth="161.0" resizable="false" sortable="false" text="PASSWORD" />
-                              <TableColumn fx:id="emailCol" editable="false" prefWidth="124.5" resizable="false" sortable="false" text="EMAIL" />
+                              <TableColumn fx:id="emaillCol" editable="false" prefWidth="167.0" resizable="false" sortable="false" text="EMAIL" />
+                              <TableColumn fx:id="phoneCol" editable="false" prefWidth="161.0" resizable="false" sortable="false" text="PHONE" />
+                              <TableColumn fx:id="addressCol" editable="false" prefWidth="124.5" resizable="false" sortable="false" text="ADDRESS" />
                               <TableColumn fx:id="actionCol" editable="false" prefWidth="313.5" resizable="false" text="ACTION" />
                            </columns>
                            <rotationAxis>

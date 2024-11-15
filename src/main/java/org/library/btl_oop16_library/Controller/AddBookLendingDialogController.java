@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.library.btl_oop16_library.Model.BookLending;
+import org.library.btl_oop16_library.Model.BookLoans;
 import org.library.btl_oop16_library.Util.DatabaseConnector;
 
 import java.text.ParseException;
@@ -59,7 +59,7 @@ public class AddBookLendingDialogController {
 
         java.sql.Date startDateSQL = new java.sql.Date(startDate.getTime());
         java.sql.Date dueDateSQL = new java.sql.Date(dueDate.getTime());
-        BookLending bookLending = new BookLending(
+        BookLoans bookLending = new BookLoans(
                 userID, bookID,
                 startDateSQL,
                 dueDateSQL,

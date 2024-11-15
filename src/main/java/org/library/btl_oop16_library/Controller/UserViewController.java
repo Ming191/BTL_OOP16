@@ -23,7 +23,7 @@ public class UserViewController {
     UserList userList;
 
     @FXML
-    private TableColumn<User, String> accountCol;
+    private TableColumn<?, ?> addressCol;
 
     @FXML
     private TableColumn<?, ?> actionCol;
@@ -46,7 +46,7 @@ public class UserViewController {
     private TableColumn<User, String> nameCol;
 
     @FXML
-    private TableColumn<User, String> passwordCol;
+    private TableColumn<?, ?> phoneCol;
 
     @FXML
     private TableView<User> table;
@@ -58,8 +58,6 @@ public class UserViewController {
 
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
-        accountCol.setCellValueFactory(new PropertyValueFactory<>("account"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         actionCol.setCellValueFactory(new PropertyValueFactory<>("action"));
 

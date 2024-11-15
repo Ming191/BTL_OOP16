@@ -9,44 +9,41 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.library.btl_oop16_library.Model.Book;
-import org.library.btl_oop16_library.Model.BookLending;
+import org.library.btl_oop16_library.Model.BookLoans;
 import org.library.btl_oop16_library.Util.DatabaseConnector;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogViewController {
-    private List<BookLending> history;
+    private List<BookLoans> history;
 
     @FXML
-    private TableView<BookLending> table;
+    private TableView<BookLoans> table;
 
     @FXML
-    private TableColumn<BookLending, Date> startDateCol;
+    private TableColumn<BookLoans, Date> startDateCol;
 
     @FXML
-    private TableColumn<BookLending, String> statusCol;
+    private TableColumn<BookLoans, String> statusCol;
 
     @FXML
-    private TableColumn<BookLending, Integer> userIdCol;
+    private TableColumn<BookLoans, Integer> userIdCol;
 
     @FXML
-    private TableColumn<BookLending, Integer> amountCol;
+    private TableColumn<BookLoans, Integer> amountCol;
 
     @FXML
-    private TableColumn<BookLending, Integer> bookIdCol;
+    private TableColumn<BookLoans, Integer> bookIdCol;
 
     @FXML
-    private TableColumn<BookLending, Date> dueDateCol;
+    private TableColumn<BookLoans, Date> dueDateCol;
 
     @FXML
-    private TableColumn<BookLending, Integer> idCol;
+    private TableColumn<BookLoans, Integer> idCol;
 
     @FXML
     private Button lendBookButton;
@@ -59,7 +56,7 @@ public class CatalogViewController {
         bookLendingStage.initModality(Modality.APPLICATION_MODAL);
         bookLendingStage.setTitle("Lending Book");
         System.out.println("Lending Book button clicked.");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/AddBookLendingDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/AddBookLoansDialog.fxml"));
         Parent root = loader.load();
 
         bookLendingStage.setScene(new Scene(root));
