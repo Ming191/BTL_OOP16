@@ -22,7 +22,7 @@ public class LoginController {
     private Scene scene;
     private Parent root;
     @FXML
-    private TextField accountField;
+    private TextField usernameField;
 
     @FXML
     private TextField passwordField;

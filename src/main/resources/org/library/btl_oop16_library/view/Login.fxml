@@ -70,12 +70,12 @@
                   </Text>
                   <VBox layoutX="104.0" layoutY="211.0" prefHeight="349.0" prefWidth="379.0">
                      <children>
-                        <Label alignment="CENTER" opacity="0.5" prefHeight="44.0" prefWidth="379.0" text="ACCOUNT">
+                        <Label alignment="CENTER" opacity="0.5" prefHeight="44.0" prefWidth="379.0" text="USERNAME">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="accountField" prefHeight="31.0" prefWidth="379.0" />
+                        <TextField fx:id="usernameField" prefHeight="31.0" prefWidth="379.0" />
                         <Label alignment="CENTER" opacity="0.5" prefHeight="46.0" prefWidth="379.0" text="PASSWORD">
                            <font>
                               <Font name="System Bold" size="14.0" />

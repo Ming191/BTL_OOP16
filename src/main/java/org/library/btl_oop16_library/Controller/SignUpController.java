@@ -20,7 +20,13 @@ import java.util.Optional;
 
 public class SignUpController {
     @FXML
-    private TextField accountField;
+    private TextField addressField;
+
+    @FXML
+    private TextField usernameField;
+
+    @FXML
+    private TextField phoneField;
 
     @FXML
     private TextField nameField;

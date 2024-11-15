@@ -11,7 +11,13 @@ import org.library.btl_oop16_library.Model.User;
 
 public class AddUserDialogController {
     @FXML
-    private TextField accountField;
+    private TextField usernameField;
+
+    @FXML
+    private TextField addressField;
+
+    @FXML
+    private TextField phoneField;
 
     @FXML
     private Button cancelButton;
@@ -43,7 +49,7 @@ public class AddUserDialogController {
         String email = emailField.getText();
 
         DatabaseConnector db = new DatabaseConnector();
-        db.addUserFromDB(new User(name, account, password, email));
+        //db.addUserFromDB(new User(name, account, password, email));
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }

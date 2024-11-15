@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="242.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AddUserDialogController">
+<AnchorPane prefHeight="307.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AddUserDialogController">
    <opaqueInsets>
       <Insets top="10.0" />
    </opaqueInsets>
    <children>
-      <VBox layoutY="14.0" prefHeight="190.0" prefWidth="454.0">
+      <VBox prefHeight="272.0" prefWidth="454.0">
          <children>
             <TextField fx:id="nameField" layoutX="10.0" layoutY="10.0" maxWidth="385.0" prefHeight="25.0" promptText="Name">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="15.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="accountField" maxWidth="385.0" prefHeight="25.0" promptText="Account">
+            <TextField fx:id="usernameField" maxWidth="385.0" prefHeight="25.0" promptText="Username">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="15.0" />
                </VBox.margin>
@@ -34,9 +34,19 @@
                   <Insets left="30.0" right="30.0" top="15.0" />
                </VBox.margin>
             </TextField>
+            <TextField fx:id="phoneField" layoutX="40.0" layoutY="145.0" maxWidth="385.0" prefHeight="25.0" promptText="Phone">
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" top="15.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="addressField" layoutX="40.0" layoutY="185.0" maxWidth="385.0" prefHeight="25.0" promptText="Address">
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" top="15.0" />
+               </VBox.margin>
+            </TextField>
          </children>
       </VBox>
-      <Button fx:id="cancelButton" layoutX="249.0" layoutY="195.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="34.0" prefWidth="110.0" text="Cancel" />
-      <Button fx:id="confirmButton" layoutX="107.0" layoutY="195.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="34.0" prefWidth="110.0" text="Confirm " />
+      <Button fx:id="cancelButton" layoutX="252.0" layoutY="269.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="34.0" prefWidth="110.0" text="Cancel" />
+      <Button fx:id="confirmButton" layoutX="117.0" layoutY="269.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="34.0" prefWidth="110.0" text="Confirm " />
    </children>
 </AnchorPane>
