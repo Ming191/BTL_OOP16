@@ -8,6 +8,7 @@ public class User {
     private String password;
     private boolean isAdmin;
 
+    public User() {}
     public User(String account, String email) {
         this.account = account;
         this.email = email;

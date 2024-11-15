@@ -383,7 +383,7 @@ public class DatabaseConnector {
         return bookLendings;
     }
 
-    public static void addBookLendingToDB(Book book, User user,int amount) throws ClassNotFoundException {
+    public static void addBookLendingToDB(BookLending bookLending) throws ClassNotFoundException {
         Connection c = null;
         ResultSet rs = null;
         PreparedStatement psmt = null;
@@ -391,15 +391,41 @@ public class DatabaseConnector {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:my.db");
-            String query = "INSERT INTO bookLending (bookId, userId, amount, startDate, dueDate) VALUES (?, ?, ?, ?, ?)";
-            psmt = c.prepareStatement(query);
 
-            psmt.setInt(1, book.getId());
-            psmt.setInt(2, user.getId());
-            psmt.setInt(3, amount);
-            psmt.setDate(4, new java.sql.Date(System.currentTimeMillis()));
-            psmt.setDate(5, new java.sql.Date(System.currentTimeMillis()));
-            psmt.executeUpdate();
+            String quantity = "select available from book where id = ?";
+            psmt = c.prepareStatement(quantity);
+            psmt.setInt(1, bookLending.getBookId());
+            rs = psmt.executeQuery();
+
+            int available = 0;
+            if (rs.next()) {
+                available = rs.getInt("available");
+            }
+
+            int amount = bookLending.getAmount();
+            if (available == 0 || amount > available) {
+                System.out.println("Amount is greater than available");
+                return;
+            }
+            else {
+                String query = "INSERT INTO bookLending (bookId, userId, amount, startDate, dueDate) VALUES (?, ?, ?, ?, ?)";
+                psmt = c.prepareStatement(query);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+
+                psmt.setInt(1, bookLending.getBookId());
+                psmt.setInt(2, bookLending.getUserId());
+                psmt.setInt(3, bookLending.getAmount());
+                psmt.setString(4, sdf.format(bookLending.getStartDate()));
+                psmt.setString(5, sdf.format(bookLending.getDueDate()));
+                psmt.executeUpdate();
+
+                String updateBookDB = "update book set available = available - ? where id = ?";
+                psmt = c.prepareStatement(updateBookDB);
+                psmt.setInt(1, bookLending.getAmount());
+                psmt.setInt(2, bookLending.getBookId());
+                psmt.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

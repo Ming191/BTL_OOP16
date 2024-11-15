@@ -9,6 +9,8 @@ public class Book {
     private String language;
     private int available;
 
+    public Book() {
+    }
     public Book(String title, int available) {
         this.title = title;
         this.available = available;

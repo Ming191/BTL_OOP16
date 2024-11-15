@@ -1,12 +1,24 @@
 package org.library.btl_oop16_library.Controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.library.btl_oop16_library.Util.ApplicationAlert;
+import org.library.btl_oop16_library.Util.Transtition;
 
 public class MainMenuController {
 
@@ -17,7 +29,16 @@ public class MainMenuController {
     private URL location;
 
     @FXML
+    private BorderPane mainPane;
+
+    @FXML
+    private Button logOutButton;
+
+    @FXML
     private Button menuBook;
+
+    @FXML
+    private Button menuCatalog;
 
     @FXML
     private Button menuDashboard;
@@ -27,6 +48,48 @@ public class MainMenuController {
 
     @FXML
     private VBox menuVbox;
+
+
+    @FXML
+    void switchToBook(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/BookView.fxml"));
+        mainPane.setCenter(pane);
+    }
+
+    @FXML
+    void switchToCatalog(ActionEvent event) throws IOException  {
+        FXMLLoader loader = new FXMLLoader();
+        Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/CatalogView.fxml"));
+        mainPane.setCenter(pane);
+    }
+
+    @FXML
+    void switchToDashboard(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/CatalogView.fxml"));
+        mainPane.setCenter(pane);
+    }
+
+    @FXML
+    void switchToUser(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/UserView.fxml"));
+        mainPane.setCenter(pane);
+    }
+
+    @FXML
+    void logOut(ActionEvent event) throws IOException {
+        Optional<ButtonType> result = ApplicationAlert.areYouSureAboutThat();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Login.fxml"));
+            Scene loginScene = new Scene(loader.load());
+            Transtition.fadeTransition((Stage) logOutButton.getScene().getWindow(), logOutButton.getScene(), loginScene);
+        }
+
+        return;
+    }
 
     @FXML
     void handleMouseClick(MouseEvent event) {
@@ -44,7 +107,6 @@ public class MainMenuController {
         assert menuDashboard != null : "fx:id=\"menuDashboard\" was not injected: check your FXML file 'MainMenu.fxml'.";
         assert menuUser != null : "fx:id=\"menuUser\" was not injected: check your FXML file 'MainMenu.fxml'.";
         assert menuVbox != null : "fx:id=\"menuVbox\" was not injected: check your FXML file 'MainMenu.fxml'.";
-
     }
 
 

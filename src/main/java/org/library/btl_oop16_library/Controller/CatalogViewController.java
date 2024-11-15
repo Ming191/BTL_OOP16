@@ -2,15 +2,21 @@ package org.library.btl_oop16_library.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.BookLending;
 import org.library.btl_oop16_library.Util.DatabaseConnector;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,24 +51,21 @@ public class CatalogViewController {
     @FXML
     private Button lendBookButton;
 
-    @FXML
-    private Button logOut;
 
     @FXML
-    private Button menuBook;
+    void lendBookButtonOnClick(ActionEvent event) throws IOException {
+        Stage bookLendingStage = new Stage();
+        bookLendingStage.setResizable(false);
+        bookLendingStage.initModality(Modality.APPLICATION_MODAL);
+        bookLendingStage.setTitle("Lending Book");
+        System.out.println("Lending Book button clicked.");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/AddBookLendingDialog.fxml"));
+        Parent root = loader.load();
 
-    @FXML
-    private Button menuDashboard;
+        bookLendingStage.setScene(new Scene(root));
+        bookLendingStage.showAndWait();
 
-    @FXML
-    private Button menuUser;
-
-    @FXML
-    private VBox menuVbox;
-
-    @FXML
-    void lendBookButtonOnClick(ActionEvent event) {
-
+        refreshHistory();
     }
 
     @FXML
@@ -85,6 +88,7 @@ public class CatalogViewController {
     }
 
     private void refreshHistory() {
+        table.getItems().clear();
         history.clear();
         loadHistory();
     }

@@ -10,7 +10,6 @@ public class BookLending {
     private Date startDate;
     private Date dueDate;
     private String status;
-
     public BookLending(int id, int userId, int bookId, Date startDate, Date dueDate, int amount) {
         this.id = id;
         this.userId = userId;
