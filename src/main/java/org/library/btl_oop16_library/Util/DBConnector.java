@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public abstract class DBConnector {
+public abstract class DBConnector<T> {
     private static Connection conn;
 
     public static Connection getConnection() throws SQLException {
@@ -15,11 +15,11 @@ public abstract class DBConnector {
         return conn;
     }
 
-    public abstract List<Queryable> importFromDB() throws SQLException;
+    public abstract List<T> importFromDB() throws SQLException;
 
-    public abstract void exportToDB(List<Queryable> queryableList) throws SQLException;
+    public abstract void exportToDB(List<T> itemList) throws SQLException;
 
     public abstract void deleteFromDB(int id) throws SQLException;
 
-    public abstract void addToDB(Queryable item) throws SQLException;
+    public abstract void addToDB(T item) throws SQLException;
 }
