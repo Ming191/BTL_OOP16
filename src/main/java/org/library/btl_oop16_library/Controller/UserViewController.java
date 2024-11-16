@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
-import org.library.btl_oop16_library.Model.UserList;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
 import java.io.IOException;
