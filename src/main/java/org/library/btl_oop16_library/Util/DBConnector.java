@@ -25,7 +25,7 @@ public abstract class DBConnector<T> {
 
     public abstract T searchById(int id);
 
-    public abstract int countById(int id);
+    public int countById(int id) {return -1;};
 
-    public abstract int countByName(String name);
+    public int countByName(String name) {return -1;};
 }
