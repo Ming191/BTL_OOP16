@@ -94,4 +94,23 @@ public class AccountDBConnector {
             return null;
         }
     }
+
+    public static void updatePassword(String username, String newPassword) {
+        String updateQuery = "UPDATE account SET password = ? WHERE username = ?";
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(updateQuery)) {
+            stmt.setString(1, newPassword);
+            stmt.setString(2, username);
+
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Password updated successfully for: " + username);
+            } else {
+                System.out.println("Account not found: " + username);
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to update password: " + e.getMessage());
+            throw new RuntimeException("Failed to update password.", e);
+        }
+    }
 }
