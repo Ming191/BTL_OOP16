@@ -32,9 +32,9 @@ public class DeleteUserDialogController {
         String account = accountField.getText();
         String email = emailField.getText();
 
-        DatabaseConnector db = new DatabaseConnector();
+        //DatabaseConnector db = new DatabaseConnector();
         try {
-            db.deleteUser(new User(account, email));
+            //db.deleteUser(new User(account, email));
             Stage stage = (Stage) confirmButton.getScene().getWindow();
             stage.close();
         } catch (Exception e) {

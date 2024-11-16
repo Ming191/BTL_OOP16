@@ -38,9 +38,9 @@ public class DeleteBookDialogController {
             return;
         }
 
-        DatabaseConnector db = new DatabaseConnector();
+        //DatabaseConnector db = new DatabaseConnector();
         try {
-            db.deleteBook(new Book(title, quantity));
+            //db.deleteBook(new Book(title, quantity));
             Stage stage = (Stage) confirmButton.getScene().getWindow();
             stage.close();
         } catch (Exception e) {

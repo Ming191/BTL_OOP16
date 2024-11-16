@@ -39,38 +39,38 @@ public class AddBookLendingDialogController {
         stage.close();
     }
 
-    @FXML
-    void onConfirmButtonClick(ActionEvent event) {
-        int userID = Integer.parseInt(userIdField.getText());
-        int bookID = Integer.parseInt(bookIDField.getText());
-        int quantity = Integer.parseInt(quantityField.getText());
-        java.util.Date dueDate = null;
-        java.util.Date startDate = null;
-
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-             startDate = df.parse(startDateField.getText());
-             dueDate = df.parse(dueDateField.getText());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        java.sql.Date startDateSQL = new java.sql.Date(startDate.getTime());
-        java.sql.Date dueDateSQL = new java.sql.Date(dueDate.getTime());
-        BookLoans bookLending = new BookLoans(
-                userID, bookID,
-                startDateSQL,
-                dueDateSQL,
-                quantity);
-        try {
-            DatabaseConnector.addBookLendingToDB(bookLending);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        Stage stage = (Stage) confirmButton.getScene().getWindow();
-        stage.close();
-
-    }
+//    @FXML
+//    void onConfirmButtonClick(ActionEvent event) {
+//        int userID = Integer.parseInt(userIdField.getText());
+//        int bookID = Integer.parseInt(bookIDField.getText());
+//        int quantity = Integer.parseInt(quantityField.getText());
+//        java.util.Date dueDate = null;
+//        java.util.Date startDate = null;
+//
+//        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+//        try {
+//             startDate = df.parse(startDateField.getText());
+//             dueDate = df.parse(dueDateField.getText());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        java.sql.Date startDateSQL = new java.sql.Date(startDate.getTime());
+//        java.sql.Date dueDateSQL = new java.sql.Date(dueDate.getTime());
+//        BookLoans bookLending = new BookLoans(
+//                userID, bookID,
+//                startDateSQL,
+//                dueDateSQL,
+//                quantity);
+//        try {
+//            DatabaseConnector.addBookLendingToDB(bookLending);
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        Stage stage = (Stage) confirmButton.getScene().getWindow();
+//        stage.close();
+//
+//    }
 }

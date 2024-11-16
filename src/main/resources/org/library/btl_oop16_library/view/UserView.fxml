@@ -41,11 +41,11 @@
                                  </graphic>
                               </Button>
                            </children></HBox>
-                        <TableView fx:id="table" prefHeight="741.0" prefWidth="1045.0">
+                        <TableView fx:id="table" prefHeight="741.0" prefWidth="1071.0">
                            <columns>
                               <TableColumn fx:id="idCol" editable="false" prefWidth="65.0" reorderable="false" resizable="false" sortable="true" text="ID" />
                               <TableColumn fx:id="nameCol" editable="false" prefWidth="228.0" resizable="false" sortable="false" text="NAME" />
-                              <TableColumn fx:id="emaillCol" editable="false" prefWidth="167.0" resizable="false" sortable="false" text="EMAIL" />
+                              <TableColumn fx:id="emailCol" editable="false" prefWidth="167.0" resizable="false" sortable="false" text="EMAIL" />
                               <TableColumn fx:id="phoneCol" editable="false" prefWidth="161.0" resizable="false" sortable="false" text="PHONE" />
                               <TableColumn fx:id="addressCol" editable="false" prefWidth="124.5" resizable="false" sortable="false" text="ADDRESS" />
                               <TableColumn fx:id="actionCol" editable="false" prefWidth="313.5" resizable="false" text="ACTION" />

@@ -79,7 +79,7 @@ public class CatalogViewController {
     }
 
     private void loadHistory() {
-        history = DatabaseConnector.loadBookLendingFromDB();
+        //history = DatabaseConnector.loadBookLendingFromDB();
         table.getItems().addAll(history);
     }
 

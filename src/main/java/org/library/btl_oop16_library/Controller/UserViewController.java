@@ -23,7 +23,7 @@ public class UserViewController {
     UserList userList;
 
     @FXML
-    private TableColumn<?, ?> addressCol;
+    private TableColumn<User, String> addressCol;
 
     @FXML
     private TableColumn<?, ?> actionCol;
@@ -31,6 +31,7 @@ public class UserViewController {
 
     @FXML
     private TableColumn<User, String> emailCol;
+
 
     @FXML
     private TableColumn<User, Integer> idCol;
@@ -59,10 +60,12 @@ public class UserViewController {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         actionCol.setCellValueFactory(new PropertyValueFactory<>("action"));
 
-        userDB.importFromDB();
-        table.getItems().addAll(userList.getUsers());
+        userList.setUsers(userDB.importFromDB());
+        table.getItems().setAll(userList.getUsers());
     }
 
     @FXML
@@ -81,8 +84,8 @@ public class UserViewController {
             table.getItems().clear();
             userList.getUsers().clear();
 
-            userDB.importFromDB();
-            table.getItems().addAll(userList.getUsers());
+            userList.setUsers(userDB.importFromDB());
+            table.getItems().setAll(userList.getUsers());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -104,8 +107,8 @@ public class UserViewController {
             table.getItems().clear();
             userList.getUsers().clear();
 
-            userDB.importFromDB();
-            table.getItems().addAll(userList.getUsers());
+            userList.setUsers(userDB.importFromDB());
+            table.getItems().setAll(userList.getUsers());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,8 +131,8 @@ public class UserViewController {
             table.getItems().clear();
             userList.getUsers().clear();
 
-            userDB.importFromDB();
-            table.getItems().addAll(userList.getUsers());
+            userList.setUsers(userDB.importFromDB());
+            table.getItems().setAll(userList.getUsers());
         } catch (IOException e) {
             e.printStackTrace();
         }
