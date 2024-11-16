@@ -12,14 +12,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.library.btl_oop16_library.Util.DatabaseConnector;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Model.UserList;
+import org.library.btl_oop16_library.Util.UserDBConnector;
 
 import java.io.IOException;
 
 public class UserViewController {
-    DatabaseConnector userDB;
+    UserDBConnector userDB;
     UserList userList;
 
     @FXML
@@ -53,7 +53,7 @@ public class UserViewController {
 
     @FXML
     void initialize() {
-        userDB = new DatabaseConnector();
+        userDB = new UserDBConnector();
         userList = new UserList();
 
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -61,27 +61,27 @@ public class UserViewController {
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         actionCol.setCellValueFactory(new PropertyValueFactory<>("action"));
 
-        userDB.selectUsersFromDB(userList);
+        userDB.importFromDB();
         table.getItems().addAll(userList.getUsers());
     }
 
     @FXML
     void addUserButtonOnClick(ActionEvent event) throws IOException {
-        Stage adduserstage = new Stage();
-        adduserstage.setResizable(false);
-        adduserstage.initModality(Modality.APPLICATION_MODAL);
-        adduserstage.setTitle("Add User");
+        Stage addUserStage = new Stage();
+        addUserStage.setResizable(false);
+        addUserStage.initModality(Modality.APPLICATION_MODAL);
+        addUserStage.setTitle("Add User");
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/AddUserDialog.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            adduserstage.setScene(new Scene(root));
-            adduserstage.showAndWait();
+            addUserStage.setScene(new Scene(root));
+            addUserStage.showAndWait();
 
             table.getItems().clear();
             userList.getUsers().clear();
 
-            userDB.selectUsersFromDB(userList);
+            userDB.importFromDB();
             table.getItems().addAll(userList.getUsers());
         } catch (IOException e) {
             e.printStackTrace();
@@ -89,26 +89,51 @@ public class UserViewController {
     }
     @FXML
     void deleteUserButtonOnClick(ActionEvent event) throws IOException {
-        Stage deleteuserstage = new Stage();
-        deleteuserstage.setResizable(false);
-        deleteuserstage.initModality(Modality.APPLICATION_MODAL);
-        deleteuserstage.setTitle("Delete User");
+        Stage deleteUserStage = new Stage();
+        deleteUserStage.setResizable(false);
+        deleteUserStage.initModality(Modality.APPLICATION_MODAL);
+        deleteUserStage.setTitle("Delete User");
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DeleteUserDialog.fxml"));
 
         try {
             Parent root = fxmlLoader.load();
-            deleteuserstage.setScene(new Scene(root));
-            deleteuserstage.showAndWait();
+            deleteUserStage.setScene(new Scene(root));
+            deleteUserStage.showAndWait();
 
             table.getItems().clear();
             userList.getUsers().clear();
 
-            userDB.selectUsersFromDB(userList);
+            userDB.importFromDB();
             table.getItems().addAll(userList.getUsers());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void updateUserButtonOnClick(ActionEvent event) throws IOException {
+        Stage updateUserStage = new Stage();
+        updateUserStage.setResizable(false);
+        updateUserStage.initModality(Modality.APPLICATION_MODAL);
+        updateUserStage.setTitle("Update User");
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/UpdateUserDialog.fxml"));
+
+        try {
+            Parent root = fxmlLoader.load();
+            updateUserStage.setScene(new Scene(root));
+            updateUserStage.showAndWait();
+
+            table.getItems().clear();
+            userList.getUsers().clear();
+
+            userDB.importFromDB();
+            table.getItems().addAll(userList.getUsers());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

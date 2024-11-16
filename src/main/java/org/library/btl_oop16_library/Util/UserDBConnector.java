@@ -95,4 +95,91 @@ public class UserDBConnector  {
             throw new RuntimeException("Failed to delete user: " + e.getMessage());
         }
     }
+
+    public User searchById(int id) {
+        String query = "SELECT * FROM user WHERE id = ?";
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getString("address")
+                );
+            } else {
+                System.out.println("User with ID " + id + " not found.");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to search user by ID: " + e.getMessage());
+        }
+    }
+
+    public List<User> searchByName(String name) {
+        String query = "SELECT * FROM user WHERE name LIKE ?";
+        List<User> users = new ArrayList<>();
+
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, "%" + name + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                User user = new User(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getString("address")
+                );
+                users.add(user);
+            }
+
+            if (users.isEmpty()) {
+                System.out.println("No users found with name: " + name);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to search users by name: " + e.getMessage());
+        }
+
+        return users;
+    }
+
+    public boolean updateUser(User user) {
+        String updateQuery = "UPDATE user SET name = ?, email = ?, phone = ?, address = ? WHERE id = ?";
+
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(updateQuery)) {
+
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPhone());
+            stmt.setString(4, user.getAddress());
+            stmt.setInt(5, user.getId());
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("User updated successfully: " + user.getName());
+                return true;
+            } else {
+                System.out.println("No user found with ID: " + user.getId());
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to update user: " + e.getMessage());
+        }
+    }
 }
+
+

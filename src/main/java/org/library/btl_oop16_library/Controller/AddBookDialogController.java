@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
-import org.library.btl_oop16_library.Util.DatabaseConnector;
 
 public class AddBookDialogController {
 

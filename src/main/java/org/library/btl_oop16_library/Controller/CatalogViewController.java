@@ -12,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.BookLoans;
-import org.library.btl_oop16_library.Util.DatabaseConnector;
 
 import java.io.IOException;
 import java.sql.Date;

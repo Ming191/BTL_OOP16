@@ -11,12 +11,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.BookList;
-import org.library.btl_oop16_library.Util.DatabaseConnector;
 
 public class BookViewController {
     private BookList bookList;

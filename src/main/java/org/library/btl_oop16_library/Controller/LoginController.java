@@ -12,9 +12,7 @@ import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Account;
 import org.library.btl_oop16_library.Util.AccountDBConnector;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
-import org.library.btl_oop16_library.Util.DatabaseConnector;
 import org.library.btl_oop16_library.Util.Transtition;
-import org.library.btl_oop16_library.Model.User;
 
 import java.io.IOException;
 

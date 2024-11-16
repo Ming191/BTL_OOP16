@@ -6,8 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.library.btl_oop16_library.Util.DatabaseConnector;
+import org.library.btl_oop16_library.Model.Account;
+import org.library.btl_oop16_library.Util.AccountDBConnector;
 import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Util.UserDBConnector;
 
 public class AddUserDialogController {
     @FXML
@@ -44,12 +46,15 @@ public class AddUserDialogController {
     void onConfirmButtonClick(ActionEvent event) {
 
         String name = nameField.getText();
-        String account = accountField.getText();
+        String userName = usernameField.getText();
         String password = passwordField.getText();
         String email = emailField.getText();
+        String phone = phoneField.getText();
+        String address = addressField.getText();
 
-        DatabaseConnector db = new DatabaseConnector();
-        //db.addUserFromDB(new User(name, account, password, email));
+        UserDBConnector.addToDB(new User(name, email, phone, address));
+        AccountDBConnector.addToDB(new Account(userName, password));
+
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }

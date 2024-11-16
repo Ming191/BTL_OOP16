@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.library.btl_oop16_library.Util.DatabaseConnector;
 import org.library.btl_oop16_library.Model.User;
 
 public class DeleteUserDialogController {
