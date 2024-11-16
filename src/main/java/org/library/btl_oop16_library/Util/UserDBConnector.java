@@ -245,7 +245,7 @@ public class UserDBConnector extends DBConnector<User> {
     }
 
     public static boolean isAlreadyExist(String userName) {
-        String query = "SELECT 1 FROM account WHERE username = ? LIMIT 1";
+        String query = "SELECT 1 FROM user WHERE username = ? LIMIT 1";
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
