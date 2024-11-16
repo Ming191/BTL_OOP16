@@ -10,9 +10,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.library.btl_oop16_library.Util.ApplicationAlert;
-import org.library.btl_oop16_library.Util.DatabaseConnector;
-import org.library.btl_oop16_library.Util.Transtition;
+import org.library.btl_oop16_library.Model.Account;
+import org.library.btl_oop16_library.Util.*;
 import org.library.btl_oop16_library.Model.User;
 
 import java.io.IOException;
@@ -51,12 +50,13 @@ public class SignUpController {
 
     @FXML
     public void signUpOnClick(ActionEvent actionEvent) {
-        if(nameField.getText().isEmpty() || accountField.getText().isEmpty() || emailField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+        if(nameField.getText().isEmpty() || usernameField.getText().isEmpty() || emailField.getText().isEmpty() ||
+                passwordField.getText().isEmpty() || phoneField.getText().isEmpty() || addressField.getText().isEmpty()) {
             ApplicationAlert.missingInformation();
             return;
         }
 
-        if (DatabaseConnector.isUserExist(accountField.getText())) {
+        if (AccountDBConnector.isAccountExist(usernameField.getText())) {
             ApplicationAlert.userAlreadyExists();
             return;
         }
@@ -64,8 +64,10 @@ public class SignUpController {
         Optional<ButtonType> result = ApplicationAlert.areYouSureAboutThat();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            User newUser = new User(nameField.getText(), accountField.getText(), passwordField.getText(), emailField.getText());
-            if(DatabaseConnector.addUserFromDB(newUser)) ApplicationAlert.signUpSuccess();
+            //User newUser = new User(nameField.getText(), accountField.getText(), passwordField.getText(), emailField.getText());
+            User newUser = new User(nameField.getText(), emailField.getText(), phoneField.getText(), addressField.getText());
+            Account newAccount = new Account(usernameField.getText(), passwordField.getText());
+            if(UserDBConnector.addToDB(newUser) && AccountDBConnector.addToDB(newAccount)) ApplicationAlert.signUpSuccess();
             else return;
         } else {
             System.out.println("User cancelled the sign-up process.");
