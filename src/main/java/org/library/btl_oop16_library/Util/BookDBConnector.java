@@ -68,7 +68,7 @@ public class BookDBConnector extends DBConnector<Book> {
     @Override
     public void addToDB(Book item) throws SQLException {
         String checkQuery = "SELECT id FROM " + TABLE_NAME + " WHERE title = ?";
-        String updateQuery = "UPDATE " + TABLE_NAME + " SET quantity = quantity + 1 WHERE id = ?";
+        String updateQuery = "UPDATE " + TABLE_NAME + " SET quantity = quantity + ? WHERE id = ?";
         String insertQuery = "INSERT INTO " + TABLE_NAME + " (title, author, type, language, quantity) VALUES (?, ?, ?, ?, ?    )";
 
         try (Connection conn = getConnection();
@@ -79,7 +79,8 @@ public class BookDBConnector extends DBConnector<Book> {
 
             if (rs.next()) {
                 try (PreparedStatement psUpdate = conn.prepareStatement(updateQuery)) {
-                    psUpdate.setInt(1, rs.getInt("id"));
+                    psUpdate.setInt(1, item.getAvailable());
+                    psUpdate.setInt(2, rs.getInt("id"));
                     psUpdate.executeUpdate();
                 } catch (SQLException e) {
                     throw new SQLException("Error while updating book in DB");
