@@ -3,7 +3,6 @@ package org.library.btl_oop16_library.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
@@ -52,7 +51,7 @@ public class UpdateUserDialogController {
             String email = emailField.getText();
 
             existingUser.setName(name);
-            existingUser.setPhone(phone);
+            existingUser.setPhoneNumber(phone);
             existingUser.setAddress(address);
             existingUser.setEmail(email);
 

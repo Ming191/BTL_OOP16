@@ -5,24 +5,30 @@ public class User {
     private int id;
     private String name;
     private String email;
-    private String phone;
+    private String phoneNumber;
     private String address;
+    private String userName;
+    private String password;
 
     public User() {}
 
-    public User(int id, String name, String email, String phone, String address) {
+    public User(int id, String name, String email, String phone, String address, String userName, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.phone = phone;
+        this.phoneNumber = phone;
         this.address = address;
+        this.userName = userName;
+        this.password = password;
     }
 
-    public User(String name, String email, String phone, String address) {
+    public User(String name, String email, String phone, String address, String userName, String password) {
         this.name = name;
         this.email = email;
-        this.phone = phone;
+        this.phoneNumber = phone;
         this.address = address;
+        this.userName = userName;
+        this.password = password;
     }
 
 
@@ -50,12 +56,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAddress() {
@@ -64,5 +70,21 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

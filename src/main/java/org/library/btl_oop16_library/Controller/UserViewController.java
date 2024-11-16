@@ -56,7 +56,7 @@ public class UserViewController {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
 
         table.getItems().setAll(userDB.importFromDB());

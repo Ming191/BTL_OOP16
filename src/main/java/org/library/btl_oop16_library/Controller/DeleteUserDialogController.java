@@ -6,11 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Util.UserDBConnector;
 
 public class DeleteUserDialogController {
 
     @FXML
-    private TextField accountField;
+    private TextField idField;
 
     @FXML
     private Button cancelButton;
@@ -18,8 +19,6 @@ public class DeleteUserDialogController {
     @FXML
     private Button confirmButton;
 
-    @FXML
-    private TextField emailField;
 
     @FXML
     void onCancelButtonClick(ActionEvent event) {
@@ -29,14 +28,15 @@ public class DeleteUserDialogController {
 
     @FXML
     void onConfirmButtonClick(ActionEvent event) {
-        String account = accountField.getText();
-        String email = emailField.getText();
-
-        //DatabaseConnector db = new DatabaseConnector();
         try {
-            //db.deleteUser(new User(account, email));
+            int id = Integer.parseInt(idField.getText());
+
+            UserDBConnector.getInstance().deleteFromDB(id);
             Stage stage = (Stage) confirmButton.getScene().getWindow();
             stage.close();
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid ID format.");
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

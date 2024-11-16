@@ -10,7 +10,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.library.btl_oop16_library.Model.Account;
 import org.library.btl_oop16_library.Util.*;
 import org.library.btl_oop16_library.Model.User;
 
@@ -57,7 +56,7 @@ public class SignUpController {
             return;
         }
 
-        if (AccountDBConnector.isAccountExist(usernameField.getText())) {
+        if (UserDBConnector.isAlreadyExist(usernameField.getText())) {
             ApplicationAlert.userAlreadyExists();
             return;
         }
@@ -65,9 +64,8 @@ public class SignUpController {
         Optional<ButtonType> result = ApplicationAlert.areYouSureAboutThat();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            User newUser = new User(nameField.getText(), emailField.getText(), phoneField.getText(), addressField.getText());
-            Account newAccount = new Account(usernameField.getText(), passwordField.getText(), false);
-            UserDBConnector.getInstance().addUserAndAccount(newUser, newAccount);
+            User newUser = new User(nameField.getText(), emailField.getText(), phoneField.getText(), addressField.getText(), usernameField.getText(), passwordField.getText());
+            UserDBConnector.getInstance().addToDB(newUser);
             return;
         } else {
             System.out.println("User cancelled the sign-up process.");

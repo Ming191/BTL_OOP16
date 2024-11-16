@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.library.btl_oop16_library.Model.Account;
-import org.library.btl_oop16_library.Util.AccountDBConnector;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
@@ -19,7 +17,7 @@ public class AddUserDialogController {
     private TextField addressField;
 
     @FXML
-    private TextField phoneField;
+    private TextField phoneNumberField;
 
     @FXML
     private Button cancelButton;
@@ -49,11 +47,11 @@ public class AddUserDialogController {
         String userName = usernameField.getText();
         String password = passwordField.getText();
         String email = emailField.getText();
-        String phone = phoneField.getText();
+        String phoneNumber = phoneNumberField.getText();
         String address = addressField.getText();
 
         UserDBConnector userDBConnector = UserDBConnector.getInstance();
-        userDBConnector.addUserAndAccount(new User(name,email,phone,address), new Account(userName,password,false));
+        userDBConnector.addToDB(new User(name, email, phoneNumber, address, userName, password));
 
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();

@@ -6,19 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="242.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.DeleteUserDialogController">
+<AnchorPane prefHeight="175.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.DeleteUserDialogController">
     <opaqueInsets>
         <Insets top="10.0" />
     </opaqueInsets>
     <children>
-        <VBox layoutY="43.0" prefHeight="106.0" prefWidth="454.0">
+        <VBox layoutY="43.0" prefHeight="58.0" prefWidth="454.0">
             <children>
-                <TextField fx:id="accountField" maxWidth="385.0" prefHeight="25.0" promptText="Account">
-                    <VBox.margin>
-                        <Insets left="30.0" right="30.0" top="15.0" />
-                    </VBox.margin>
-                </TextField>
-                <TextField fx:id="emailField" layoutX="10.0" layoutY="36.0" maxWidth="385.0" prefHeight="25.0" promptText="Email">
+                <TextField fx:id="idField" maxWidth="385.0" prefHeight="25.0" promptText="ID to delete">
                     <VBox.margin>
                         <Insets left="30.0" right="30.0" top="15.0" />
                     </VBox.margin>
@@ -26,6 +21,6 @@
             </children>
         </VBox>
         <Button fx:id="cancelButton" layoutX="249.0" layoutY="155.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="34.0" prefWidth="110.0" text="Cancel" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="155.0" />
-        <Button fx:id="confirmButton" layoutX="87.0" layoutY="155.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="34.0" prefWidth="110.0" text="Confirm " />
+        <Button fx:id="confirmButton" layoutX="87.0" layoutY="151.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="34.0" prefWidth="110.0" text="Confirm " />
     </children>
 </AnchorPane>

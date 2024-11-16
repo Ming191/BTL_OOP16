@@ -1,6 +1,5 @@
 package org.library.btl_oop16_library.Util;
 
-import org.library.btl_oop16_library.Model.Account;
 import org.library.btl_oop16_library.Model.User;
 
 import java.sql.*;
@@ -34,10 +33,12 @@ public class UserDBConnector extends DBConnector<User> {
             while (rs.next()) {
                 User user = new User(
                         rs.getInt("id"),
-                        rs.getString("fullName"),
+                        rs.getString("name"),
                         rs.getString("email"),
                         rs.getString("phoneNumber"),
-                        rs.getString("address")
+                        rs.getString("address"),
+                        rs.getString("userName"),
+                        rs.getString("password")
                 );
                 users.add(user);
             }
@@ -50,70 +51,74 @@ public class UserDBConnector extends DBConnector<User> {
         return users;
     }
 
-    public void addToDB(User user) throws SQLException {
+    public void addToDB(User user) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         Pattern pattern = Pattern.compile(emailRegex);
 
         if (!pattern.matcher(user.getEmail()).matches()) {
-            System.out.println("Invalid email format: " + user.getEmail());
-            return;
+            throw new IllegalArgumentException("Invalid email format: " + user.getEmail());
         }
 
         String countQuery = "SELECT COUNT(*) FROM user WHERE email = ?";
-        String insertQuery = "INSERT INTO user (fullName, email, phoneNumber, address) VALUES (?, ?, ?, ?)";
-        String insertAccountQuery =  "INSERT INTO account (id, username, password, isAdmin) VALUES (?, ?, ?, 0)";
-
+        String insertQuery = "INSERT INTO user (name, email, phoneNumber, address, username, password) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement countStmt = connection.prepareStatement(countQuery);
-             PreparedStatement insertStmt = connection.prepareStatement(insertQuery);
-            PreparedStatement insertAccountStmt = connection.prepareStatement(insertAccountQuery)) {
+             PreparedStatement insertStmt = connection.prepareStatement(insertQuery)) {
 
             countStmt.setString(1, user.getEmail());
             ResultSet rs = countStmt.executeQuery();
             if (rs.next() && rs.getInt(1) > 0) {
-                System.out.println("User with email '" + user.getEmail() + "' already exists.");
-                return;
+                throw new RuntimeException("User with email '" + user.getEmail() + "' already exists.");
             }
 
             insertStmt.setString(1, user.getName());
             insertStmt.setString(2, user.getEmail());
-            insertStmt.setString(3, user.getPhone());
+            insertStmt.setString(3, user.getPhoneNumber());
             insertStmt.setString(4, user.getAddress());
+            insertStmt.setString(5, user.getUserName());
+            insertStmt.setString(6, user.getPassword());
             insertStmt.executeUpdate();
 
-            ResultSet generatedKeys = insertStmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                user.setId(generatedKeys.getInt(1));
-            }
-
             System.out.println("User added successfully: " + user.getName());
-            return ;
         } catch (SQLException e) {
-            System.err.println("Database operation failed: " + e.getMessage());
-            return;
+            e.printStackTrace();
+            throw new RuntimeException("Database operation failed: " + e.getMessage());
         }
     }
 
+
     public void deleteFromDB(int id) {
-        String deleteQuery = "DELETE FROM user WHERE id = ?";
-        try (Connection connection = DBConnector.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(deleteQuery)) {
+        String deleteLoansQuery = "DELETE FROM bookLoans WHERE userId = ?";
+        String deleteUserQuery = "DELETE FROM user WHERE id = ?";
 
-            stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-
-            if (rowsAffected > 0) {
-                System.out.println("User deleted successfully.");
-            } else {
-                System.out.println("User not found.");
-                throw new RuntimeException("User with ID '" + id + "' does not exist.");
+        try (Connection connection = DBConnector.getConnection()) {
+            try (PreparedStatement stmt = connection.prepareStatement(deleteLoansQuery)) {
+                stmt.setInt(1, id);
+                int loansDeleted = stmt.executeUpdate();
+                if (loansDeleted > 0) {
+                    System.out.println(loansDeleted + " book loan(s) deleted.");
+                }
             }
+
+            try (PreparedStatement stmt = connection.prepareStatement(deleteUserQuery)) {
+                stmt.setInt(1, id);
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    System.out.println("User deleted successfully.");
+                } else {
+                    System.out.println("User not found.");
+                    throw new RuntimeException("User with ID '" + id + "' does not exist.");
+                }
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to delete user: " + e.getMessage());
         }
     }
+
 
     public User searchById(int id) {
         String query = "SELECT * FROM user WHERE id = ?";
@@ -128,8 +133,10 @@ public class UserDBConnector extends DBConnector<User> {
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("email"),
-                        rs.getString("phone"),
-                        rs.getString("address")
+                        rs.getString("phoneNumber"),
+                        rs.getString("address"),
+                        rs.getString("userName"),
+                        rs.getString("password")
                 );
             } else {
                 System.out.println("User with ID " + id + " not found.");
@@ -142,7 +149,7 @@ public class UserDBConnector extends DBConnector<User> {
     }
 
     public List<User> searchByName(String name) {
-        String query = "SELECT * FROM user WHERE user.fullName LIKE ?";
+        String query = "SELECT * FROM user WHERE user.name LIKE ?";
         List<User> users = new ArrayList<>();
 
         try (Connection connection = DBConnector.getConnection();
@@ -155,8 +162,10 @@ public class UserDBConnector extends DBConnector<User> {
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("email"),
-                        rs.getString("phone"),
-                        rs.getString("address")
+                        rs.getString("phoneNumber"),
+                        rs.getString("address"),
+                        rs.getString("userName"),
+                        rs.getString("password")
                 );
                 users.add(user);
             }
@@ -173,17 +182,52 @@ public class UserDBConnector extends DBConnector<User> {
         return users;
     }
 
+    public User getUser(String userName, String password) {
+        String query = "SELECT * FROM user WHERE username = ? AND password = ?";
+
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, userName);
+            stmt.setString(2, password);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                user.setAddress(rs.getString("address"));
+                user.setUserName(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+
+                return user;
+            } else {
+                System.out.println("Invalid username or password.");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Login failed: " + e.getMessage());
+        }
+    }
+
+
     public boolean updateUser(User user) {
-        String updateQuery = "UPDATE user SET fullName = ?, email = ?, phoneNumber = ?, address = ? WHERE id = ?";
+        String updateQuery = "UPDATE user SET fullName = ?, email = ?, phoneNumber = ?, address = ?, username = ?, password = ? WHERE id = ?";
 
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement stmt = connection.prepareStatement(updateQuery)) {
 
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPhone());
+            stmt.setString(3, user.getPhoneNumber());
             stmt.setString(4, user.getAddress());
-            stmt.setInt(5, user.getId());
+            stmt.setString(5, user.getUserName());
+            stmt.setString(6, user.getPassword());
+            stmt.setInt(7, user.getId());
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -200,37 +244,22 @@ public class UserDBConnector extends DBConnector<User> {
         }
     }
 
-    public void addUserAndAccount(User user, Account account) {
-        String userInsertQuery = "INSERT INTO user (fullName, email, phoneNumber, address) VALUES (?, ?, ?, ?)";
-        String accountInsertQuery = "INSERT INTO account (id, username, password, isAdmin) VALUES (?, ?, ?, ?)";
+    public static boolean isAlreadyExist(String userName) {
+        String query = "SELECT 1 FROM account WHERE username = ? LIMIT 1";
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
 
-        try (Connection conn = DBConnector.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement(userInsertQuery);
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPhone());
-            stmt.setString(4, user.getAddress());
-            stmt.executeUpdate();
-
-            ResultSet rs = stmt.getGeneratedKeys();
-
-            if (rs.next()) {
-                int id = rs.getInt(1);
-                try (PreparedStatement accountStmt = conn.prepareStatement(accountInsertQuery)) {
-                    accountStmt.setInt(1, id);
-                    accountStmt.setString(2, account.getUserName());
-                    accountStmt.setString(3, account.getPassword());
-                    accountStmt.setBoolean(4, account.isAdmin());
-                    accountStmt.executeUpdate();
-                }
+            stmt.setString(1, userName);
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                return resultSet.next();
             }
-            System.out.println("User added successfully: " + user.getName());
-            ApplicationAlert.signUpSuccess();
-            return ;
         } catch (SQLException e) {
-            System.err.println("Database operation failed: " + e.getMessage());
+            System.err.println("Failed to check account existence: " + e.getMessage());
+            throw new RuntimeException("Failed to check account existence.", e);
         }
     }
+
+
 }
 
 
