@@ -10,6 +10,7 @@ public class Book {
     private int available;
 
     public Book() {
+
     }
     public Book(String title, int available) {
         this.title = title;

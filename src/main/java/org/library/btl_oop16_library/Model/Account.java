@@ -5,7 +5,13 @@ public class Account {
     private String password;
     private boolean isAdmin = false;
 
-    Account(String userName, String password) {
+    public Account(String userName, String password, Boolean isAdmin) {
+        this.userName = userName;
+        this.password = password;
+        this.isAdmin = isAdmin;
+    }
+
+    public Account(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
@@ -33,4 +39,5 @@ public class Account {
     public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
+
 }

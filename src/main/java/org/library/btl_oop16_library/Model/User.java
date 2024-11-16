@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library.Model;
 
+
 public class User {
     private int id;
     private String name;
@@ -11,6 +12,13 @@ public class User {
 
     public User(int id, String name, String email, String phone, String address) {
         this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public User(String name, String email, String phone, String address) {
         this.name = name;
         this.email = email;
         this.phone = phone;

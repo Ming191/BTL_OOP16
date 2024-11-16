@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.library.btl_oop16_library.Model.Account;
+import org.library.btl_oop16_library.Util.AccountDBConnector;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.DatabaseConnector;
 import org.library.btl_oop16_library.Util.Transtition;
@@ -39,13 +41,13 @@ public class LoginController {
     @FXML
     public void signInOnClick(ActionEvent event) throws IOException {
 
-        if (accountField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
             ApplicationAlert.emptyAccountOrPassword();
             return;
         } else {
-            User user = DatabaseConnector.getUser(accountField.getText(), passwordField.getText());
+            Account account = AccountDBConnector.getAccount(usernameField.getText(), passwordField.getText());
 
-            if(user != null) {
+            if(account != null) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/MainMenu.fxml"));
                 Scene mainMenuScene = new Scene(loader.load());
                 Stage stage = (Stage) signInButton.getScene().getWindow();
