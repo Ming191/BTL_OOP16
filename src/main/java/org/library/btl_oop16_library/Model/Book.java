@@ -4,26 +4,35 @@ public class Book {
 
     private int id;
     private String title;
-    private int authorId;
+    private String author;
     private String type;
     private String language;
-    private int quantity;
+    private int available;
 
     public Book() {
     }
 
-    public Book(String title, int authorId, String type, String language) {
+    public Book(String title, String author, String type, String language, int available) {
         this.id = -1;
         this.title = title;
-        this.authorId = authorId;
+        this.author = author;
         this.type = type;
         this.language = language;
+        this.available = available;
     }
 
-    public Book(int id, String title, int authorId, String type, String language, int quantity) {
+    public Book(int id, String title, String author, String type, String language , int available) {
         this.id = id;
         this.title = title;
-        this.authorId = authorId;
+        this.author = author;
+        this.type = type;
+        this.language = language;
+        this.available = available;
+    }
+
+    public Book(String title, String author, String type, String language) {
+        this.title = title;
+        this.author = author;
         this.type = type;
         this.language = language;
     }
@@ -36,8 +45,8 @@ public class Book {
         this.id = id;
     }
 
-    public int getAuthorId() {
-        return authorId;
+    public String getAuthor() {
+        return author;
     }
 
 
@@ -53,8 +62,8 @@ public class Book {
         return language;
     }
 
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public void setType(String type) {
@@ -69,11 +78,11 @@ public class Book {
         this.language = language;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getAvailable() {
+        return available;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setAvailable(int available) {
+        this.available = available;
     }
 }

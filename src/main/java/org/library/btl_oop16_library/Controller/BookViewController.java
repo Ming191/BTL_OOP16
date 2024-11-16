@@ -1,6 +1,7 @@
 package org.library.btl_oop16_library.Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +15,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
-import org.library.btl_oop16_library.Model.BookList;
+import org.library.btl_oop16_library.Util.BookDBConnector;
 
 public class BookViewController {
-    private BookList bookList;
+    private static final BookDBConnector db = BookDBConnector.getInstance();
 
     @FXML
     private TableColumn<Book, String> authorCol;
@@ -53,7 +54,7 @@ public class BookViewController {
     }
 
     @FXML
-    void addBookButtonOnClick() throws IOException {
+    void addBookButtonOnClick() throws IOException, SQLException {
         Stage addBookStage = new Stage();
         addBookStage.setResizable(false);
         addBookStage.initModality(Modality.APPLICATION_MODAL);
@@ -69,7 +70,7 @@ public class BookViewController {
     }
 
     @FXML
-    void initialize() {
+    void initialize() throws SQLException {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -80,23 +81,16 @@ public class BookViewController {
         loadBook();
     }
 
-    void refresh() {
-        table.getItems().clear();
-        bookList.getBooks().clear();
-
-        DatabaseConnector.selectFromDB(bookList);
-        table.getItems().addAll(bookList.getBooks());
+    void refresh() throws SQLException {
+        table.getItems().setAll(db.importFromDB());
     }
 
-    void loadBook() {
-        bookList = new BookList();
-
-        DatabaseConnector.selectFromDB(bookList);
-        table.getItems().addAll(bookList.getBooks());
+    void loadBook() throws SQLException {
+        table.getItems().addAll(db.importFromDB());
     }
 
     @FXML
-    void deleteBookButtonOnClick () throws IOException {
+    void deleteBookButtonOnClick () throws IOException, SQLException {
 
         Stage deleteBookStage = new Stage();
         deleteBookStage.setResizable(false);

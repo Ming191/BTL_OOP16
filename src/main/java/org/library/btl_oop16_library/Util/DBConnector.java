@@ -3,6 +3,7 @@ package org.library.btl_oop16_library.Util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 public abstract class DBConnector<T> {
@@ -11,6 +12,9 @@ public abstract class DBConnector<T> {
     public static Connection getConnection() throws SQLException {
         if (conn == null || conn.isClosed()) {
             conn = DriverManager.getConnection("jdbc:sqlite:my.db");
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute("PRAGMA foreign_keys=ON");
+            }
         }
         return conn;
     }
@@ -24,8 +28,4 @@ public abstract class DBConnector<T> {
     public abstract T searchByName(String name);
 
     public abstract T searchById(int id);
-
-    public int countById(int id) {return -1;};
-
-    public int countByName(String name) {return -1;};
 }

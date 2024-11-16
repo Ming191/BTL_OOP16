@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
+import org.library.btl_oop16_library.Util.BookDBConnector;
+
+import java.sql.SQLException;
 
 public class AddBookDialogController {
 
@@ -37,9 +40,9 @@ public class AddBookDialogController {
     }
 
     @FXML
-    void onConfirmButtonClick(ActionEvent event) {
+    void onConfirmButtonClick(ActionEvent event) throws SQLException {
         String title = titleField.getText();
-        String author = authorField.getText();
+        String authorId =authorField.getText();
         String language = languageField.getText();
         String type = typeField.getText();
         int quantity;
@@ -51,8 +54,11 @@ public class AddBookDialogController {
             return;
         }
 
-        DatabaseConnector db = new DatabaseConnector();
-        db.addBook(new Book(title, author, language, type, quantity));
+        BookDBConnector db = BookDBConnector.getInstance();
+        while (quantity > 0) {
+            db.addToDB(new Book(title, authorId, type, language));
+            quantity--;
+        }
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }
