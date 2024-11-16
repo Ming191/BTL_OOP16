@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
+import org.library.btl_oop16_library.Util.BookDBConnector;
 
 public class DeleteBookDialogController {
 
@@ -38,9 +39,9 @@ public class DeleteBookDialogController {
             return;
         }
 
-        //DatabaseConnector db = new DatabaseConnector();
         try {
-            //db.deleteBook(new Book(title, quantity));
+            BookDBConnector db = BookDBConnector.getInstance();
+            db.deleteFromDB(db.getIdByTitle(title));
             Stage stage = (Stage) confirmButton.getScene().getWindow();
             stage.close();
         } catch (Exception e) {

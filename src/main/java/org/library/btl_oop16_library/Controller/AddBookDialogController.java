@@ -55,10 +55,7 @@ public class AddBookDialogController {
         }
 
         BookDBConnector db = BookDBConnector.getInstance();
-        while (quantity > 0) {
-            db.addToDB(new Book(title, authorId, type, language));
-            quantity--;
-        }
+        db.addToDB(new Book(title, authorId, language, type, quantity));
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }

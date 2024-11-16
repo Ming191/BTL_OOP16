@@ -11,12 +11,9 @@ import java.util.List;
 
 public class BookDBConnector extends DBConnector<Book> {
     private static final String TABLE_NAME = "book";
-    private static final String COPIES_TABLE_NAME = "copies";
-    private static final String AUTHOR_TABLE_NAME = "author";
 
     private static BookDBConnector instance;
     private static final Object lock = new Object();
-
     private BookDBConnector() {}
 
     public static BookDBConnector getInstance() {
@@ -43,10 +40,10 @@ public class BookDBConnector extends DBConnector<Book> {
                 Book book = new Book(
                         id,
                         rs.getString("title"),
-                        getAuthorNameById(rs.getInt("authorId"),conn,ps),
+                        rs.getString("author"),
                         rs.getString("type"),
                         rs.getString("language"),
-                        countAvailable(id, conn, ps)
+                        rs.getInt("quantity")
                 );
                 books.add(book);
             }
@@ -71,6 +68,9 @@ public class BookDBConnector extends DBConnector<Book> {
     @Override
     public void addToDB(Book item) throws SQLException {
         String checkQuery = "SELECT id FROM " + TABLE_NAME + " WHERE title = ?";
+        String updateQuery = "UPDATE " + TABLE_NAME + " SET quantity = quantity + 1 WHERE id = ?";
+        String insertQuery = "INSERT INTO " + TABLE_NAME + " (title, author, type, language, quantity) VALUES (?, ?, ?, ?, ?    )";
+
         try (Connection conn = getConnection();
              PreparedStatement psCheck = conn.prepareStatement(checkQuery)) {
 
@@ -78,14 +78,23 @@ public class BookDBConnector extends DBConnector<Book> {
              ResultSet rs = psCheck.executeQuery();
 
             if (rs.next()) {
-                int bookId = rs.getInt("id");
-                addCopyToDB(bookId, conn);
-            } else {
-                if(getAuthorIdByName(item.getAuthor(), conn) == -1) {
-                    addAuthorToDB(item.getAuthor(), conn);
+                try (PreparedStatement psUpdate = conn.prepareStatement(updateQuery)) {
+                    psUpdate.setInt(1, rs.getInt("id"));
+                    psUpdate.executeUpdate();
+                } catch (SQLException e) {
+                    throw new SQLException("Error while updating book in DB");
                 }
-                addBookToDB(item, conn);
-                addCopyToDB(item.getId(), conn);
+            } else {
+                try (PreparedStatement psInsert = conn.prepareStatement(insertQuery)) {
+                    psInsert.setString(1, item.getTitle());
+                    psInsert.setString(2, item.getAuthor());
+                    psInsert.setString(3, item.getType());
+                    psInsert.setString(4, item.getLanguage());
+                    psInsert.setInt(5, item.getAvailable());
+                    psInsert.executeUpdate();
+                } catch (SQLException e) {
+                    throw new SQLException("Error while inserting book in DB");
+                }
             }
         } catch (SQLException e) {
             throw new SQLException("Error while adding book or copy to DB", e);
@@ -131,10 +140,10 @@ public class BookDBConnector extends DBConnector<Book> {
                     book = new Book(
                             rs.getInt("id"),
                             rs.getString("title"),
-                            getAuthorNameById(rs.getInt("authorId"), conn, ps),
+                            rs.getString("author"),
                             rs.getString("type"),
                             rs.getString("language"),
-                            countAvailable(id, conn, ps)
+                            rs.getInt("quantity")
                     );
                 }
             }
@@ -144,110 +153,18 @@ public class BookDBConnector extends DBConnector<Book> {
         return book;
     }
 
-    public int countById(int id, Connection conn) throws SQLException {
-        String query = "SELECT COUNT(*) FROM " + COPIES_TABLE_NAME + " WHERE bookId = ?";
-        int count = 0;
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    count = rs.getInt(1);
-                }
-            }
-        }
-        return count;
-    }
-
-    public String getAuthorNameById(int authorId, Connection conn, PreparedStatement ps) throws SQLException {
-        String query = "SELECT authorName FROM " + AUTHOR_TABLE_NAME + " WHERE id = ?";
-        ps = conn.prepareStatement(query);
-        ps.setInt(1, authorId);
-        try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                return rs.getString(1);
-            }
-        }
-        return "UNKNOWN";
-    }
-
-    public int getAuthorIdByName(String authorName, Connection conn) throws SQLException {
-        String query = "SELECT id FROM " + AUTHOR_TABLE_NAME + " WHERE authorName = ?";
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, authorName);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1);
-                }
-            }
-        }
-        return -1;
-    }
-
-    public int countAvailable(int id , Connection conn, PreparedStatement ps) throws SQLException {
-        String query = "SELECT COUNT(*) FROM " + COPIES_TABLE_NAME + " WHERE bookId = ? AND status = 'available'";
-        int count = 0;
-        ps = conn.prepareStatement(query);
-        ps.setInt(1, id);
-
-        try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                count = rs.getInt(1);
-            }
-        }
-        return count;
-    }
-
-    public void addCopyToDB(int bookId, Connection conn) throws SQLException {
-        String query = "INSERT INTO " + COPIES_TABLE_NAME + " (bookId, status) VALUES (?, ?)";
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, bookId);
-            ps.setString(2, "available");
-            ps.executeUpdate();
-        }
-    }
-
-    public void addBookToDB(Book item, Connection conn) throws SQLException {
-        String query = "INSERT INTO " + TABLE_NAME + " (title, authorId, type, language) VALUES (?, ?, ?, ?)";
-
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, item.getTitle());
-            ps.setInt(2,getAuthorIdByName(item.getAuthor(), conn));
-            ps.setString(3, item.getType());
-            ps.setString(4, item.getLanguage());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new SQLException("Error while adding book to DB");
-        }
-
-        try (PreparedStatement tmp_ps = conn.prepareStatement("SELECT last_insert_rowid()");
-             ResultSet rs = tmp_ps.executeQuery()) {
-            if (rs.next()) {
-                item.setId(rs.getInt(1));
-            }
-        } catch (SQLException e) {
-            throw new SQLException("Error while adding book to DB");
-        }
-    }
-
-    public int getIdByName(String title) throws SQLException {
+    public int getIdByTitle(String title) throws SQLException {
         String query = "SELECT id FROM " + TABLE_NAME + " WHERE title = ?";
+        int id = 0;
         try (Connection conn = getConnection();
         PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, title);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1);
+                    id = rs.getInt("id");
                 }
             }
         }
-        return -1;
-    }
-
-    public void addAuthorToDB(String authorName, Connection conn) throws SQLException {
-        String query = "INSERT INTO " + AUTHOR_TABLE_NAME + " (authorName) VALUES (?)";
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, authorName);
-            ps.executeUpdate();
-        }
+        return id;
     }
 }
