@@ -25,7 +25,7 @@ public abstract class DBConnector<T> {
 
     public abstract void addToDB(T item) throws SQLException;
 
-    public abstract T searchByName(String name);
+    //public abstract List<T> searchByName(String name);
 
     public abstract T searchById(int id);
 }

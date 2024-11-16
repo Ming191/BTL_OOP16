@@ -15,6 +15,7 @@ import org.library.btl_oop16_library.Util.*;
 import org.library.btl_oop16_library.Model.User;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class SignUpController {
@@ -49,7 +50,7 @@ public class SignUpController {
     }
 
     @FXML
-    public void signUpOnClick(ActionEvent actionEvent) {
+    public void signUpOnClick(ActionEvent actionEvent) throws SQLException {
         if(nameField.getText().isEmpty() || usernameField.getText().isEmpty() || emailField.getText().isEmpty() ||
                 passwordField.getText().isEmpty() || phoneField.getText().isEmpty() || addressField.getText().isEmpty()) {
             ApplicationAlert.missingInformation();
@@ -64,11 +65,10 @@ public class SignUpController {
         Optional<ButtonType> result = ApplicationAlert.areYouSureAboutThat();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            //User newUser = new User(nameField.getText(), accountField.getText(), passwordField.getText(), emailField.getText());
             User newUser = new User(nameField.getText(), emailField.getText(), phoneField.getText(), addressField.getText());
-            Account newAccount = new Account(usernameField.getText(), passwordField.getText());
-            if(UserDBConnector.addToDB(newUser) && AccountDBConnector.addToDB(newAccount)) ApplicationAlert.signUpSuccess();
-            else return;
+            Account newAccount = new Account(usernameField.getText(), passwordField.getText(), false);
+            UserDBConnector.getInstance().addUserAndAccount(newUser, newAccount);
+            return;
         } else {
             System.out.println("User cancelled the sign-up process.");
         }

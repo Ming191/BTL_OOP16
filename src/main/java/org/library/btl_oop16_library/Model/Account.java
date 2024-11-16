@@ -1,6 +1,7 @@
 package org.library.btl_oop16_library.Model;
 
 public class Account {
+    private int id;
     private String userName;
     private String password;
     private boolean isAdmin = false;
@@ -11,7 +12,8 @@ public class Account {
         this.isAdmin = isAdmin;
     }
 
-    public Account(String userName, String password) {
+    public Account(int id,String userName, String password) {
+        this.id = id;
         this.userName = userName;
         this.password = password;
     }
@@ -40,4 +42,11 @@ public class Account {
         isAdmin = admin;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

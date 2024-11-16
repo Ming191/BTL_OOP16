@@ -22,9 +22,7 @@ public class BookDBConnector extends DBConnector<Book> {
     public static BookDBConnector getInstance() {
         if (instance == null) {
             synchronized (lock) {
-                if (instance == null) {
-                    instance = new BookDBConnector();
-                }
+                instance = new BookDBConnector();
             }
         }
         return instance;
@@ -94,31 +92,31 @@ public class BookDBConnector extends DBConnector<Book> {
         }
     }
 
-    @Override
-    public Book searchByName(String name) {
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE title = ?";
-        Book book = null;
-
-//        try(Connection conn = getConnection();
-//            PreparedStatement ps = conn.prepareStatement(query)) {
-//            ps.setString(1, name);
-//            try (ResultSet rs = ps.executeQuery()) {
-//                if (rs.next()) {
-//                    book = new Book(
-//                            rs.getInt("id"),
-//                            rs.getString("title"),
-//                            getAuthorNameById(rs.getInt("authorId"), conn, ps),
-//                            rs.getString("type"),
-//                            rs.getString("language"),
-//                            countAvailable()
-//                    );
-//                }
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-        return book;
-    }
+//    @Override
+//    public Book searchByName(String name) {
+//        String query = "SELECT * FROM " + TABLE_NAME + " WHERE title = ?";
+//        Book book = null;
+//
+////        try(Connection conn = getConnection();
+////            PreparedStatement ps = conn.prepareStatement(query)) {
+////            ps.setString(1, name);
+////            try (ResultSet rs = ps.executeQuery()) {
+////                if (rs.next()) {
+////                    book = new Book(
+////                            rs.getInt("id"),
+////                            rs.getString("title"),
+////                            getAuthorNameById(rs.getInt("authorId"), conn, ps),
+////                            rs.getString("type"),
+////                            rs.getString("language"),
+////                            countAvailable()
+////                    );
+////                }
+////            }
+////        } catch (SQLException e) {
+////            throw new RuntimeException(e);
+////        }
+//        return book;
+//    }
 
     @Override
     public Book searchById(int id) {

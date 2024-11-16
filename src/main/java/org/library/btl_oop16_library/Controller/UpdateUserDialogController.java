@@ -42,7 +42,7 @@ public class UpdateUserDialogController {
     void onConfirmButtonClick(ActionEvent event) {
         int id = Integer.parseInt(idField.getText());
 
-        UserDBConnector userDBConnector = new UserDBConnector();
+        UserDBConnector userDBConnector = UserDBConnector.getInstance();
         User existingUser = userDBConnector.searchById(id);
 
         if (existingUser != null) {

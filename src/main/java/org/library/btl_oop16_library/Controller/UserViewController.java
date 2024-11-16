@@ -19,8 +19,7 @@ import org.library.btl_oop16_library.Util.UserDBConnector;
 import java.io.IOException;
 
 public class UserViewController {
-    UserDBConnector userDB;
-    UserList userList;
+    UserDBConnector userDB = UserDBConnector.getInstance();
 
     @FXML
     private TableColumn<User, String> addressCol;
@@ -54,18 +53,13 @@ public class UserViewController {
 
     @FXML
     void initialize() {
-        userDB = new UserDBConnector();
-        userList = new UserList();
-
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
-        actionCol.setCellValueFactory(new PropertyValueFactory<>("action"));
 
-        userList.setUsers(userDB.importFromDB());
-        table.getItems().setAll(userList.getUsers());
+        table.getItems().setAll(userDB.importFromDB());
     }
 
     @FXML
@@ -81,11 +75,7 @@ public class UserViewController {
             addUserStage.setScene(new Scene(root));
             addUserStage.showAndWait();
 
-            table.getItems().clear();
-            userList.getUsers().clear();
-
-            userList.setUsers(userDB.importFromDB());
-            table.getItems().setAll(userList.getUsers());
+            table.getItems().setAll(userDB.importFromDB());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -104,11 +94,7 @@ public class UserViewController {
             deleteUserStage.setScene(new Scene(root));
             deleteUserStage.showAndWait();
 
-            table.getItems().clear();
-            userList.getUsers().clear();
-
-            userList.setUsers(userDB.importFromDB());
-            table.getItems().setAll(userList.getUsers());
+            table.getItems().setAll(userDB.importFromDB());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,11 +114,7 @@ public class UserViewController {
             updateUserStage.setScene(new Scene(root));
             updateUserStage.showAndWait();
 
-            table.getItems().clear();
-            userList.getUsers().clear();
-
-            userList.setUsers(userDB.importFromDB());
-            table.getItems().setAll(userList.getUsers());
+            table.getItems().setAll(userDB.importFromDB());
         } catch (IOException e) {
             e.printStackTrace();
         }
