@@ -4,35 +4,28 @@ public class Book {
 
     private int id;
     private String title;
-    private String author;
+    private int authorId;
     private String type;
     private String language;
-    private int available;
+    private int quantity;
 
     public Book() {
-
-    }
-    public Book(String title, int available) {
-        this.title = title;
-        this.available = available;
     }
 
-    public Book(String title, String author, String type, String language, int available) {
+    public Book(String title, int authorId, String type, String language) {
         this.id = -1;
         this.title = title;
-        this.author = author;
+        this.authorId = authorId;
         this.type = type;
         this.language = language;
-        this.available = available;
     }
 
-    public Book(int id, String title, String author, String type, String language, int available) {
+    public Book(int id, String title, int authorId, String type, String language, int quantity) {
         this.id = id;
         this.title = title;
-        this.author = author;
+        this.authorId = authorId;
         this.type = type;
         this.language = language;
-        this.available = available;
     }
 
     public int getId() {
@@ -43,13 +36,10 @@ public class Book {
         this.id = id;
     }
 
-    public String getAuthor() {
-        return author;
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public int getAvailable() {
-        return available;
-    }
 
     public String getType() {
         return type;
@@ -63,12 +53,8 @@ public class Book {
         return language;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setAvailable(int available) {
-        this.available = available;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
     public void setType(String type) {
@@ -81,5 +67,13 @@ public class Book {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

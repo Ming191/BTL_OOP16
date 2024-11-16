@@ -17,9 +17,15 @@ public abstract class DBConnector<T> {
 
     public abstract List<T> importFromDB() throws SQLException;
 
-    public abstract void exportToDB(List<T> itemList) throws SQLException;
-
     public abstract void deleteFromDB(int id) throws SQLException;
 
     public abstract void addToDB(T item) throws SQLException;
+
+    public abstract T searchByName(String name);
+
+    public abstract T searchById(int id);
+
+    public abstract int countById(int id);
+
+    public abstract int countByName(String name);
 }
