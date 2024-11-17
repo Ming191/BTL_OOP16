@@ -68,7 +68,7 @@
                                  </HBox.margin>
                               </Button>
                            </children></HBox>
-                        <TableView fx:id="table" prefHeight="580.0" prefWidth="1280.0">
+                        <TableView fx:id="table" prefHeight="632.0" prefWidth="1280.0">
                            <columns>
                               <TableColumn fx:id="idCol" maxWidth="300.0" prefWidth="188.0" reorderable="false" sortable="true" text="ID" />
                               <TableColumn fx:id="nameCol" editable="false" prefWidth="250.0" resizable="false" sortable="false" text="NAME" />

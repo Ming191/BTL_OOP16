@@ -68,6 +68,31 @@ public class UserViewController {
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
 
         table.getItems().setAll(userDB.importFromDB());
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            realTimeSearch(newValue);
+        });
+    }
+
+    private void realTimeSearch(String searchInput) {
+        table.getItems().clear();
+
+        List<User> usersByName = UserDBConnector.getInstance().searchByName(searchInput);
+        User userById = null;
+
+        try {
+            int id = Integer.parseInt(searchInput);
+            userById = UserDBConnector.getInstance().searchById(id);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        if (userById != null) {
+            table.getItems().add(userById);
+        }
+
+        if (!usersByName.isEmpty()) {
+            table.getItems().addAll(usersByName);
+        }
     }
 
     @FXML
@@ -158,9 +183,6 @@ public class UserViewController {
             table.getItems().addAll(users);
         }
 
-//        if (userById == null && users.isEmpty()) {
-//            ApplicationAlert.noResultsFound();
-//        }
     }
 
 }
