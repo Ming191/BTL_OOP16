@@ -88,4 +88,12 @@ public class ApplicationAlert {
         alert.showAndWait();
     }
 
+    public static void invalidQuantity() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid quantity");
+        alert.setHeaderText("Invalid quantity");
+        alert.setContentText("Please enter a valid quantity!");
+        alert.showAndWait();
+    }
+
 }
