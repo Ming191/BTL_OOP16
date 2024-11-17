@@ -8,23 +8,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
 import java.io.IOException;
+import java.util.List;
 
 public class UserViewController {
     UserDBConnector userDB = UserDBConnector.getInstance();
 
     @FXML
     private TableColumn<User, String> addressCol;
-
-    @FXML
-    private TableColumn<?, ?> actionCol;
 
 
     @FXML
@@ -44,6 +44,11 @@ public class UserViewController {
     @FXML
     private Button updateUserButton;
 
+    @FXML
+    private Button searchButton;
+
+    @FXML
+    private TextField searchField;
 
     @FXML
     private TableColumn<User, String> nameCol;
@@ -122,6 +127,40 @@ public class UserViewController {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    void searchButtonOnClick(ActionEvent event) {
+        String searchInput = searchField.getText();
+
+        if (searchInput.isEmpty()) {
+            ApplicationAlert.missingInformation();
+            return;
+        }
+
+        List<User> users = UserDBConnector.getInstance().searchByName(searchInput);
+        User userById = null;
+
+        try {
+            int id = Integer.parseInt(searchInput);
+            userById = UserDBConnector.getInstance().searchById(id);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        table.getItems().clear();
+
+        if (userById != null) {
+            table.getItems().add(userById);
+        }
+
+        if (!users.isEmpty()) {
+            table.getItems().addAll(users);
+        }
+
+//        if (userById == null && users.isEmpty()) {
+//            ApplicationAlert.noResultsFound();
+//        }
     }
 
 }
