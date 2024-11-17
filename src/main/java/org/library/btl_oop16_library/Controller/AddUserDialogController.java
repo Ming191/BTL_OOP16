@@ -7,6 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
 public class AddUserDialogController {
@@ -50,6 +51,11 @@ public class AddUserDialogController {
         String phoneNumber = phoneNumberField.getText();
         String address = addressField.getText();
 
+        String gmailRegex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
+        if (!email.matches(gmailRegex)) {
+            ApplicationAlert.wrongEmailPattern();
+            return;
+        }
         UserDBConnector userDBConnector = UserDBConnector.getInstance();
         userDBConnector.addToDB(new User(name, email, phoneNumber, address, userName, password));
 

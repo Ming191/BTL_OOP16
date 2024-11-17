@@ -3,9 +3,11 @@ package org.library.btl_oop16_library.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
 public class UpdateUserDialogController {
@@ -32,6 +34,12 @@ public class UpdateUserDialogController {
     private TextField phoneField;
 
     @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private TextField userNameField;
+
+    @FXML
     void onCancelButtonClick(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
@@ -39,31 +47,50 @@ public class UpdateUserDialogController {
 
     @FXML
     void onConfirmButtonClick(ActionEvent event) {
-        int id = Integer.parseInt(idField.getText());
+        try {
+            int id = Integer.parseInt(idField.getText());
 
-        UserDBConnector userDBConnector = UserDBConnector.getInstance();
-        User existingUser = userDBConnector.searchById(id);
+            UserDBConnector userDBConnector = UserDBConnector.getInstance();
+            User existingUser = userDBConnector.searchById(id);
 
-        if (existingUser != null) {
-            String name = nameField.getText();
-            String phone = phoneField.getText();
-            String address = addressField.getText();
-            String email = emailField.getText();
+            if (existingUser != null) {
+                String newName = nameField.getText();
+                String newPhone = phoneField.getText();
+                String newAddress = addressField.getText();
+                String newEmail = emailField.getText();
+                String newUsername = userNameField.getText();
+                String newPassword = passwordField.getText();
 
-            existingUser.setName(name);
-            existingUser.setPhoneNumber(phone);
-            existingUser.setAddress(address);
-            existingUser.setEmail(email);
+                if (!newEmail.matches("[a-zA-Z0-9._%+-]+@gmail\\.com")) {
+                    ApplicationAlert.wrongEmailPattern();
+                    return;
+                }
 
-            boolean success = userDBConnector.updateUser(existingUser);
+                if (UserDBConnector.isAlreadyExist(newUsername)) {
+                    ApplicationAlert.userAlreadyExists();
+                    return;
+                }
+                existingUser.setName(newName);
+                existingUser.setPhoneNumber(newPhone);
+                existingUser.setAddress(newAddress);
+                existingUser.setEmail(newEmail);
+                existingUser.setUserName(newUsername);
+                existingUser.setPassword(newPassword);
 
-            if (success) {
-                System.out.println("User updated successfully.");
+                boolean success = userDBConnector.updateUser(existingUser);
+
+                if (success) {
+                    System.out.println("User updated successfully.");
+                    ApplicationAlert.updateSuccess();
+                } else {
+                    System.out.println("Failed to update user.");
+                }
             } else {
-                System.out.println("Failed to update user.");
+                System.out.println("User with ID " + id + " not found.");
+                ApplicationAlert.notFound();
             }
-        } else {
-            System.out.println("User with ID " + id + " not found.");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid ID format: " + e.getMessage());
         }
     }
 

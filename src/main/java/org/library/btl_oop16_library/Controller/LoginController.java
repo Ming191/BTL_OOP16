@@ -49,6 +49,7 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/MainMenu.fxml"));
                 Scene mainMenuScene = new Scene(loader.load());
                 Stage stage = (Stage) signInButton.getScene().getWindow();
+                ApplicationAlert.signInSuccess();
                 Transtition.fadeTransition(stage, signInButton.getScene(),mainMenuScene);
             } else {
                 ApplicationAlert.wrongUsernameOrPassword();

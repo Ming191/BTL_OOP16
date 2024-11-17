@@ -39,6 +39,14 @@ public class ApplicationAlert {
         alert.showAndWait();
     }
 
+    public static void notFound() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Can not found that id");
+        alert.setHeaderText("Can not found that id");
+        alert.setContentText("Can not found that id");
+        alert.showAndWait();
+    }
+
     public static void signInSuccess() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Sign in success!");
@@ -46,6 +54,16 @@ public class ApplicationAlert {
         alert.setContentText("Your account has been logged in successfully!");
         alert.showAndWait();
     }
+
+    public static void updateSuccess() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Update success!");
+        alert.setHeaderText("Update success!");
+        alert.setContentText("Your account has been updated successfully!");
+        alert.showAndWait();
+    }
+
+
 
     public static void missingInformation() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
