@@ -78,14 +78,16 @@ public class CatalogViewController {
 
         try {
             loadHistory();
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
     private void loadHistory() throws SQLException {
         BookLoanDBConnector bookLoanDBConnector = new BookLoanDBConnector();
         history = bookLoanDBConnector.importFromDB();
-        table.getItems().addAll(history);
+        table.getItems().addAll(history);;
     }
 
     private void refreshHistory() {

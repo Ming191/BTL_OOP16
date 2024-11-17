@@ -6,9 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.BookLoans;
+import org.library.btl_oop16_library.Util.BookLoanDBConnector;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddBookLendingDialogController {
 
@@ -39,38 +41,30 @@ public class AddBookLendingDialogController {
         stage.close();
     }
 
-//    @FXML
-//    void onConfirmButtonClick(ActionEvent event) {
-//        int userID = Integer.parseInt(userIdField.getText());
-//        int bookID = Integer.parseInt(bookIDField.getText());
-//        int quantity = Integer.parseInt(quantityField.getText());
-//        java.util.Date dueDate = null;
-//        java.util.Date startDate = null;
-//
-//        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-//        try {
-//             startDate = df.parse(startDateField.getText());
-//             dueDate = df.parse(dueDateField.getText());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        java.sql.Date startDateSQL = new java.sql.Date(startDate.getTime());
-//        java.sql.Date dueDateSQL = new java.sql.Date(dueDate.getTime());
-//        BookLoans bookLending = new BookLoans(
-//                userID, bookID,
-//                startDateSQL,
-//                dueDateSQL,
-//                quantity);
-//        try {
-//            DatabaseConnector.addBookLendingToDB(bookLending);
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        Stage stage = (Stage) confirmButton.getScene().getWindow();
-//        stage.close();
-//
-//    }
+    @FXML
+    void onConfirmButtonClick(ActionEvent event) {
+        int userID = Integer.parseInt(userIdField.getText());
+        int bookID = Integer.parseInt(bookIDField.getText());
+        int quantity = Integer.parseInt(quantityField.getText());
+        String start = startDateField.getText();
+        String due = dueDateField.getText();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date startDate = formatter.parse(start);
+            Date dueDate = formatter.parse(due);
+            BookLoans bookLoan = new BookLoans(userID, bookID, startDate, dueDate, quantity);
+            BookLoanDBConnector bookLoanDBConnector = new BookLoanDBConnector();
+            try {
+                bookLoanDBConnector.addToDB(bookLoan);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Stage stage = (Stage) confirmButton.getScene().getWindow();
+        stage.close();
+    }
 }

@@ -31,11 +31,12 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                 int userId = rs.getInt("userId");
                 int bookId = rs.getInt("bookId");
                 int amount = rs.getInt("amount");
+                String status = rs.getString("status");
                 try {
                     Date startDate = df.parse(rs.getString("startDate"));
                     Date dueDate = df.parse(rs.getString("dueDate"));
 
-                    BookLoans bookLoan = new BookLoans(id, userId, bookId, startDate, dueDate, amount);
+                    BookLoans bookLoan = new BookLoans(id, userId, bookId, startDate, dueDate, amount, status);
                     bookLoans.add(bookLoan);
                 } catch (ParseException e) {
                     System.out.println(e.getMessage());
@@ -91,14 +92,22 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
             }
 
             if (bookLoan.getAmount() <= quantity) {
-                String addBookLoan = "INSERT INTO bookLoans VALUES (?,?,?,?,?,?)";
+                String addBookLoan = "INSERT INTO bookLoans(userId, amount, startDate, dueDate, bookId, status)"
+                                    + " VALUES (?,?,?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(addBookLoan);
-                pst.setInt(1, bookLoan.getId());
-                pst.setInt(2, bookLoan.getUserId());
-                pst.setInt(3, bookLoan.getAmount());
-                pst.setString(4, df.format(bookLoan.getStartDate()));
-                pst.setString(5, df.format(bookLoan.getDueDate()));
-                pst.setInt(6, bookLoan.getBookId());
+                //pst.setInt(1, bookLoan.getId());
+                pst.setInt(1, bookLoan.getUserId());
+                pst.setInt(2, bookLoan.getAmount());
+                pst.setString(3, df.format(bookLoan.getStartDate()));
+                pst.setString(4, df.format(bookLoan.getDueDate()));
+                pst.setInt(5, bookLoan.getBookId());
+                pst.setString(6, "chua tra");
+                pst.executeUpdate();
+
+                String updateBookQuantity = "UPDATE book SET quantity = quantity - ? WHERE id = ?";
+                pst = con.prepareStatement(updateBookQuantity);
+                pst.setInt(1, bookLoan.getAmount());
+                pst.setInt(2, bookLoan.getBookId());
                 pst.executeUpdate();
             }
         } catch (SQLException e) {
@@ -119,11 +128,12 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                 int userId = rs.getInt("userId");
                 int bookId = rs.getInt("bookId");
                 int amount = rs.getInt("amount");
+                String status = rs.getString("status");
                 try {
                     Date startDate = df.parse(rs.getString("startDate"));
                     Date dueDate = df.parse(rs.getString("dueDate"));
 
-                    BookLoans bookLoan = new BookLoans(Id, userId, bookId, startDate, dueDate, amount);
+                    BookLoans bookLoan = new BookLoans(Id, userId, bookId, startDate, dueDate, amount, status);
                     return bookLoan;
                 } catch (ParseException e) {
                     System.out.println(e.getMessage());
