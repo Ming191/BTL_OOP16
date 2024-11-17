@@ -1,6 +1,6 @@
 package org.library.btl_oop16_library.Model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class BookLoans {
     private int id;

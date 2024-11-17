@@ -12,9 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.BookLoans;
+import org.library.btl_oop16_library.Util.BookLoanDBConnector;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CatalogViewController {
@@ -74,19 +76,26 @@ public class CatalogViewController {
         startDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        loadHistory();
+        try {
+            loadHistory();
+        } catch (SQLException e) {}
 
     }
 
-    private void loadHistory() {
-        //history = DatabaseConnector.loadBookLendingFromDB();
+    private void loadHistory() throws SQLException {
+        BookLoanDBConnector bookLoanDBConnector = new BookLoanDBConnector();
+        history = bookLoanDBConnector.importFromDB();
         table.getItems().addAll(history);
     }
 
     private void refreshHistory() {
         table.getItems().clear();
         history.clear();
-        loadHistory();
+        try{
+            loadHistory();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
