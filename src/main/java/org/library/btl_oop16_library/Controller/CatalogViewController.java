@@ -6,17 +6,24 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+import javafx.util.converter.LocalDateStringConverter;
 import org.library.btl_oop16_library.Model.BookLoans;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class CatalogViewController {
@@ -75,6 +82,8 @@ public class CatalogViewController {
         dueDateCol.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         startDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+        formatDateColumn(startDateCol);
+        formatDateColumn(dueDateCol);
 
         try {
             loadHistory();
@@ -87,7 +96,7 @@ public class CatalogViewController {
     private void loadHistory() throws SQLException {
         BookLoanDBConnector bookLoanDBConnector = new BookLoanDBConnector();
         history = bookLoanDBConnector.importFromDB();
-        table.getItems().addAll(history);;
+        table.getItems().addAll(history);
     }
 
     private void refreshHistory() {
@@ -100,4 +109,18 @@ public class CatalogViewController {
         }
     }
 
+    public static void formatDateColumn(TableColumn<BookLoans, Date> column) {
+        column.setCellFactory(param -> new TableCell<>() {
+            private final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            @Override
+            protected void updateItem(Date item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(format.format(item));
+                }
+            }
+        });
+    }
 }

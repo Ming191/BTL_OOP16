@@ -1,5 +1,7 @@
 package org.library.btl_oop16_library.Model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class BookLoans {
@@ -10,14 +12,15 @@ public class BookLoans {
     private Date startDate;
     private Date dueDate;
     private String status;
+
     public BookLoans(int id, int userId, int bookId, Date startDate, Date dueDate, int amount, String status) {
         this.id = id;
         this.userId = userId;
         this.bookId = bookId;
-        this.startDate = startDate;
-        this.dueDate = dueDate;
         this.amount = amount;
         this.status = status;
+        this.startDate = startDate;
+        this.dueDate = dueDate;
     }
 
     public BookLoans(int userId, int bookId, Date startDate, Date dueDate, int amount, String status) {
