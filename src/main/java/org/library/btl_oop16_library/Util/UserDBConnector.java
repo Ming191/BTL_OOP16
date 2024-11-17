@@ -216,7 +216,7 @@ public class UserDBConnector extends DBConnector<User> {
 
 
     public boolean updateUser(User user) {
-        String updateQuery = "UPDATE user SET fullName = ?, email = ?, phoneNumber = ?, address = ?, username = ?, password = ? WHERE id = ?";
+        String updateQuery = "UPDATE user SET name = ?, email = ?, phoneNumber = ?, address = ?, username = ?, password = ? WHERE id = ?";
 
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement stmt = connection.prepareStatement(updateQuery)) {

@@ -42,6 +42,10 @@ public class UserViewController {
     private Button addUserButton;
 
     @FXML
+    private Button updateUserButton;
+
+
+    @FXML
     private TableColumn<User, String> nameCol;
 
     @FXML

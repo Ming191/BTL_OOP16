@@ -56,6 +56,13 @@ public class SignUpController {
             return;
         }
 
+        String gmailRegex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
+        if (!emailField.getText().matches(gmailRegex)) {
+            ApplicationAlert.wrongEmailPattern();
+            return;
+        }
+
+
         if (UserDBConnector.isAlreadyExist(usernameField.getText())) {
             ApplicationAlert.userAlreadyExists();
             return;
