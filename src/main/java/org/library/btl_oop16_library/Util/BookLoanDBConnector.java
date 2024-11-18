@@ -50,31 +50,33 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
 
     @Override
     public void deleteFromDB(int id) throws SQLException {
-            String query = "select dueDate from bookLoans where id = ?";
-            try (Connection con = DBConnector.getConnection()) {
-                PreparedStatement ps = con.prepareStatement(query);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                String due = "";
-                if (rs.next()) {
-                     due = rs.getString("dueDate");
-                }
-
-                DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate dueDate = LocalDate.parse(due, formatter);
-                Date currentDate = new Date();
-                LocalDate today = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-                long diff = ChronoUnit.DAYS.between(dueDate, today);
-                if (diff > 0) {
-                    String deleteBookLoan = "DELETE FROM bookLoans WHERE id = ?";
-                    PreparedStatement pst = con.prepareStatement(deleteBookLoan);
-                    pst.setInt(1, id);
-                    pst.executeUpdate();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+        try (Connection con = DBConnector.getConnection()) {
+            String query = "select * from bookLoans where id = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            BookLoans bookLoan = null;
+            while (rs.next()) {
+                int Id = rs.getInt("id");
+                int userId = rs.getInt("userId");
+                int bookId = rs.getInt("bookId");
+                int amount = rs.getInt("amount");
+                bookLoan = new BookLoans(id, userId, bookId, null, null, amount, null);
             }
+
+            String deleteBookLoan = "DELETE FROM bookLoans WHERE id = ?";
+            ps = con.prepareStatement(deleteBookLoan);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+            String updateBook = "update book set quantity = quantity + ? where id = ?";
+            ps = con.prepareStatement(updateBook);
+            ps.setInt(1, bookLoan.getAmount());
+            ps.setInt(2, bookLoan.getBookId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -144,5 +146,6 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         }
         return null;
     }
+
 
 }

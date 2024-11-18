@@ -56,6 +56,9 @@ public class CatalogViewController {
     @FXML
     private Button lendBookButton;
 
+    @FXML
+    private Button returnBookButton;
+
 
     @FXML
     void lendBookButtonOnClick(ActionEvent event) throws IOException {
@@ -69,6 +72,22 @@ public class CatalogViewController {
 
         bookLendingStage.setScene(new Scene(root));
         bookLendingStage.showAndWait();
+
+        refreshHistory();
+    }
+
+    @FXML
+    void returnBookButtonOnClick(ActionEvent event) throws IOException {
+        Stage bookReturnStage = new Stage();
+        bookReturnStage.setResizable(false);
+        bookReturnStage.initModality(Modality.APPLICATION_MODAL);
+        bookReturnStage.setTitle("Return Book");
+        System.out.println("Return Book button clicked.");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/ReturnBookLoansDialog.fxml"));
+        Parent root = loader.load();
+
+        bookReturnStage.setScene(new Scene(root));
+        bookReturnStage.showAndWait();
 
         refreshHistory();
     }
