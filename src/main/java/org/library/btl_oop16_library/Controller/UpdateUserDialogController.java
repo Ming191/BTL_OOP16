@@ -3,6 +3,7 @@ package org.library.btl_oop16_library.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -40,6 +41,15 @@ public class UpdateUserDialogController {
     private TextField userNameField;
 
     @FXML
+    private ChoiceBox<String> roleBox;
+
+    @FXML
+    public void initialize() {
+        roleBox.getItems().addAll("user", "admin");
+        roleBox.setValue("user");
+    }
+
+    @FXML
     void onCancelButtonClick(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
@@ -60,6 +70,7 @@ public class UpdateUserDialogController {
                 String newEmail = emailField.getText();
                 String newUsername = userNameField.getText();
                 String newPassword = passwordField.getText();
+                String newRole = roleBox.getValue();
 
                 if (!newEmail.matches("[a-zA-Z0-9._%+-]+@gmail\\.com")) {
                     ApplicationAlert.wrongEmailPattern();
@@ -76,6 +87,7 @@ public class UpdateUserDialogController {
                 existingUser.setEmail(newEmail);
                 existingUser.setUserName(newUsername);
                 existingUser.setPassword(newPassword);
+                existingUser.setRole(newRole);
 
                 boolean success = userDBConnector.updateUser(existingUser);
 

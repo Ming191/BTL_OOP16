@@ -1,24 +1,24 @@
 package org.library.btl_oop16_library.Controller;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class UserViewController {
     UserDBConnector userDB = UserDBConnector.getInstance();
@@ -42,6 +42,9 @@ public class UserViewController {
     private Button addUserButton;
 
     @FXML
+    private Button deleteUserButton;
+
+    @FXML
     private Button updateUserButton;
 
     @FXML
@@ -59,6 +62,9 @@ public class UserViewController {
     @FXML
     private TableView<User> table;
 
+    private PauseTransition searchPause;
+
+
     @FXML
     void initialize() {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -68,9 +74,17 @@ public class UserViewController {
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
 
         table.getItems().setAll(userDB.importFromDB());
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            realTimeSearch(newValue);
+        searchPause = new PauseTransition(Duration.millis(500));
+        searchPause.setOnFinished(event -> {
+            realTimeSearch(searchField.getText());
         });
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchPause.stop();
+            searchPause.playFromStart();
+        });
+
+        deleteUserButton.disableProperty().bind(table.getSelectionModel().selectedItemProperty().isNull());
     }
 
     private void realTimeSearch(String searchInput) {
@@ -115,21 +129,17 @@ public class UserViewController {
     }
     @FXML
     void deleteUserButtonOnClick(ActionEvent event) throws IOException {
-        Stage deleteUserStage = new Stage();
-        deleteUserStage.setResizable(false);
-        deleteUserStage.initModality(Modality.APPLICATION_MODAL);
-        deleteUserStage.setTitle("Delete User");
+        User selectedUser = table.getSelectionModel().getSelectedItem();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DeleteUserDialog.fxml"));
+        if (selectedUser == null) {
+            ApplicationAlert.missingInformation();
+            return;
+        }
 
-        try {
-            Parent root = fxmlLoader.load();
-            deleteUserStage.setScene(new Scene(root));
-            deleteUserStage.showAndWait();
-
-            table.getItems().setAll(userDB.importFromDB());
-        } catch (IOException e) {
-            e.printStackTrace();
+        Optional<ButtonType> confirmation = ApplicationAlert.areYouSureAboutThat();
+        if (confirmation.isPresent() && confirmation.get() == ButtonType.OK) {
+            UserDBConnector.getInstance().deleteFromDB(selectedUser.getId());
+                table.getItems().remove(selectedUser);
         }
     }
 

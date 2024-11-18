@@ -61,7 +61,7 @@ public class UserDBConnector extends DBConnector<User> {
         }
 
         String countQuery = "SELECT COUNT(*) FROM user WHERE email = ?";
-        String insertQuery = "INSERT INTO user (name, email, phoneNumber, address, username, password) VALUES (?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO user (name, email, phoneNumber, address, username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement countStmt = connection.prepareStatement(countQuery);
@@ -79,7 +79,7 @@ public class UserDBConnector extends DBConnector<User> {
             insertStmt.setString(4, user.getAddress());
             insertStmt.setString(5, user.getUserName());
             insertStmt.setString(6, user.getPassword());
-            insertStmt.setString(7, user.getRole());
+            insertStmt.setString(7, "user");
             insertStmt.executeUpdate();
 
             System.out.println("User added successfully: " + user.getName());
@@ -221,7 +221,7 @@ public class UserDBConnector extends DBConnector<User> {
 
 
     public boolean updateUser(User user) {
-        String updateQuery = "UPDATE user SET name = ?, email = ?, phoneNumber = ?, address = ?, username = ?, password = ? WHERE id = ?";
+        String updateQuery = "UPDATE user SET name = ?, email = ?, phoneNumber = ?, address = ?, username = ?, password = ?, role = ? WHERE id = ?";
 
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement stmt = connection.prepareStatement(updateQuery)) {
@@ -232,8 +232,8 @@ public class UserDBConnector extends DBConnector<User> {
             stmt.setString(4, user.getAddress());
             stmt.setString(5, user.getUserName());
             stmt.setString(6, user.getPassword());
-            stmt.setInt(7, user.getId());
-            stmt.setString(8, user.getRole());
+            stmt.setString(7, user.getRole());
+            stmt.setInt(8, user.getId());
 
             int rowsAffected = stmt.executeUpdate();
 
