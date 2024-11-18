@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
+import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.BookDBConnector;
 
 public class BookViewController {
@@ -56,6 +57,23 @@ public class BookViewController {
     void handleMouseClick(MouseEvent event) {
 
     }
+
+    private User currentUser;
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        initializeRoleBasedAccess();
+    }
+
+    private void initializeRoleBasedAccess() {
+        if (currentUser != null && !"admin".equalsIgnoreCase(currentUser.getRole())) {
+            addBookButton.setDisable(true);
+            deleteBookButton.setDisable(true);
+            addBookButton.setVisible(false);
+            deleteBookButton.setVisible(false);
+        }
+    }
+
 
     @FXML
     void addBookButtonOnClick() throws IOException, SQLException {

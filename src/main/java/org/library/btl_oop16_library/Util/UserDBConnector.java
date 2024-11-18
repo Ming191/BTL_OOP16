@@ -38,7 +38,8 @@ public class UserDBConnector extends DBConnector<User> {
                         rs.getString("phoneNumber"),
                         rs.getString("address"),
                         rs.getString("userName"),
-                        rs.getString("password")
+                        rs.getString("password"),
+                        rs.getString("role")
                 );
                 users.add(user);
             }
@@ -78,6 +79,7 @@ public class UserDBConnector extends DBConnector<User> {
             insertStmt.setString(4, user.getAddress());
             insertStmt.setString(5, user.getUserName());
             insertStmt.setString(6, user.getPassword());
+            insertStmt.setString(7, user.getRole());
             insertStmt.executeUpdate();
 
             System.out.println("User added successfully: " + user.getName());
@@ -136,7 +138,8 @@ public class UserDBConnector extends DBConnector<User> {
                         rs.getString("phoneNumber"),
                         rs.getString("address"),
                         rs.getString("userName"),
-                        rs.getString("password")
+                        rs.getString("password"),
+                        rs.getString("role")
                 );
             } else {
                 System.out.println("User with ID " + id + " not found.");
@@ -165,7 +168,8 @@ public class UserDBConnector extends DBConnector<User> {
                         rs.getString("phoneNumber"),
                         rs.getString("address"),
                         rs.getString("userName"),
-                        rs.getString("password")
+                        rs.getString("password"),
+                        rs.getString("role")
                 );
                 users.add(user);
             }
@@ -202,6 +206,7 @@ public class UserDBConnector extends DBConnector<User> {
                 user.setAddress(rs.getString("address"));
                 user.setUserName(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
 
                 return user;
             } else {
@@ -228,6 +233,7 @@ public class UserDBConnector extends DBConnector<User> {
             stmt.setString(5, user.getUserName());
             stmt.setString(6, user.getPassword());
             stmt.setInt(7, user.getId());
+            stmt.setString(8, user.getRole());
 
             int rowsAffected = stmt.executeUpdate();
 

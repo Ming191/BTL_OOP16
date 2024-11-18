@@ -46,11 +46,20 @@ public class LoginController {
             User user = UserDBConnector.getInstance().getUser(usernameField.getText(), passwordField.getText());
 
             if(user != null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/MainMenu.fxml"));
-                Scene mainMenuScene = new Scene(loader.load());
-                Stage stage = (Stage) signInButton.getScene().getWindow();
-                ApplicationAlert.signInSuccess();
-                Transtition.fadeTransition(stage, signInButton.getScene(),mainMenuScene);
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/MainMenu.fxml"));
+                    Parent root = loader.load();
+                    MainMenuController mainMenuController = loader.getController();
+                    mainMenuController.setCurrentUser(user);
+                    Scene mainMenuScene = new Scene(root);
+                    Stage stage = (Stage) signInButton.getScene().getWindow();
+                    ApplicationAlert.signInSuccess();
+                    Transtition.fadeTransition(stage, signInButton.getScene(), mainMenuScene);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             } else {
                 ApplicationAlert.wrongUsernameOrPassword();
             }

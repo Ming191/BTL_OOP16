@@ -23,6 +23,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.Transtition;
 
@@ -58,6 +59,33 @@ public class MainMenuController {
     @FXML
     private VBox menuVbox;
 
+    private User currentUser;
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        initializeRoleBasedAccess();
+    }
+
+    private void initializeRoleBasedAccess() {
+        if (currentUser != null) {
+            if ("admin".equalsIgnoreCase(currentUser.getRole())) {
+                menuUser.setDisable(false);
+                menuUser.setVisible(true);
+
+                menuCatalog.setDisable(false);
+                menuCatalog.setVisible(true);
+            } else {
+                menuUser.setDisable(true);
+                menuUser.setVisible(false);
+
+                menuCatalog.setDisable(true);
+                menuCatalog.setVisible(false);
+            }
+        }
+        System.out.println("Current Role: " + currentUser.getRole());
+
+    }
+
     private void startClock() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm, dd/MM/yyyy");
 
@@ -72,16 +100,22 @@ public class MainMenuController {
 
     @FXML
     void switchToBook(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/BookView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookView.fxml"));
+        Pane pane = loader.load();
+        BookViewController bookViewController = loader.getController();
+        bookViewController.setCurrentUser(currentUser);
         mainPane.setCenter(pane);
     }
 
     @FXML
     void switchToCatalog(ActionEvent event) throws IOException  {
-        FXMLLoader loader = new FXMLLoader();
-        Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/CatalogView.fxml"));
-        mainPane.setCenter(pane);
+        if ("admin".equalsIgnoreCase(currentUser.getRole())) {
+            FXMLLoader loader = new FXMLLoader();
+            Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/CatalogView.fxml"));
+            mainPane.setCenter(pane);
+        } else {
+            ApplicationAlert.notFound();
+        }
     }
 
     @FXML
@@ -129,7 +163,6 @@ public class MainMenuController {
         assert menuVbox != null : "fx:id=\"menuVbox\" was not injected: check your FXML file 'MainMenu.fxml'.";
         startClock();
     }
-
 
 
 }
