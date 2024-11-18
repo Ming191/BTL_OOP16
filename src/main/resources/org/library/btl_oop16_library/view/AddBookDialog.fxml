@@ -6,21 +6,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="245.0" prefWidth="381.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AddBookDialogController">
+<AnchorPane prefHeight="106.0" prefWidth="347.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AddBookDialogController">
    <children>
-      <VBox layoutY="27.0" prefHeight="169.0" prefWidth="382.0" spacing="10.0">
+      <VBox layoutY="27.0" prefHeight="42.0" prefWidth="382.0" spacing="10.0">
          <children>
-            <TextField fx:id="titleField" prefHeight="25.0" prefWidth="284.0" promptText="Title" />
-            <TextField fx:id="authorField" prefHeight="25.0" prefWidth="284.0" promptText="Author" />
-            <TextField fx:id="languageField" prefHeight="25.0" prefWidth="284.0" promptText="Language" />
-            <TextField fx:id="typeField" prefHeight="25.0" prefWidth="284.0" promptText="Type" />
             <TextField fx:id="quantityField" prefHeight="25.0" prefWidth="284.0" promptText="Quantity" />
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </padding>
       </VBox>
-      <Button fx:id="confirmButton" layoutX="110.0" layoutY="200.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" text="Confirm" />
-      <Button fx:id="cancelButton" layoutX="228.0" layoutY="200.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
+      <Button fx:id="confirmButton" layoutX="106.0" layoutY="72.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" text="Confirm" />
+      <Button fx:id="cancelButton" layoutX="224.0" layoutY="72.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
    </children>
 </AnchorPane>

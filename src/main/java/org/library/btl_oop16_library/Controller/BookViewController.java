@@ -3,6 +3,8 @@ package org.library.btl_oop16_library.Controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,7 +48,9 @@ public class BookViewController {
     private TableColumn<Book, String> titleCol;
 
     @FXML
-    private TableColumn<Book, String> typeCol;
+    private TableColumn<Book, String> category;
+
+    Book selectedBook = null;
 
     @FXML
     void handleMouseClick(MouseEvent event) {
@@ -60,7 +64,7 @@ public class BookViewController {
         addBookStage.initModality(Modality.APPLICATION_MODAL);
         addBookStage.setTitle("Add Book");
         System.out.println("Add Book button clicked.");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/AddBookDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SearchBookDialog.fxml"));
         Parent root = loader.load();
 
         addBookStage.setScene(new Scene(root));
@@ -74,9 +78,19 @@ public class BookViewController {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        category.setCellValueFactory(new PropertyValueFactory<>("category"));
         languageCol.setCellValueFactory(new PropertyValueFactory<>("language"));
         availableCol.setCellValueFactory(new PropertyValueFactory<>("available"));
+
+        deleteBookButton.setDisable(true);
+
+        table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Book>() {
+            @Override
+            public void changed(ObservableValue<? extends Book> observableValue, Book oldValue, Book newValue) {
+                selectedBook = newValue;
+                deleteBookButton.setDisable(selectedBook == null);
+            }
+        });
 
         loadBook();
     }
@@ -90,17 +104,13 @@ public class BookViewController {
     }
 
     @FXML
-    void deleteBookButtonOnClick () throws IOException, SQLException {
-
-        Stage deleteBookStage = new Stage();
-        deleteBookStage.setResizable(false);
-        deleteBookStage.initModality(Modality.APPLICATION_MODAL);
-        deleteBookStage.setTitle("Delete Book");
-
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DeleteBookDialog.fxml"));
-        Parent root = loader1.load();
-        deleteBookStage.setScene(new Scene(root));
-        deleteBookStage.showAndWait();
+    void deleteBookButtonOnClick () throws SQLException {
+        selectedBook = table.getSelectionModel().getSelectedItem();
+        if (selectedBook == null) {
+            return;
+        }
+        System.out.println(selectedBook.getId());
+        db.deleteFromDB(selectedBook.getId());
 
         refresh();
     }

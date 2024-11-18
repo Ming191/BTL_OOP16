@@ -41,7 +41,7 @@ public class BookDBConnector extends DBConnector<Book> {
                         id,
                         rs.getString("title"),
                         rs.getString("author"),
-                        rs.getString("type"),
+                        rs.getString("category"),
                         rs.getString("language"),
                         rs.getInt("quantity")
                 );
@@ -69,7 +69,7 @@ public class BookDBConnector extends DBConnector<Book> {
     public void addToDB(Book item) throws SQLException {
         String checkQuery = "SELECT id FROM " + TABLE_NAME + " WHERE title = ?";
         String updateQuery = "UPDATE " + TABLE_NAME + " SET quantity = quantity + ? WHERE id = ?";
-        String insertQuery = "INSERT INTO " + TABLE_NAME + " (title, author, type, language, quantity) VALUES (?, ?, ?, ?, ?    )";
+        String insertQuery = "INSERT INTO " + TABLE_NAME + " (title, author, category, language, quantity, imgUrl, rating, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement psCheck = conn.prepareStatement(checkQuery)) {
@@ -89,9 +89,12 @@ public class BookDBConnector extends DBConnector<Book> {
                 try (PreparedStatement psInsert = conn.prepareStatement(insertQuery)) {
                     psInsert.setString(1, item.getTitle());
                     psInsert.setString(2, item.getAuthor());
-                    psInsert.setString(3, item.getType());
+                    psInsert.setString(3, item.getCategory());
                     psInsert.setString(4, item.getLanguage());
                     psInsert.setInt(5, item.getAvailable());
+                    psInsert.setString(6, item.getImgURL());
+                    psInsert.setString(7, item.getRating());
+                    psInsert.setString(8, item.getDescription());
                     psInsert.executeUpdate();
                 } catch (SQLException e) {
                     throw new SQLException("Error while inserting book in DB");
@@ -101,32 +104,6 @@ public class BookDBConnector extends DBConnector<Book> {
             throw new SQLException("Error while adding book or copy to DB", e);
         }
     }
-
-//    @Override
-//    public Book searchByName(String name) {
-//        String query = "SELECT * FROM " + TABLE_NAME + " WHERE title = ?";
-//        Book book = null;
-//
-////        try(Connection conn = getConnection();
-////            PreparedStatement ps = conn.prepareStatement(query)) {
-////            ps.setString(1, name);
-////            try (ResultSet rs = ps.executeQuery()) {
-////                if (rs.next()) {
-////                    book = new Book(
-////                            rs.getInt("id"),
-////                            rs.getString("title"),
-////                            getAuthorNameById(rs.getInt("authorId"), conn, ps),
-////                            rs.getString("type"),
-////                            rs.getString("language"),
-////                            countAvailable()
-////                    );
-////                }
-////            }
-////        } catch (SQLException e) {
-////            throw new RuntimeException(e);
-////        }
-//        return book;
-//    }
 
     @Override
     public Book searchById(int id) {
@@ -142,7 +119,7 @@ public class BookDBConnector extends DBConnector<Book> {
                             rs.getInt("id"),
                             rs.getString("title"),
                             rs.getString("author"),
-                            rs.getString("type"),
+                            rs.getString("category"),
                             rs.getString("language"),
                             rs.getInt("quantity")
                     );

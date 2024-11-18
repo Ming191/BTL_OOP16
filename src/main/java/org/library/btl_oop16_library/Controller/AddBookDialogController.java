@@ -12,8 +12,6 @@ import java.sql.SQLException;
 
 public class AddBookDialogController {
 
-    @FXML
-    private TextField authorField;
 
     @FXML
     private Button cancelButton;
@@ -22,16 +20,7 @@ public class AddBookDialogController {
     private Button confirmButton;
 
     @FXML
-    private TextField languageField;
-
-    @FXML
     private TextField quantityField;
-
-    @FXML
-    private TextField titleField;
-
-    @FXML
-    private TextField typeField;
 
     @FXML
     void onCancelButtonClick(ActionEvent event) {
@@ -41,10 +30,6 @@ public class AddBookDialogController {
 
     @FXML
     void onConfirmButtonClick(ActionEvent event) throws SQLException {
-        String title = titleField.getText();
-        String authorId =authorField.getText();
-        String language = languageField.getText();
-        String type = typeField.getText();
         int quantity;
 
         try {
@@ -54,10 +39,11 @@ public class AddBookDialogController {
             return;
         }
 
-        BookDBConnector db = BookDBConnector.getInstance();
-        db.addToDB(new Book(title, authorId, language, type, quantity));
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }
 
+    public int getQuantity() {
+        return Integer.parseInt(quantityField.getText());
+    }
 }

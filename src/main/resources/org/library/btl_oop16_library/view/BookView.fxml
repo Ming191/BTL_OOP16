@@ -46,7 +46,7 @@
                             <TableColumn fx:id="idCol" editable="false" prefWidth="65.0" resizable="false" sortable="true" text="ID" />
                             <TableColumn fx:id="titleCol" editable="false" prefWidth="317.0" resizable="false" sortable="false" text="TITLE" />
                               <TableColumn fx:id="authorCol" editable="false" prefWidth="212.0" resizable="false" sortable="false" text="AUTHOR" />
-                              <TableColumn fx:id="typeCol" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="TYPE" />
+                              <TableColumn fx:id="category" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="TYPE" />
                               <TableColumn fx:id="languageCol" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="LANGUAGE" />
                               <TableColumn fx:id="availableCol" editable="false" prefWidth="385.0" resizable="false" text="AVAILABLE" />
                           </columns>
