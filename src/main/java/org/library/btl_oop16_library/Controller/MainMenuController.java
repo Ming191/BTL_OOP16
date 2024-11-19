@@ -109,19 +109,19 @@ public class MainMenuController {
 
     @FXML
     void switchToCatalog(ActionEvent event) throws IOException  {
-        if ("admin".equalsIgnoreCase(currentUser.getRole())) {
-            FXMLLoader loader = new FXMLLoader();
-            Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/CatalogView.fxml"));
-            mainPane.setCenter(pane);
-        } else {
-            ApplicationAlert.notFound();
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/CatalogView.fxml"));
+        Pane pane = loader.load();
+        CatalogViewController catalogViewController = loader.getController();
+        catalogViewController.setCurrentUser(currentUser);
+        mainPane.setCenter(pane);
     }
 
     @FXML
     void switchToDashboard(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/CatalogView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/CatalogView.fxml"));
+        Pane pane = loader.load();
+        CatalogViewController catalogViewController = loader.getController();
+        catalogViewController.setCurrentUser(currentUser);
         mainPane.setCenter(pane);
     }
 

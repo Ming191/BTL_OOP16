@@ -5,6 +5,7 @@ module org.library.btl_oop16_library {
     requires org.xerial.sqlitejdbc;
     requires org.json;
     requires java.net.http;
+    requires jdk.compiler;
 
 
     opens org.library.btl_oop16_library to javafx.fxml;

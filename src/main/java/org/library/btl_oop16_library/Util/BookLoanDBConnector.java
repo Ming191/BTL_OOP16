@@ -1,6 +1,9 @@
 package org.library.btl_oop16_library.Util;
 
+import org.library.btl_oop16_library.Controller.CatalogViewController;
+import org.library.btl_oop16_library.Controller.MainMenuController;
 import org.library.btl_oop16_library.Model.BookLoans;
+import org.library.btl_oop16_library.Model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,8 +26,38 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         List<BookLoans> bookLoans = new ArrayList<>();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String query = "SELECT * FROM bookLoans";
-        try (Connection con = DBConnector.getConnection();
-             PreparedStatement ps = con.prepareStatement(query);) {
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int userId = rs.getInt("userId");
+                int bookId = rs.getInt("bookId");
+                int amount = rs.getInt("amount");
+                String status = rs.getString("status");
+                try {
+                    Date startDate = df.parse(rs.getString("startDate"));
+                    Date dueDate = df.parse(rs.getString("dueDate"));
+
+                    BookLoans bookLoan = new BookLoans(id, userId, bookId, startDate, dueDate, amount, status);
+                    bookLoans.add(bookLoan);
+                } catch (ParseException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookLoans;
+    }
+
+    public List<BookLoans> importFromDBForUser(User user) throws SQLException {
+        List<BookLoans> bookLoans = new ArrayList<>();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String query = "SELECT * FROM bookLoans where userId = ?";
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, user.getId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");

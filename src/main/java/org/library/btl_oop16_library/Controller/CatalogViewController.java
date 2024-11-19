@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library.Controller;
 
+import com.sun.tools.javac.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.LocalDateStringConverter;
 import org.library.btl_oop16_library.Model.BookLoans;
+import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;
 
 import java.io.IOException;
@@ -59,6 +61,25 @@ public class CatalogViewController {
     @FXML
     private Button returnBookButton;
 
+    private User currentUser;
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        if (currentUser != null && !"admin".equalsIgnoreCase(currentUser.getRole())) {
+            userIdCol.setVisible(false);
+            returnBookButton.setVisible(false);
+            lendBookButton.setVisible(false);
+        }
+        try {
+            initializeBaseOnUser(currentUser);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void lendBookButtonOnClick(ActionEvent event) throws IOException {
@@ -104,17 +125,25 @@ public class CatalogViewController {
         formatDateColumn(startDateCol);
         formatDateColumn(dueDateCol);
 
-        try {
-            loadHistory();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    }
 
+    private void initializeBaseOnUser(User currentUser) throws SQLException {
+        if (currentUser != null && !"admin".equalsIgnoreCase(currentUser.getRole())) {
+            loadHistoryForUser(currentUser);
+        } else {
+            loadHistory();
+        }
     }
 
     private void loadHistory() throws SQLException {
         BookLoanDBConnector bookLoanDBConnector = new BookLoanDBConnector();
         history = bookLoanDBConnector.importFromDB();
+        table.getItems().addAll(history);
+    }
+
+    private void loadHistoryForUser(User user) throws SQLException {
+        BookLoanDBConnector bookLoanDBConnector = new BookLoanDBConnector();
+        history = bookLoanDBConnector.importFromDBForUser(user);
         table.getItems().addAll(history);
     }
 
@@ -142,4 +171,6 @@ public class CatalogViewController {
             }
         });
     }
+
+
 }
