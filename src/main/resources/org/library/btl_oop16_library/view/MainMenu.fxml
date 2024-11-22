@@ -15,7 +15,7 @@
          <left>
             <VBox fx:id="menuVbox" prefHeight="720.0" prefWidth="220.0" style="-fx-background-color: #A4C4B5;" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane prefHeight="720.0" prefWidth="231.0">
+                  <AnchorPane>
                      <children>
                         <ImageView fitHeight="220.0" fitWidth="257.0" layoutX="8.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                            <image>
