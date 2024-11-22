@@ -53,7 +53,6 @@ public class LoginController {
                     mainMenuController.setCurrentUser(user);
                     Scene mainMenuScene = new Scene(root);
                     Stage stage = (Stage) signInButton.getScene().getWindow();
-                    ApplicationAlert.signInSuccess();
                     Transtition.fadeTransition(stage, signInButton.getScene(), mainMenuScene);
 
                 } catch (IOException e) {

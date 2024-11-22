@@ -134,14 +134,12 @@ public class MainMenuController {
 
     @FXML
     void logOut(ActionEvent event) throws IOException {
-        Optional<ButtonType> result = ApplicationAlert.areYouSureAboutThat();
-
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        boolean result = ApplicationAlert.areYouSureAboutThat();
+        if (result) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Login.fxml"));
             Scene loginScene = new Scene(loader.load());
             Transtition.fadeTransition((Stage) logOutButton.getScene().getWindow(), logOutButton.getScene(), loginScene);
         }
-
         return;
     }
 

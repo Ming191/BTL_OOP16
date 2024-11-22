@@ -136,10 +136,10 @@ public class UserViewController {
             return;
         }
 
-        Optional<ButtonType> confirmation = ApplicationAlert.areYouSureAboutThat();
-        if (confirmation.isPresent() && confirmation.get() == ButtonType.OK) {
+        boolean result = ApplicationAlert.areYouSureAboutThat();
+        if (result) {
             UserDBConnector.getInstance().deleteFromDB(selectedUser.getId());
-                table.getItems().remove(selectedUser);
+            table.getItems().remove(selectedUser);        } else {
         }
     }
 

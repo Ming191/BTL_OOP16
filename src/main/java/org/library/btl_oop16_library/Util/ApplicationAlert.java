@@ -1,99 +1,93 @@
 package org.library.btl_oop16_library.Util;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import org.library.btl_oop16_library.Controller.AlertController;
 
-import java.util.Optional;
+import java.io.IOException;
 
 public class ApplicationAlert {
 
+    private static final String ERROR_ICON = "/img/error.png";
+    private static final String INFORMATION_ICON = "/img/information.png";
+    private static final String CONFIRMATION_ICON = "/img/confirm.png";
+
+    public static boolean showAlert(String title, String message, String iconPath, boolean showCancelButton) {
+        try {
+            FXMLLoader loader = new FXMLLoader(ApplicationAlert.class.getResource("/org/library/btl_oop16_library/view/Alert.fxml"));
+            Parent root = loader.load();
+
+            AlertController controller = loader.getController();
+            controller.setTitle(title);
+            controller.setMessage(message);
+            controller.setIcon(iconPath);
+            controller.setShowCancelButton(showCancelButton);
+
+            Stage stage = new Stage();
+            stage.setTitle("2Min Library");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            return controller.isConfirmed();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static void emptyAccountOrPassword() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Empty account or password!");
-        alert.setHeaderText("Account or password cant be empty!");
-        alert.setContentText("Please enter a valid account or password!");
-        alert.showAndWait();
+        showAlert("Empty account or password!",
+                "Please fulfill account and password!",
+                ERROR_ICON, false);
     }
 
     public static void wrongUsernameOrPassword() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Wrong username or password!");
-        alert.setHeaderText("Wrong username or password!");
-        alert.setContentText("Please enter a valid username or password!");
-        alert.showAndWait();
+        showAlert("Wrong username or password!",
+                "Please enter a valid username or password!",
+                ERROR_ICON, false);
     }
 
     public static void userAlreadyExists() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("ERRORRRRRRRR!");
-        alert.setHeaderText("User already exists!");
-        alert.setContentText("Please enter another username!");
-        alert.showAndWait();
-    }
-
-    public static void signUpSuccess() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sign up success!");
-        alert.setHeaderText("Sign up success!");
-        alert.setContentText("Your account has been created successfully!");
-        alert.showAndWait();
+        showAlert("User Already Exists!",
+                "Please enter a unique username!",
+                ERROR_ICON, false);
     }
 
     public static void notFound() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Can not found that id");
-        alert.setHeaderText("Can not found that id");
-        alert.setContentText("Can not found that id");
-        alert.showAndWait();
-    }
-
-    public static void signInSuccess() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sign in success!");
-        alert.setHeaderText("Sign in success!");
-        alert.setContentText("Your account has been logged in successfully!");
-        alert.showAndWait();
+        showAlert("Not Found!", "The requested ID does not exist!",
+                ERROR_ICON, false);
     }
 
     public static void updateSuccess() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Update success!");
-        alert.setHeaderText("Update success!");
-        alert.setContentText("Your account has been updated successfully!");
-        alert.showAndWait();
+        showAlert("Update Success!", "Your changes have been saved!",
+                INFORMATION_ICON, false);
     }
-
-
 
     public static void missingInformation() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Missing Information!");
-        alert.setHeaderText("Missing Information!");
-        alert.setContentText("Please enter a valid information!");
-        alert.showAndWait();
-    }
-
-    public static Optional<ButtonType> areYouSureAboutThat() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText("Are you sure about that?");
-        return alert.showAndWait();
+        showAlert("Missing Information!", "Please provide all necessary information.",
+                ERROR_ICON, false);
     }
 
     public static void wrongEmailPattern() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Wrong email pattern");
-        alert.setHeaderText("Wrong email pattern");
-        alert.setContentText("Please enter a valid email.");
-        alert.showAndWait();
+        showAlert("Invalid Email!", "Please use a valid email address.",
+                ERROR_ICON, false);
     }
 
     public static void invalidQuantity() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Invalid quantity");
-        alert.setHeaderText("Invalid quantity");
-        alert.setContentText("Please enter a valid quantity!");
-        alert.showAndWait();
+        showAlert("Invalid Quantity!", "Please provide a positive number.",
+                ERROR_ICON, false);
+    }
+
+    public static boolean areYouSureAboutThat() {
+        return showAlert("Confirmation Needed", "Are you sure about that?", CONFIRMATION_ICON, true);
+    }
+
+    public static void signUpSuccess() {
+        showAlert("Sign Up Success!", "Your account has been created!", INFORMATION_ICON, false);
     }
 
 }
