@@ -38,12 +38,16 @@ public class BookDBConnector extends DBConnector<Book> {
                 int id = rs.getInt("id");
 
                 Book book = new Book(
-                        id,
+                        rs.getInt("id"),
                         rs.getString("title"),
+                        rs.getString("description"),
                         rs.getString("author"),
                         rs.getString("category"),
                         rs.getString("language"),
-                        rs.getInt("quantity")
+                        rs.getInt("quantity"),
+                        rs.getString("imgURL"),
+                        rs.getString("rating"),
+                        rs.getString("previewURL")
                 );
                 books.add(book);
             }
@@ -69,7 +73,7 @@ public class BookDBConnector extends DBConnector<Book> {
     public void addToDB(Book item) throws SQLException {
         String checkQuery = "SELECT id FROM " + TABLE_NAME + " WHERE title = ?";
         String updateQuery = "UPDATE " + TABLE_NAME + " SET quantity = quantity + ? WHERE id = ?";
-        String insertQuery = "INSERT INTO " + TABLE_NAME + " (title, author, category, language, quantity, imgUrl, rating, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO " + TABLE_NAME + " (title, author, category, language, quantity, imgUrl, rating, description, previewURL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement psCheck = conn.prepareStatement(checkQuery)) {
@@ -95,6 +99,7 @@ public class BookDBConnector extends DBConnector<Book> {
                     psInsert.setString(6, item.getImgURL());
                     psInsert.setString(7, item.getRating());
                     psInsert.setString(8, item.getDescription());
+                    psInsert.setString(9,item.getPreviewURL());
                     psInsert.executeUpdate();
                 } catch (SQLException e) {
                     throw new SQLException("Error while inserting book in DB");
@@ -118,10 +123,14 @@ public class BookDBConnector extends DBConnector<Book> {
                     book = new Book(
                             rs.getInt("id"),
                             rs.getString("title"),
+                            rs.getString("description"),
                             rs.getString("author"),
                             rs.getString("category"),
                             rs.getString("language"),
-                            rs.getInt("quantity")
+                            rs.getInt("quantity"),
+                            rs.getString("imgURL"),
+                            rs.getString("rating"),
+                            rs.getString("previewURL")
                     );
                 }
             }

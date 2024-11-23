@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -15,7 +14,6 @@ import org.library.btl_oop16_library.Model.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Optional;
 
 public class SignUpController {
     @FXML
@@ -45,7 +43,7 @@ public class SignUpController {
     public void switchToLoginScene(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Login.fxml"));
         Scene loginScene = new Scene(loader.load());
-        Transtition.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
+        Transition.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
     }
 
     @FXML

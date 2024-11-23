@@ -11,7 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
-import org.library.btl_oop16_library.Util.Transtition;
+import org.library.btl_oop16_library.Util.Transition;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
 import java.io.IOException;
@@ -53,7 +53,7 @@ public class LoginController {
                     mainMenuController.setCurrentUser(user);
                     Scene mainMenuScene = new Scene(root);
                     Stage stage = (Stage) signInButton.getScene().getWindow();
-                    Transtition.fadeTransition(stage, signInButton.getScene(), mainMenuScene);
+                    Transition.fadeTransition(stage, signInButton.getScene(), mainMenuScene);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -69,6 +69,6 @@ public class LoginController {
     public void switchToSignUpScene(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SignUp.fxml"));
         Scene signUpScene = new Scene(loader.load());
-        Transtition.fadeTransition((Stage) signUpButton.getScene().getWindow(), signUpButton.getScene(), signUpScene);
+        Transition.fadeTransition((Stage) signUpButton.getScene().getWindow(), signUpButton.getScene(), signUpScene);
     }
 }

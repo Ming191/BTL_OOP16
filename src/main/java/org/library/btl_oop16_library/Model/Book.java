@@ -10,48 +10,12 @@ public class Book {
     private String language;
     private int available;
     private String imgURL;
+    private String previewURL;
     private String rating;
 
-    public Book() {
-    }
-
-    public Book(String title, String author, String type, String language, int available) {
-        this.id = -1;
-        this.title = title;
-        this.author = author;
-        this.category = type;
-        this.language = language;
-        this.available = available;
-    }
-
-    public Book(int id, String title, String author, String category, String language , int available) {
+    public Book(int id, String title, String description, String author, String category, String language, int available, String imgURL, String rating,String previewURL) {
         this.id = id;
         this.title = title;
-        this.author = author;
-        this.category = category;
-        this.language = language;
-        this.available = available;
-    }
-
-    public Book(String title, String author, String category, String language) {
-        this.title = title;
-        this.author = author;
-        this.category = category;
-        this.language = language;
-    }
-
-    public Book(String title, String author, String category, String language, String imgURL, String rating, String description) {
-        this.title = title;
-        this.author = author;
-        this.category = category;
-        this.language = language;
-        this.imgURL = imgURL;
-        this.rating = rating;
-        this.description = description;
-    }
-
-    public Book(String title, String description, String author, String category, String language, int available, String imgURL, String rating) {
-        this.title = title;
         this.description = description;
         this.author = author;
         this.category = category;
@@ -59,6 +23,45 @@ public class Book {
         this.available = available;
         this.imgURL = imgURL;
         this.rating = rating;
+        this.previewURL = previewURL;
+    }
+
+    public Book(String title,
+                String author,
+                String category,
+                String language,
+                String imgURL,
+                String rating,
+                String description,
+                String previewURL) {
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.language = language;
+        this.imgURL = imgURL;
+        this.rating = rating;
+        this.description = description;
+        this.previewURL = previewURL;
+    }
+
+    public Book(String title,
+                String description,
+                String author,
+                String category,
+                String language,
+                int available,
+                String imgURL,
+                String rating,
+                String previewURL) {
+        this.title = title;
+        this.description = description;
+        this.author = author;
+        this.category = category;
+        this.language = language;
+        this.available = available;
+        this.imgURL = imgURL;
+        this.rating = rating;
+        this.previewURL = previewURL;
     }
 
     public String getImgURL() {
@@ -145,5 +148,13 @@ public class Book {
                 ", language='" + language + '\'' +
                 ", rating='" + rating + '\'' +
                 '}';
+    }
+
+    public String getPreviewURL() {
+        return previewURL;
+    }
+
+    public void setPreviewURL(String previewURL) {
+        this.previewURL = previewURL;
     }
 }

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
@@ -15,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -25,7 +23,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
-import org.library.btl_oop16_library.Util.Transtition;
+import org.library.btl_oop16_library.Util.Transition;
 
 public class MainMenuController {
 
@@ -141,7 +139,7 @@ public class MainMenuController {
         if (result) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Login.fxml"));
             Scene loginScene = new Scene(loader.load());
-            Transtition.fadeTransition((Stage) logOutButton.getScene().getWindow(), logOutButton.getScene(), loginScene);
+            Transition.fadeTransition((Stage) logOutButton.getScene().getWindow(), logOutButton.getScene(), loginScene);
         }
         return;
     }

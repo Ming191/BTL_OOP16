@@ -68,7 +68,7 @@
 }
 
 .table-view .table-row-cell:selected{
-    -fx-background-color: black;
+    -fx-background-color: #A4C4B5;
 }
 .table-view:row-selection .virtual-flow .scroll-bar:vertical .thumb{
     -fx-background-color:#e0e0e0;

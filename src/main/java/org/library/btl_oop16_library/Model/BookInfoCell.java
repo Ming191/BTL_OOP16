@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import org.library.btl_oop16_library.Util.Transition;
 
 import java.io.IOException;
 
@@ -54,9 +55,6 @@ public class BookInfoCell extends ListCell<Book> {
             return;
         }
 
-        if(getGraphic() != null && book.equals(getItem())) {
-            return;
-        }
         setItem(book);
 
         authorLabel.setText(book.getAuthor());
@@ -64,12 +62,12 @@ public class BookInfoCell extends ListCell<Book> {
         ratingLabel.setText(book.getRating());
         titleLabel.setText(book.getTitle());
         if (book.getImgURL() != null && !book.getImgURL().isEmpty()) {
-            imgHolder.setImage(new javafx.scene.image.Image(book.getImgURL(), true));
+            imgHolder.setImage(new javafx.scene.image.Image(book.getImgURL(),true));
         }
-        if (getGraphic() == null) {
-            setGraphic(rootPane);
-        }
+        setGraphic(rootPane);
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+
+        Transition.cellAnimation(rootPane, getIndex());
     }
 }
 

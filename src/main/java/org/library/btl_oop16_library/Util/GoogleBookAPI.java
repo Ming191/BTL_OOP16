@@ -33,8 +33,9 @@ public class GoogleBookAPI {
                     String imageUrl = bookJson.has("imageLinks") ? bookJson.getJSONObject("imageLinks").optString("thumbnail", "") : "";
                     String rating = bookJson.has("averageRating") ? String.valueOf(bookJson.getDouble("averageRating")) : "Unknown rating";
                     String description = bookJson.has("description") ? bookJson.getString("description") : "Unknown description";
+                    String previewURL = bookJson.has("previewLink") ? bookJson.getString("previewLink") : "";
 
-                    Book book = new Book(title, author, category, language, imageUrl, rating, description);
+                    Book book = new Book(title, author, category, language, imageUrl, rating, description, previewURL);
                     books.add(book);
                 }
             }

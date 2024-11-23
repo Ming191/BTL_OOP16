@@ -12,8 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
@@ -22,6 +22,7 @@ import org.library.btl_oop16_library.Util.BookDBConnector;
 
 public class BookViewController {
     private static final BookDBConnector db = BookDBConnector.getInstance();
+    private Book selectedBook = null;
 
     @FXML
     private TableColumn<Book, String> authorCol;
@@ -51,12 +52,12 @@ public class BookViewController {
     @FXML
     private TableColumn<Book, String> category;
 
-    Book selectedBook = null;
+    @FXML
+    private TextField searchField;
 
     @FXML
-    void handleMouseClick(MouseEvent event) {
+    private Button viewDetailsButton;
 
-    }
 
     private User currentUser;
 
@@ -81,7 +82,6 @@ public class BookViewController {
         addBookStage.setResizable(false);
         addBookStage.initModality(Modality.APPLICATION_MODAL);
         addBookStage.setTitle("Add Book");
-        System.out.println("Add Book button clicked.");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SearchBookDialog.fxml"));
         Parent root = loader.load();
 
@@ -109,7 +109,6 @@ public class BookViewController {
                 deleteBookButton.setDisable(selectedBook == null);
             }
         });
-
         loadBook();
     }
 
@@ -127,8 +126,24 @@ public class BookViewController {
         if (selectedBook == null) {
             return;
         }
-        System.out.println(selectedBook.getId());
         db.deleteFromDB(selectedBook.getId());
+        refresh();
+    }
+
+    @FXML
+    void viewDetailsButtonOnClick () throws IOException, SQLException {
+        Stage viewDetails = new Stage();
+        viewDetails.setResizable(false);
+        viewDetails.initModality(Modality.APPLICATION_MODAL);
+        viewDetails.setTitle("Details");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookDetails.fxml"));
+        Parent root = loader.load();
+        BookDetailsController controller = loader.getController();
+        controller.loadBook(selectedBook);
+
+        viewDetails.setScene(new Scene(root));
+        viewDetails.showAndWait();
 
         refresh();
     }
