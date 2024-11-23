@@ -30,7 +30,7 @@ public class ReturnBookLendingDialogController {
     @FXML
     void onConfirmButtonClick(ActionEvent event) {
         int ID = Integer.parseInt(IDField.getText());
-        BookLoanDBConnector db = new BookLoanDBConnector();
+        BookLoanDBConnector db = BookLoanDBConnector.getInstance();
         try {
             db.deleteFromDB(ID);
             Stage stage = (Stage) confirmButton.getScene().getWindow();
