@@ -220,7 +220,7 @@ public class UserDBConnector extends DBConnector<User> {
     }
 
 
-    public boolean updateUser(User user) {
+    public boolean updateUserForAdmin(User user) {
         String updateQuery = "UPDATE user SET name = ?, email = ?, phoneNumber = ?, address = ?, username = ?, password = ?, role = ? WHERE id = ?";
 
         try (Connection connection = DBConnector.getConnection();
@@ -288,6 +288,28 @@ public class UserDBConnector extends DBConnector<User> {
             throw new RuntimeException("Failed to update password: " + e.getMessage());
         }
     }
+
+    public static boolean updateUserInfor(User user) {
+        String query = "UPDATE user SET name = ?, email = ?, address = ?, phoneNumber = ? WHERE id = ?";
+
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getAddress());
+            preparedStatement.setString(4, user.getPhoneNumber());
+            preparedStatement.setInt(5, user.getId());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
 
 

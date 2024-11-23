@@ -3,10 +3,8 @@ package org.library.btl_oop16_library.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.UserDBConnector;
@@ -17,93 +15,64 @@ public class UpdateUserDialogController {
     private TextField addressField;
 
     @FXML
-    private Button cancelButton;
-
-    @FXML
     private Button confirmButton;
 
     @FXML
     private TextField emailField;
 
     @FXML
-    private TextField idField;
-
-    @FXML
     private TextField nameField;
-
-    @FXML
-    private TextField phoneField;
 
     @FXML
     private PasswordField passwordField;
 
     @FXML
-    private TextField userNameField;
+    private TextField phoneField;
 
-    @FXML
-    private ChoiceBox<String> roleBox;
+    private User currentUser;
 
-    @FXML
-    public void initialize() {
-        roleBox.getItems().addAll("user", "admin");
-        roleBox.setValue("user");
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
     }
 
     @FXML
-    void onCancelButtonClick(ActionEvent event) {
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-        stage.close();
-    }
+    void updateInfor(ActionEvent event) {
+        String newName = nameField.getText();
+        String newEmail = emailField.getText();
+        String newAddress = addressField.getText();
+        String newPhone = phoneField.getText();
+        String passwordCheck = passwordField.getText();
 
-    @FXML
-    void onConfirmButtonClick(ActionEvent event) {
-        try {
-            int id = Integer.parseInt(idField.getText());
+        if (newName.isEmpty() || newEmail.isEmpty() || newAddress.isEmpty() || newPhone.isEmpty() || passwordCheck.isEmpty()) {
+            ApplicationAlert.missingInformation();
+            return;
+        }
 
-            UserDBConnector userDBConnector = UserDBConnector.getInstance();
-            User existingUser = userDBConnector.searchById(id);
+        String gmailRegex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
+        if (!emailField.getText().matches(gmailRegex)) {
+            ApplicationAlert.wrongEmailPattern();
+            return;
+        }
 
-            if (existingUser != null) {
-                String newName = nameField.getText();
-                String newPhone = phoneField.getText();
-                String newAddress = addressField.getText();
-                String newEmail = emailField.getText();
-                String newUsername = userNameField.getText();
-                String newPassword = passwordField.getText();
-                String newRole = roleBox.getValue();
+        if (!passwordCheck.equals(currentUser.getPassword())) {
+            ApplicationAlert.wrongPassword();
+            return;
+        }
 
-                if (!newEmail.matches("[a-zA-Z0-9._%+-]+@gmail\\.com")) {
-                    ApplicationAlert.wrongEmailPattern();
-                    return;
-                }
+        currentUser.setName(newName);
+        currentUser.setEmail(newEmail);
+        currentUser.setAddress(newAddress);
+        currentUser.setPhoneNumber(newPhone);
 
-                if (UserDBConnector.isAlreadyExist(newUsername)) {
-                    ApplicationAlert.userAlreadyExists();
-                    return;
-                }
-                existingUser.setName(newName);
-                existingUser.setPhoneNumber(newPhone);
-                existingUser.setAddress(newAddress);
-                existingUser.setEmail(newEmail);
-                existingUser.setUserName(newUsername);
-                existingUser.setPassword(newPassword);
-                existingUser.setRole(newRole);
 
-                boolean success = userDBConnector.updateUser(existingUser);
-
-                if (success) {
-                    System.out.println("User updated successfully.");
-                    ApplicationAlert.updateSuccess();
-                } else {
-                    System.out.println("Failed to update user.");
-                }
-            } else {
-                System.out.println("User with ID " + id + " not found.");
-                ApplicationAlert.notFound();
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid ID format: " + e.getMessage());
+        boolean result = ApplicationAlert.areYouSureAboutThat();
+        if (result) {
+            UserDBConnector.updateUserInfor(currentUser);
+            ApplicationAlert.updateSuccess();
+            return;
+        }
+        else {
+            System.out.println("User cancelled the sign-up process.");
         }
     }
-
 }
