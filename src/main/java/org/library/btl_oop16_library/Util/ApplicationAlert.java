@@ -3,6 +3,7 @@ package org.library.btl_oop16_library.Util;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Controller.AlertController;
@@ -14,6 +15,7 @@ public class ApplicationAlert {
     private static final String ERROR_ICON = "/img/error.png";
     private static final String INFORMATION_ICON = "/img/information.png";
     private static final String CONFIRMATION_ICON = "/img/confirm.png";
+    private static final String FAVICON = "/img/logo_2min.png";
 
     public static boolean showAlert(String title, String message, String iconPath, boolean showCancelButton) {
         try {
@@ -30,6 +32,7 @@ public class ApplicationAlert {
             stage.setTitle("2Min Library");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.getIcons().add(new Image(ApplicationAlert.class.getResourceAsStream(FAVICON)));
             stage.showAndWait();
 
             return controller.isConfirmed();

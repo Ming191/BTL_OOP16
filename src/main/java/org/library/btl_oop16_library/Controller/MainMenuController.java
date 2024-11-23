@@ -59,6 +59,9 @@ public class MainMenuController {
     @FXML
     private VBox menuVbox;
 
+    @FXML
+    private Button menuSettings;
+
     private User currentUser;
 
     public void setCurrentUser(User user) {
@@ -151,6 +154,13 @@ public class MainMenuController {
 
         Button selectedButton = (Button) event.getSource();
         selectedButton.getStyleClass().add("selected");
+    }
+
+    @FXML
+    void switchToSettings(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
+        mainPane.setCenter(pane);
     }
 
     @FXML

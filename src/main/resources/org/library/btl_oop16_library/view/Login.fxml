@@ -19,20 +19,20 @@
 
 <BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.LoginController">
    <right>
-      <HBox prefHeight="574.0" prefWidth="239.0" styleClass="right_side_pane" stylesheets="@../../../../css/Style.css" BorderPane.alignment="CENTER">
+      <HBox prefHeight="574.0" prefWidth="265.0" styleClass="right_side_pane" stylesheets="@../../../../css/Style.css" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <AnchorPane prefHeight="574.0" prefWidth="244.0" styleClass="rightSidePaneLogin" stylesheets="@../../../../css/Style.css">
+            <AnchorPane prefHeight="574.0" prefWidth="276.0" styleClass="rightSidePaneLogin" stylesheets="@../../../../css/Style.css">
                <children>
-                  <Text fill="#faf5f5" layoutX="17.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First time joining us huh?">
+                  <Text fill="#faf5f5" layoutX="33.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First time joining us huh?">
                      <font>
                         <Font name="Verdana Bold" size="15.0" />
                      </font>
                   </Text>
-                  <Text fill="#edeaea" layoutX="62.0" layoutY="221.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up for our greatest bookList system" wrappingWidth="157.1419219970703" />
-                  <Button fx:id="signUpButton" layoutX="12.0" layoutY="304.0" mnemonicParsing="false" onAction="#switchToSignUpScene" prefHeight="53.0" prefWidth="226.0" styleClass="signinButton" stylesheets="@../../../../css/Style.css" text="SIGN UP">
+                  <Text fill="#edeaea" layoutX="32.0" layoutY="236.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up for our greatest bookList system" wrappingWidth="217.1419219970703" />
+                  <Button fx:id="signUpButton" layoutX="20.0" layoutY="287.0" mnemonicParsing="false" onAction="#switchToSignUpScene" prefHeight="53.0" prefWidth="226.0" styleClass="signinButton" stylesheets="@../../../../css/Style.css" text="SIGN UP">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -75,7 +75,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameField" prefHeight="31.0" prefWidth="379.0" />
+                        <TextField fx:id="usernameField" prefHeight="35.0" prefWidth="379.0" />
                         <Label alignment="CENTER" opacity="0.5" prefHeight="46.0" prefWidth="379.0" text="PASSWORD">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -84,7 +84,7 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <PasswordField fx:id="passwordField" prefHeight="38.0" prefWidth="379.0" />
+                        <PasswordField fx:id="passwordField" prefHeight="35.0" prefWidth="379.0" />
                         <Button fx:id="signInButton" mnemonicParsing="false" onAction="#signInOnClick" prefHeight="53.0" prefWidth="378.0" styleClass="signinButton" stylesheets="@../../../../css/Style.css" text="SIGN IN">
                            <font>
                               <Font size="16.0" />
