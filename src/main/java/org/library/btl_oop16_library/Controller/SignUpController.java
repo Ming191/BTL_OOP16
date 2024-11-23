@@ -68,8 +68,8 @@ public class SignUpController {
             return;
         }
 
-        boolean result = ApplicationAlert.areYouSureAboutThat();
-        if (result) {
+        Optional<ButtonType> result = ApplicationAlert.areYouSureAboutThat();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             User newUser = new User(nameField.getText(), emailField.getText(), phoneField.getText(), addressField.getText(), usernameField.getText(), passwordField.getText());
             UserDBConnector.getInstance().addToDB(newUser);
             ApplicationAlert.signUpSuccess();

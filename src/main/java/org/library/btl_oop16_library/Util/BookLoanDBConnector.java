@@ -1,26 +1,33 @@
 package org.library.btl_oop16_library.Util;
 
-import org.library.btl_oop16_library.Controller.CatalogViewController;
-import org.library.btl_oop16_library.Controller.MainMenuController;
 import org.library.btl_oop16_library.Model.BookLoans;
 import org.library.btl_oop16_library.Model.User;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
 public class BookLoanDBConnector extends DBConnector<BookLoans> {
+    private static BookLoanDBConnector instance;
+    private static final Object lock = new Object();
+
+    private BookLoanDBConnector() {}
+
+    public static BookLoanDBConnector getInstance() {
+        if (instance == null) {
+            synchronized (lock) {
+                instance = new BookLoanDBConnector();
+            }
+        }
+        return instance;
+    }
+
     @Override
     public List<BookLoans> importFromDB() throws SQLException {
         List<BookLoans> bookLoans = new ArrayList<>();
@@ -97,7 +104,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                 bookLoan = new BookLoans(id, userId, bookId, null, null, amount, null);
             }
 
-            String deleteBookLoan = "DELETE FROM bookLoans WHERE id = ?";
+            String deleteBookLoan = "update bookLoans set status = 'đã trả' where id = ?";
             ps = con.prepareStatement(deleteBookLoan);
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -136,7 +143,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                 pst.setString(3, df.format(bookLoan.getStartDate()));
                 pst.setString(4, df.format(bookLoan.getDueDate()));
                 pst.setInt(5, bookLoan.getBookId());
-                pst.setString(6, "chua tra");
+                pst.setString(6, bookLoan.getStatus());
                 pst.executeUpdate();
 
                 String updateBookQuantity = "UPDATE book SET quantity = quantity - ? WHERE id = ?";
@@ -152,7 +159,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
 
     @Override
     public BookLoans searchById(int id) {
-        String searchQuery = "SELECT * FROM book WHERE id = ?";
+        String searchQuery = "SELECT * FROM bookLoans WHERE id = ?";
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try (Connection con = DBConnector.getConnection();
             PreparedStatement pst = con.prepareStatement(searchQuery)){
@@ -168,8 +175,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                     Date startDate = df.parse(rs.getString("startDate"));
                     Date dueDate = df.parse(rs.getString("dueDate"));
 
-                    BookLoans bookLoan = new BookLoans(Id, userId, bookId, startDate, dueDate, amount, status);
-                    return bookLoan;
+                    return  new BookLoans(Id, userId, bookId, startDate, dueDate, amount, status);
                 } catch (ParseException e) {
                     System.out.println(e.getMessage());
                 }
@@ -180,5 +186,56 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         return null;
     }
 
+    public void updateBookLoan() {
+       String updateStatus = "update bookLoans set status = 'quá hạn'"
+                            + " WHERE STRFTIME('%Y-%m-%d', SUBSTR(dueDate, 7, 4) || '-'\n"
+                            + "|| SUBSTR(dueDate, 4, 2) || '-'\n"
+                            + "|| SUBSTR(dueDate, 1, 2)) < DATE ('now')";
+       try (Connection con = DBConnector.getConnection()) {
+           PreparedStatement ps = con.prepareStatement(updateStatus);
+           ps.executeUpdate();
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+    }
 
+    public boolean canLendBook(User user, int limit) {
+        String query = "select ifnull(sum(amount),0) as quantity from bookLoans "
+                     + "where status not in('da tra','đặt trước') and userId = ?";
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, user.getId());
+            ResultSet rs = ps.executeQuery();
+            int lendQuantity = 0;
+            if (rs.next()) {
+                lendQuantity = rs.getInt("quantity");
+            }
+            if (lendQuantity < limit) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean canPreorderBook(User user) {
+        String query = "select ifnull(sum(amount),0) as quantity from bookLoans "
+                     + "where status not like('đặt trước') and userId = ?";
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, user.getId());
+            ResultSet rs = ps.executeQuery();
+            int lendQuantity = 0;
+            if (rs.next()) {
+                lendQuantity = rs.getInt("quantity");
+            }
+            if (lendQuantity > 20) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

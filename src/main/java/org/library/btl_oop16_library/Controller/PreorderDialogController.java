@@ -12,7 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddBookLendingDialogController {
+public class PreorderDialogController {
 
     @FXML
     private TextField bookIDField;
@@ -53,7 +53,7 @@ public class AddBookLendingDialogController {
         try {
             Date startDate = formatter.parse(start);
             Date dueDate = formatter.parse(due);
-            BookLoans bookLoan = new BookLoans(userID, bookID, startDate, dueDate, quantity, "chưa trả");
+            BookLoans bookLoan = new BookLoans(userID, bookID, startDate, dueDate, quantity, "đặt trước");
             BookLoanDBConnector bookLoanDBConnector = BookLoanDBConnector.getInstance();
             try {
                 bookLoanDBConnector.addToDB(bookLoan);
@@ -67,4 +67,5 @@ public class AddBookLendingDialogController {
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }
+
 }
