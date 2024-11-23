@@ -48,7 +48,19 @@
                                     <Font name="System" size="12.0" />
                                  </font>
                               </Button>
-                              <TextField prefHeight="44.0" promptText="Search books by...">
+                              <Button fx:id="viewDetailsButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#viewDetailsButtonOnClick" stylesheets="@../../../../css/Button.css" text="View Details" textFill="WHITE">
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../img/remove1.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="System" size="12.0" />
+                                 </font>
+                              </Button>
+                              <TextField fx:id="searchField" prefHeight="44.0" promptText="Search books by...">
                                  <font>
                                     <Font name="Montserrat Bold" size="12.0" />
                                  </font>
@@ -57,6 +69,7 @@
                         <TableView fx:id="table" minHeight="800.0" minWidth="500.0" prefWidth="1089.0" stylesheets="@../../../../css/TableView.css">
                           <columns>
                             <TableColumn fx:id="idCol" editable="false" maxWidth="-Infinity" minWidth="50.0" prefWidth="-1.0" resizable="false" text="ID" />
+                              <TableColumn fx:id="imgCol" minWidth="200.0" prefWidth="75.0" text="IMAGE" />
                             <TableColumn fx:id="titleCol" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" sortable="false" text="TITLE" />
                               <TableColumn fx:id="authorCol" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" sortable="false" text="AUTHOR" />
                               <TableColumn fx:id="category" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" sortable="false" text="TYPE" />
