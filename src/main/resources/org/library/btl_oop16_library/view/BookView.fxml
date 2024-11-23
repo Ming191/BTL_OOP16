@@ -69,7 +69,6 @@
                         <TableView fx:id="table" minHeight="800.0" minWidth="500.0" prefWidth="1089.0" stylesheets="@../../../../css/TableView.css">
                           <columns>
                             <TableColumn fx:id="idCol" editable="false" maxWidth="-Infinity" minWidth="50.0" prefWidth="-1.0" resizable="false" text="ID" />
-                              <TableColumn fx:id="imgCol" minWidth="200.0" prefWidth="75.0" text="IMAGE" />
                             <TableColumn fx:id="titleCol" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" sortable="false" text="TITLE" />
                               <TableColumn fx:id="authorCol" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" sortable="false" text="AUTHOR" />
                               <TableColumn fx:id="category" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" sortable="false" text="TYPE" />
