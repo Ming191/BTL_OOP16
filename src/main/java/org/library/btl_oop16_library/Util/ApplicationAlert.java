@@ -93,4 +93,8 @@ public class ApplicationAlert {
         showAlert("Sign Up Success!", "Your account has been created!", INFORMATION_ICON, false);
     }
 
+    public static void canNotLendBook() {
+        showAlert("Can Not Preorder!", "Your borrowed book is less than 20!", ERROR_ICON, false);
+    }
+
 }

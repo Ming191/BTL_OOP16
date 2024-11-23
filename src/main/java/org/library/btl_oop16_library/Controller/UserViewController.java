@@ -136,12 +136,13 @@ public class UserViewController {
             return;
         }
 
-        Optional<ButtonType> result = ApplicationAlert.areYouSureAboutThat();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        boolean result = ApplicationAlert.areYouSureAboutThat();
+        if (result) {
             UserDBConnector.getInstance().deleteFromDB(selectedUser.getId());
             table.getItems().remove(selectedUser);        } else {
         }
     }
+
 
     @FXML
     void updateUserButtonOnClick(ActionEvent event) throws IOException {
