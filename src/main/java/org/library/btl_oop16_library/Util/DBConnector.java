@@ -28,4 +28,8 @@ public abstract class DBConnector<T> {
     //public abstract List<T> searchByName(String name);
 
     public abstract T searchById(int id);
+
+    public abstract void exportToExcel();
+
+    public abstract void importFromExcel(String filename);
 }

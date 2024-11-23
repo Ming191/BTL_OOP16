@@ -2,9 +2,11 @@ package org.library.btl_oop16_library.Model;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import org.library.btl_oop16_library.Util.Transition;
@@ -31,6 +33,8 @@ public class BookInfoCell extends ListCell<Book> {
     @FXML
     private ImageView imgHolder;
 
+    boolean isSet = false;
+
     public BookInfoCell() {
         loadFXML();
     }
@@ -49,25 +53,29 @@ public class BookInfoCell extends ListCell<Book> {
     protected void updateItem(Book book, boolean empty) {
         super.updateItem(book, empty);
 
-        if (empty || book == null) {
+        if (empty) {
             setText(null);
             setGraphic(null);
-            return;
+        } else {
+            if (!isSet) {
+                if (book.getImgURL() != null && !book.getImgURL().isEmpty()) {
+                    imgHolder.setImage(new Image(book.getImgURL(), true));
+                }
+                authorLabel.setText(book.getAuthor());
+                categoriesLabel.setText(book.getCategory());
+                ratingLabel.setText(book.getRating());
+                titleLabel.setText(book.getTitle());
+
+                Transition.cellAnimation(rootPane);
+
+                isSet = true;
+            }
+
+            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            setGraphic(rootPane);
         }
-
-        setItem(book);
-
-        authorLabel.setText(book.getAuthor());
-        categoriesLabel.setText(book.getCategory());
-        ratingLabel.setText(book.getRating());
-        titleLabel.setText(book.getTitle());
-        if (book.getImgURL() != null && !book.getImgURL().isEmpty()) {
-            imgHolder.setImage(new javafx.scene.image.Image(book.getImgURL(),true));
-        }
-        setGraphic(rootPane);
-        setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-
-        Transition.cellAnimation(rootPane, getIndex());
     }
+
+
 }
 

@@ -9,34 +9,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookDetailsController">
+<GridPane fx:id="rootPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookDetailsController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="150.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="365.0" minHeight="10.0" prefHeight="216.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-               <children>
-                  <Label text="Title:" />
-                  <Label fx:id="titleLabel" text="TitleLable" />
-                  <Label text="Categories:" />
-                  <Label fx:id="categoriesLabel" text="CategoriesLabel" />
-               </children>
-               <padding>
-                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-               </padding>
-            </VBox>
-         </children>
-      </VBox>
-      <ImageView fx:id="imgHolder" fitHeight="231.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-      <ImageView fx:id="qrCodeHolder" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <Label text="Authors:" />
@@ -62,6 +45,27 @@
          <padding>
             <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
          </padding>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1">
+         <padding>
+            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+         </padding>
+         <children>
+            <Label text="Categories:" />
+            <Label fx:id="categoriesLabel" text="CategoriesLabel" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+         <children>
+            <ImageView fx:id="qrCodeHolder" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+            <Label text="Scan me to preview the book" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <ImageView fx:id="imgHolder" fitHeight="231.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="titleLabel" text="TitleLabel" />
+         </children>
       </VBox>
    </children>
 </GridPane>

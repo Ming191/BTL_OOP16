@@ -13,7 +13,16 @@ public class Book {
     private String previewURL;
     private String rating;
 
-    public Book(int id, String title, String description, String author, String category, String language, int available, String imgURL, String rating,String previewURL) {
+    public Book(int id,
+                String title,
+                String description,
+                String author,
+                String category,
+                String language,
+                int available,
+                String imgURL,
+                String rating,
+                String previewURL) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -23,6 +32,48 @@ public class Book {
         this.available = available;
         this.imgURL = imgURL;
         this.rating = rating;
+        this.previewURL = previewURL;
+    }
+
+    public Book(String title,
+                String author,
+                String category,
+                String language,
+                int quantity,
+                String imgURL,
+                String rating,
+                String description,
+                String previewURL) {
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.language = language;
+        this.available = quantity;
+        this.imgURL = imgURL;
+        this.rating = rating;
+        this.description = description;
+        this.previewURL = previewURL;
+    }
+
+    public Book(int id,
+                String title,
+                String author,
+                String category,
+                String language,
+                int quantity,
+                String imgURL,
+                String rating,
+                String description,
+                String previewURL) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.language = language;
+        this.available = quantity;
+        this.imgURL = imgURL;
+        this.rating = rating;
+        this.description = description;
         this.previewURL = previewURL;
     }
 

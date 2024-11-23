@@ -60,6 +60,30 @@
                                     <Font name="System" size="12.0" />
                                  </font>
                               </Button>
+                              <Button fx:id="exportButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#exportOnClick" stylesheets="@../../../../css/Button.css" text="Export" textFill="WHITE">
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../img/remove1.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="System" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="importButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#importOnClick" stylesheets="@../../../../css/Button.css" text="Import" textFill="WHITE">
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../img/remove1.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="System" size="12.0" />
+                                 </font>
+                              </Button>
                               <TextField fx:id="searchField" prefHeight="44.0" promptText="Search books by...">
                                  <font>
                                     <Font name="Montserrat Bold" size="12.0" />
@@ -69,10 +93,10 @@
                         <TableView fx:id="table" minHeight="800.0" minWidth="500.0" prefWidth="1089.0" stylesheets="@../../../../css/TableView.css">
                           <columns>
                             <TableColumn fx:id="idCol" editable="false" maxWidth="-Infinity" minWidth="50.0" prefWidth="-1.0" resizable="false" text="ID" />
-                            <TableColumn fx:id="titleCol" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" sortable="false" text="TITLE" />
-                              <TableColumn fx:id="authorCol" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" sortable="false" text="AUTHOR" />
-                              <TableColumn fx:id="category" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" sortable="false" text="TYPE" />
-                              <TableColumn fx:id="languageCol" editable="false" maxWidth="-Infinity" minWidth="100.0" prefWidth="-1.0" resizable="false" sortable="false" text="LANGUAGE" />
+                            <TableColumn fx:id="titleCol" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" text="TITLE" />
+                              <TableColumn fx:id="authorCol" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" text="AUTHOR" />
+                              <TableColumn fx:id="category" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" text="TYPE" />
+                              <TableColumn fx:id="languageCol" editable="false" maxWidth="-Infinity" minWidth="100.0" prefWidth="-1.0" resizable="false" text="LANGUAGE" />
                               <TableColumn fx:id="availableCol" editable="false" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" text="AVAILABLE" />
                           </columns>
                            <rotationAxis>

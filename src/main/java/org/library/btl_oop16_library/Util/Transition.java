@@ -37,12 +37,12 @@ public class Transition {
         }
     }
 
-    public static void cellAnimation(Node node, int cellIdx) {
+    public static void cellAnimation(Node node) {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), node);
         fadeTransition.setFromValue(0.0);
         fadeTransition.setToValue(1.0);
 
-        PauseTransition pauseTransition = new PauseTransition(Duration.millis(cellIdx * 100));
+        PauseTransition pauseTransition = new PauseTransition(Duration.millis( 200));
 
         SequentialTransition sequentialTransition = new SequentialTransition(pauseTransition, fadeTransition);
         sequentialTransition.play();

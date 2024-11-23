@@ -1,11 +1,13 @@
 module org.library.btl_oop16_library {
     requires javafx.controls;
     requires javafx.fxml;
-    requires java.desktop;
     requires org.xerial.sqlitejdbc;
     requires org.json;
     requires java.net.http;
     requires jdk.compiler;
+    requires com.google.zxing;
+    requires com.google.zxing.javase;
+    requires org.apache.poi.ooxml;
 
 
     opens org.library.btl_oop16_library to javafx.fxml;

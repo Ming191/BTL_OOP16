@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library.Controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -14,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
@@ -58,6 +60,11 @@ public class BookViewController {
     @FXML
     private Button viewDetailsButton;
 
+    @FXML
+    private Button exportButton;
+
+    @FXML
+    private Button importButton;
 
     private User currentUser;
 
@@ -142,9 +149,34 @@ public class BookViewController {
         BookDetailsController controller = loader.getController();
         controller.loadBook(selectedBook);
 
-        viewDetails.setScene(new Scene(root));
+        if(controller.isSet()) {
+            viewDetails.setScene(new Scene(root));
+        }
         viewDetails.showAndWait();
 
+        refresh();
+    }
+
+    @FXML
+    void exportOnClick() {
+        db.exportToExcel();
+    }
+
+    @FXML
+    void importOnClick() throws SQLException {
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter excelFilter = new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx");
+        fileChooser.getExtensionFilters().add(excelFilter);
+
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+
+        if (selectedFile != null) {
+            String filePath = selectedFile.getAbsolutePath();
+            db.importFromExcel(filePath);
+        } else {
+            System.out.println("No file selected.");
+        }
         refresh();
     }
 }

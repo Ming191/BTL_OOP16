@@ -151,6 +151,16 @@ public class UserDBConnector extends DBConnector<User> {
         }
     }
 
+    @Override
+    public void exportToExcel() {
+
+    }
+
+    @Override
+    public void importFromExcel(String filename) {
+
+    }
+
     public List<User> searchByName(String name) {
         String query = "SELECT * FROM user WHERE user.name LIKE ?";
         List<User> users = new ArrayList<>();

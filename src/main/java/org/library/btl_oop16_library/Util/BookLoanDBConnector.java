@@ -186,6 +186,16 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         return null;
     }
 
+    @Override
+    public void exportToExcel() {
+
+    }
+
+    @Override
+    public void importFromExcel(String filename) {
+
+    }
+
     public void updateBookLoan() {
        String updateStatus = "update bookLoans set status = 'quá hạn'"
                             + " WHERE STRFTIME('%Y-%m-%d', SUBSTR(dueDate, 7, 4) || '-'\n"
@@ -238,4 +248,6 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         }
         return false;
     }
+
+
 }

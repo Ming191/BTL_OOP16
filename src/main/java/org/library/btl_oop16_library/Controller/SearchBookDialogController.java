@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -17,9 +16,6 @@ import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.BookInfoCellFactory;
 import org.library.btl_oop16_library.Util.BookDBConnector;
 import org.library.btl_oop16_library.Util.GoogleBookAPI;
-
-import javax.swing.text.View;
-import java.io.IO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -63,12 +59,12 @@ public class SearchBookDialogController {
                         selectedBook.setAvailable(quantity);
                         BookDBConnector.getInstance().addToDB(selectedBook);
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        System.err.println(e.getMessage());
                     }
                 }
 
             } catch (IOException e ) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -76,9 +72,7 @@ public class SearchBookDialogController {
     @FXML
     void onSearchButtonClick(ActionEvent event) {
         String searchText = searchField.getText();
-
         List<Book> books = GoogleBookAPI.searchBooks(searchText);
-
         bookList.getItems().clear();
         bookList.getItems().addAll(books);
     }
