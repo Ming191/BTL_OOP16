@@ -18,7 +18,6 @@ import org.library.btl_oop16_library.Util.UserDBConnector;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 public class UserViewController {
     UserDBConnector userDB = UserDBConnector.getInstance();
@@ -151,7 +150,7 @@ public class UserViewController {
         updateUserStage.initModality(Modality.APPLICATION_MODAL);
         updateUserStage.setTitle("Update User");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/UpdateUserDialog.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/UpdateUserDialogForAdmin.fxml"));
 
         try {
             Parent root = fxmlLoader.load();

@@ -13,7 +13,7 @@
       <Insets top="10.0" />
    </opaqueInsets>
    <children>
-      <VBox layoutY="-6.0" prefHeight="346.0" prefWidth="454.0">
+      <VBox layoutY="-6.0" prefHeight="331.0" prefWidth="454.0">
          <children>
             <TextField fx:id="idField" layoutX="40.0" layoutY="225.0" maxWidth="385.0" prefHeight="25.0" promptText="ID to update">
                <VBox.margin>
@@ -45,7 +45,7 @@
                   <Insets left="30.0" right="30.0" top="15.0" />
                </VBox.margin>
             </TextField>
-            <PasswordField fx:id="passwordField" maxWidth="385.0" prefHeight="25.0" prefWidth="378.0" promptText="Password">
+            <PasswordField fx:id="passwordField" prefHeight="25.0" prefWidth="376.0" promptText="Password">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="15.0" />
                </VBox.margin>
