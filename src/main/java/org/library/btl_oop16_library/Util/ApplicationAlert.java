@@ -97,4 +97,12 @@ public class ApplicationAlert {
         showAlert("Can Not Preorder!", "Your borrowed book is less than 20!", ERROR_ICON, false);
     }
 
+    public static void passwordMismatch() {
+        showAlert("Password Mismatch!", "New password and confirmation do not match.", ERROR_ICON, false);
+    }
+
+    public static void wrongPassword() {
+        showAlert("Invalid Password!", "Please provide the right password!", ERROR_ICON, false);
+    }
+
 }

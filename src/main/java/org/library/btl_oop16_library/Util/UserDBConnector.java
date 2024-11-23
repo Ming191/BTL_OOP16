@@ -265,7 +265,29 @@ public class UserDBConnector extends DBConnector<User> {
         }
     }
 
+    public boolean updatePassword(int userId, String newPassword) {
+        String updateQuery = "UPDATE user SET password = ? WHERE id = ?";
 
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(updateQuery)) {
+
+            stmt.setString(1, newPassword);
+            stmt.setInt(2, userId);
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Password updated successfully for User ID: " + userId);
+                return true;
+            } else {
+                System.out.println("No user found with ID: " + userId);
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to update password: " + e.getMessage());
+        }
+    }
 }
 
 

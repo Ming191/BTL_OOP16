@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -155,10 +156,17 @@ public class MainMenuController {
     }
 
     @FXML
-    void switchToSettings(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
-        mainPane.setCenter(pane);
+    public void switchToSettings(ActionEvent event) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
+            Pane pane = loader.load();
+            mainPane.setCenter(pane);
+            SettingsController settingsController = loader.getController();
+            settingsController.setCurrentUser(currentUser);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
