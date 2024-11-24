@@ -43,8 +43,11 @@ public class DashboardViewController {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         int returnedCount = DBConnector.getCount("SELECT COUNT(*) FROM bookLoans WHERE status = 'returned'");
+        System.out.println(returnedCount);
         int notReturnedCount = DBConnector.getCount("SELECT COUNT(*) FROM bookLoans WHERE status = 'not returned'");
+        System.out.println(notReturnedCount);
         int preOrderedCount = DBConnector.getCount("SELECT COUNT(*) FROM bookLoans WHERE status = 'pre-ordered'");
+        System.out.println(preOrderedCount);
 
         pieChartData.add(new PieChart.Data("returned", returnedCount));
         pieChartData.add(new PieChart.Data("not returned", notReturnedCount));

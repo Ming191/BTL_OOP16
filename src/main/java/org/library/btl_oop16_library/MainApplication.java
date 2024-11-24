@@ -17,8 +17,7 @@ public class MainApplication extends Application {
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("/css/Style.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        Application.setUserAgentStylesheet(getClass().getResource("/css/nord-light.css").toExternalForm());
 
         Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
         stage.getIcons().add(favicon);

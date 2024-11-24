@@ -91,9 +91,12 @@ public class MainMenuController {
     private void startClock() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm, dd/MM/yyyy");
 
+        LocalDateTime now = LocalDateTime.now();
+        clockField.setText(now.format(formatter));
+
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            LocalDateTime now = LocalDateTime.now();
-            clockField.setText(now.format(formatter));
+            LocalDateTime current = LocalDateTime.now();
+            clockField.setText(current.format(formatter));
         }));
 
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -174,6 +177,7 @@ public class MainMenuController {
         assert menuUser != null : "fx:id=\"menuUser\" was not injected: check your FXML file 'MainMenu.fxml'.";
         assert menuVbox != null : "fx:id=\"menuVbox\" was not injected: check your FXML file 'MainMenu.fxml'.";
         startClock();
+
     }
 
 

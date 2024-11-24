@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.DashboardViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="bg-inset" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.DashboardViewController">
    <children>
       <HBox layoutX="476.0" layoutY="53.0" prefHeight="50.0" prefWidth="294.0">
          <children>
