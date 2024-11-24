@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookDBConnector;
 
 public class BookViewController {
@@ -133,7 +134,10 @@ public class BookViewController {
         if (selectedBook == null) {
             return;
         }
-        db.deleteFromDB(selectedBook.getId());
+        boolean result = ApplicationAlert.areYouSureAboutThat();
+        if (result) {
+            db.deleteFromDB(selectedBook.getId());
+        }
         refresh();
     }
 

@@ -44,7 +44,6 @@ public class LoginController {
             return;
         } else {
             User user = UserDBConnector.getInstance().getUser(usernameField.getText(), passwordField.getText());
-
             if(user != null) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/MainMenu.fxml"));
