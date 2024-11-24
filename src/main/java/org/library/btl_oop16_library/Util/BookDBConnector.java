@@ -68,36 +68,61 @@ public class BookDBConnector extends DBConnector<Book> {
 
     @Override
     public void deleteFromDB(int id) throws SQLException {
-        String query = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new SQLException("Error while deleting book from DB");
+        String getBookQuery = "SELECT title FROM book WHERE id = ?";
+        String deleteBookQuery = "DELETE FROM book WHERE id = ?";
+
+        String bookName = null;
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement getStmt = conn.prepareStatement(getBookQuery)) {
+            getStmt.setInt(1, id);
+            try (ResultSet rs = getStmt.executeQuery()) {
+                if (rs.next()) {
+                    bookName = rs.getString("title");
+                }
+            }
         }
+
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement deleteStmt = conn.prepareStatement(deleteBookQuery)) {
+            deleteStmt.setInt(1, id);
+            deleteStmt.executeUpdate();
+        }
+
+        if (bookName != null) {
+            ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+            activitiesDB.logActivity("Deleted book: '" + bookName + "'.");
+        }
+        else {
+            System.out.println("Book not found, nothing to delete.");
+        }
+
     }
 
     @Override
     public void addToDB(Book item) throws SQLException {
-        String checkQuery = "SELECT id FROM " + TABLE_NAME + " WHERE title = ?";
+        String checkQuery = "SELECT id, quantity FROM " + TABLE_NAME + " WHERE title = ?";
         String updateQuery = "UPDATE " + TABLE_NAME + " SET quantity = quantity + ? WHERE id = ?";
         String insertQuery = "INSERT INTO " + TABLE_NAME + " (title, author, category, language, quantity, imgUrl, rating, description, previewURL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement psCheck = conn.prepareStatement(checkQuery)) {
 
-             psCheck.setString(1, item.getTitle());
-             ResultSet rs = psCheck.executeQuery();
+            psCheck.setString(1, item.getTitle());
+            ResultSet rs = psCheck.executeQuery();
 
             if (rs.next()) {
+                int existingQuantity = rs.getInt("quantity");
+                int bookId = rs.getInt("id");
+                int newQuantity = item.getAvailable();
+
                 try (PreparedStatement psUpdate = conn.prepareStatement(updateQuery)) {
-                    psUpdate.setInt(1, item.getAvailable());
-                    psUpdate.setInt(2, rs.getInt("id"));
+                    psUpdate.setInt(1, newQuantity);
+                    psUpdate.setInt(2, bookId);
                     psUpdate.executeUpdate();
-                } catch (SQLException e) {
-                    throw new SQLException("Error while updating book in DB");
                 }
+
+                ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+                activitiesDB.logActivity("Added " + newQuantity + " copies of book: '" + item.getTitle() + "'.");
             } else {
                 try (PreparedStatement psInsert = conn.prepareStatement(insertQuery)) {
                     psInsert.setString(1, item.getTitle());
@@ -108,11 +133,12 @@ public class BookDBConnector extends DBConnector<Book> {
                     psInsert.setString(6, item.getImgURL());
                     psInsert.setString(7, item.getRating());
                     psInsert.setString(8, item.getDescription());
-                    psInsert.setString(9,item.getPreviewURL());
+                    psInsert.setString(9, item.getPreviewURL());
                     psInsert.executeUpdate();
-                } catch (SQLException e) {
-                    throw new SQLException("Error while inserting book in DB");
                 }
+
+                ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+                activitiesDB.logActivity("Added " + item.getAvailable() + " copies of new book: '" + item.getTitle() + "'.");
             }
         } catch (SQLException e) {
             throw new SQLException("Error while adding book or copy to DB", e);

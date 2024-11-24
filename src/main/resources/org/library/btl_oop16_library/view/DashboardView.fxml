@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +13,7 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.DashboardViewController">
    <children>
-      <HBox layoutX="536.0" layoutY="53.0" prefHeight="50.0" prefWidth="294.0">
+      <HBox layoutX="476.0" layoutY="53.0" prefHeight="50.0" prefWidth="294.0">
          <children>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -30,8 +31,8 @@
             <Label prefHeight="50.0" prefWidth="125.0" text="Total user" />
          </children>
       </HBox>
-      <PieChart fx:id="loanStatusChart" layoutX="43.0" layoutY="240.0" prefHeight="420.0" prefWidth="419.0" />
-      <HBox layoutX="536.0" layoutY="116.0" prefHeight="50.0" prefWidth="294.0">
+      <PieChart fx:id="loanStatusChart" layoutX="14.0" layoutY="240.0" prefHeight="420.0" prefWidth="419.0" />
+      <HBox layoutX="476.0" layoutY="116.0" prefHeight="50.0" prefWidth="294.0">
          <children>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -49,7 +50,7 @@
             <Label prefHeight="50.0" prefWidth="125.0" text="Total book" />
          </children>
       </HBox>
-      <HBox layoutX="536.0" layoutY="183.0" prefHeight="50.0" prefWidth="294.0">
+      <HBox layoutX="476.0" layoutY="183.0" prefHeight="50.0" prefWidth="294.0">
          <children>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -67,5 +68,41 @@
             <Label prefHeight="50.0" prefWidth="125.0" text="Total admin" />
          </children>
       </HBox>
+      <AnchorPane layoutX="476.0" layoutY="379.0" prefHeight="237.0" prefWidth="294.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="6.0" prefHeight="30.0" prefWidth="294.0" text="Admin infor" />
+            <HBox layoutY="36.0" prefHeight="50.0" prefWidth="294.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/admin.png" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="50.0" prefWidth="244.0" text="Minh-minh@gmail.com-0123456789" />
+               </children>
+            </HBox>
+            <HBox layoutY="169.0" prefHeight="50.0" prefWidth="294.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/admin.png" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="50.0" prefWidth="244.0" text="Locngu-loc@gmail.com-0987654321" />
+               </children>
+            </HBox>
+            <HBox layoutY="102.0" prefHeight="50.0" prefWidth="294.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/admin.png" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="50.0" prefWidth="244.0" text="Minh-minh@gmail.com-0123456789" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <ListView fx:id="activityListView" layoutX="730.0" layoutY="201.0" prefHeight="249.0" prefWidth="250.0" />
    </children>
 </AnchorPane>

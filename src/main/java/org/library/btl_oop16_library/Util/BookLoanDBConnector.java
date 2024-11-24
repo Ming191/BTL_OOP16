@@ -91,29 +91,42 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     @Override
     public void deleteFromDB(int id) throws SQLException {
         try (Connection con = DBConnector.getConnection()) {
-            String query = "select * from bookLoans where id = ?";
+            String query = "SELECT bl.id, bl.userId, bl.bookId, bl.amount, u.name AS userName, b.title AS bookTitle " +
+                    "FROM bookLoans bl " +
+                    "JOIN user u ON bl.userId = u.id " +
+                    "JOIN book b ON bl.bookId = b.id " +
+                    "WHERE bl.id = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            BookLoans bookLoan = null;
-            while (rs.next()) {
-                int Id = rs.getInt("id");
-                int userId = rs.getInt("userId");
-                int bookId = rs.getInt("bookId");
-                int amount = rs.getInt("amount");
-                bookLoan = new BookLoans(id, userId, bookId, null, null, amount, null);
+
+            String userName = null;
+            String bookTitle = null;
+            int amount = 0;
+            int bookId = 0;
+
+            if (rs.next()) {
+                userName = rs.getString("userName");
+                bookTitle = rs.getString("bookTitle");
+                amount = rs.getInt("amount");
+                bookId = rs.getInt("bookId");
             }
 
-            String deleteBookLoan = "update bookLoans set status = 'returned' where id = ?";
+            String deleteBookLoan = "UPDATE bookLoans SET status = 'returned' WHERE id = ?";
             ps = con.prepareStatement(deleteBookLoan);
             ps.setInt(1, id);
             ps.executeUpdate();
 
-            String updateBook = "update book set quantity = quantity + ? where id = ?";
+            String updateBook = "UPDATE book SET quantity = quantity + ? WHERE id = ?";
             ps = con.prepareStatement(updateBook);
-            ps.setInt(1, bookLoan.getAmount());
-            ps.setInt(2, bookLoan.getBookId());
+            ps.setInt(1, amount);
+            ps.setInt(2, bookId);
             ps.executeUpdate();
+
+            if (userName != null && bookTitle != null) {
+                ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+                activitiesDB.logActivity(userName + " returned '" + bookTitle + "'");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -122,22 +135,35 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     @Override
     public void addToDB(BookLoans bookLoan) throws SQLException {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String query = "select quantity from book where id = ?";
+        String query = "SELECT quantity, title FROM book WHERE id = ?";
+        String userQuery = "SELECT name FROM user WHERE id = ?";
 
         try (Connection con = DBConnector.getConnection()) {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, bookLoan.getBookId());
             ResultSet rs = ps.executeQuery();
+
             int quantity = 0;
+            String bookTitle = null;
+
             if (rs.next()) {
-                 quantity = rs.getInt("quantity");
+                quantity = rs.getInt("quantity");
+                bookTitle = rs.getString("title");
+            }
+
+            ps = con.prepareStatement(userQuery);
+            ps.setInt(1, bookLoan.getUserId());
+            rs = ps.executeQuery();
+
+            String userName = null;
+            if (rs.next()) {
+                userName = rs.getString("name");
             }
 
             if (bookLoan.getAmount() <= quantity) {
                 String addBookLoan = "INSERT INTO bookLoans(userId, amount, startDate, dueDate, bookId, status)"
-                                    + " VALUES (?,?,?,?,?,?)";
+                        + " VALUES (?,?,?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(addBookLoan);
-                //pst.setInt(1, bookLoan.getId());
                 pst.setInt(1, bookLoan.getUserId());
                 pst.setInt(2, bookLoan.getAmount());
                 pst.setString(3, df.format(bookLoan.getStartDate()));
@@ -151,11 +177,19 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                 pst.setInt(1, bookLoan.getAmount());
                 pst.setInt(2, bookLoan.getBookId());
                 pst.executeUpdate();
+
+                if (userName != null && bookTitle != null) {
+                    ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+                    activitiesDB.logActivity("User " + userName + " borrowed " + bookLoan.getAmount() + " of '" + bookTitle + "'.");
+                }
+            } else {
+                System.out.println("Insufficient quantity for the book.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public BookLoans searchById(int id) {

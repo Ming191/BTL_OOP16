@@ -70,6 +70,8 @@ public class SignUpController {
         if (result) {
             User newUser = new User(nameField.getText(), emailField.getText(), phoneField.getText(), addressField.getText(), usernameField.getText(), passwordField.getText());
             UserDBConnector.getInstance().addToDB(newUser);
+            ActivitiesDBConnector activitiesDBConnector = new ActivitiesDBConnector();
+            activitiesDBConnector.logActivity(String.format("New user signed up: %s", newUser.getName()));
             ApplicationAlert.signUpSuccess();
             return;
         }

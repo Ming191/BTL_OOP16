@@ -62,10 +62,11 @@ public class UserDBConnector extends DBConnector<User> {
 
         String countQuery = "SELECT COUNT(*) FROM user WHERE email = ?";
         String insertQuery = "INSERT INTO user (name, email, phoneNumber, address, username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
 
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement countStmt = connection.prepareStatement(countQuery);
-             PreparedStatement insertStmt = connection.prepareStatement(insertQuery)) {
+             PreparedStatement insertStmt = connection.prepareStatement(insertQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             countStmt.setString(1, user.getEmail());
             ResultSet rs = countStmt.executeQuery();
@@ -82,6 +83,8 @@ public class UserDBConnector extends DBConnector<User> {
             insertStmt.setString(7, "user");
             insertStmt.executeUpdate();
 
+            activitiesDB.logActivity("User " + user.getName() + " added");
+
             System.out.println("User added successfully: " + user.getName());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,31 +93,45 @@ public class UserDBConnector extends DBConnector<User> {
     }
 
 
+
     public void deleteFromDB(int id) {
         String deleteLoansQuery = "DELETE FROM bookLoans WHERE userId = ?";
         String deleteUserQuery = "DELETE FROM user WHERE id = ?";
+        ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
 
         try (Connection connection = DBConnector.getConnection()) {
+            //connection.setAutoCommit(false);
+
+            String findUserQuery = "SELECT name FROM user WHERE id = ?";
+            String userName = null;
+
+            try (PreparedStatement fetchStmt = connection.prepareStatement(findUserQuery)) {
+                fetchStmt.setInt(1, id);
+                try (ResultSet rs = fetchStmt.executeQuery()) {
+                    if (rs.next()) {
+                        userName = rs.getString("name");
+                    } else {
+                        throw new RuntimeException("User with ID '" + id + "' does not exist.");
+                    }
+                }
+            }
+
             try (PreparedStatement stmt = connection.prepareStatement(deleteLoansQuery)) {
                 stmt.setInt(1, id);
-                int loansDeleted = stmt.executeUpdate();
-                if (loansDeleted > 0) {
-                    System.out.println(loansDeleted + " book loan(s) deleted.");
-                }
+                stmt.executeUpdate();
             }
 
             try (PreparedStatement stmt = connection.prepareStatement(deleteUserQuery)) {
                 stmt.setInt(1, id);
                 int rowsAffected = stmt.executeUpdate();
-
                 if (rowsAffected > 0) {
+                    activitiesDB.logActivity("User " + userName + " deleted");
                     System.out.println("User deleted successfully.");
                 } else {
-                    System.out.println("User not found.");
                     throw new RuntimeException("User with ID '" + id + "' does not exist.");
                 }
             }
-
+            //connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to delete user: " + e.getMessage());
