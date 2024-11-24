@@ -80,8 +80,8 @@ public class MainMenuController {
                 menuUser.setDisable(true);
                 menuUser.setVisible(false);
 
-                menuCatalog.setDisable(true);
-                menuCatalog.setVisible(false);
+                //menuCatalog.setDisable(true);
+                //menuCatalog.setVisible(false);
             }
         }
         System.out.println("Current Role: " + currentUser.getRole());
