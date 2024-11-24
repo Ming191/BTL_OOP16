@@ -53,7 +53,7 @@ public class AddBookLendingDialogController {
         try {
             Date startDate = formatter.parse(start);
             Date dueDate = formatter.parse(due);
-            BookLoans bookLoan = new BookLoans(userID, bookID, startDate, dueDate, quantity, "chưa trả");
+            BookLoans bookLoan = new BookLoans(userID, bookID, startDate, dueDate, quantity, "not returned");
             BookLoanDBConnector bookLoanDBConnector = BookLoanDBConnector.getInstance();
             try {
                 bookLoanDBConnector.addToDB(bookLoan);

@@ -104,7 +104,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                 bookLoan = new BookLoans(id, userId, bookId, null, null, amount, null);
             }
 
-            String deleteBookLoan = "update bookLoans set status = 'đã trả' where id = ?";
+            String deleteBookLoan = "update bookLoans set status = 'returned' where id = ?";
             ps = con.prepareStatement(deleteBookLoan);
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -197,7 +197,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     }
 
     public void updateBookLoan() {
-       String updateStatus = "update bookLoans set status = 'quá hạn'"
+       String updateStatus = "update bookLoans set status = 'overdued'"
                             + " WHERE STRFTIME('%Y-%m-%d', SUBSTR(dueDate, 7, 4) || '-'\n"
                             + "|| SUBSTR(dueDate, 4, 2) || '-'\n"
                             + "|| SUBSTR(dueDate, 1, 2)) < DATE ('now')";
@@ -211,7 +211,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
 
     public boolean canLendBook(User user, int limit) {
         String query = "select ifnull(sum(amount),0) as quantity from bookLoans "
-                     + "where status not in('da tra','đặt trước') and userId = ?";
+                     + "where status not in('returned','pre-ordered') and userId = ?";
         try (Connection con = DBConnector.getConnection()) {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, user.getId());
@@ -231,7 +231,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
 
     public boolean canPreorderBook(User user) {
         String query = "select ifnull(sum(amount),0) as quantity from bookLoans "
-                     + "where status not like('đặt trước') and userId = ?";
+                     + "where status not like('pre-ordered') and userId = ?";
         try (Connection con = DBConnector.getConnection()) {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, user.getId());

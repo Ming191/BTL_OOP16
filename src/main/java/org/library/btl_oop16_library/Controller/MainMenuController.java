@@ -120,10 +120,8 @@ public class MainMenuController {
 
     @FXML
     void switchToDashboard(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/CatalogView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DashboardView.fxml"));
         Pane pane = loader.load();
-        CatalogViewController catalogViewController = loader.getController();
-        catalogViewController.setCurrentUser(currentUser);
         mainPane.setCenter(pane);
     }
 

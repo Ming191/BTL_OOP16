@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.DashboardViewController">
+   <children>
+      <HBox layoutX="536.0" layoutY="53.0" prefHeight="50.0" prefWidth="294.0">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/user.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <Label fx:id="userCountLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="119.0">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label prefHeight="50.0" prefWidth="125.0" text="Total user" />
+         </children>
+      </HBox>
+      <PieChart fx:id="loanStatusChart" layoutX="43.0" layoutY="240.0" prefHeight="420.0" prefWidth="419.0" />
+      <HBox layoutX="536.0" layoutY="116.0" prefHeight="50.0" prefWidth="294.0">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/book.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <Label fx:id="bookCountLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="119.0">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label prefHeight="50.0" prefWidth="125.0" text="Total book" />
+         </children>
+      </HBox>
+      <HBox layoutX="536.0" layoutY="183.0" prefHeight="50.0" prefWidth="294.0">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/admin.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <Label fx:id="adminCountLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="119.0">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label prefHeight="50.0" prefWidth="125.0" text="Total admin" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

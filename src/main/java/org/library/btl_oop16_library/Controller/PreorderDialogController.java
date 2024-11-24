@@ -53,7 +53,7 @@ public class PreorderDialogController {
         try {
             Date startDate = formatter.parse(start);
             Date dueDate = formatter.parse(due);
-            BookLoans bookLoan = new BookLoans(userID, bookID, startDate, dueDate, quantity, "đặt trước");
+            BookLoans bookLoan = new BookLoans(userID, bookID, startDate, dueDate, quantity, "pre-ordered");
             BookLoanDBConnector bookLoanDBConnector = BookLoanDBConnector.getInstance();
             try {
                 bookLoanDBConnector.addToDB(bookLoan);

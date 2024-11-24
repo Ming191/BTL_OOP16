@@ -1,9 +1,6 @@
 package org.library.btl_oop16_library.Util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public abstract class DBConnector<T> {
@@ -18,6 +15,21 @@ public abstract class DBConnector<T> {
         }
         return conn;
     }
+
+    public static int getCount(String query) {
+        int count = 0;
+        try (Connection connection = getConnection();
+             PreparedStatement pstm = connection.prepareStatement(query);
+             ResultSet rs = pstm.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
 
     public abstract List<T> importFromDB() throws SQLException;
 
