@@ -10,6 +10,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.BookLoans;
@@ -17,6 +18,7 @@ import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,6 +64,12 @@ public class CatalogViewController {
 
     @FXML
     private Button preorderButton;
+
+    @FXML
+    private Button exportButton;
+
+    @FXML
+    private Button importButton;
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
@@ -195,5 +203,28 @@ public class CatalogViewController {
                 }
             }
         });
+    }
+
+    @FXML
+    void exportOnClick() {
+        bookLoanDBConnector.exportToExcel();
+    }
+
+    @FXML
+    void importOnClick() throws SQLException {
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter excelFilter = new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx");
+        fileChooser.getExtensionFilters().add(excelFilter);
+
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+
+        if (selectedFile != null) {
+            String filePath = selectedFile.getAbsolutePath();
+            bookLoanDBConnector.importFromExcel(filePath);
+        } else {
+            System.out.println("No file selected.");
+        }
+        refreshHistory();
     }
 }

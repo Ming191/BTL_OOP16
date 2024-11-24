@@ -10,7 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.CatalogViewController">
    <children>
@@ -48,6 +50,31 @@
                                        </image>
                                     </ImageView>
                                  </graphic>
+                              </Button>
+                              <Region prefHeight="200.0" prefWidth="100.0" />
+                              <Button fx:id="exportButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#exportOnClick" stylesheets="@../../../../css/Button.css" text="Export" textFill="WHITE">
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../img/remove1.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="System" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="importButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#importOnClick" stylesheets="@../../../../css/Button.css" text="Import" textFill="WHITE">
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../img/remove1.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="System" size="12.0" />
+                                 </font>
                               </Button>
                            </children></HBox>
                         <TableView fx:id="table" prefHeight="657.0" stylesheets="@../../../../css/TableView.css">
