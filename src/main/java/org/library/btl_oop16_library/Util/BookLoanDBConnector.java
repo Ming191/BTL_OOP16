@@ -1,13 +1,25 @@
 package org.library.btl_oop16_library.Util;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.library.btl_oop16_library.Model.BookLoans;
 import org.library.btl_oop16_library.Model.User;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -188,12 +200,131 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
 
     @Override
     public void exportToExcel() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = currentDate.format(formatter);
 
+        String outputFolderPath = "output";
+        String outputFilePath = outputFolderPath + File.separator + formattedDate + "_bookLoan.xlsx";
+
+        File outputFolder = new File(outputFolderPath);
+        if (!outputFolder.exists()) {
+            if (!outputFolder.mkdir()) {
+                System.err.println("Failed to create output folder: " + outputFolder.getAbsolutePath());
+                return;
+            }
+        }
+
+        String query = "SELECT * FROM bookLoans";
+        try (Connection conn = getConnection()){
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("BookLoans");
+
+            int columnCount = rs.getMetaData().getColumnCount();
+            Row headerRow = sheet.createRow(0);
+            for (int i = 1; i <= columnCount; i++) {
+                Cell cell = headerRow.createCell(i - 1);
+                cell.setCellValue(rs.getMetaData().getColumnName(i));
+            }
+
+            int rowNum = 1;
+            while (rs.next()) {
+                Row dataRow = sheet.createRow(rowNum++);
+                for (int i = 1; i <= columnCount; i++) {
+                    Cell cell = dataRow.createCell(i - 1);
+                    String columnName = rs.getMetaData().getColumnName(i);
+
+                    if ("amount".equalsIgnoreCase(columnName)) {
+                        int quantity = rs.getInt(i);
+                        cell.setCellValue(quantity);
+                    } else {
+                        cell.setCellValue(rs.getString(i));
+                    }
+                }
+            }
+
+            for (int i = 0; i < columnCount; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            try (FileOutputStream fileOut = new FileOutputStream(outputFilePath)) {
+                workbook.write(fileOut);
+            }
+
+            workbook.close();
+
+            System.out.println("Data successfully exported to: " + outputFilePath);
+
+        } catch (SQLException e) {
+            System.err.println("Error while accessing database: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error while writing Excel file: " + e.getMessage());
+        }
     }
 
     @Override
     public void importFromExcel(String filename) {
+        File file = new File(filename);
 
+        if (!file.exists()) {
+            System.err.println("File does not exist: " + filename);
+            return;
+        }
+
+        try (FileInputStream fis = new FileInputStream(file);
+             XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
+
+            Sheet sheet = workbook.getSheetAt(0);
+
+            String deleteQuery = "DELETE FROM bookLoans";
+            try (Connection conn = getConnection();
+                 PreparedStatement ps = conn.prepareStatement(deleteQuery)) {
+                ps.executeUpdate();
+                System.out.println("All existing data deleted from table 'bookLoans'.");
+            } catch (SQLException e) {
+                System.err.println("Error while deleting old data: " + e.getMessage());
+                return;
+            }
+
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) {
+                    continue;
+                }
+                int id = row.getCell(0) != null ? (int) row.getCell(0).getNumericCellValue() : -1;
+                int userId = row.getCell(1) != null ? (int) row.getCell(1).getNumericCellValue() : -1;
+                int amount = row.getCell(2) != null ? (int) row.getCell(2).getNumericCellValue() : -1;
+                String startDate = row.getCell(3) != null ? (String) row.getCell(3).getStringCellValue() : "";
+                String dueDate = row.getCell(4) != null ? (String) row.getCell(4).getStringCellValue() : "";
+                int bookId = row.getCell(5) != null ? (int) row.getCell(5).getNumericCellValue() : -1;
+                String status = row.getCell(6) != null ? (String) row.getCell(6).getStringCellValue() : "";
+
+                insertBookLoanToDB(id,userId, amount, startDate, dueDate, bookId, status);
+            }
+
+            System.out.println("Data successfully imported from Excel file: " + filename);
+
+        } catch (IOException e) {
+            System.err.println("Error while reading Excel file: " + e.getMessage());
+        }
+    }
+
+    private void insertBookLoanToDB(int id, int userId, int amount, String startDate, String dueDate, int bookId, String status) {
+        String query = "insert into bookLoans values(?,?,?,?,?,?,?)";
+        try (Connection con = DBConnector.getConnection()){
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.setInt(2,userId);
+            ps.setInt(3,amount);
+            ps.setString(4,startDate);
+            ps.setString(5,dueDate);
+            ps.setInt(6,bookId);
+            ps.setString(7,status);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error while inserting book loan: " + e.getMessage());
+        }
     }
 
     public void updateBookLoan() {
