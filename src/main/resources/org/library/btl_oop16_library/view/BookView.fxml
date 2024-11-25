@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1060.0" styleClass="bg-default" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1060.0" styleClass="bg-default" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookViewController">
    <children>
       <BorderPane layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -45,7 +45,7 @@
                               <Font name="Montserrat Medium" size="12.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="searchField" prefHeight="44.0" promptText="Search books by...">
+                        <TextField fx:id="searchField" onAction="#searchBookOnClick" prefHeight="44.0" promptText="Search books by...">
                            <font>
                               <Font name="Montserrat Regular" size="12.0" />
                            </font>

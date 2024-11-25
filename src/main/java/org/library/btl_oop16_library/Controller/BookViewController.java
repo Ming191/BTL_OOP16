@@ -211,7 +211,5 @@ public class BookViewController {
         } else {
             table.getItems().addAll(db.importFromDB());
         }
-
-
     }
 }
