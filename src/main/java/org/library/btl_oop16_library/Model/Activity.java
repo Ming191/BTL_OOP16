@@ -1,6 +1,10 @@
 package org.library.btl_oop16_library.Model;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.TimeZone;
 
 public class Activity {
     private int id;
@@ -36,4 +40,5 @@ public class Activity {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+
 }

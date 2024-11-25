@@ -4,6 +4,7 @@ import org.library.btl_oop16_library.Model.Activity;
 import org.sqlite.core.DB;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,14 +63,14 @@ public class ActivitiesDBConnector extends DBConnector<Activity> {
         return null;
     }
 
-    public List<Activity> searchByTimeRange(Timestamp timeA, Timestamp timeB) {
+    public List<Activity> searchByTimeRange(Timestamp startDateTime, Timestamp endDateTime) {
         List<Activity> activities = new ArrayList<>();
         String query = "SELECT * FROM activities WHERE timestamp BETWEEN ? AND ? ORDER BY timestamp DESC";
 
         try (Connection conn = DBConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setTimestamp(1, timeA);
-            stmt.setTimestamp(2, timeB);
+            stmt.setTimestamp(1, startDateTime);
+            stmt.setTimestamp(2, endDateTime);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {

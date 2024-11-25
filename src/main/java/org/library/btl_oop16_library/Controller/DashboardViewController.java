@@ -4,14 +4,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import org.library.btl_oop16_library.Model.Activity;
 import org.library.btl_oop16_library.Util.ActivitiesDBConnector;
 import org.library.btl_oop16_library.Util.DBConnector;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class DashboardViewController {
     @FXML
@@ -29,6 +37,15 @@ public class DashboardViewController {
     @FXML
     private ListView<String> activityListView;
 
+    @FXML
+    private DatePicker startDatePicker;
+
+    @FXML
+    private DatePicker endDatePicker;
+
+    @FXML
+    private Button searchButton;
+
     private ObservableList<String> activityList;
 
     public void initialize() {
@@ -43,8 +60,11 @@ public class DashboardViewController {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         int returnedCount = DBConnector.getCount("SELECT COUNT(*) FROM bookLoans WHERE status = 'returned'");
+        System.out.println(returnedCount);
         int notReturnedCount = DBConnector.getCount("SELECT COUNT(*) FROM bookLoans WHERE status = 'not returned'");
+        System.out.println(notReturnedCount);
         int preOrderedCount = DBConnector.getCount("SELECT COUNT(*) FROM bookLoans WHERE status = 'pre-ordered'");
+        System.out.println(preOrderedCount);
 
         pieChartData.add(new PieChart.Data("returned", returnedCount));
         pieChartData.add(new PieChart.Data("not returned", notReturnedCount));
@@ -73,4 +93,37 @@ public class DashboardViewController {
 
         activityListView.setItems(activityList);
     }
+    @FXML
+    private void searchActivitiesByDate() {
+        if (startDatePicker.getValue() == null || endDatePicker.getValue() == null) {
+            System.out.println("Please select both start and end dates.");
+            return;
+        }
+
+        LocalDate startDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
+        System.out.println(startDate);
+        System.out.println(endDate);
+
+        Timestamp startTimestamp = Timestamp.valueOf(startDate.atStartOfDay());
+        Timestamp endTimestamp = Timestamp.valueOf(endDate.atTime(23, 59, 59));
+        System.out.println(startTimestamp);
+        System.out.println(endTimestamp);
+
+
+        ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+        try {
+            List<Activity> activities = activitiesDB.searchByTimeRange(startTimestamp, endTimestamp);
+
+            activityList.clear();
+            for (Activity activity : activities) {
+                activityList.add(activity.getDescription() + " at " + activity.getTimestamp());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
