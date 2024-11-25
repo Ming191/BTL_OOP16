@@ -34,32 +34,26 @@ public class BookDetailsController {
     @FXML
     private Label titleLabel;
 
-    private boolean isSet = false;
+    private Book currentBook;
 
-    public boolean isSet() {
-        return isSet;
-    }
-
-    public void setSet(boolean set) {
-        isSet = set;
+    public void setBook(Book currentBook) {
+        this.currentBook = currentBook;
+        loadBook(currentBook);
     }
 
     public void loadBook(Book currentBook) {
-        if(!isSet) {
-            titleLabel.setText(currentBook.getTitle());
-            authorsLabel.setText(currentBook.getAuthor());
-            categoriesLabel.setText(currentBook.getCategory());
-            descriptionLabel.setText(currentBook.getDescription());
-            ratingLabel.setText(currentBook.getRating());
-            if (currentBook.getImgURL() != null && !currentBook.getImgURL().isEmpty()) {
-                imgHolder.setImage(new Image(currentBook.getImgURL(), true));
-            } else {
-                imgHolder.setImage(new Image(getClass().getResource("/img/defBookCover.png").toString(),true));
-            }
-            if (currentBook.getPreviewURL() != null && !currentBook.getPreviewURL().isEmpty()) {
-                qrCodeHolder.setImage(ZXingAPI.toQRCode(currentBook, 200, 200));
-            }
-            isSet = true;
+        titleLabel.setText(currentBook.getTitle());
+        authorsLabel.setText(currentBook.getAuthor());
+        categoriesLabel.setText(currentBook.getCategory());
+        descriptionLabel.setText(currentBook.getDescription());
+        ratingLabel.setText(currentBook.getRating());
+        if (currentBook.getImgURL() != null && !currentBook.getImgURL().isEmpty()) {
+            imgHolder.setImage(new Image(currentBook.getImgURL(), true));
+        } else {
+            imgHolder.setImage(new Image(getClass().getResource("/img/defBookCover.png").toString(), true));
+        }
+        if (currentBook.getPreviewURL() != null && !currentBook.getPreviewURL().isEmpty()) {
+            qrCodeHolder.setImage(ZXingAPI.toQRCode(currentBook, 200, 200));
         }
     }
 

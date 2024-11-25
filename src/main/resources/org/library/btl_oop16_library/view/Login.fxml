@@ -7,102 +7,73 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.LoginController">
-   <right>
-      <HBox prefHeight="574.0" prefWidth="265.0" styleClass="right_side_pane" stylesheets="@../../../../css/Style.css" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-         <children>
-            <AnchorPane prefHeight="574.0" prefWidth="276.0" styleClass="rightSidePaneLogin" stylesheets="@../../../../css/Style.css">
-               <children>
-                  <Text fill="#faf5f5" layoutX="33.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First time joining us huh?">
-                     <font>
-                        <Font name="Verdana Bold" size="15.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#edeaea" layoutX="32.0" layoutY="236.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up for our greatest bookList system" wrappingWidth="217.1419219970703" />
-                  <Button fx:id="signUpButton" layoutX="20.0" layoutY="287.0" mnemonicParsing="false" onAction="#switchToSignUpScene" prefHeight="53.0" prefWidth="226.0" styleClass="signinButton" stylesheets="@../../../../css/Style.css" text="SIGN UP">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-         </children>
-      </HBox>
-   </right>
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.LoginController">
    <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="767.0" spacing="5.0" styleClass="bg-inset" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="574.0" prefWidth="587.0">
-               <children>
-                  <Text layoutX="124.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME TO 2MIN LIBRARY BABE!">
-                     <font>
-                        <Font name="Verdana Bold" size="17.0" />
-                     </font>
-                     <fill>
-                        <RadialGradient centerX="1.0" centerY="0.5933806146572105" radius="0.5">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.7435764074325562" green="0.75" blue="0.3645833432674408" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.07437865436077118" green="0.7493146657943726" blue="0.8684210777282715" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </RadialGradient>
-                     </fill>
-                  </Text>
-                  <VBox layoutX="104.0" layoutY="211.0" prefHeight="349.0" prefWidth="379.0">
-                     <children>
-                        <Label alignment="CENTER" opacity="0.5" prefHeight="44.0" prefWidth="379.0" text="USERNAME">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="usernameField" prefHeight="35.0" prefWidth="379.0" />
-                        <Label alignment="CENTER" opacity="0.5" prefHeight="46.0" prefWidth="379.0" text="PASSWORD">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <PasswordField fx:id="passwordField" prefHeight="35.0" prefWidth="379.0" />
-                        <Button fx:id="signInButton" mnemonicParsing="false" onAction="#signInOnClick" prefHeight="53.0" prefWidth="378.0" styleClass="signinButton" stylesheets="@../../../../css/Style.css" text="SIGN IN">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="24.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-                  <ImageView fitHeight="113.0" fitWidth="122.0" layoutX="233.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../img/logo_2min.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
+            <ImageView fitHeight="330.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/logo_2min.png" />
+               </image>
+            </ImageView>
+            <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="-head" text="WELCOME TO 2MIN LIBRARY BABE!">
+               <font>
+                  <Font name="Montserrat SemiBold" size="20.0" />
+               </font>
+            </Text>
+            <Label alignment="CENTER" opacity="0.5" prefHeight="44.0" prefWidth="379.0" text="USERNAME">
+               <font>
+                  <Font name="Montserrat SemiBold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameField" maxHeight="350.0" maxWidth="350.0" />
+            <Label alignment="CENTER" opacity="0.5" prefHeight="46.0" prefWidth="379.0" text="PASSWORD">
+               <font>
+                  <Font name="Montserrat SemiBold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Label>
+            <PasswordField fx:id="passwordField" maxWidth="350.0" prefHeight="35.0" styleClass="flat" />
+            <Button fx:id="signInButton" minHeight="70.0" minWidth="350.0" mnemonicParsing="false" onAction="#signInOnClick" text="SIGN IN">
+               <font>
+                  <Font name="Montserrat Medium" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="24.0" />
+               </VBox.margin>
+            </Button>
          </children>
-      </HBox>
+      </VBox>
    </center>
+   <right>
+      <VBox alignment="CENTER" prefHeight="720.0" prefWidth="464.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First time joining us huh?">
+               <font>
+                  <Font name="Montserrat SemiBold" size="24.0" />
+               </font>
+            </Text>
+            <Text opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up for our greatest library system" wrappingWidth="318.1419219970703">
+               <font>
+                  <Font name="Montserrat SemiBold" size="15.0" />
+               </font>
+            </Text>
+            <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#switchToSignUpScene" prefHeight="70.0" prefWidth="240.0" text="SIGN UP">
+               <font>
+                  <Font name="Montserrat Medium" size="16.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </VBox>
+   </right>
 </BorderPane>

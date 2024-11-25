@@ -22,10 +22,22 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Label text="Authors:" />
-            <Label fx:id="authorsLabel" text="AuthorsLabel" />
-            <Label alignment="CENTER" text="Rating:" />
-            <Label fx:id="ratingLabel" text="RatingLabel" />
+            <Label text="Authors:">
+               <font>
+                  <Font name="Montserrat SemiBold" size="16.0" />
+               </font></Label>
+            <Label fx:id="authorsLabel" text="AuthorsLabel">
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font></Label>
+            <Label alignment="CENTER" text="Rating:">
+               <font>
+                  <Font name="Montserrat SemiBold" size="16.0" />
+               </font></Label>
+            <Label fx:id="ratingLabel" text="RatingLabel">
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font></Label>
          </children>
          <padding>
             <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -35,9 +47,12 @@
          <children>
             <Label text="Description:">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="Montserrat SemiBold" size="16.0" />
                </font></Label>
-            <Label fx:id="descriptionLabel" style="-fx-wrap-text: true;" text="DescriptionLabel" />
+            <Label fx:id="descriptionLabel" style="-fx-wrap-text: true;" text="DescriptionLabel">
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font></Label>
          </children>
          <opaqueInsets>
             <Insets />
@@ -51,20 +66,32 @@
             <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
          </padding>
          <children>
-            <Label text="Categories:" />
-            <Label fx:id="categoriesLabel" text="CategoriesLabel" />
+            <Label text="Categories:">
+               <font>
+                  <Font name="Montserrat SemiBold" size="16.0" />
+               </font></Label>
+            <Label fx:id="categoriesLabel" text="CategoriesLabel">
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font></Label>
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
          <children>
             <ImageView fx:id="qrCodeHolder" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
-            <Label text="Scan me to preview the book" />
+            <Label text="Scan me to preview the book">
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font></Label>
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
             <ImageView fx:id="imgHolder" fitHeight="231.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="titleLabel" text="TitleLabel" />
+            <Label fx:id="titleLabel" text="TitleLabel">
+               <font>
+                  <Font name="Montserrat SemiBold" size="16.0" />
+               </font></Label>
          </children>
       </VBox>
    </children>

@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.SearchBookDialogController">
    <children>
@@ -13,9 +14,18 @@
          <children>
             <HBox prefHeight="25.0" prefWidth="700.0" spacing="25.0">
                <children>
-                  <TextField fx:id="searchField" prefHeight="25.0" prefWidth="254.0" promptText="Enter the titlte of the book" />
-                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" prefHeight="25.0" prefWidth="79.0" text="Search" />
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="25.0" prefWidth="79.0" text="Add" />
+                  <TextField fx:id="searchField" prefHeight="25.0" prefWidth="254.0" promptText="Enter the titlte/ISBN of the book">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font></TextField>
+                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" prefHeight="25.0" prefWidth="79.0" text="Search">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font></Button>
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="25.0" prefWidth="79.0" text="Add">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font></Button>
                </children>
             </HBox>
             <ListView fx:id="bookList" prefHeight="476.0" prefWidth="700.0" />

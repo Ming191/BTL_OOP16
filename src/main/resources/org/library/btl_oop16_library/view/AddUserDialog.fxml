@@ -5,9 +5,11 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="307.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AddUserDialogController">
+<AnchorPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AddUserDialogController">
    <opaqueInsets>
       <Insets top="10.0" />
    </opaqueInsets>
@@ -16,37 +18,70 @@
          <children>
             <TextField fx:id="nameField" layoutX="10.0" layoutY="10.0" maxWidth="385.0" prefHeight="25.0" promptText="Name">
                <VBox.margin>
-                  <Insets left="30.0" right="30.0" top="15.0" />
+                  <Insets left="30.0" right="30.0" top="30.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
             </TextField>
             <TextField fx:id="usernameField" maxWidth="385.0" prefHeight="25.0" promptText="Username">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="15.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
             </TextField>
             <PasswordField fx:id="passwordField" maxWidth="385.0" prefHeight="25.0" prefWidth="371.0" promptText="Password">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="15.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
             </PasswordField>
             <TextField fx:id="emailField" layoutX="10.0" layoutY="36.0" maxWidth="385.0" prefHeight="25.0" promptText="Email">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="15.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
             </TextField>
             <TextField fx:id="phoneNumberField" layoutX="40.0" layoutY="145.0" maxWidth="385.0" prefHeight="25.0" promptText="Phone">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="15.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
             </TextField>
             <TextField fx:id="addressField" layoutX="40.0" layoutY="185.0" maxWidth="385.0" prefHeight="25.0" promptText="Address">
                <VBox.margin>
-                  <Insets bottom="30.0" left="30.0" top="15.0" />
+                  <Insets bottom="15.0" left="30.0" top="15.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
             </TextField>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+               <children>
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="34.0" prefWidth="110.0" text="Cancel">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="34.0" prefWidth="110.0" text="Confirm ">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" />
+               </VBox.margin>
+            </HBox>
          </children>
       </VBox>
-      <Button fx:id="cancelButton" layoutX="252.0" layoutY="269.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="34.0" prefWidth="110.0" text="Cancel" />
-      <Button fx:id="confirmButton" layoutX="117.0" layoutY="269.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="34.0" prefWidth="110.0" text="Confirm " />
    </children>
 </AnchorPane>

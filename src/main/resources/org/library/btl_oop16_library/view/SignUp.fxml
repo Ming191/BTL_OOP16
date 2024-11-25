@@ -7,128 +7,105 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.SignUpController">
-   <right>
-      <HBox prefHeight="574.0" prefWidth="239.0" styleClass="right_side_pane" stylesheets="@../../../../css/Style.css" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-         <children>
-            <AnchorPane prefHeight="574.0" prefWidth="244.0" styleClass="rightSidePaneLogin" stylesheets="@../../../../css/Style.css">
-               <children>
-                  <Text fill="#faf5f5" layoutX="25.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already joining us huh?">
-                     <font>
-                        <Font name="Verdana Bold" size="15.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#edeaea" layoutX="62.0" layoutY="221.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="157.1419219970703" />
-                  <Button fx:id="signInButton" layoutX="11.0" layoutY="289.0" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="51.0" prefWidth="242.0" styleClass="signinButton" stylesheets="@../../../../css/Style.css" text="SIGN IN">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-         </children>
-      </HBox>
-   </right>
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.SignUpController">
    <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefWidth="866.0" spacing="20.0" styleClass="bg-inset" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="574.0" prefWidth="587.0">
+            <ImageView fitHeight="190.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/logo_2min.png" />
+               </image>
+            </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="GET YOURSELF AN ACCOUNT" textAlignment="CENTER">
+               <font>
+                  <Font name="Montserrat Medium" size="17.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER" spacing="20.0">
                <children>
-                  <Text layoutX="176.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN IN INFORMATION" textAlignment="CENTER">
-                     <font>
-                        <Font name="Verdana Bold" size="17.0" />
-                     </font>
-                     <fill>
-                        <RadialGradient centerX="1.0" centerY="0.5933806146572105" radius="0.5">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.7435764074325562" green="0.75" blue="0.3645833432674408" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.07437865436077118" green="0.7493146657943726" blue="0.8684210777282715" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </RadialGradient>
-                     </fill>
-                  </Text>
-                  <VBox layoutX="97.0" layoutY="159.0" prefHeight="401.0" prefWidth="394.0">
+                  <VBox spacing="10.0">
                      <children>
-                        <Label alignment="CENTER" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="NAME">
+                        <Label alignment="CENTER" opacity="0.5" text="NAME">
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="Montserrat Medium" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="nameField" prefHeight="12.0" prefWidth="394.0" />
-                        <Label alignment="CENTER" layoutX="10.0" layoutY="86.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="EMAIL">
+                        <TextField fx:id="nameField" maxWidth="350.0" />
+                        <Label alignment="CENTER" opacity="0.5" text="EMAIL">
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="Montserrat Medium" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="emailField" layoutX="10.0" layoutY="132.0" prefHeight="21.0" prefWidth="394.0" />
-                        <Label alignment="CENTER" layoutX="10.0" layoutY="166.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="PHONE">
+                        <TextField fx:id="emailField" maxWidth="352.0" prefHeight="36.0" prefWidth="350.0" />
+                        <Label alignment="CENTER" opacity="0.5" text="ADDRESS">
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="Montserrat Medium" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="phoneField" layoutX="10.0" layoutY="141.0" prefHeight="21.0" prefWidth="394.0" />
-                        <Label alignment="CENTER" layoutX="10.0" layoutY="114.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="ADDRESS">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="addressField" layoutX="10.0" layoutY="141.0" prefHeight="21.0" prefWidth="394.0" />
-                        <Label alignment="CENTER" layoutX="10.0" layoutY="170.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="USERNAME">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="usernameField" layoutX="10.0" layoutY="140.0" prefHeight="21.0" prefWidth="394.0" />
-                        <Label alignment="CENTER" layoutX="10.0" layoutY="165.0" opacity="0.5" prefHeight="27.0" prefWidth="379.0" text="PASSWORD">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <PasswordField fx:id="passwordField" prefHeight="21.0" prefWidth="394.0" />
-                        <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signUpOnClick" prefHeight="53.0" prefWidth="378.0" styleClass="signinButton" stylesheets="@../../../../css/Style.css" text="SIGN UP">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </Button>
+                        <TextField fx:id="addressField" maxWidth="350.0" />
                      </children>
                   </VBox>
-                  <ImageView fitHeight="113.0" fitWidth="122.0" layoutX="233.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../img/logo_2min.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="114.0" fitWidth="113.0" layoutX="230.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../img/logo_2min.png" />
-                     </image>
-                  </ImageView>
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" opacity="0.5" text="USERNAME">
+                           <font>
+                              <Font name="Montserrat Medium" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="usernameField" maxWidth="350.0" prefWidth="350.0" />
+                        <Label alignment="CENTER" opacity="0.5" text="PASSWORD">
+                           <font>
+                              <Font name="Montserrat Medium" size="12.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="passwordField" maxWidth="350.0" />
+                        <Label alignment="CENTER" opacity="0.5" text="PHONE">
+                           <font>
+                              <Font name="Montserrat Medium" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="phoneField" maxWidth="350.0" />
+                     </children>
+                  </VBox>
                </children>
-            </AnchorPane>
+            </HBox>
+            <Button fx:id="signUpButton" maxWidth="350.0" minHeight="50.0" minWidth="240.0" mnemonicParsing="false" onAction="#signUpOnClick" styleClass="signinButton" text="SIGN UP">
+               <font>
+                  <Font name="Montserrat Medium" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Button>
          </children>
-      </HBox>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
    </center>
+   <right>
+      <VBox alignment="CENTER" prefHeight="720.0" prefWidth="439.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#faf5f5" strokeType="OUTSIDE" strokeWidth="0.0" text="Already joining us huh?">
+               <font>
+                  <Font name="Montserrat SemiBold" size="20.0" />
+               </font>
+            </Text>
+            <Button fx:id="signInButton" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="70.0" prefWidth="240.0" text="SIGN IN">
+               <font>
+                  <Font name="Montserrat Medium" size="16.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </right>
 </BorderPane>

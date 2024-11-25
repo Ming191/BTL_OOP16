@@ -4,23 +4,28 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="291.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AddBookLendingDialogController">
+<AnchorPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AddBookLendingDialogController">
     <children>
-        <VBox layoutY="27.0" prefHeight="169.0" prefWidth="382.0" spacing="10.0">
+        <VBox alignment="CENTER" layoutY="27.0" prefHeight="169.0" prefWidth="382.0" spacing="10.0">
             <children>
                 <TextField fx:id="userIdField" prefHeight="25.0" prefWidth="284.0" promptText="UserID" />
                 <TextField fx:id="bookIDField" prefHeight="25.0" prefWidth="284.0" promptText="BookID" />
-                <TextField fx:id="startDateField" prefHeight="25.0" prefWidth="284.0" promptText="StartDate" />
-                <TextField fx:id="dueDateField" prefHeight="25.0" prefWidth="284.0" promptText="DueDate" />
+                <TextField fx:id="startDateField" prefHeight="25.0" prefWidth="284.0" promptText="Start Date" />
+                <TextField fx:id="dueDateField" prefHeight="25.0" prefWidth="284.0" promptText="Due Date" />
                 <TextField fx:id="quantityField" prefHeight="25.0" prefWidth="284.0" promptText="Quantity" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                    <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="30.0" prefWidth="110.0" text="Confirm" />
+                    <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="30.0" prefWidth="110.0" text="Cancel" />
+               </children>
+            </HBox>
             </children>
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" />
             </padding>
         </VBox>
-        <Button fx:id="confirmButton" layoutX="58.0" layoutY="242.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" text="Confirm" />
-        <Button fx:id="cancelButton" layoutX="244.0" layoutY="242.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
     </children>
 </AnchorPane>
