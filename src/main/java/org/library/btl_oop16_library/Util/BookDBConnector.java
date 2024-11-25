@@ -190,6 +190,34 @@ public class BookDBConnector extends DBConnector<Book> {
         return id;
     }
 
+    public List<Book> searchByTitle(String name) throws SQLException {
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE title LIKE ?";
+        List<Book> books = new ArrayList<>();
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, "%" + name + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Book book = new Book(
+                            rs.getInt("id"),
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getString("author"),
+                            rs.getString("category"),
+                            rs.getString("language"),
+                            rs.getInt("quantity"),
+                            rs.getString("imgURL"),
+                            rs.getString("rating"),
+                            rs.getString("previewURL")
+                    );
+                    books.add(book);
+                }
+            }
+        }
+        return books;
+    }
+
     @Override
     public void exportToExcel() {
         LocalDate currentDate = LocalDate.now();

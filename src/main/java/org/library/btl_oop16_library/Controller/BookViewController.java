@@ -3,10 +3,13 @@ package org.library.btl_oop16_library.Controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -185,5 +188,30 @@ public class BookViewController {
             System.out.println("No file selected.");
         }
         refresh();
+    }
+
+    @FXML
+    void searchBookOnClick(ActionEvent event) throws SQLException {
+        String searchText = searchField.getText();
+        List<Book> searchedBook = null;
+
+        if (!searchText.isEmpty()) {
+            searchedBook = new ArrayList<>();
+            if (searchText.matches("-?\\d+(\\.\\d+)?")) {
+                Book book = db.searchById(Integer.parseInt(searchText));
+                searchedBook.add(book);
+            } else {
+                searchedBook = db.searchByTitle(searchText);
+            }
+        }
+        table.getItems().clear();
+
+        if (searchedBook != null) {
+            table.getItems().addAll(searchedBook);
+        } else {
+            table.getItems().addAll(db.importFromDB());
+        }
+
+
     }
 }
