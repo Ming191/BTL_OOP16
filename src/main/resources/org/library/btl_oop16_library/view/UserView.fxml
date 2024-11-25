@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.UserViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.UserViewController">
    <children>
       <BorderPane layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -21,38 +21,14 @@
                <children>
                   <VBox layoutX="51.0" layoutY="123.0" prefHeight="720.0" prefWidth="945.0" spacing="10.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox prefHeight="41.0" prefWidth="1280.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="1280.0" spacing="5.0">
                            <children>
-                              <Button fx:id="addUserButton" graphicTextGap="30.0" mnemonicParsing="false" onAction="#addUserButtonOnClick" prefHeight="39.0" prefWidth="175.0" styleClass="addButton" stylesheets="@../../../../css/Style.css" text="Add user">
-                                 <graphic>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../img/add.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="deleteUserButton" graphicTextGap="30.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteUserButtonOnClick" prefHeight="39.0" prefWidth="175.0" styleClass="addButton" stylesheets="@../../../../css/Style.css" text="Delete user">
-                                 <graphic>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../img/delete.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="updateUserButton" graphicTextGap="30.0" layoutX="185.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateUserButtonOnClick" prefHeight="39.0" prefWidth="175.0" styleClass="addButton" stylesheets="@../../../../css/Style.css" text="Update user">
-                                 <graphic>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../img/update.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <TextField fx:id="searchField" prefHeight="30.0" prefWidth="245.0" promptText="Enter id/name to search">
+                              <Button fx:id="addUserButton" graphicTextGap="30.0" mnemonicParsing="false" onAction="#addUserButtonOnClick" prefHeight="40.0" prefWidth="175.0" styleClass="addButton" text="Add user" />
+                              <Button fx:id="deleteUserButton" graphicTextGap="30.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteUserButtonOnClick" prefHeight="40.0" prefWidth="175.0" styleClass="addButton" text="Delete user" />
+                              <Button fx:id="updateUserButton" graphicTextGap="30.0" layoutX="185.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateUserButtonOnClick" prefHeight="40.0" prefWidth="175.0" styleClass="addButton" text="Update user" />
+                              <TextField fx:id="searchField" prefHeight="40.0" prefWidth="170.0" promptText="Enter id/name to search">
                                  <HBox.margin>
-                                    <Insets left="15.0" top="5.0" />
+                                    <Insets left="15.0" />
                                  </HBox.margin>
                               </TextField>
                               <Button fx:id="searchButton" ellipsisString="" mnemonicParsing="false" onAction="#searchButtonOnClick" prefHeight="21.0" prefWidth="39.0">
@@ -64,17 +40,17 @@
                                     </ImageView>
                                  </graphic>
                                  <HBox.margin>
-                                    <Insets top="5.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </Button>
                            </children></HBox>
-                        <TableView fx:id="table" prefHeight="632.0" prefWidth="1250.0" stylesheets="@../../../../css/TableView.css">
+                        <TableView fx:id="table" prefHeight="632.0" prefWidth="993.0">
                            <columns>
                               <TableColumn fx:id="idCol" maxWidth="50.0" minWidth="50.0" prefWidth="-1.0" reorderable="false" sortable="true" text="ID" />
                               <TableColumn fx:id="nameCol" editable="false" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" resizable="false" sortable="false" text="NAME" />
-                              <TableColumn fx:id="emailCol" editable="false" minWidth="300.0" prefWidth="-1.0" resizable="false" sortable="false" text="EMAIL" />
-                              <TableColumn fx:id="phoneCol" editable="false" minWidth="250.0" prefWidth="-1.0" resizable="false" sortable="false" text="PHONE" />
-                              <TableColumn fx:id="addressCol" editable="false" minWidth="300.0" prefWidth="-1.0" resizable="false" sortable="false" text="ADDRESS" />
+                              <TableColumn fx:id="emailCol" editable="false" minWidth="184.0" prefWidth="229.0" resizable="false" sortable="false" text="EMAIL" />
+                              <TableColumn fx:id="phoneCol" editable="false" minWidth="123.0" prefWidth="194.0" resizable="false" sortable="false" text="PHONE" />
+                              <TableColumn fx:id="addressCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="300.0" prefWidth="336.0" resizable="false" sortable="false" text="ADDRESS" />
                            </columns>
                            <rotationAxis>
                               <Point3D />
