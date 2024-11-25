@@ -1,5 +1,4 @@
 module org.library.btl_oop16_library {
-    requires javafx.controls;
     requires javafx.fxml;
     requires org.xerial.sqlitejdbc;
     requires org.json;
@@ -8,6 +7,7 @@ module org.library.btl_oop16_library {
     requires com.google.zxing;
     requires com.google.zxing.javase;
     requires org.apache.poi.ooxml;
+    requires atlantafx.base;
 
 
     opens org.library.btl_oop16_library to javafx.fxml;

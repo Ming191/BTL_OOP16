@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library;
 
+import atlantafx.base.theme.NordLight;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,8 +18,7 @@ public class MainApplication extends Application {
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        Application.setUserAgentStylesheet(getClass().getResource("/css/nord-light.css").toExternalForm());
-
+        Application.setUserAgentStylesheet(new NordLight().getUserAgentStylesheet());
         Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
         stage.getIcons().add(favicon);
 

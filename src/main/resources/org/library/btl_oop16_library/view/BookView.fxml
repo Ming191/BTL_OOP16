@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1060.0" styleClass="bg-default" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1060.0" styleClass="bg-default" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookViewController">
    <children>
       <BorderPane layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <VBox spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="TOP_RIGHT" spacing="5.0">
                      <children>
@@ -52,7 +52,7 @@
                         </TextField>
                      </children>
                   </HBox>
-                  <TableView fx:id="table" minHeight="800.0" minWidth="500.0" prefHeight="800.0" prefWidth="986.0" styleClass="table">
+                  <TableView fx:id="table" minHeight="600.0" minWidth="500.0" styleClass="table">
                     <columns>
                       <TableColumn fx:id="idCol" editable="false" maxWidth="-Infinity" minWidth="50.0" prefWidth="-1.0" resizable="false" text="ID" />
                       <TableColumn fx:id="titleCol" editable="false" maxWidth="350.0" minWidth="200.0" prefWidth="342.0" resizable="false" text="TITLE" />
