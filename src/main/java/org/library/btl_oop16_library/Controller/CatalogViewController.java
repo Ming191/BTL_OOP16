@@ -42,13 +42,13 @@ public class CatalogViewController {
     private TableColumn<BookLoans, String> statusCol;
 
     @FXML
-    private TableColumn<BookLoans, Integer> userIdCol;
+    private TableColumn<BookLoans, String> userNameCol;
 
     @FXML
     private TableColumn<BookLoans, Integer> amountCol;
 
     @FXML
-    private TableColumn<BookLoans, Integer> bookIdCol;
+    private TableColumn<BookLoans, String> bookTitleCol;
 
     @FXML
     private TableColumn<BookLoans, Date> dueDateCol;
@@ -76,7 +76,7 @@ public class CatalogViewController {
         canLendBook = bookLoanDBConnector.canLendBook(currentUser, 20);
         canPreorder = bookLoanDBConnector.canPreorderBook(currentUser);
         if (currentUser != null && !"admin".equalsIgnoreCase(currentUser.getRole())) {
-            userIdCol.setVisible(false);
+            userNameCol.setVisible(false);
             returnBookButton.setVisible(false);
             if (!canPreorder) {
                 preorderButton.setVisible(false);
@@ -150,8 +150,8 @@ public class CatalogViewController {
     @FXML
     void initialize() {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        userIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        bookIdCol.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+        userNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        bookTitleCol.setCellValueFactory(new PropertyValueFactory<>("bookTitle"));
         amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
         dueDateCol.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         startDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));

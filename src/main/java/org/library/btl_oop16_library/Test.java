@@ -7,23 +7,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import java.io.IOException;
+import org.library.btl_oop16_library.Controller.BookDetailsController;
+import org.library.btl_oop16_library.Model.Book;
+import org.library.btl_oop16_library.Util.GoogleBookAPI;
+import org.library.btl_oop16_library.Controller.BookListViewController;
 
-public class MainApplication extends Application {
+import java.io.IOException;
+import java.util.List;
+
+public class Test extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        stage.resizableProperty().setValue(Boolean.FALSE);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SearchBookDialog.fxml"));
         Parent root = loader.load();
 
-        Scene scene = new Scene(root);
-        Application.setUserAgentStylesheet(getClass().getResource("/css/nord-light.css").toExternalForm());
-        Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
-        stage.getIcons().add(favicon);
 
-        stage.setTitle("2Min Library!");
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(new NordLight().getUserAgentStylesheet());
         stage.setScene(scene);
+        stage.setTitle("Tooi");
         stage.show();
     }
 

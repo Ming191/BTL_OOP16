@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library.Controller;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import org.library.btl_oop16_library.Model.User;
 import java.io.IOException;
 
 public class SettingsController {
+    private boolean isLightTheme = true;
     @FXML
     private Button changePasswordButton;
 
@@ -55,15 +57,15 @@ public class SettingsController {
 
     @FXML
     void changeTheme(ActionEvent event) {
-        String darkTheme = getClass().getResource("/css/DarkTheme.css").toExternalForm();
-        String lightTheme = getClass().getResource("/css/Style.css").toExternalForm();
-
-        if (mainPane.getScene().getStylesheets().contains(darkTheme)) {
-            mainPane.getScene().getStylesheets().remove(darkTheme);
-            mainPane.getScene().getStylesheets().add(lightTheme);
-        } else {
-            mainPane.getScene().getStylesheets().remove(lightTheme);
-            mainPane.getScene().getStylesheets().add(darkTheme);
+        if(isLightTheme) {
+            System.out.printf("changed to dark theme\n");
+            isLightTheme = false;
+            Application.setUserAgentStylesheet(getClass().getResource("/css/nord-dark.css").toExternalForm());
+        }
+        else {
+            System.out.printf("changed to light theme\n");
+            isLightTheme = true;
+            Application.setUserAgentStylesheet(getClass().getResource("/css/nord-light.css").toExternalForm());
         }
     }
 

@@ -4,48 +4,50 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AlertController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="512.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AlertController">
    <center>
-      <VBox BorderPane.alignment="CENTER">
+      <AnchorPane minWidth="150.0" prefHeight="120.0" prefWidth="512.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER">
+            <HBox alignment="CENTER" layoutX="66.0" layoutY="12.0" prefHeight="25.0" prefWidth="380.0">
                <children>
                   <Label fx:id="titleLabel" alignment="CENTER" text="Label" textAlignment="CENTER">
                      <font>
-                        <Font name="Montserrat Bold" size="24.0" />
-                     </font>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="messageLabel" alignment="CENTER" text="Label" textAlignment="RIGHT" />
+                        <Font name="Montserrat Medium" size="16.0" />
+                     </font></Label>
                </children>
-            </VBox>
-            <HBox alignment="CENTER_RIGHT" spacing="30.0">
+            </HBox>
+            <HBox alignment="CENTER" layoutX="66.0" layoutY="31.0" prefHeight="32.0" prefWidth="380.0">
                <children>
-                  <Button fx:id="okButton" mnemonicParsing="false" onAction="#onOkButtonClick" prefHeight="30.0" prefWidth="110.0" text="OK" />
+                  <Label fx:id="messageLabel" alignment="CENTER" text="Label" textAlignment="CENTER">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font></Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="icon" fitHeight="45.0" fitWidth="45.0" layoutX="36.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
+            <HBox alignment="CENTER_RIGHT" layoutX="217.0" layoutY="62.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0">
+               <children>
                   <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="30.0" prefWidth="110.0" text="CANCEL">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="okButton" mnemonicParsing="false" onAction="#onOkButtonClick" prefHeight="30.0" prefWidth="110.0" text="OK">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font>
                   </Button>
                </children>
                <padding>
-                  <Insets top="15.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" />
                </padding>
             </HBox>
          </children>
-         <padding>
-            <Insets bottom="30.0" left="30.0" right="70.0" top="30.0" />
-         </padding>
-      </VBox>
+      </AnchorPane>
    </center>
-   <left>
-      <ImageView fx:id="icon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-   </left>
 </BorderPane>

@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library.Controller;
 
+import atlantafx.base.theme.Styles;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -63,5 +64,11 @@ public class AlertController {
 
     public void setShowCancelButton(boolean showCancelButton) {
         cancelButton.setVisible(showCancelButton);
+    }
+
+    @FXML
+    void initialize() {
+        okButton.setDefaultButton(true);
+        cancelButton.setCancelButton(true);
     }
 }

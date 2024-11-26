@@ -1,19 +1,19 @@
 package org.library.btl_oop16_library.Controller;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import atlantafx.base.controls.ModalPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
-import org.library.btl_oop16_library.Model.BookInfoCellFactory;
 import org.library.btl_oop16_library.Util.BookDBConnector;
 import org.library.btl_oop16_library.Util.GoogleBookAPI;
 import java.io.IOException;
@@ -26,13 +26,16 @@ public class SearchBookDialogController {
     private Button addButton;
 
     @FXML
-    private ListView<Book> bookList;
+    private BorderPane mainPane;
 
     @FXML
     private Button searchButton;
 
     @FXML
     private TextField searchField;
+
+    @FXML
+    private AnchorPane rootPane;
 
     private Book selectedBook;
 
@@ -70,26 +73,31 @@ public class SearchBookDialogController {
     }
 
     @FXML
-    void onSearchButtonClick(ActionEvent event) {
+    void onSearchButtonClick(ActionEvent event) throws IOException {
         String searchText = searchField.getText();
+
+        System.out.println("Search text: " + searchText);
+
         List<Book> books = GoogleBookAPI.searchBooks(searchText);
-        bookList.getItems().clear();
-        bookList.getItems().addAll(books);
+        mainPane.getChildren().clear();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookListView.fxml"));
+        Parent root = loader.load();
+        System.out.println("BookListView.fxml loaded!");
+
+        BookListViewController controller = loader.getController();
+        controller.setGeneralPane(rootPane);
+
+        controller.setBooks(books);
+        mainPane.setCenter(root);
+
     }
+
 
     @FXML
     void initialize() {
-        bookList.setCellFactory(new BookInfoCellFactory());
         addButton.setDisable(true);
 
-        bookList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Book>() {
-            @Override
-            public void changed(ObservableValue<? extends Book> observableValue, Book oldValue, Book newValue) {
-                selectedBook = newValue;
-                addButton.setDisable(selectedBook == null);
-            }
-        });
     }
-
 }
 

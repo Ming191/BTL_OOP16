@@ -11,7 +11,6 @@ import org.library.btl_oop16_library.Controller.AlertController;
 import java.io.IOException;
 
 public class ApplicationAlert {
-
     private static final String ERROR_ICON = "/img/error.png";
     private static final String INFORMATION_ICON = "/img/information.png";
     private static final String CONFIRMATION_ICON = "/img/confirm.png";
