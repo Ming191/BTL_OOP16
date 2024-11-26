@@ -6,19 +6,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import atlantafx.base.controls.ModalPane;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,6 +43,8 @@ public class BookViewController {
     @FXML
     private TableColumn<Book, String> languageCol;
 
+    @FXML
+    private AnchorPane rootPane;
 
     @FXML
     private Button addBookButton;
@@ -72,6 +74,10 @@ public class BookViewController {
     private Button importButton;
 
     private User currentUser;
+
+    private ModalPane modalPane;
+
+    private AnchorPane detailsPane;
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
@@ -122,6 +128,28 @@ public class BookViewController {
             }
         });
         loadBook();
+
+        modalPane = new ModalPane();
+
+        modalPane.displayProperty().addListener((obs, old, val) -> {
+            if (!val) {
+                modalPane.setAlignment(Pos.CENTER);
+                modalPane.usePredefinedTransitionFactories(null);
+            }
+        });
+
+        rootPane.getChildren().add(modalPane);
+        modalPane.setPrefSize(1060,720);
+
+        viewDetailsButton.setOnAction(event -> {
+            try {
+                setupModalPane();
+            } catch (IOException | SQLException e) {
+                throw new RuntimeException(e);
+            }
+            modalPane.show(detailsPane);
+        });
+
     }
 
     void refresh() throws SQLException {
@@ -145,26 +173,16 @@ public class BookViewController {
         refresh();
     }
 
-    @FXML
-    void viewDetailsButtonOnClick () throws IOException, SQLException {
-        Stage viewDetails = new Stage();
-        viewDetails.setResizable(false);
-        viewDetails.initModality(Modality.APPLICATION_MODAL);
-        viewDetails.setTitle("Details");
-
+    void setupModalPane () throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookDetails.fxml"));
         Parent root = loader.load();
         BookDetailsController controller = loader.getController();
-        controller.setInfo(selectedBook);
-
-        Scene scene = new Scene(root);
-
-        viewDetails.setScene(scene);
-        javafx.animation.PauseTransition delay = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(0.3));
-        delay.setOnFinished(event -> {
-            Platform.runLater(viewDetails::showAndWait);
+        controller.getButton2().setOnAction(event -> {
+            modalPane.hide();
         });
-        delay.play();
+        controller.setInfo(selectedBook);
+        controller.getButton1().setVisible(false);
+        detailsPane = controller.getMainPane();
     }
 
     @FXML

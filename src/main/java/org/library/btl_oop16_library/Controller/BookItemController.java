@@ -47,6 +47,7 @@ public class BookItemController {
         card.getStyleClass().add(Styles.INTERACTIVE);
         card.getBody().getStyleClass().add(Styles.TEXT_BOLD);
         card.getHeader().getStyleClass().add(Styles.TEXT_BOLD);
+        card.getFooter().getStyleClass().add(Styles.TEXT_ITALIC);
 
         mainPane.getChildren().add(modalPane);
 

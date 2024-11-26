@@ -260,6 +260,9 @@ public class BookDBConnector extends DBConnector<Book> {
                     if ("quantity".equalsIgnoreCase(columnName)) {
                         int quantity = rs.getInt(i);
                         cell.setCellValue(quantity);
+                    } else if("id".equalsIgnoreCase(columnName)) {
+                        int id = rs.getInt(i);
+                        cell.setCellValue(id);
                     } else {
                         cell.setCellValue(rs.getString(i));
                     }

@@ -2,7 +2,10 @@ package org.library.btl_oop16_library.Controller;
 
 import io.github.palexdev.mfxcore.controls.Label;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -11,8 +14,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Services.ZXingAPI;
+import org.library.btl_oop16_library.Util.BookDBConnector;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class BookDetailsController {
 
@@ -51,6 +60,10 @@ public class BookDetailsController {
         return button2;
     }
 
+    public Button getButton1() {
+        return button1;
+    }
+
     public void setInfo(Book book) {
         author.setText(book.getAuthor());
         title.setText(book.getTitle());
@@ -66,16 +79,42 @@ public class BookDetailsController {
         dropShadow.setRadius(30);
 
         imgHolder.setEffect(dropShadow);
+
+        button1.setOnAction(actionEvent -> {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/AddBookDialog.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            AddBookDialogController controller = loader.getController();
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("ADD");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            int quantity = controller.getQuantity();
+            book.setAvailable(quantity);
+            try {
+                BookDBConnector.getInstance().addToDB(book);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
-    private static class Dialog extends VBox {
-        public Dialog(int width, int height) {
-            super();
-            setSpacing(20);
-            setAlignment(Pos.CENTER);
-            setMinSize(width, height);
-            setMaxSize(width, height);
-            setStyle("-fx-background-color: white; -fx-border-color: black; -fx-padding: 20;");
-        }
+    @FXML
+    private void initialize() {
+
+    }
+
+    void setActionButton2() {
+        button2.setOnAction(actionEvent -> {
+            Stage stage = (Stage) button2.getScene().getWindow();
+            stage.close();
+        });
     }
 }

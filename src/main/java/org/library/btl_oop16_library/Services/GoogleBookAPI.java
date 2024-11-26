@@ -30,8 +30,14 @@ public class GoogleBookAPI {
 
                     if (bookJson.optJSONArray("authors") != null) {
                         JSONArray authorsArray = bookJson.getJSONArray("authors");
-                        author = authorsArray.join(", ");
-                        author = author.substring(1, author.length() - 1);
+                        StringBuilder authorsBuilder = new StringBuilder();
+                        for (int j = 0; j < authorsArray.length(); j++) {
+                            if (j > 0) {
+                                authorsBuilder.append(", ");
+                            }
+                            authorsBuilder.append(authorsArray.getString(j));
+                        }
+                        author = authorsBuilder.toString();
                     }
                     String category = bookJson.optJSONArray("categories") != null ? bookJson.getJSONArray("categories").getString(0) : "N/A";
                     String language = bookJson.optString("language", "N/A");

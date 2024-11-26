@@ -11,6 +11,7 @@ module org.library.btl_oop16_library {
     requires mfx.core;
     requires jakarta.mail;
     requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.material2;
 
 
     opens org.library.btl_oop16_library to javafx.fxml;

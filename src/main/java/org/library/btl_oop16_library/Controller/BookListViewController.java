@@ -43,13 +43,10 @@ public class BookListViewController {
         for (Book book : books) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookItem.fxml"));
             Region pane = loader.load();
-
             pane.prefWidthProperty().bind(flowPane.widthProperty().divide(4).subtract(flowPane.getHgap()));
             pane.setPrefHeight(300);
-
             BookItemController controller = loader.getController();
             controller.setCard(book, generalPane);
-
             flowPane.getChildren().add(pane);
         }
     }
@@ -57,7 +54,6 @@ public class BookListViewController {
     @FXML
     public void initialize() {
         flowPane.prefWidthProperty().bind(scrollPane.widthProperty());
-
         flowPane.prefHeightProperty().bind(scrollPane.heightProperty());
     }
 }

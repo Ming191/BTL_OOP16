@@ -23,7 +23,7 @@
                      <font>
                         <Font name="Montserrat Regular" size="14.0" />
                      </font></Button>
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="25.0" prefWidth="79.0" text="Add">
+                  <Button fx:id="addButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Add">
                      <font>
                         <Font name="Montserrat Regular" size="14.0" />
                      </font></Button>
