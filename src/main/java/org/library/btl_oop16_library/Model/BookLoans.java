@@ -8,15 +8,17 @@ public class BookLoans {
     private int id;
     private int bookId;
     private int userId;
+    private String bookTitle;
+    private String userName;
     private int amount;
     private Date startDate;
     private Date dueDate;
     private String status;
 
-    public BookLoans(int id, int userId, int bookId, Date startDate, Date dueDate, int amount, String status) {
+    public BookLoans(int id, String userName, String bookTitle, Date startDate, Date dueDate, int amount, String status) {
         this.id = id;
-        this.userId = userId;
-        this.bookId = bookId;
+        this.userName = userName;
+        this.bookTitle = bookTitle;
         this.amount = amount;
         this.status = status;
         this.startDate = startDate;
@@ -93,4 +95,19 @@ public class BookLoans {
         this.status = status;
     }
 
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

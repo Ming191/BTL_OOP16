@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.CatalogViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.CatalogViewController">
    <children>
       <BorderPane layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -38,12 +38,12 @@
                         <TableView fx:id="table" prefHeight="657.0">
                            <columns>
                               <TableColumn fx:id="idCol" editable="false" minWidth="50.0" prefWidth="-1.0" reorderable="false" resizable="false" sortable="true" text="ID" />
-                              <TableColumn fx:id="userIdCol" editable="false" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" sortable="false" text="USER ID" />
-                              <TableColumn fx:id="bookIdCol" editable="false" minWidth="100.0" prefWidth="-1.0" resizable="false" sortable="false" text="BOOK ID" />
-                              <TableColumn fx:id="amountCol" editable="false" minWidth="92.0" prefWidth="92.0" resizable="false" sortable="false" text="AMOUNT" />
-                              <TableColumn fx:id="startDateCol" editable="false" minWidth="191.0" prefWidth="232.0" resizable="false" text="ISSUE DATE" />
-                              <TableColumn fx:id="dueDateCol" editable="false" minWidth="200.0" prefWidth="267.0" resizable="false" sortable="false" text="DUE DATE" />
-                              <TableColumn fx:id="statusCol" editable="false" minWidth="100.0" prefWidth="168.0" text="STATUS" />
+                              <TableColumn fx:id="userNameCol" editable="false" maxWidth="151.99999618530273" minWidth="100.0" prefWidth="140.79998397827148" resizable="false" sortable="false" text="NAME" />
+                              <TableColumn fx:id="bookTitleCol" editable="false" minWidth="48.0" prefWidth="191.9999542236328" resizable="false" sortable="false" text="BOOK TITLE" />
+                              <TableColumn fx:id="amountCol" editable="false" minWidth="36.800048828125" prefWidth="95.2000732421875" resizable="false" sortable="false" text="AMOUNT" />
+                              <TableColumn fx:id="startDateCol" editable="false" minWidth="172.0" prefWidth="215.99996948242188" resizable="false" text="ISSUE DATE" />
+                              <TableColumn fx:id="dueDateCol" editable="false" minWidth="190.39996337890625" prefWidth="190.39996337890625" resizable="false" sortable="false" text="DUE DATE" />
+                              <TableColumn fx:id="statusCol" editable="false" minWidth="100.0" prefWidth="133.5999755859375" text="STATUS" />
                            </columns>
                            <rotationAxis>
                               <Point3D />
