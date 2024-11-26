@@ -8,8 +8,8 @@ module org.library.btl_oop16_library {
     requires com.google.zxing.javase;
     requires org.apache.poi.ooxml;
     requires atlantafx.base;
-    requires java.desktop;
     requires mfx.core;
+    requires jakarta.mail;
 
 
     opens org.library.btl_oop16_library to javafx.fxml;

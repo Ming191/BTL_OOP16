@@ -65,6 +65,6 @@ public class EmailAPI {
     }
 
     public static void main(String[] args) {
-        sendEmail("nguyenminh19105@gmail.com", "John Doe", "The Great Gatsby", "2024-11-30");
+        sendEmail("23021632@vnu.edu.vn", "John Doe", "The Great Gatsby", "2024-11-30");
     }
 }
