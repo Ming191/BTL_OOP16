@@ -1,63 +1,82 @@
 package org.library.btl_oop16_library.Controller;
 
+import atlantafx.base.controls.ModalPane;
+import io.github.palexdev.mfxcore.controls.Label;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Util.ZXingAPI;
 
-
 public class BookDetailsController {
-    @FXML
-    private Label authorsLabel;
 
     @FXML
-    private Label categoriesLabel;
+    private Label author;
 
     @FXML
-    private Label descriptionLabel;
+    private Button button1;
+
+    @FXML
+    private Button button2;
+
+    @FXML
+    private Text description;
 
     @FXML
     private ImageView imgHolder;
 
     @FXML
-    private ImageView qrCodeHolder;
+    private ImageView qrHolder;
 
     @FXML
-    private Label ratingLabel;
+    private Label rating;
 
     @FXML
-    private GridPane rootPane;
+    private Label title;
 
     @FXML
-    private Label titleLabel;
+    private AnchorPane mainPane;
 
-    private Book currentBook;
-
-    public void setBook(Book currentBook) {
-        this.currentBook = currentBook;
-        loadBook(currentBook);
+    public AnchorPane getMainPane() {
+        return mainPane;
     }
 
-    public void loadBook(Book currentBook) {
-        titleLabel.setText(currentBook.getTitle());
-        authorsLabel.setText(currentBook.getAuthor());
-        categoriesLabel.setText(currentBook.getCategory());
-        descriptionLabel.setText(currentBook.getDescription());
-        ratingLabel.setText(currentBook.getRating());
-        if (currentBook.getImgURL() != null && !currentBook.getImgURL().isEmpty()) {
-            imgHolder.setImage(new Image(currentBook.getImgURL(), true));
-        } else {
-            imgHolder.setImage(new Image(getClass().getResource("/img/defBookCover.png").toString(), true));
-        }
-        if (currentBook.getPreviewURL() != null && !currentBook.getPreviewURL().isEmpty()) {
-            qrCodeHolder.setImage(ZXingAPI.toQRCode(currentBook, 200, 200));
-        }
+    public Button getButton2() {
+        return button2;
     }
 
-    @FXML
-    void initialize() {
+    public void setInfo(Book book) {
+        author.setText(book.getAuthor());
+        title.setText(book.getTitle());
+        description.setText(book.getDescription());
+        rating.setText(book.getRating());
+        imgHolder.setImage(new Image(book.getImgURL(), true));
+        qrHolder.setImage(ZXingAPI.toQRCode(book, 100, 100));
+
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setOffsetX(0);
+        dropShadow.setOffsetY(0);
+        dropShadow.setColor(Color.BLACK);
+        dropShadow.setRadius(30);
+
+        imgHolder.setEffect(dropShadow);
+    }
+
+    private static class Dialog extends VBox {
+        public Dialog(int width, int height) {
+            super();
+            setSpacing(20);
+            setAlignment(Pos.CENTER);
+            setMinSize(width, height);
+            setMaxSize(width, height);
+            setStyle("-fx-background-color: white; -fx-border-color: black; -fx-padding: 20;");
+        }
     }
 }

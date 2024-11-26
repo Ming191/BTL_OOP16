@@ -337,6 +337,29 @@ public class UserDBConnector extends DBConnector<User> {
         }
     }
 
+    public static List<User> getAdminData() {
+        String query = "SELECT name, email, phoneNumber FROM user WHERE role = 'admin'";
+        List<User> users = new ArrayList<>();
+
+        try (Connection connection = DBConnector.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                User user = new User();
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to get admin data " + e.getMessage());
+        }
+
+        return users;
+    }
+
 }
 
 

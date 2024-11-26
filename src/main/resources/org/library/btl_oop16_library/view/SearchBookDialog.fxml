@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.SearchBookDialogController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.SearchBookDialogController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="25.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+      <VBox spacing="25.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
          <children>
-            <HBox prefHeight="25.0" prefWidth="700.0" spacing="25.0">
+            <HBox spacing="25.0">
                <children>
                   <TextField fx:id="searchField" prefHeight="25.0" prefWidth="254.0" promptText="Enter the titlte/ISBN of the book">
                      <font>
@@ -28,7 +29,11 @@
                      </font></Button>
                </children>
             </HBox>
-            <ListView fx:id="bookList" prefHeight="476.0" prefWidth="700.0" />
+            <BorderPane fx:id="mainPane" prefHeight="720.0" prefWidth="1000.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </BorderPane>
          </children>
       </VBox>
    </children>

@@ -155,7 +155,7 @@ public class BookViewController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookDetails.fxml"));
         Parent root = loader.load();
         BookDetailsController controller = loader.getController();
-        controller.setBook(selectedBook);
+        controller.setInfo(selectedBook);
 
         Scene scene = new Scene(root);
 

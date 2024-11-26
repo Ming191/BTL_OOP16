@@ -4,19 +4,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import org.library.btl_oop16_library.Model.Activity;
+import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ActivitiesDBConnector;
 import org.library.btl_oop16_library.Util.DBConnector;
+import org.library.btl_oop16_library.Util.UserDBConnector;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
@@ -42,6 +43,18 @@ public class DashboardViewController {
 
     @FXML
     private DatePicker endDatePicker;
+
+    @FXML
+    private TableColumn<User, String> adminEmailCol;
+
+    @FXML
+    private TableColumn<User, String> adminNameCol;
+
+    @FXML
+    private TableView<User> adminInforTableView;
+
+    @FXML
+    private TableColumn<User, String> adminPhoneNumberCol;
 
     @FXML
     private Button searchButton;
@@ -76,16 +89,25 @@ public class DashboardViewController {
         loanStatusChart.setLabelsVisible(true);
 
         loadActivities();
+
+        UserDBConnector userDB = UserDBConnector.getInstance();
+        adminNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        adminEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        adminPhoneNumberCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+
+        adminInforTableView.getItems().setAll(userDB.getAdminData());
     }
 
     private void loadActivities() {
         activityList = FXCollections.observableArrayList();
         ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         try {
             List<Activity> activities = activitiesDB.importFromDB();
             for (Activity activity : activities) {
-                activityList.add(activity.getDescription() + " at " + activity.getTimestamp());
+                String formattedTimestamp = activity.getTimestamp().format(formatter);
+                activityList.add(activity.getDescription() + " at " + formattedTimestamp);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,6 +115,8 @@ public class DashboardViewController {
 
         activityListView.setItems(activityList);
     }
+
+
     @FXML
     private void searchActivitiesByDate() {
         if (startDatePicker.getValue() == null || endDatePicker.getValue() == null) {
@@ -102,22 +126,19 @@ public class DashboardViewController {
 
         LocalDate startDate = startDatePicker.getValue();
         LocalDate endDate = endDatePicker.getValue();
-        System.out.println(startDate);
-        System.out.println(endDate);
 
         LocalDateTime startTimestamp = startDate.atStartOfDay();
         LocalDateTime endTimestamp = endDate.atTime(23, 59, 59);
-        System.out.println(startTimestamp);
-        System.out.println(endTimestamp);
-
 
         ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
         try {
             List<Activity> activities = activitiesDB.searchByTimeRange(startTimestamp, endTimestamp);
-            System.out.println(activities.size());
             activityList.clear();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             for (Activity activity : activities) {
-                activityList.add(activity.getDescription() + " at " + activity.getTimestamp());
+                String formattedTimestamp = activity.getTimestamp().format(formatter);
+                activityList.add(activity.getDescription() + " at " + formattedTimestamp);
             }
         } catch (Exception e) {
             e.printStackTrace();
