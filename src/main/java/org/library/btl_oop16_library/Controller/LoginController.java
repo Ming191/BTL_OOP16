@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
@@ -35,6 +36,9 @@ public class LoginController {
 
     @FXML
     private Button signUpButton;
+
+    @FXML
+    private AnchorPane mainPane;
 
     @FXML
     public void signInOnClick(ActionEvent event) throws IOException {

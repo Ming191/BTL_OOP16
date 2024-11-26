@@ -4672,3 +4672,9 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-fill: -color-fg-default;
   -fx-icon-size: 64px;
 }
+.small-font-icon {
+  -fx-icon-color: -color-fg-default;
+  -fx-fill: -color-fg-default;
+  -fx-icon-size: 16px;
+}
+

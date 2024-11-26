@@ -7,7 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class AlertController {
 
@@ -24,9 +26,16 @@ public class AlertController {
     private Label titleLabel;
 
     @FXML
-    private ImageView icon;
+    private FontIcon icon;
+
+    @FXML
+    private AnchorPane mainPane;
 
     private boolean isConfirmed = false;
+
+    public AnchorPane getMainPane() {
+        return mainPane;
+    }
 
     @FXML
     void onOkButtonClick(ActionEvent event) {
@@ -58,8 +67,7 @@ public class AlertController {
     }
 
     public void setIcon(String iconPath) {
-        Image img = new Image(getClass().getResourceAsStream(iconPath));
-        icon.setImage(img);
+        icon.setIconLiteral(iconPath);
     }
 
     public void setShowCancelButton(boolean showCancelButton) {

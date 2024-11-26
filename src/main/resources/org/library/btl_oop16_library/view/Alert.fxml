@@ -3,15 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="512.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AlertController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="512.0" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AlertController">
    <center>
-      <AnchorPane minWidth="150.0" prefHeight="120.0" prefWidth="512.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="mainPane" minWidth="150.0" prefHeight="120.0" prefWidth="512.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" layoutX="66.0" layoutY="12.0" prefHeight="25.0" prefWidth="380.0">
                <children>
@@ -29,7 +29,6 @@
                      </font></Label>
                </children>
             </HBox>
-            <ImageView fx:id="icon" fitHeight="45.0" fitWidth="45.0" layoutX="36.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
             <HBox alignment="CENTER_RIGHT" layoutX="217.0" layoutY="62.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="30.0" prefWidth="110.0" text="CANCEL">
@@ -47,6 +46,7 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" />
                </padding>
             </HBox>
+            <FontIcon fx:id="icon" iconLiteral="mdal-error" layoutX="20.0" layoutY="79.0" styleClass="large-font-icon" />
          </children>
       </AnchorPane>
    </center>

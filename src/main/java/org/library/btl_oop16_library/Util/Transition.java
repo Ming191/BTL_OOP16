@@ -15,13 +15,16 @@ public class Transition {
             nextRoot.setOpacity(0);
             stage.setScene(nextScene);
 
+            nextRoot.setDisable(true);
+
+
             Timeline timeline = new Timeline();
 
             KeyValue fadeOutValue = new KeyValue(currentScene.getRoot().opacityProperty(), 0);
-            KeyFrame fadeOutKeyFrame = new KeyFrame(Duration.seconds(1), fadeOutValue);
+            KeyFrame fadeOutKeyFrame = new KeyFrame(Duration.seconds(0.25), fadeOutValue);
 
             KeyValue fadeInValue = new KeyValue(nextRoot.opacityProperty(), 1);
-            KeyFrame fadeInKeyFrame = new KeyFrame(Duration.seconds(1), fadeInValue);
+            KeyFrame fadeInKeyFrame = new KeyFrame(Duration.seconds(0.25), fadeInValue);
 
             timeline.getKeyFrames().addAll(fadeOutKeyFrame, fadeInKeyFrame);
 
@@ -30,6 +33,7 @@ public class Transition {
             timeline.setOnFinished(event -> {
                 stage.setScene(nextScene);
                 nextRoot.setOpacity(1);
+                nextRoot.setDisable(false);
             });
 
         } catch (Exception e) {

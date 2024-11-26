@@ -20,32 +20,32 @@
                <children>
                   <HBox alignment="TOP_RIGHT" spacing="5.0">
                      <children>
-                        <Button fx:id="addBookButton" graphicTextGap="30.0" mnemonicParsing="false" onAction="#addBookButtonOnClick" prefHeight="31.0" prefWidth="97.0" stylesheets="@../../../../css/Style.css" text="Add book" textAlignment="CENTER">
+                        <Button fx:id="addBookButton" graphicTextGap="30.0" mnemonicParsing="false" onAction="#addBookButtonOnClick" prefHeight="30.0" prefWidth="100.0" stylesheets="@../../../../css/Style.css" text="Add book" textAlignment="CENTER">
                            <font>
                               <Font name="Montserrat Medium" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="deleteBookButton" alignment="CENTER" graphicTextGap="10.0" layoutX="198.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteBookButtonOnClick" text="Delete book">
+                        <Button fx:id="deleteBookButton" alignment="CENTER" graphicTextGap="10.0" layoutX="198.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteBookButtonOnClick" prefHeight="30.0" prefWidth="100.0" text="Delete book">
                            <font>
                               <Font name="Montserrat Medium" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="viewDetailsButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#viewDetailsButtonOnClick" text="View details">
+                        <Button fx:id="viewDetailsButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#viewDetailsButtonOnClick" prefHeight="30.0" prefWidth="100.0" text="View details">
                            <font>
                               <Font name="Montserrat Medium" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="exportButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#exportOnClick" text="Export">
+                        <Button fx:id="exportButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#exportOnClick" prefHeight="30.0" prefWidth="100.0" text="Export">
                            <font>
                               <Font name="Montserrat Medium" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="importButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#importOnClick" text="Import">
+                        <Button fx:id="importButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#importOnClick" prefHeight="30.0" prefWidth="100.0" text="Import">
                            <font>
                               <Font name="Montserrat Medium" size="12.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="searchField" onAction="#searchBookOnClick" prefHeight="44.0" promptText="Search books by...">
+                        <TextField fx:id="searchField" onAction="#searchBookOnClick" prefHeight="30.0" promptText="Search books by...">
                            <font>
                               <Font name="Montserrat Regular" size="12.0" />
                            </font>
