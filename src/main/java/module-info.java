@@ -10,6 +10,7 @@ module org.library.btl_oop16_library {
     requires atlantafx.base;
     requires mfx.core;
     requires jakarta.mail;
+    requires org.kordamp.ikonli.javafx;
 
 
     opens org.library.btl_oop16_library to javafx.fxml;

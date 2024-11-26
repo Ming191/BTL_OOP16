@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -54,7 +53,6 @@
                         <Font name="Montserrat Medium" size="14.0" />
                      </font>
                   </Button>
-                  <TextField styleClass="floating-text" stylesheets="@../../../../css/TextFields.css" text="Test" />
                   <Button fx:id="changeThemeButton" graphicTextGap="30.0" layoutX="10.0" layoutY="163.0" mnemonicParsing="false" onAction="#changeTheme" prefHeight="70.0" prefWidth="240.0" stylesheets="@../../../../css/Style.css" text="Change Theme">
                      <VBox.margin>
                         <Insets top="15.0" />
