@@ -1,98 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.mfxcore.controls.Label?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<GridPane fx:id="rootPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookDetailsController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="150.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="365.0" minHeight="10.0" prefHeight="216.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+<AnchorPane fx:id="mainPane" styleClass="bg-default" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookDetailsController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <children>
-            <Label text="Authors:">
-               <font>
-                  <Font name="Montserrat SemiBold" size="16.0" />
-               </font></Label>
-            <Label fx:id="authorsLabel" text="AuthorsLabel">
-               <font>
-                  <Font name="Montserrat Regular" size="14.0" />
-               </font></Label>
-            <Label alignment="CENTER" text="Rating:">
-               <font>
-                  <Font name="Montserrat SemiBold" size="16.0" />
-               </font></Label>
-            <Label fx:id="ratingLabel" text="RatingLabel">
-               <font>
-                  <Font name="Montserrat Regular" size="14.0" />
-               </font></Label>
-         </children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
          <padding>
-            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
-      </VBox>
-      <VBox prefHeight="200.0" prefWidth="258.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowSpan="2147483647">
-         <children>
-            <Label text="Description:">
-               <font>
-                  <Font name="Montserrat SemiBold" size="16.0" />
-               </font></Label>
-            <Label fx:id="descriptionLabel" style="-fx-wrap-text: true;" text="DescriptionLabel">
-               <font>
-                  <Font name="Montserrat Regular" size="14.0" />
-               </font></Label>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <padding>
-            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-         </padding>
-      </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1">
-         <padding>
-            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-         </padding>
-         <children>
-            <Label text="Categories:">
-               <font>
-                  <Font name="Montserrat SemiBold" size="16.0" />
-               </font></Label>
-            <Label fx:id="categoriesLabel" text="CategoriesLabel">
-               <font>
-                  <Font name="Montserrat Regular" size="14.0" />
-               </font></Label>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
-         <children>
-            <ImageView fx:id="qrCodeHolder" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
-            <Label text="Scan me to preview the book">
-               <font>
-                  <Font name="Montserrat Regular" size="14.0" />
-               </font></Label>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <ImageView fx:id="imgHolder" fitHeight="231.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="titleLabel" text="TitleLabel">
-               <font>
-                  <Font name="Montserrat SemiBold" size="16.0" />
-               </font></Label>
-         </children>
-      </VBox>
+         <center>
+            <ScrollPane hbarPolicy="NEVER" prefWidth="900.0" BorderPane.alignment="CENTER">
+               <content>
+                  <VBox maxWidth="982.0" prefHeight="668.0" prefWidth="954.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="title" text="Title Label" wrappingWidth="800.0">
+                           <font>
+                              <Font name="Montserrat ExtraBold" size="48.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="author" text="Author Label">
+                           <font>
+                              <Font name="Montserrat SemiBold" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="rating" text="Rating Label">
+                           <font>
+                              <Font name="Montserrat Medium" size="24.0" />
+                           </font>
+                        </Label>
+                        <Text fx:id="description" strokeType="OUTSIDE" strokeWidth="0.0" text="desc" wrappingWidth="800.0">
+                           <font>
+                              <Font name="Montserrat Light" size="18.0" />
+                           </font>
+                        </Text>
+                        <HBox spacing="30.0">
+                           <children>
+                              <MFXButton fx:id="button1" buttonType="RAISED">
+                                 <font>
+                                    <Font name="Montserrat Medium" size="18.0" />
+                                 </font>
+                              </MFXButton>
+                              <MFXButton fx:id="button2" buttonType="RAISED">
+                                 <font>
+                                    <Font name="Montserrat Medium" size="18.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </center>
+         <left>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="imgHolder" fitHeight="290.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="qrHolder" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+            </VBox>
+         </left>
+      </BorderPane>
    </children>
-</GridPane>
+</AnchorPane>
