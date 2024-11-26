@@ -5,6 +5,8 @@ import org.sqlite.core.DB;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class ActivitiesDBConnector extends DBConnector<Activity> {
                 activities.add(new Activity(
                         rs.getInt("id"),
                         rs.getString("description"),
-                        rs.getTimestamp("timestamp")
+                        rs.getTimestamp("timestamp").toLocalDateTime()
                 ));
             }
         }
@@ -63,23 +65,26 @@ public class ActivitiesDBConnector extends DBConnector<Activity> {
         return null;
     }
 
-    public List<Activity> searchByTimeRange(Timestamp startDateTime, Timestamp endDateTime) {
+    public List<Activity> searchByTimeRange(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         List<Activity> activities = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String query = "SELECT * FROM activities WHERE timestamp BETWEEN ? AND ? ORDER BY timestamp DESC";
 
         try (Connection conn = DBConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setTimestamp(1, startDateTime);
-            stmt.setTimestamp(2, endDateTime);
+            stmt.setString(1, startDateTime.format(formatter));
+            stmt.setString(2, endDateTime.format(formatter));
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     activities.add(new Activity(
                             rs.getInt("id"),
                             rs.getString("description"),
-                            rs.getTimestamp("timestamp")
+                            rs.getTimestamp("timestamp").toLocalDateTime()
                     ));
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();

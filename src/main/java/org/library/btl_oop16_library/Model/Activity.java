@@ -2,6 +2,7 @@ package org.library.btl_oop16_library.Model;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
@@ -9,9 +10,9 @@ import java.util.TimeZone;
 public class Activity {
     private int id;
     private String description;
-    private Timestamp timestamp;
+    private LocalDateTime timestamp;
 
-    public Activity(int id, String description, Timestamp timestamp) {
+    public Activity(int id, String description, LocalDateTime timestamp) {
         this.id = id;
         this.description = description;
         this.timestamp = timestamp;
@@ -33,11 +34,11 @@ public class Activity {
         this.description = description;
     }
 
-    public Timestamp getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 

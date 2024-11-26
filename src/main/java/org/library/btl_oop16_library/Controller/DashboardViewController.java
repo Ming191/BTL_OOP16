@@ -105,8 +105,8 @@ public class DashboardViewController {
         System.out.println(startDate);
         System.out.println(endDate);
 
-        Timestamp startTimestamp = Timestamp.valueOf(startDate.atStartOfDay());
-        Timestamp endTimestamp = Timestamp.valueOf(endDate.atTime(23, 59, 59));
+        LocalDateTime startTimestamp = startDate.atStartOfDay();
+        LocalDateTime endTimestamp = endDate.atTime(23, 59, 59);
         System.out.println(startTimestamp);
         System.out.println(endTimestamp);
 
@@ -114,7 +114,7 @@ public class DashboardViewController {
         ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
         try {
             List<Activity> activities = activitiesDB.searchByTimeRange(startTimestamp, endTimestamp);
-
+            System.out.println(activities.size());
             activityList.clear();
             for (Activity activity : activities) {
                 activityList.add(activity.getDescription() + " at " + activity.getTimestamp());
