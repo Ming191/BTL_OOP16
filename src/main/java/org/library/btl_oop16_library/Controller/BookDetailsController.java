@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,6 +53,9 @@ public class BookDetailsController {
     @FXML
     private AnchorPane mainPane;
 
+    @FXML
+    private VBox descBox;
+
     public AnchorPane getMainPane() {
         return mainPane;
     }
@@ -67,10 +71,23 @@ public class BookDetailsController {
     public void setInfo(Book book) {
         author.setText(book.getAuthor());
         title.setText(book.getTitle());
-        description.setText(book.getDescription());
         rating.setText(book.getRating());
         imgHolder.setImage(new Image(book.getImgURL(), true));
         qrHolder.setImage(ZXingAPI.toQRCode(book, 100, 100));
+
+        Hyperlink seeMoreLink = new Hyperlink("See More");
+        if (book.getDescription().length() > 300) {
+            String truncatedText = book.getDescription().substring(0, 200) + "... ";
+            description.setText(truncatedText);
+            seeMoreLink.setOnAction(event -> {
+                description.setText(book.getDescription());
+                seeMoreLink.setVisible(false);
+            });
+            descBox.getChildren().add(seeMoreLink);
+        } else {
+            description.setText(book.getDescription());
+            seeMoreLink.setVisible(false);
+        }
 
         DropShadow dropShadow = new DropShadow();
         dropShadow.setOffsetX(0);

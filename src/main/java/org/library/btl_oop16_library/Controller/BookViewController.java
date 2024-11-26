@@ -97,6 +97,8 @@ public class BookViewController {
     @FXML
     void addBookButtonOnClick() throws IOException, SQLException {
         Stage addBookStage = new Stage();
+        addBookStage.setHeight(720.0);
+        addBookStage.setWidth(1060);
         addBookStage.setResizable(false);
         addBookStage.initModality(Modality.APPLICATION_MODAL);
         addBookStage.setTitle("Add Book");

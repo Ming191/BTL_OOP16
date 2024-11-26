@@ -5,6 +5,7 @@ import atlantafx.base.controls.ModalPane;
 import atlantafx.base.theme.Styles;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -50,6 +51,7 @@ public class BookItemController {
         card.getFooter().getStyleClass().add(Styles.TEXT_ITALIC);
 
         mainPane.getChildren().add(modalPane);
+        modalPane.setAlignment(Pos.CENTER);
 
         card.setOnMouseClicked(event -> {
             try {
@@ -72,6 +74,7 @@ public class BookItemController {
             modalPane = new ModalPane();
             modalPane.setPrefSize(1280, 720);
             mainPane.getChildren().add(modalPane);
+            modalPane.setAlignment(Pos.CENTER);
         });
         return bookDetailsController.getMainPane();
     }

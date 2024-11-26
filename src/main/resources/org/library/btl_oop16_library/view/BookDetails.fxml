@@ -61,11 +61,15 @@
                               <Font name="Montserrat Medium" size="18.0" />
                            </font>
                         </Text>
-                        <Text fx:id="description" strokeType="OUTSIDE" strokeWidth="0.0" text="desc" wrappingWidth="600.0">
-                           <font>
-                              <Font name="Montserrat Light" size="18.0" />
-                           </font>
-                        </Text>
+                        <VBox fx:id="descBox">
+                           <children>
+                              <Text fx:id="description" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="desc" wrappingWidth="600.0">
+                                 <font>
+                                    <Font name="Montserrat Medium" size="18.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </VBox>
                         <HBox spacing="30.0">
                            <children>
                               <MFXButton fx:id="button1" buttonType="RAISED" prefHeight="36.0" prefWidth="148.0" text="ADD">
