@@ -1,8 +1,16 @@
 package org.library.btl_oop16_library.Util;
 
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.library.btl_oop16_library.Model.User;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -100,8 +108,6 @@ public class UserDBConnector extends DBConnector<User> {
         ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
 
         try (Connection connection = DBConnector.getConnection()) {
-            //connection.setAutoCommit(false);
-
             String findUserQuery = "SELECT name FROM user WHERE id = ?";
             String userName = null;
 
@@ -131,7 +137,6 @@ public class UserDBConnector extends DBConnector<User> {
                     throw new RuntimeException("User with ID '" + id + "' does not exist.");
                 }
             }
-            //connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to delete user: " + e.getMessage());
@@ -170,12 +175,145 @@ public class UserDBConnector extends DBConnector<User> {
 
     @Override
     public void exportToExcel() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = currentDate.format(formatter);
 
+        String outputFolderPath = "output";
+        String outputFilePath = outputFolderPath + File.separator + formattedDate + "_users.xlsx";
+
+        File outputFolder = new File(outputFolderPath);
+        if (!outputFolder.exists()) {
+            if (!outputFolder.mkdir()) {
+                System.err.println("Failed to create output folder: " + outputFolder.getAbsolutePath());
+                return;
+            }
+        }
+
+        String query = "SELECT * FROM user";
+
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Users");
+
+            Row headerRow = sheet.createRow(0);
+            String[] headers = {"id", "name", "phoneNumber", "address", "email", "userName", "password", "role"};
+            for (int i = 0; i < headers.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers[i]);
+            }
+            int rowIndex = 1;
+            while (rs.next()) {
+                Row row = sheet.createRow(rowIndex++);
+                row.createCell(0).setCellValue(rs.getInt("id"));
+                row.createCell(1).setCellValue(rs.getString("name"));
+                row.createCell(2).setCellValue(rs.getString("phoneNumber"));
+                row.createCell(3).setCellValue(rs.getString("address"));
+                row.createCell(4).setCellValue(rs.getString("email"));
+                row.createCell(5).setCellValue(rs.getString("username"));
+                row.createCell(6).setCellValue(rs.getString("password"));
+                row.createCell(7).setCellValue(rs.getString("role"));
+            }
+
+            for (int i = 0; i < headers.length; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            try (FileOutputStream fos = new FileOutputStream(outputFilePath)) {
+                workbook.write(fos);
+            }
+
+            workbook.close();
+            System.out.println("User data exported to: " + outputFilePath);
+
+        } catch (SQLException e) {
+            System.err.println("Database query failed: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Failed to write Excel file: " + e.getMessage());
+        }
     }
 
     @Override
-    public void importFromExcel(String filename) {
+    public void importFromExcel(String filePath) {
+        File file = new File(filePath);
 
+        if (!file.exists()) {
+            System.err.println("File does not exist: " + filePath);
+            return;
+        }
+
+        try (FileInputStream fis = new FileInputStream(file);
+             XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
+
+            Sheet sheet = workbook.getSheetAt(0);
+
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) {
+                    continue;
+                }
+
+                int id = (row.getCell(0) != null && row.getCell(0).getCellType() == CellType.NUMERIC)
+                        ? (int) row.getCell(0).getNumericCellValue() : -1;
+                String name = (row.getCell(1) != null && row.getCell(1).getCellType() == CellType.STRING)
+                        ? row.getCell(1).getStringCellValue() : "";
+                String email = (row.getCell(2) != null && row.getCell(2).getCellType() == CellType.STRING)
+                        ? row.getCell(2).getStringCellValue() : "";
+                String phoneNumber = (row.getCell(3) != null && row.getCell(3).getCellType() == CellType.STRING)
+                        ? row.getCell(3).getStringCellValue() : "";
+                String address = (row.getCell(4) != null && row.getCell(4).getCellType() == CellType.STRING)
+                        ? row.getCell(4).getStringCellValue() : "";
+                String username = (row.getCell(5) != null && row.getCell(5).getCellType() == CellType.STRING)
+                        ? row.getCell(5).getStringCellValue() : "";
+                String password = (row.getCell(6) != null && row.getCell(6).getCellType() == CellType.STRING)
+                        ? row.getCell(6).getStringCellValue() : "";
+                String role = (row.getCell(7) != null && row.getCell(7).getCellType() == CellType.STRING)
+                        ? row.getCell(7).getStringCellValue() : "";
+
+                upsertUser(id, name, phoneNumber, address, email, username, password, role);
+            }
+
+            System.out.println("Data successfully imported from Excel file: " + filePath);
+
+        } catch (IOException e) {
+            System.err.println("Error while reading Excel file: " + e.getMessage());
+        }
+    }
+
+    private void upsertUser(int id, String name, String phoneNumber, String address,
+                            String email, String username, String password, String role) {
+        String upsertQuery = """
+        INSERT INTO user (id, name, phoneNumber , address, email, username, password, role)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT (id) 
+        DO UPDATE SET
+            name = EXCLUDED.name,
+            phoneNumber = EXCLUDED.phoneNumber,
+            address = EXCLUDED.address,
+            email = EXCLUDED.email,
+            username = EXCLUDED.username,
+            password = EXCLUDED.password,
+            role = EXCLUDED.role
+    """;
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(upsertQuery)) {
+            ps.setInt(1, id);
+            ps.setString(2, name);
+            ps.setString(3, email);
+            ps.setString(4, phoneNumber);
+            ps.setString(5, address);
+            ps.setString(6, username);
+            ps.setString(7, password);
+            ps.setString(8, role);
+
+            ps.executeUpdate();
+            System.out.println("User upserted: " + username);
+        } catch (SQLException e) {
+            System.err.println("Error while upserting user: " + e.getMessage());
+        }
     }
 
     public List<User> searchByName(String name) {

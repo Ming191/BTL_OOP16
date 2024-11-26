@@ -57,7 +57,7 @@ public class DashboardViewController {
     private TableColumn<User, String> adminPhoneNumberCol;
 
     @FXML
-    private Button searchButton;
+    private ImageView findImage;
 
     private ObservableList<String> activityList;
 
