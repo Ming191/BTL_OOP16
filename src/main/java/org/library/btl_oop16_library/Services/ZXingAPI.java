@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library.Util;
+package org.library.btl_oop16_library.Services;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;

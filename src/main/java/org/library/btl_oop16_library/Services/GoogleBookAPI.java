@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library.Util;
+package org.library.btl_oop16_library.Services;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,7 +26,13 @@ public class GoogleBookAPI {
                     JSONObject bookJson = items.getJSONObject(i).getJSONObject("volumeInfo");
 
                     String title = bookJson.optString("title");
-                    String author = bookJson.optJSONArray("authors") != null ? bookJson.getJSONArray("authors").getString(0) : "Unknown";
+                    String author = "Unknown";
+
+                    if (bookJson.optJSONArray("authors") != null) {
+                        JSONArray authorsArray = bookJson.getJSONArray("authors");
+                        author = authorsArray.join(", ");
+                        author = author.substring(1, author.length() - 1);
+                    }
                     String category = bookJson.optJSONArray("categories") != null ? bookJson.getJSONArray("categories").getString(0) : "N/A";
                     String language = bookJson.optString("language", "N/A");
 

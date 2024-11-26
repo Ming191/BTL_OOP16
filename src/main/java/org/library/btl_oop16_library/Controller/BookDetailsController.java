@@ -1,6 +1,5 @@
 package org.library.btl_oop16_library.Controller;
 
-import atlantafx.base.controls.ModalPane;
 import io.github.palexdev.mfxcore.controls.Label;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -13,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.library.btl_oop16_library.Model.Book;
-import org.library.btl_oop16_library.Util.ZXingAPI;
+import org.library.btl_oop16_library.Services.ZXingAPI;
 
 public class BookDetailsController {
 

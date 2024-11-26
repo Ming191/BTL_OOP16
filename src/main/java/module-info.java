@@ -20,4 +20,6 @@ module org.library.btl_oop16_library {
     opens org.library.btl_oop16_library.Model to javafx.fxml;
     exports org.library.btl_oop16_library.Util;
     opens org.library.btl_oop16_library.Util to javafx.fxml;
+    exports org.library.btl_oop16_library.Services;
+    opens org.library.btl_oop16_library.Services to javafx.fxml;
 }
