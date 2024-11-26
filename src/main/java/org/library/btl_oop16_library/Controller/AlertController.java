@@ -33,8 +33,6 @@ public class AlertController {
         closeAlert();
     }
 
-
-
     @FXML
     void onCancelButtonClick(ActionEvent event) {
         isConfirmed = false;
