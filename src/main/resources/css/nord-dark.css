@@ -120,7 +120,7 @@
 .ikonli-font-icon {
   -fx-icon-color: -color-fg-default;
   -fx-fill: -color-fg-default;
-  -fx-icon-size: 18px;
+  -fx-icon-size: 32px;
 }
 
 .mnemonic-underline {

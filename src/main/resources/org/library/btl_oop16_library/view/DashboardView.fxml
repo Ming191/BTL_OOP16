@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.DashboardViewController">
    <children>
@@ -50,7 +48,7 @@
             </HBox>
          </children>
       </VBox>
-      <PieChart fx:id="loanStatusChart" layoutX="59.0" layoutY="117.0" prefHeight="374.0" prefWidth="418.0" />
+      <PieChart fx:id="loanStatusChart" layoutX="32.0" layoutY="117.0" prefHeight="374.0" prefWidth="418.0" />
       <ListView fx:id="activityListView" layoutX="714.0" layoutY="203.0" prefHeight="288.0" prefWidth="288.0" />
       <VBox layoutX="347.0" layoutY="479.0" prefHeight="197.0" prefWidth="367.0">
          <children>
@@ -82,14 +80,7 @@
                </font>
             </Label>
             <DatePicker fx:id="endDatePicker" layoutX="43.0" layoutY="10.0" prefHeight="36.0" prefWidth="108.0" />
-            <ImageView fx:id="findImage" fitHeight="29.0" fitWidth="21.0" onMouseClicked="#searchActivitiesByDate" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../img/search.png" />
-               </image>
-               <HBox.margin>
-                  <Insets left="4.0" top="7.0" />
-               </HBox.margin>
-            </ImageView>
+            <FontIcon fx:id="icon" iconLiteral="mdal-find_in_page" />
          </children>
       </HBox>
    </children>
