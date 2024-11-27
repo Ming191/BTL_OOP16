@@ -2,11 +2,16 @@ package org.library.btl_oop16_library.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 import org.library.btl_oop16_library.Model.User;
+
+import java.io.IOException;
 
 public class ChangePasswordViewController {
 
@@ -23,10 +28,16 @@ public class ChangePasswordViewController {
     @FXML
     private TextField newPasswordField;
 
+    private BorderPane mainPane;
+
     private User currentUser;
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
+    }
+
+    public void setMainPane(BorderPane mainPane) {
+        this.mainPane = mainPane;
     }
 
     @FXML
@@ -56,6 +67,19 @@ public class ChangePasswordViewController {
             ApplicationAlert.updateSuccess();
         } else {
             ApplicationAlert.notFound();
+        }
+    }
+
+    @FXML
+    private void cancelChange (ActionEvent event) throws IOException {
+        if (mainPane != null) {
+            mainPane.setCenter(null);
+            mainPane.setTop(null);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
+            Pane pane = (Pane) fxmlLoader.load();
+            mainPane.setCenter(pane);
+            SettingsController settingsController = fxmlLoader.getController();
+            settingsController.setCurrentUser(currentUser);
         }
     }
 }

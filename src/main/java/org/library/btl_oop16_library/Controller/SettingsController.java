@@ -42,10 +42,10 @@ public class SettingsController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/ChangePasswordView.fxml"));
         Pane pane = loader.load();
         ChangePasswordViewController controller = loader.getController();
-
         controller.setCurrentUser(currentUser);
-        mainPane.setCenter(pane);
+        controller.setMainPane(mainPane);
         System.out.println(currentUser.getRole());
+        mainPane.setCenter(pane);
     }
 
     @FXML

@@ -435,4 +435,13 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         return overdueEmails;
     }
 
+    public int getBookLentAmount(String userId) {
+        String query = "select sum(amount) from BookLoans where userId = " + userId;
+        return DBConnector.getCount(query);
+    }
+
+    public int getBookAvailable(String bookId) {
+        String query1 = "select quantity from book where id = " + bookId;
+        return DBConnector.getCount(query1);
+    }
 }

@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.DashboardViewController">
    <children>
-      <VBox layoutX="417.0" layoutY="226.0" prefHeight="200.0" prefWidth="275.0">
+      <VBox layoutX="713.0" layoutY="174.0" prefHeight="200.0" prefWidth="275.0">
          <children>
             <HBox prefHeight="50.0" prefWidth="294.0">
                <children>
@@ -48,9 +48,9 @@
             </HBox>
          </children>
       </VBox>
-      <PieChart fx:id="loanStatusChart" layoutX="32.0" layoutY="117.0" prefHeight="374.0" prefWidth="418.0" />
-      <ListView fx:id="activityListView" layoutX="714.0" layoutY="203.0" prefHeight="288.0" prefWidth="288.0" />
-      <VBox layoutX="347.0" layoutY="479.0" prefHeight="197.0" prefWidth="367.0">
+      <PieChart fx:id="loanStatusChart" layoutX="91.0" layoutY="57.0" prefHeight="374.0" prefWidth="418.0" />
+      <ListView fx:id="activityListView" layoutX="667.0" layoutY="468.0" prefHeight="238.0" prefWidth="367.0" />
+      <VBox layoutX="132.0" layoutY="488.0" prefHeight="197.0" prefWidth="367.0">
          <children>
             <Label alignment="CENTER" prefHeight="20.0" prefWidth="381.0" text="Admin Info">
                <font>
@@ -69,20 +69,12 @@
             </TableView>
          </children>
       </VBox>
-      <HBox layoutX="714.0" layoutY="165.0" prefHeight="36.0" prefWidth="288.0">
+      <HBox layoutX="667.0" layoutY="432.0" prefHeight="36.0" prefWidth="367.0">
          <children>
-            <Label prefHeight="36.0" prefWidth="25.0" text="Start">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Label>
-            <DatePicker fx:id="startDatePicker" prefHeight="36.0" prefWidth="103.0" />
-            <Label layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="24.0" text="End">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Label>
-            <DatePicker fx:id="endDatePicker" layoutX="43.0" layoutY="10.0" prefHeight="36.0" prefWidth="108.0" />
+            <Label alignment="CENTER" prefHeight="36.0" prefWidth="33.0" text="Start" />
+            <DatePicker fx:id="startDatePicker" prefHeight="36.0" prefWidth="132.0" />
+            <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="34.0" text="End" />
+            <DatePicker fx:id="endDatePicker" layoutX="43.0" layoutY="10.0" prefHeight="36.0" prefWidth="132.0" />
             <FontIcon fx:id="icon" iconLiteral="mdal-find_in_page" />
          </children>
       </HBox>
