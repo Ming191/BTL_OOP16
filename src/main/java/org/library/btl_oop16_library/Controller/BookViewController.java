@@ -90,6 +90,10 @@ public class BookViewController {
             deleteBookButton.setDisable(true);
             addBookButton.setVisible(false);
             deleteBookButton.setVisible(false);
+            importButton.setDisable(true);
+            exportButton.setDisable(true);
+            importButton.setVisible(false);
+            exportButton.setVisible(false);
         }
     }
 

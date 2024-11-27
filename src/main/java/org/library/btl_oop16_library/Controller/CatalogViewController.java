@@ -29,8 +29,8 @@ public class CatalogViewController {
     private List<BookLoans> history;
     private final BookLoanDBConnector bookLoanDBConnector = BookLoanDBConnector.getInstance();
     private User currentUser;
-    boolean canLendBook;
-    boolean canPreorder;
+    boolean canLendBook = true;
+    boolean canPreorder = true;
 
     @FXML
     private TableView<BookLoans> table;
@@ -73,11 +73,13 @@ public class CatalogViewController {
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
-        canLendBook = bookLoanDBConnector.canLendBook(currentUser, 20);
-        canPreorder = bookLoanDBConnector.canPreorderBook(currentUser);
         if (currentUser != null && !"admin".equalsIgnoreCase(currentUser.getRole())) {
+            canLendBook = bookLoanDBConnector.canLendBook(currentUser, 20);
+            canPreorder = bookLoanDBConnector.canPreorderBook(currentUser);
             userNameCol.setVisible(false);
             returnBookButton.setVisible(false);
+            lendBookButton.setVisible(false);
+            importButton.setVisible(false);
             if (!canPreorder) {
                 preorderButton.setVisible(false);
             }
