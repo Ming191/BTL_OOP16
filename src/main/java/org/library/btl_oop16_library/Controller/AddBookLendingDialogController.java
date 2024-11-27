@@ -20,7 +20,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class AddBookLendingDialogController {
-
+    BookLoanDBConnector bookLoanDBConnector = BookLoanDBConnector.getInstance();
     @FXML
     private TextField bookIDField;
 
@@ -51,10 +51,8 @@ public class AddBookLendingDialogController {
     @FXML
     private void onConfirmButtonClick(ActionEvent event) {
         int quantity = Integer.parseInt(quantityField.getText());
-        String query = "select sum(amount) from BookLoans where userId = " + userIdField.getText();
-        int bookLentAmount = DBConnector.getCount(query);
-        String query1 = "select quantity from book where id = " + bookIDField.getText();
-        int bookAvailable = DBConnector.getCount(query1);
+        int bookAvailable = bookLoanDBConnector.getBookAvailable(bookIDField.getText());
+        int bookLentAmount = bookLoanDBConnector.getBookLentAmount(userIdField.getText());
         System.out.println(quantity);
         System.out.println(bookLentAmount);
         System.out.println(bookAvailable);
@@ -77,7 +75,6 @@ public class AddBookLendingDialogController {
             Date dueDate = Date.from(dueLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
             BookLoans bookLoan = new BookLoans(userID, bookID, startDate, dueDate, quantity, "not returned");
-            BookLoanDBConnector bookLoanDBConnector = BookLoanDBConnector.getInstance();
             try {
                 bookLoanDBConnector.addToDB(bookLoan);
             } catch (Exception e) {
