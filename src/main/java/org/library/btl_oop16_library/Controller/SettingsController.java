@@ -11,9 +11,11 @@ import javafx.scene.layout.Pane;
 import org.library.btl_oop16_library.Model.User;
 
 import java.io.IOException;
+import java.util.Objects;
+
+import static org.library.btl_oop16_library.Util.GlobalVariables.isLightTheme;
 
 public class SettingsController {
-    private boolean isLightTheme = true;
     @FXML
     private Button changePasswordButton;
 
@@ -60,12 +62,12 @@ public class SettingsController {
         if(isLightTheme) {
             System.out.printf("changed to dark theme\n");
             isLightTheme = false;
-            Application.setUserAgentStylesheet(getClass().getResource("/css/nord-dark.css").toExternalForm());
+            Application.setUserAgentStylesheet(Objects.requireNonNull(getClass().getResource("/css/nord-dark.css")).toExternalForm());
         }
         else {
             System.out.printf("changed to light theme\n");
             isLightTheme = true;
-            Application.setUserAgentStylesheet(getClass().getResource("/css/nord-light.css").toExternalForm());
+            Application.setUserAgentStylesheet(Objects.requireNonNull(getClass().getResource("/css/nord-light.css")).toExternalForm());
         }
     }
 

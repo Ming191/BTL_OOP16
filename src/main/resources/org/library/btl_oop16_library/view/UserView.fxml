@@ -19,7 +19,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="51.0" layoutY="123.0" prefHeight="720.0" prefWidth="945.0" spacing="10.0" style="-fx-background-color: white;" stylesheets="@../../../../css/nord-light.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutX="51.0" layoutY="123.0" prefHeight="720.0" prefWidth="945.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox alignment="TOP_RIGHT" spacing="5.0">
                            <children>

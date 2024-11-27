@@ -5,14 +5,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import org.kordamp.ikonli.javafx.FontIcon;
 import org.library.btl_oop16_library.Model.Activity;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ActivitiesDBConnector;
 import org.library.btl_oop16_library.Util.DBConnector;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
+import java.awt.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -57,7 +60,7 @@ public class DashboardViewController {
     private TableColumn<User, String> adminPhoneNumberCol;
 
     @FXML
-    private ImageView findImage;
+    private FontIcon icon;
 
     private ObservableList<String> activityList;
 
@@ -96,6 +99,10 @@ public class DashboardViewController {
         adminPhoneNumberCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
         adminInforTableView.getItems().setAll(userDB.getAdminData());
+
+        icon.setOnMouseClicked(event -> {
+            searchActivitiesByDate();
+        });
     }
 
     private void loadActivities() {
@@ -116,8 +123,6 @@ public class DashboardViewController {
         activityListView.setItems(activityList);
     }
 
-
-    @FXML
     private void searchActivitiesByDate() {
         if (startDatePicker.getValue() == null || endDatePicker.getValue() == null) {
             System.out.println("Please select both start and end dates.");

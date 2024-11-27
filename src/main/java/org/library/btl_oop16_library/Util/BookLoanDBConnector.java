@@ -180,7 +180,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     public BookLoans searchById(int id) {
         String searchQuery = "select * from bookLoans\n" +
                         "join user on bookLoans.userId = user.id\n" +
-                        "join book on bookLoans.bookId = book.id" +
+                        "join book on bookLoans.bookId = book.id\n" +
                         "where bookLoans.id = ?";
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try (Connection con = DBConnector.getConnection();
@@ -392,5 +392,24 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         return false;
     }
 
+    public List<User> selectOverdue() {
+        List<User> users = new ArrayList<>();
+        String query = "select * from bookLoans where status like('overdued')";
 
+        try (Connection conn = getConnection();
+        PreparedStatement ps = conn.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
+    }
 }
