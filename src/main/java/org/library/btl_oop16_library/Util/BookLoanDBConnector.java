@@ -398,7 +398,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                 "FROM bookLoans bl " +
                 "JOIN user u ON bl.userId = u.id " +
                 "JOIN book b ON bl.bookId = b.id " +
-                "WHERE bl.status = 'overdue'";
+                "WHERE bl.status = 'overdued'";
 
         try (Connection con = DBConnector.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
@@ -408,6 +408,8 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                 String userName = rs.getString("userName");
                 String bookTitle = rs.getString("bookTitle");
                 String dueDate = rs.getString("dueDate");
+
+                System.out.println(email + " " + userName + " " + bookTitle + " " + dueDate);
 
                 overdueEmails.add(new String[] { email, userName, bookTitle, dueDate });
             }

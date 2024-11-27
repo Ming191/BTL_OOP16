@@ -11,6 +11,8 @@ import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
+import static org.library.btl_oop16_library.Util.GlobalVariables.emailRegex;
+
 public class UpdateUserDialogForAdminController {
 
     @FXML
@@ -72,7 +74,7 @@ public class UpdateUserDialogForAdminController {
                 String newPassword = passwordField.getText();
                 String newRole = roleBox.getValue();
 
-                if (!newEmail.matches("[a-zA-Z0-9._%+-]+@gmail\\.com")) {
+                if (!newEmail.matches(emailRegex)) {
                     ApplicationAlert.wrongEmailPattern();
                     return;
                 }

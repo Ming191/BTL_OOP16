@@ -15,6 +15,8 @@ import org.library.btl_oop16_library.Model.User;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static org.library.btl_oop16_library.Util.GlobalVariables.emailRegex;
+
 public class SignUpController {
     @FXML
     private TextField addressField;
@@ -54,8 +56,7 @@ public class SignUpController {
             return;
         }
 
-        String gmailRegex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
-        if (!emailField.getText().matches(gmailRegex)) {
+        if (!emailField.getText().matches(emailRegex)) {
             ApplicationAlert.wrongEmailPattern();
             return;
         }

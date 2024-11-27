@@ -9,6 +9,8 @@ import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
+import static org.library.btl_oop16_library.Util.GlobalVariables.emailRegex;
+
 public class UpdateUserDialogController {
 
     @FXML
@@ -48,8 +50,7 @@ public class UpdateUserDialogController {
             return;
         }
 
-        String gmailRegex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
-        if (!emailField.getText().matches(gmailRegex)) {
+        if (!emailField.getText().matches(emailRegex)) {
             ApplicationAlert.wrongEmailPattern();
             return;
         }

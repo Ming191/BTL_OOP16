@@ -53,9 +53,12 @@ public class AddBookLendingDialogController {
         int quantity = Integer.parseInt(quantityField.getText());
         String query = "select sum(amount) from BookLoans where userId = " + userIdField.getText();
         int bookLentAmount = DBConnector.getCount(query);
-        String query1 = "select available from book where id = " + bookIDField.getText();
+        String query1 = "select quantity from book where id = " + bookIDField.getText();
         int bookAvailable = DBConnector.getCount(query1);
-        if (quantity > 20 || quantity + bookLentAmount > 20 || bookAvailable - quantity <= 0) {
+        System.out.println(quantity);
+        System.out.println(bookLentAmount);
+        System.out.println(bookAvailable);
+        if (quantity > 20 || quantity + bookLentAmount > 20 || bookAvailable - quantity < 0) {
             ApplicationAlert.canNotLendBook();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBookLendingDialog.fxml"));
             try {

@@ -10,6 +10,8 @@ import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
+import static org.library.btl_oop16_library.Util.GlobalVariables.emailRegex;
+
 public class AddUserDialogController {
     @FXML
     private TextField usernameField;
@@ -51,8 +53,12 @@ public class AddUserDialogController {
         String phoneNumber = phoneNumberField.getText();
         String address = addressField.getText();
 
-        String gmailRegex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
-        if (!email.matches(gmailRegex)) {
+        if(nameField.getText().isEmpty() || usernameField.getText().isEmpty() || emailField.getText().isEmpty() ||
+                passwordField.getText().isEmpty() || phoneNumberField.getText().isEmpty() || addressField.getText().isEmpty()) {
+            ApplicationAlert.missingInformation();
+            return;
+        }
+        if (!email.matches(emailRegex)) {
             ApplicationAlert.wrongEmailPattern();
             return;
         }
