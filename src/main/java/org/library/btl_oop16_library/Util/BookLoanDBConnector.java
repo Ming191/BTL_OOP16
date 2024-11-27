@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.BookLoans;
 import org.library.btl_oop16_library.Model.User;
 
@@ -28,6 +29,8 @@ import java.util.List;
 public class BookLoanDBConnector extends DBConnector<BookLoans> {
     private static BookLoanDBConnector instance;
     private static final Object lock = new Object();
+    private static final SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
 
     private BookLoanDBConnector() {}
 
@@ -43,7 +46,6 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     @Override
     public List<BookLoans> importFromDB() {
         List<BookLoans> bookLoans = new ArrayList<>();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String query =  "select bookLoans.*, user.name, book.title\n" +
                         "from bookLoans\n" +
                         "join user  on bookLoans.userId = user.id\n" +
@@ -197,7 +199,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                     Date startDate = df.parse(rs.getString("startDate"));
                     Date dueDate = df.parse(rs.getString("dueDate"));
 
-                    return  new BookLoans(Id, userName, bookTitle, startDate, dueDate, amount, status);
+                    return new BookLoans(Id, userName, bookTitle, startDate, dueDate, amount, status);
                 } catch (ParseException e) {
                     System.out.println(e.getMessage());
                 }
@@ -390,24 +392,29 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         return false;
     }
 
-    public List<User> selectOverdue() {
-        List<User> users = new ArrayList<>();
-        String query = "select * from bookLoans where status like('overdued')";
+    public List<String[]> getOverdueUserEmails() {
+        List<String[]> overdueEmails = new ArrayList<>();
+        String query = "SELECT u.email, u.name AS userName, b.title AS bookTitle, bl.dueDate " +
+                "FROM bookLoans bl " +
+                "JOIN user u ON bl.userId = u.id " +
+                "JOIN book b ON bl.bookId = b.id " +
+                "WHERE bl.status = 'overdue'";
 
-        try (Connection conn = getConnection();
-        PreparedStatement ps = conn.prepareStatement(query)) {
+        try (Connection con = DBConnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                users.add(user);
+                String email = rs.getString("email");
+                String userName = rs.getString("userName");
+                String bookTitle = rs.getString("bookTitle");
+                String dueDate = rs.getString("dueDate");
+
+                overdueEmails.add(new String[] { email, userName, bookTitle, dueDate });
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        return users;
+        return overdueEmails;
     }
+
 }

@@ -13,8 +13,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.BookLoans;
 import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Services.EmailAPI;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;
 
@@ -31,6 +33,9 @@ public class CatalogViewController {
     private User currentUser;
     boolean canLendBook = true;
     boolean canPreorder = true;
+
+    @FXML
+    private Button mailButton;
 
     @FXML
     private TableView<BookLoans> table;
@@ -160,7 +165,6 @@ public class CatalogViewController {
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
         formatDateColumn(startDateCol);
         formatDateColumn(dueDateCol);
-
     }
 
     private void initializeBaseOnUser(User currentUser) throws SQLException {
@@ -228,5 +232,20 @@ public class CatalogViewController {
             System.out.println("No file selected.");
         }
         refreshHistory();
+    }
+
+    @FXML
+    private void mailButtonOnClick() {
+        BookLoanDBConnector dbConnector = BookLoanDBConnector.getInstance();
+        List<String[]> overdueEmails = dbConnector.getOverdueUserEmails();
+
+        for (String[] details : overdueEmails) {
+            String email = details[0];
+            String userName = details[1];
+            String bookTitle = details[2];
+            String dueDate = details[3];
+
+            EmailAPI.sendEmail(email, userName, bookTitle, dueDate);
+        }
     }
 }
