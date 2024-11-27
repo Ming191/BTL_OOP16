@@ -1,14 +1,10 @@
 package org.library.btl_oop16_library.Util;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.library.btl_oop16_library.Model.Book;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -302,35 +298,34 @@ public class BookDBConnector extends DBConnector<Book> {
 
             Sheet sheet = workbook.getSheetAt(0);
 
-            String deleteQuery = "DELETE FROM book";
-            try (Connection conn = getConnection();
-                 PreparedStatement ps = conn.prepareStatement(deleteQuery)) {
-                ps.executeUpdate();
-                System.out.println("All existing data deleted from table 'book'.");
-            } catch (SQLException e) {
-                System.err.println("Error while deleting old data: " + e.getMessage());
-                return;
-            }
-
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
                     continue;
                 }
-                int id = row.getCell(0) != null ? (int) row.getCell(0).getNumericCellValue() : -1;
-                String title = row.getCell(1) != null ? row.getCell(1).getStringCellValue() : "";
-                String author = row.getCell(2) != null ? row.getCell(2).getStringCellValue() : "";
-                String category = row.getCell(3) != null ? row.getCell(3).getStringCellValue() : "";
-                String language = row.getCell(4) != null ? row.getCell(4).getStringCellValue() : "";
-                int quantity = row.getCell(5) != null ? (int) row.getCell(5).getNumericCellValue() : 0;
-                String imgURL = row.getCell(6) != null ? row.getCell(6).getStringCellValue() : "";
-                String rating = row.getCell(7) != null ? row.getCell(7).getStringCellValue() : "";
-                String description = row.getCell(8) != null ? row.getCell(8).getStringCellValue() : "";
-                String previewURL = row.getCell(9) != null ? row.getCell(9).getStringCellValue() : "";
 
+                int id = (row.getCell(0) != null && row.getCell(0).getCellType() == CellType.NUMERIC)
+                        ? (int) row.getCell(0).getNumericCellValue() : -1;
+                String title = (row.getCell(1) != null && row.getCell(1).getCellType() == CellType.STRING)
+                        ? row.getCell(1).getStringCellValue() : "";
+                String author = (row.getCell(2) != null && row.getCell(2).getCellType() == CellType.STRING)
+                        ? row.getCell(2).getStringCellValue() : "";
+                String category = (row.getCell(3) != null && row.getCell(3).getCellType() == CellType.STRING)
+                        ? row.getCell(3).getStringCellValue() : "";
+                String language = (row.getCell(4) != null && row.getCell(4).getCellType() == CellType.STRING)
+                        ? row.getCell(4).getStringCellValue() : "";
+                int quantity = (row.getCell(5) != null && row.getCell(5).getCellType() == CellType.NUMERIC)
+                        ? (int)row.getCell(5).getNumericCellValue() : -1;
+                String imgURL = (row.getCell(6) != null && row.getCell(6).getCellType() == CellType.STRING)
+                        ? row.getCell(6).getStringCellValue() : "";
+                String rating = (row.getCell(7) != null && row.getCell(7).getCellType() == CellType.STRING)
+                        ? row.getCell(7).getStringCellValue() : "";
+                String description = (row.getCell(8) != null && row.getCell(8).getCellType() == CellType.STRING)
+                        ? row.getCell(8).getStringCellValue() : "";
+                String previewURL = (row.getCell(9) != null && row.getCell(9).getCellType() == CellType.STRING)
+                        ? row.getCell(9).getStringCellValue() : "";
 
-                insertBookToDB(id,title,author,category,language,quantity,imgURL,rating,description,previewURL);
+                upsertBook(id, title, author, category, language, quantity, imgURL, rating, description, previewURL);
             }
-
             System.out.println("Data successfully imported from Excel file: " + filePath);
 
         } catch (IOException e) {
@@ -338,11 +333,26 @@ public class BookDBConnector extends DBConnector<Book> {
         }
     }
 
-    private void insertBookToDB(int id, String title, String author, String category, String language, int quantity, String imgURL, String rating, String description, String previewURL) {
-        String query = "INSERT INTO book (id, title, author, category, language, quantity, imgUrl, rating, description, previewURL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private void upsertBook(int id, String title, String author, String category,
+                            String language, int quantity, String imgURL, String rating, String description, String previewURL) {
+        String upsertQuery = """
+        INSERT INTO book (id, title, author , category, language, quantity, imgURL, rating, description, previewURL)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT (id) 
+        DO UPDATE SET
+            title = EXCLUDED.title,
+            author = EXCLUDED.author,
+            category = EXCLUDED.category,
+            language = EXCLUDED.language,
+            quantity = EXCLUDED.quantity,
+            imgURL = EXCLUDED.imgURL,
+            rating = EXCLUDED.rating,
+            description = EXCLUDED.description,
+            previewURL = EXCLUDED.previewURL
+    """;
 
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement ps = conn.prepareStatement(upsertQuery)) {
             ps.setInt(1, id);
             ps.setString(2, title);
             ps.setString(3, author);
@@ -355,9 +365,11 @@ public class BookDBConnector extends DBConnector<Book> {
             ps.setString(10, previewURL);
 
             ps.executeUpdate();
-
+            System.out.println("Book upserted: " + title);
         } catch (SQLException e) {
-            System.err.println("Error while inserting book data into DB: " + e.getMessage());
+            System.err.println("Error while upserting book: " + e.getMessage());
         }
     }
+
+
 }

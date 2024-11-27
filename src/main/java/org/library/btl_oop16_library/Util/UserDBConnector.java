@@ -298,7 +298,7 @@ public class UserDBConnector extends DBConnector<User> {
             role = EXCLUDED.role
     """;
 
-        try (Connection conn = getConnection();
+        try (Connection conn = DBConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(upsertQuery)) {
             ps.setInt(1, id);
             ps.setString(2, name);
