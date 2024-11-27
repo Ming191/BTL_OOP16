@@ -1,12 +1,15 @@
 package org.library.btl_oop16_library.Controller;
 
+import atlantafx.base.theme.Styles;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -73,5 +76,11 @@ public class LoginController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SignUp.fxml"));
         Scene signUpScene = new Scene(loader.load());
         Transition.fadeTransition((Stage) signUpButton.getScene().getWindow(), signUpButton.getScene(), signUpScene);
+    }
+
+    @FXML
+    public void initialize() {
+        signInButton.setDefaultButton(true);
+        signUpButton.setStyle(Styles.BG_DEFAULT);
     }
 }

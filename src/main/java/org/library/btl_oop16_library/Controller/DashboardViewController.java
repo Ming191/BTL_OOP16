@@ -12,6 +12,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import org.library.btl_oop16_library.Model.Activity;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ActivitiesDBConnector;
+import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.DBConnector;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
@@ -126,11 +127,17 @@ public class DashboardViewController {
     private void searchActivitiesByDate() {
         if (startDatePicker.getValue() == null || endDatePicker.getValue() == null) {
             System.out.println("Please select both start and end dates.");
+            ApplicationAlert.invalidTimeRange();
             return;
         }
 
         LocalDate startDate = startDatePicker.getValue();
         LocalDate endDate = endDatePicker.getValue();
+
+        if (startDate.isAfter(endDate)) {
+            ApplicationAlert.invalidTimeRange();
+            return;
+        }
 
         LocalDateTime startTimestamp = startDate.atStartOfDay();
         LocalDateTime endTimestamp = endDate.atTime(23, 59, 59);

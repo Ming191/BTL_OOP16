@@ -276,11 +276,14 @@ public class BookDBConnector extends DBConnector<Book> {
             workbook.close();
 
             System.out.println("Data successfully exported to: " + outputFilePath);
+            ApplicationAlert.exportSuccess();
 
         } catch (SQLException e) {
             System.err.println("Error while accessing database: " + e.getMessage());
+            ApplicationAlert.exportFailed();
         } catch (IOException e) {
             System.err.println("Error while writing Excel file: " + e.getMessage());
+            ApplicationAlert.exportFailed();
         }
     }
 
@@ -327,9 +330,11 @@ public class BookDBConnector extends DBConnector<Book> {
                 upsertBook(id, title, author, category, language, quantity, imgURL, rating, description, previewURL);
             }
             System.out.println("Data successfully imported from Excel file: " + filePath);
+            ApplicationAlert.importSuccess();
 
         } catch (IOException e) {
             System.err.println("Error while reading Excel file: " + e.getMessage());
+            ApplicationAlert.importFailed();
         }
     }
 

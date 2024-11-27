@@ -48,20 +48,20 @@
                               <FontIcon iconLiteral="mdal-collections_bookmark" iconSize="128" wrappingWidth="40.0" />
                            </graphic>
                         </Button>
+                        <Button fx:id="menuBook" graphicTextGap="30.0" minHeight="70.0" minWidth="220.0" mnemonicParsing="false" onAction="#switchToBook" style="-fx-alignment: center-left;" styleClass="flat" text="Books">
+                           <font>
+                              <Font name="Montserrat Medium" size="20.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconLiteral="mdal-book" iconSize="128" wrappingWidth="40.0" />
+                           </graphic>
+                        </Button>
                         <Button fx:id="menuUser" graphicTextGap="30.0" minHeight="70.0" minWidth="220.0" mnemonicParsing="false" onAction="#switchToUser" style="-fx-alignment: center-left;" styleClass="flat" text="Users">
                            <font>
                               <Font name="Montserrat Medium" size="20.0" />
                            </font>
                            <graphic>
                               <FontIcon iconLiteral="mdal-group" iconSize="128" wrappingWidth="40.0" />
-                           </graphic>
-                        </Button>
-                        <Button fx:id="menuBook" graphicTextGap="30.0" minHeight="70.0" minWidth="220.0" mnemonicParsing="false" onAction="#switchToBook" style="-fx-alignment: center-left;" styleClass="flat" text="Book">
-                           <font>
-                              <Font name="Montserrat Medium" size="20.0" />
-                           </font>
-                           <graphic>
-                              <FontIcon iconLiteral="mdal-book" iconSize="128" wrappingWidth="40.0" />
                            </graphic>
                         </Button>
                      </children>

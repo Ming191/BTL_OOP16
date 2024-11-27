@@ -228,9 +228,11 @@ public class UserDBConnector extends DBConnector<User> {
 
             workbook.close();
             System.out.println("User data exported to: " + outputFilePath);
+            ApplicationAlert.exportSuccess();
 
         } catch (SQLException e) {
             System.err.println("Database query failed: " + e.getMessage());
+            ApplicationAlert.exportFailed();
         } catch (IOException e) {
             System.err.println("Failed to write Excel file: " + e.getMessage());
         }
@@ -276,9 +278,11 @@ public class UserDBConnector extends DBConnector<User> {
             }
 
             System.out.println("Data successfully imported from Excel file: " + filePath);
+            ApplicationAlert.importSuccess();
 
         } catch (IOException e) {
             System.err.println("Error while reading Excel file: " + e.getMessage());
+            ApplicationAlert.importFailed();
         }
     }
 

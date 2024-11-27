@@ -225,9 +225,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
             }
         }
 
-        String query =  "select * from bookLoans\n" +
-                        "join user on bookLoans.userId = user.id\n" +
-                        "join book on bookLoans.bookId = book.id";
+        String query =  "select * from bookLoans";
         try (Connection conn = getConnection()){
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();

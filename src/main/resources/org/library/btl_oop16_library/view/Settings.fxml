@@ -53,7 +53,7 @@
                         <Font name="Montserrat Medium" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="changeThemeButton" graphicTextGap="30.0" layoutX="10.0" layoutY="163.0" mnemonicParsing="false" onAction="#changeTheme" prefHeight="70.0" prefWidth="240.0" stylesheets="@../../../../css/Style.css" text="Change Theme">
+                  <Button fx:id="changeThemeButton" graphicTextGap="30.0" layoutX="10.0" layoutY="163.0" mnemonicParsing="false" onAction="#changeTheme" prefHeight="70.0" prefWidth="240.0" text="Change Theme">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>

@@ -145,7 +145,8 @@ public class UserViewController {
         boolean result = ApplicationAlert.areYouSureAboutThat();
         if (result) {
             UserDBConnector.getInstance().deleteFromDB(selectedUser.getId());
-            table.getItems().remove(selectedUser);        } else {
+            table.getItems().remove(selectedUser);
+            ApplicationAlert.deleteSuccess();
         }
     }
 

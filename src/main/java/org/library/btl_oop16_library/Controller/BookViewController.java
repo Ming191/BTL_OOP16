@@ -171,6 +171,7 @@ public class BookViewController {
         boolean result = ApplicationAlert.areYouSureAboutThat();
         if (result) {
             db.deleteFromDB(selectedBook.getId());
+            ApplicationAlert.deleteSuccess();
         }
         refresh();
     }

@@ -96,12 +96,40 @@ public class ApplicationAlert {
         showAlert("Can Not Preorder!", "Your borrowed book is less than 20!", ERROR_ICON, false);
     }
 
+    public static void overMaxQuantity() {
+        showAlert("Can not lending!", "This user borrowed more than 20 books", ERROR_ICON, false);
+    }
+
     public static void passwordMismatch() {
         showAlert("Password Mismatch!", "New password and confirmation do not match.", ERROR_ICON, false);
     }
 
     public static void wrongPassword() {
         showAlert("Invalid Password!", "Please provide the right password!", ERROR_ICON, false);
+    }
+
+    public static void exportSuccess() {
+        showAlert("Export Success!", "Data has been exported!", INFORMATION_ICON, false);
+    }
+
+    public static void importSuccess() {
+        showAlert("Import Success!", "Data has been imported!", INFORMATION_ICON, false);
+    }
+
+    public static void importFailed() {
+        showAlert("Import Failed!", "Data has not been imported!", ERROR_ICON, false);
+    }
+
+    public static void exportFailed() {
+        showAlert("Export Failed!", "Data has not been exported!", ERROR_ICON, false);
+    }
+
+    public static void invalidTimeRange() {
+        showAlert("Invalid Time Range!", "Please provide a valid time range.", ERROR_ICON, false);
+    }
+
+    public static void deleteSuccess() {
+        showAlert("Deleted!","", INFORMATION_ICON, false);
     }
 
 }
