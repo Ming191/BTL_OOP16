@@ -60,7 +60,7 @@ public class UserViewController {
     private TableColumn<User, String> nameCol;
 
     @FXML
-    private TableColumn<?, ?> phoneCol;
+    private TableColumn<User, String> phoneCol;
 
     @FXML
     private TableView<User> table;

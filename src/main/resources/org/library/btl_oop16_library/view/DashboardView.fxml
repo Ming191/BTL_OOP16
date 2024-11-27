@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1060.0" styleClass="bg-inset" stylesheets="@../../../../../../../../../BTL2311/src/main/resources/css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.DashboardViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.DashboardViewController">
    <children>
       <VBox layoutX="417.0" layoutY="226.0" prefHeight="200.0" prefWidth="275.0">
          <children>
