@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
@@ -41,8 +43,14 @@ public class UpdateUserDialogController {
 
     private User currentUser;
 
+    private BorderPane mainPane;
+
     public void setCurrentUser(User user) {
         this.currentUser = user;
+    }
+
+    public void setMainPane(BorderPane mainPane) {
+        this.mainPane = mainPane;
     }
 
     @FXML
@@ -87,14 +95,18 @@ public class UpdateUserDialogController {
 
     @FXML
     private void onCancelButtonClick() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("org/library/btl_oop16_library/view/Settings.fxml"));
-        Parent root = null;
-
-        try {
-            root = fxmlLoader.load();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (mainPane != null) {
+            mainPane.setCenter(null);
+            mainPane.setTop(null);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
+            Pane root = null;
+            try {
+                root = loader.load();
+                mainPane.setCenter(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 }

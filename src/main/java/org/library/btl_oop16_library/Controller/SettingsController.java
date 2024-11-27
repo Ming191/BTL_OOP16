@@ -54,6 +54,7 @@ public class SettingsController {
         Pane pane = loader.load();
         UpdateUserDialogController updateUserDialogController = loader.getController();
         updateUserDialogController.setCurrentUser(currentUser);
+        updateUserDialogController.setMainPane(mainPane);
         mainPane.setCenter(pane);
     }
 
