@@ -28,25 +28,26 @@ public class UpdateUserDialogForAdminController {
     private TextField emailField;
 
     @FXML
-    private TextField idField;
-
-    @FXML
     private TextField nameField;
 
     @FXML
     private TextField phoneField;
 
     @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private TextField userNameField;
-
-    @FXML
     private ChoiceBox<String> roleBox;
 
+    private User selectedUser;
+
+    public void setSelectedUser(User selectedUser) {
+        this.selectedUser = selectedUser;
+    }
+
+    public User getSelectedUser() {
+        return selectedUser;
+    }
+
     @FXML
-    private void initialize() {
+    public void initialize() {
         roleBox.getItems().addAll("user", "admin");
         roleBox.setValue("user");
     }
@@ -60,38 +61,25 @@ public class UpdateUserDialogForAdminController {
     @FXML
     private void onConfirmButtonClick(ActionEvent event) {
         try {
-            int id = Integer.parseInt(idField.getText());
-
             UserDBConnector userDBConnector = UserDBConnector.getInstance();
-            User existingUser = userDBConnector.searchById(id);
-
-            if (existingUser != null) {
+            if (selectedUser != null) {
                 String newName = nameField.getText();
                 String newPhone = phoneField.getText();
                 String newAddress = addressField.getText();
                 String newEmail = emailField.getText();
-                String newUsername = userNameField.getText();
-                String newPassword = passwordField.getText();
                 String newRole = roleBox.getValue();
 
                 if (!newEmail.matches(emailRegex)) {
                     ApplicationAlert.wrongEmailPattern();
                     return;
                 }
+                selectedUser.setName(newName);
+                selectedUser.setPhoneNumber(newPhone);
+                selectedUser.setAddress(newAddress);
+                selectedUser.setEmail(newEmail);
+                selectedUser.setRole(newRole);
 
-                if (UserDBConnector.isAlreadyExist(newUsername)) {
-                    ApplicationAlert.userAlreadyExists();
-                    return;
-                }
-                existingUser.setName(newName);
-                existingUser.setPhoneNumber(newPhone);
-                existingUser.setAddress(newAddress);
-                existingUser.setEmail(newEmail);
-                existingUser.setUserName(newUsername);
-                existingUser.setPassword(newPassword);
-                existingUser.setRole(newRole);
-
-                boolean success = userDBConnector.updateUserForAdmin(existingUser);
+                boolean success = userDBConnector.updateUserForAdmin(selectedUser);
 
                 if (success) {
                     System.out.println("User updated successfully.");
@@ -100,12 +88,14 @@ public class UpdateUserDialogForAdminController {
                     System.out.println("Failed to update user.");
                 }
             } else {
-                System.out.println("User with ID " + id + " not found.");
+                System.out.println("User with ID " + selectedUser.getId() + " not found.");
                 ApplicationAlert.notFound();
             }
         } catch (NumberFormatException e) {
             System.out.println("Invalid ID format: " + e.getMessage());
         }
+        Stage stage = (Stage) confirmButton.getScene().getWindow();
+        stage.close();
     }
 
 }

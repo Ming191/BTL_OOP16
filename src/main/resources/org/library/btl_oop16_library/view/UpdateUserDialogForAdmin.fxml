@@ -3,28 +3,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="412.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.UpdateUserDialogForAdminController">
+<AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.UpdateUserDialogForAdminController">
    <opaqueInsets>
       <Insets top="10.0" />
    </opaqueInsets>
    <children>
       <VBox layoutY="-6.0">
          <children>
-            <TextField fx:id="idField" layoutX="40.0" layoutY="225.0" maxWidth="385.0" prefHeight="25.0" promptText="ID to update">
-               <VBox.margin>
-                  <Insets left="30.0" right="30.0" top="30.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Montserrat Regular" size="14.0" />
-               </font>
-            </TextField>
             <TextField fx:id="nameField" layoutX="10.0" layoutY="10.0" maxWidth="385.0" prefHeight="25.0" promptText="Name">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="15.0" />
@@ -57,22 +48,6 @@
                   <Font name="Montserrat Regular" size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="userNameField" layoutX="40.0" layoutY="200.0" maxWidth="385.0" prefHeight="25.0" promptText="Username">
-               <VBox.margin>
-                  <Insets left="30.0" right="30.0" top="15.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Montserrat Regular" size="14.0" />
-               </font>
-            </TextField>
-            <PasswordField fx:id="passwordField" prefHeight="25.0" prefWidth="376.0" promptText="Password">
-               <VBox.margin>
-                  <Insets left="30.0" right="30.0" top="15.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Montserrat Regular" size="14.0" />
-               </font>
-            </PasswordField>
             <ChoiceBox fx:id="roleBox" prefHeight="25.0" prefWidth="391.0">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="15.0" />

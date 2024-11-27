@@ -1,6 +1,8 @@
 package org.library.btl_oop16_library.Controller;
 
 import javafx.animation.PauseTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookDBConnector;
@@ -66,6 +69,8 @@ public class UserViewController {
     @FXML
     private TableView<User> table;
 
+    private User selectedUser;
+
     private static final UserDBConnector db = UserDBConnector.getInstance();
 
 
@@ -89,6 +94,14 @@ public class UserViewController {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchPause.stop();
             searchPause.playFromStart();
+        });
+
+        table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
+            @Override
+            public void changed(ObservableValue<? extends User> observableValue, User oldValue, User newValue) {
+                selectedUser = newValue;
+                updateUserButton.setDisable(selectedUser == null);
+            }
         });
 
         deleteUserButton.disableProperty().bind(table.getSelectionModel().selectedItemProperty().isNull());
@@ -165,6 +178,8 @@ public class UserViewController {
 
         try {
             Parent root = fxmlLoader.load();
+            UpdateUserDialogForAdminController controller = fxmlLoader.getController();
+            controller.setSelectedUser(selectedUser);
             updateUserStage.setScene(new Scene(root));
             Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
             updateUserStage.getIcons().add(favicon);

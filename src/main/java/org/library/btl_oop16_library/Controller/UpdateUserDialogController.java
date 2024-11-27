@@ -2,12 +2,17 @@ package org.library.btl_oop16_library.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.UserDBConnector;
+
+import java.io.IOException;
 
 import static org.library.btl_oop16_library.Util.GlobalVariables.emailRegex;
 
@@ -30,6 +35,9 @@ public class UpdateUserDialogController {
 
     @FXML
     private TextField phoneField;
+
+    @FXML
+    private Button cancelButton;
 
     private User currentUser;
 
@@ -74,6 +82,19 @@ public class UpdateUserDialogController {
         }
         else {
             System.out.println("User cancelled the sign-up process.");
+        }
+    }
+
+    @FXML
+    private void onCancelButtonClick() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("org/library/btl_oop16_library/view/Settings.fxml"));
+        Parent root = null;
+
+        try {
+            root = fxmlLoader.load();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

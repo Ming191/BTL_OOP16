@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.SettingsController">
+<AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.SettingsController">
    <children>
       <BorderPane fx:id="mainPane" prefHeight="720.0" prefWidth="1279.0">
          <top>
@@ -31,7 +31,7 @@
          <center>
             <VBox spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="changePasswordButton" graphicTextGap="30.0" mnemonicParsing="false" onAction="#viewChangePasswordView" prefHeight="70.0" prefWidth="240.0" stylesheets="@../../../../css/Style.css" text="Change Password">
+                  <Button fx:id="changePasswordButton" graphicTextGap="30.0" mnemonicParsing="false" onAction="#viewChangePasswordView" prefHeight="70.0" prefWidth="240.0" text="Change Password">
                      <VBox.margin>
                         <Insets top="100.0" />
                      </VBox.margin>
@@ -42,7 +42,7 @@
                         <Font name="Montserrat Medium" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="updateInformationButton" alignment="CENTER" graphicTextGap="25.0" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onAction="#viewUpdateInformationView" prefHeight="70.0" prefWidth="240.0" stylesheets="@../../../../css/Style.css" text="Update Information">
+                  <Button fx:id="updateInformationButton" alignment="CENTER" graphicTextGap="25.0" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onAction="#viewUpdateInformationView" prefHeight="70.0" prefWidth="240.0" text="Update Information">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>

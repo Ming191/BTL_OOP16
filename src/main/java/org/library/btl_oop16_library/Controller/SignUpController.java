@@ -79,8 +79,11 @@ public class SignUpController {
         else {
             System.out.println("User cancelled the sign-up process.");
         }
+    }
 
-
+    @FXML
+    void initialize() {
+        signUpButton.setDefaultButton(true);
     }
 }
 

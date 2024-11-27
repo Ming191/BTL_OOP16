@@ -596,7 +596,7 @@ Text {
   -fx-effect: none;
 }
 .button.flat:hover {
-  -fx-underline: true;
+  -fx-underline: false;
 }
 .button.small {
   -fx-padding: 5.7142857143px 8.5714285714px 5.7142857143px 8.5714285714px;
