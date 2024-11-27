@@ -104,6 +104,8 @@ public class DashboardViewController {
         icon.setOnMouseClicked(event -> {
             searchActivitiesByDate();
         });
+
+
     }
 
     private void loadActivities() {

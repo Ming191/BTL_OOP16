@@ -34,7 +34,7 @@
                         <Font name="Montserrat SemiBold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="usernameField" maxHeight="350.0" maxWidth="350.0" />
+                  <TextField fx:id="usernameField" maxHeight="350.0" maxWidth="350.0" promptText="Enter your username" />
                   <Label alignment="CENTER" opacity="0.5" prefHeight="46.0" prefWidth="379.0" text="PASSWORD">
                      <font>
                         <Font name="Montserrat SemiBold" size="14.0" />
@@ -43,8 +43,8 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <PasswordField fx:id="passwordField" maxWidth="350.0" prefHeight="35.0" styleClass="flat" />
-                  <Button fx:id="signInButton" minHeight="70.0" minWidth="350.0" mnemonicParsing="false" onAction="#signInOnClick" text="SIGN IN">
+                  <PasswordField fx:id="passwordField" maxWidth="350.0" prefHeight="35.0" promptText="Enter your password" styleClass="flat" />
+                  <Button fx:id="signInButton" minHeight="49.0" minWidth="350.0" mnemonicParsing="false" onAction="#signInOnClick" prefHeight="49.0" prefWidth="350.0" text="SIGN IN">
                      <font>
                         <Font name="Montserrat Medium" size="16.0" />
                      </font>
@@ -68,7 +68,7 @@
                         <Font name="Montserrat SemiBold" size="15.0" />
                      </font>
                   </Text>
-                  <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#switchToSignUpScene" prefHeight="70.0" prefWidth="240.0" text="SIGN UP">
+                  <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#switchToSignUpScene" prefHeight="50.0" prefWidth="240.0" text="SIGN UP">
                      <font>
                         <Font name="Montserrat Medium" size="16.0" />
                      </font>

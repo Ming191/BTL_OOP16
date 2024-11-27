@@ -75,7 +75,7 @@
                   </VBox>
                </children>
             </HBox>
-            <Button fx:id="signUpButton" maxWidth="350.0" minHeight="50.0" minWidth="240.0" mnemonicParsing="false" onAction="#signUpOnClick" styleClass="signinButton" text="SIGN UP">
+            <Button fx:id="signUpButton" maxWidth="350.0" minHeight="50.0" minWidth="240.0" mnemonicParsing="false" onAction="#signUpOnClick" prefHeight="50.0" prefWidth="350.0" styleClass="signinButton" text="SIGN UP">
                <font>
                   <Font name="Montserrat Medium" size="16.0" />
                </font>
@@ -97,7 +97,7 @@
                   <Font name="Montserrat SemiBold" size="20.0" />
                </font>
             </Text>
-            <Button fx:id="signInButton" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="70.0" prefWidth="240.0" text="SIGN IN">
+            <Button fx:id="signInButton" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="50.0" prefWidth="240.0" text="SIGN IN">
                <font>
                   <Font name="Montserrat Medium" size="16.0" />
                </font>

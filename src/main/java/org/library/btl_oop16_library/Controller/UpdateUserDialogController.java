@@ -94,18 +94,15 @@ public class UpdateUserDialogController {
     }
 
     @FXML
-    private void onCancelButtonClick() {
+    private void onCancelButtonClick() throws IOException {
         if (mainPane != null) {
             mainPane.setCenter(null);
             mainPane.setTop(null);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
-            Pane root = null;
-            try {
-                root = loader.load();
-                mainPane.setCenter(root);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
+            Pane pane = (Pane) fxmlLoader.load();
+            mainPane.setCenter(pane);
+            SettingsController settingsController = fxmlLoader.getController();
+            settingsController.setCurrentUser(currentUser);
         }
     }
 
