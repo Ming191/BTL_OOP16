@@ -22,13 +22,13 @@ public class ReturnBookLendingDialogController {
     private Button confirmButton;
 
     @FXML
-    void onCancelButtonClick(ActionEvent event) {
+    private void onCancelButtonClick(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    void onConfirmButtonClick(ActionEvent event) {
+    private void onConfirmButtonClick(ActionEvent event) {
         int ID = Integer.parseInt(IDField.getText());
         BookLoanDBConnector db = BookLoanDBConnector.getInstance();
         try {

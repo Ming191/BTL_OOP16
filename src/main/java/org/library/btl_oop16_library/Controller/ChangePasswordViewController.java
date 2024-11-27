@@ -30,7 +30,7 @@ public class ChangePasswordViewController {
     }
 
     @FXML
-    void confirmPasswordChange (ActionEvent event) {
+    private void confirmPasswordChange (ActionEvent event) {
         String currentPassword = currentPasswordField.getText();
         String newPassword = newPasswordField.getText();
         String confirmPassword = confirmPasswordField.getText();

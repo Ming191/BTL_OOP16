@@ -43,13 +43,13 @@ public class AddBookLendingDialogController {
     private DatePicker dueDatePicker;
 
     @FXML
-    void onCancelButtonClick(ActionEvent event) {
+    private void onCancelButtonClick(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    void onConfirmButtonClick(ActionEvent event) {
+    private void onConfirmButtonClick(ActionEvent event) {
         int quantity = Integer.parseInt(quantityField.getText());
         String query = "select sum(amount) from BookLoans where userId = " + userIdField.getText();
         int bookLentAmount = DBConnector.getCount(query);

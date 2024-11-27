@@ -104,7 +104,7 @@ public class MainMenuController {
     }
 
     @FXML
-    void switchToBook(ActionEvent event) throws IOException {
+    private void switchToBook(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookView.fxml"));
         Pane pane = loader.load();
         BookViewController bookViewController = loader.getController();
@@ -113,7 +113,7 @@ public class MainMenuController {
     }
 
     @FXML
-    void switchToCatalog(ActionEvent event) throws IOException  {
+    private void switchToCatalog(ActionEvent event) throws IOException  {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/CatalogView.fxml"));
         Pane pane = loader.load();
         CatalogViewController catalogViewController = loader.getController();
@@ -122,21 +122,21 @@ public class MainMenuController {
     }
 
     @FXML
-    void switchToDashboard(ActionEvent event) throws IOException {
+    private void switchToDashboard(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DashboardView.fxml"));
         Pane pane = loader.load();
         mainPane.setCenter(pane);
     }
 
     @FXML
-    void switchToUser(ActionEvent event) throws IOException {
+    private void switchToUser(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/view/UserView.fxml"));
         mainPane.setCenter(pane);
     }
 
     @FXML
-    void logOut(ActionEvent event) throws IOException {
+    private void logOut(ActionEvent event) throws IOException {
         boolean result = ApplicationAlert.areYouSureAboutThat();
         if (result) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Login.fxml"));
@@ -147,7 +147,7 @@ public class MainMenuController {
     }
 
     @FXML
-    void handleMouseClick(MouseEvent event) {
+    private void handleMouseClick(MouseEvent event) {
         for (Node button : menuVbox.getChildren().filtered(node -> node instanceof Button)) {
             button.getStyleClass().remove("selected");
         }
@@ -171,11 +171,7 @@ public class MainMenuController {
     }
 
     @FXML
-    void initialize() {
-        assert menuBook != null : "fx:id=\"menuBook\" was not injected: check your FXML file 'MainMenu.fxml'.";
-        assert menuDashboard != null : "fx:id=\"menuDashboard\" was not injected: check your FXML file 'MainMenu.fxml'.";
-        assert menuUser != null : "fx:id=\"menuUser\" was not injected: check your FXML file 'MainMenu.fxml'.";
-        assert menuVbox != null : "fx:id=\"menuVbox\" was not injected: check your FXML file 'MainMenu.fxml'.";
+    private void initialize() {
         startClock();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DashboardView.fxml"));
         Pane pane = null;

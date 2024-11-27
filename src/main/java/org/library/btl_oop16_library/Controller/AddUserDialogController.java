@@ -38,13 +38,13 @@ public class AddUserDialogController {
     private PasswordField passwordField;
 
     @FXML
-    void onCancelButtonClick(ActionEvent event) {
+    private void onCancelButtonClick(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    void onConfirmButtonClick(ActionEvent event) {
+    private void onConfirmButtonClick(ActionEvent event) {
 
         String name = nameField.getText();
         String userName = usernameField.getText();

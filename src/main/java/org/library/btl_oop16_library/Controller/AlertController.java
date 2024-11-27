@@ -38,13 +38,13 @@ public class AlertController {
     }
 
     @FXML
-    void onOkButtonClick(ActionEvent event) {
+    private void onOkButtonClick(ActionEvent event) {
         isConfirmed = true;
         closeAlert();
     }
 
     @FXML
-    void onCancelButtonClick(ActionEvent event) {
+    private void onCancelButtonClick(ActionEvent event) {
         isConfirmed = false;
         closeAlert();
     }
@@ -75,7 +75,7 @@ public class AlertController {
     }
 
     @FXML
-    void initialize() {
+    private void initialize() {
         okButton.setDefaultButton(true);
         cancelButton.setCancelButton(true);
     }

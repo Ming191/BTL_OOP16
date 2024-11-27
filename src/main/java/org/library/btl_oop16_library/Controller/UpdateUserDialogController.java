@@ -38,7 +38,7 @@ public class UpdateUserDialogController {
     }
 
     @FXML
-    void updateInfor(ActionEvent event) {
+    private void updateInfor(ActionEvent event) {
         String newName = nameField.getText();
         String newEmail = emailField.getText();
         String newAddress = addressField.getText();

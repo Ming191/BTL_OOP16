@@ -23,13 +23,13 @@ public class AddBookDialogController {
     private TextField quantityField;
 
     @FXML
-    void onCancelButtonClick(ActionEvent event) {
+    private void onCancelButtonClick(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    void onConfirmButtonClick(ActionEvent event) throws SQLException {
+     private void onConfirmButtonClick(ActionEvent event) throws SQLException {
         int quantity;
 
         try {

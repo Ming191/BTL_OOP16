@@ -39,7 +39,7 @@ public class SearchBookDialogController {
 
 
     @FXML
-    void onSearchButtonClick(ActionEvent event) throws IOException {
+    private void onSearchButtonClick(ActionEvent event) throws IOException {
         String searchText = searchField.getText();
 
         System.out.println("Search text: " + searchText);
@@ -59,7 +59,7 @@ public class SearchBookDialogController {
 
 
     @FXML
-    void initialize() {
+    private void initialize() {
         addButton.setVisible(false);
     }
 }

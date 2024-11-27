@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -99,7 +100,7 @@ public class BookViewController {
 
 
     @FXML
-    void addBookButtonOnClick() throws IOException, SQLException {
+    private void addBookButtonOnClick() throws IOException, SQLException {
         Stage addBookStage = new Stage();
         addBookStage.setHeight(720.0);
         addBookStage.setWidth(1060);
@@ -109,6 +110,9 @@ public class BookViewController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SearchBookDialog.fxml"));
         Parent root = loader.load();
 
+        Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+        addBookStage.getIcons().add(favicon);
+
         addBookStage.setScene(new Scene(root));
         addBookStage.showAndWait();
 
@@ -116,7 +120,7 @@ public class BookViewController {
     }
 
     @FXML
-    void initialize() throws SQLException {
+    private void initialize() throws SQLException {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -158,16 +162,16 @@ public class BookViewController {
 
     }
 
-    void refresh() throws SQLException {
+    private void refresh() throws SQLException {
         table.getItems().setAll(db.importFromDB());
     }
 
-    void loadBook() throws SQLException {
+    private void loadBook() throws SQLException {
         table.getItems().addAll(db.importFromDB());
     }
 
     @FXML
-    void deleteBookButtonOnClick () throws SQLException {
+    private void deleteBookButtonOnClick () throws SQLException {
         selectedBook = table.getSelectionModel().getSelectedItem();
         if (selectedBook == null) {
             return;
@@ -180,7 +184,7 @@ public class BookViewController {
         refresh();
     }
 
-    void setupModalPane () throws IOException, SQLException {
+    private void setupModalPane () throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookDetails.fxml"));
         Parent root = loader.load();
         BookDetailsController controller = loader.getController();
@@ -193,12 +197,12 @@ public class BookViewController {
     }
 
     @FXML
-    void exportOnClick() {
+    private void exportOnClick() {
         db.exportToExcel();
     }
 
     @FXML
-    void importOnClick() throws SQLException {
+    private void importOnClick() throws SQLException {
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter excelFilter = new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx");
@@ -216,7 +220,7 @@ public class BookViewController {
     }
 
     @FXML
-    void searchBookOnClick(ActionEvent event) throws SQLException {
+    private void searchBookOnClick(ActionEvent event) throws SQLException {
         String searchText = searchField.getText();
         List<Book> searchedBook = null;
 

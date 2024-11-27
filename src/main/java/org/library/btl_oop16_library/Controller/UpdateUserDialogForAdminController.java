@@ -46,19 +46,19 @@ public class UpdateUserDialogForAdminController {
     private ChoiceBox<String> roleBox;
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         roleBox.getItems().addAll("user", "admin");
         roleBox.setValue("user");
     }
 
     @FXML
-    void onCancelButtonClick(ActionEvent event) {
+    private void onCancelButtonClick(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    void onConfirmButtonClick(ActionEvent event) {
+    private void onConfirmButtonClick(ActionEvent event) {
         try {
             int id = Integer.parseInt(idField.getText());
 

@@ -36,13 +36,13 @@ public class PreorderDialogController {
     private TextField userIdField;
 
     @FXML
-    void onCancelButtonClick(ActionEvent event) {
+    private void onCancelButtonClick(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    void onConfirmButtonClick(ActionEvent event) {
+    private void onConfirmButtonClick(ActionEvent event) {
         int userID = Integer.parseInt(userIdField.getText());
         int bookID = Integer.parseInt(bookIDField.getText());
         int quantity = Integer.parseInt(quantityField.getText());

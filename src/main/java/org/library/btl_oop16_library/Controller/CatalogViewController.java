@@ -10,6 +10,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -98,7 +99,7 @@ public class CatalogViewController {
     }
 
     @FXML
-    void lendBookButtonOnClick(ActionEvent event) throws IOException {
+    private void lendBookButtonOnClick(ActionEvent event) throws IOException {
         if (canLendBook) {
             System.out.println("Can lend book");
             Stage bookLendingStage = new Stage();
@@ -109,6 +110,8 @@ public class CatalogViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/AddBookLoansDialog.fxml"));
             Parent root = loader.load();
             bookLendingStage.setScene(new Scene(root));
+            Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+            bookLendingStage.getIcons().add(favicon);
             bookLendingStage.showAndWait();
 
         } else {
@@ -119,7 +122,7 @@ public class CatalogViewController {
     }
 
     @FXML
-    void preorderButtonOnClick(ActionEvent event) throws IOException {
+    private void preorderButtonOnClick(ActionEvent event) throws IOException {
         if (canPreorder) {
             System.out.println("Can preorder book");
             Stage preorderStage = new Stage();
@@ -130,6 +133,8 @@ public class CatalogViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/PreorderDialog.fxml"));
             Parent root = loader.load();
             preorderStage.setScene(new Scene(root));
+            Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+            preorderStage.getIcons().add(favicon);
             preorderStage.showAndWait();
 
         } else {
@@ -140,7 +145,7 @@ public class CatalogViewController {
     }
 
     @FXML
-    void returnBookButtonOnClick(ActionEvent event) throws IOException {
+    private void returnBookButtonOnClick(ActionEvent event) throws IOException {
         Stage bookReturnStage = new Stage();
         bookReturnStage.setResizable(false);
         bookReturnStage.initModality(Modality.APPLICATION_MODAL);
@@ -149,13 +154,15 @@ public class CatalogViewController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/ReturnBookLoansDialog.fxml"));
         Parent root = loader.load();
         bookReturnStage.setScene(new Scene(root));
+        Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+        bookReturnStage.getIcons().add(favicon);
         bookReturnStage.showAndWait();
 
         refreshHistory();
     }
 
     @FXML
-    void initialize() {
+    private void initialize() {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         userNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
         bookTitleCol.setCellValueFactory(new PropertyValueFactory<>("bookTitle"));
@@ -212,12 +219,12 @@ public class CatalogViewController {
     }
 
     @FXML
-    void exportOnClick() {
+    private void exportOnClick() {
         bookLoanDBConnector.exportToExcel();
     }
 
     @FXML
-    void importOnClick() throws SQLException {
+    private void importOnClick() throws SQLException {
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter excelFilter = new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx");

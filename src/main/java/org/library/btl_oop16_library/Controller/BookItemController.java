@@ -80,7 +80,7 @@ public class BookItemController {
     }
 
     @FXML
-    void initialize() {
+    private void initialize() {
         modalPane = new ModalPane();
         modalPane.setPrefSize(1280, 720);
     }

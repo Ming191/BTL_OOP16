@@ -38,7 +38,7 @@ public class SettingsController {
     }
 
     @FXML
-    void viewChangePasswordView(ActionEvent event) throws IOException {
+    private void viewChangePasswordView(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/ChangePasswordView.fxml"));
         Pane pane = loader.load();
         ChangePasswordViewController controller = loader.getController();
@@ -49,7 +49,7 @@ public class SettingsController {
     }
 
     @FXML
-    void viewUpdateInformationView(ActionEvent event) throws IOException {
+    private void viewUpdateInformationView(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/UpdateInforForUser.fxml"));
         Pane pane = loader.load();
         UpdateUserDialogController updateUserDialogController = loader.getController();
@@ -58,7 +58,7 @@ public class SettingsController {
     }
 
     @FXML
-    void changeTheme(ActionEvent event) {
+    private void changeTheme(ActionEvent event) {
         if(isLightTheme) {
             System.out.printf("changed to dark theme\n");
             isLightTheme = false;
@@ -70,7 +70,5 @@ public class SettingsController {
             Application.setUserAgentStylesheet(Objects.requireNonNull(getClass().getResource("/css/nord-light.css")).toExternalForm());
         }
     }
-
-
 
 }

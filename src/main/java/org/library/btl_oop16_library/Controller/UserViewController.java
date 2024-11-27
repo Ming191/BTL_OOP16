@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -126,6 +127,8 @@ public class UserViewController {
         try {
             Parent root = fxmlLoader.load();
             addUserStage.setScene(new Scene(root));
+            Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+            addUserStage.getIcons().add(favicon);
             addUserStage.showAndWait();
 
             table.getItems().setAll(userDB.importFromDB());
@@ -163,6 +166,8 @@ public class UserViewController {
         try {
             Parent root = fxmlLoader.load();
             updateUserStage.setScene(new Scene(root));
+            Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+            updateUserStage.getIcons().add(favicon);
             updateUserStage.showAndWait();
 
             table.getItems().setAll(userDB.importFromDB());

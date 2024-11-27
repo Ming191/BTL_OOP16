@@ -19,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Services.ZXingAPI;
+import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookDBConnector;
 
 import java.io.IOException;
@@ -114,6 +115,12 @@ public class BookDetailsController {
             stage.showAndWait();
 
             int quantity = controller.getQuantity();
+
+            if (quantity < 0) {
+                ApplicationAlert.invalidQuantity();
+                return;
+            }
+
             book.setAvailable(quantity);
             try {
                 BookDBConnector.getInstance().addToDB(book);
@@ -128,10 +135,4 @@ public class BookDetailsController {
 
     }
 
-    void setActionButton2() {
-        button2.setOnAction(actionEvent -> {
-            Stage stage = (Stage) button2.getScene().getWindow();
-            stage.close();
-        });
-    }
 }
