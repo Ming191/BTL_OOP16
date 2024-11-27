@@ -31,20 +31,14 @@ public class SettingsController {
     @FXML
     private BorderPane mainPane;
 
-    private User currentUser;
 
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-    }
 
     @FXML
     private void viewChangePasswordView(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/ChangePasswordView.fxml"));
         Pane pane = loader.load();
         ChangePasswordViewController controller = loader.getController();
-        controller.setCurrentUser(currentUser);
         controller.setMainPane(mainPane);
-        System.out.println(currentUser.getRole());
         mainPane.setCenter(pane);
     }
 
@@ -53,7 +47,6 @@ public class SettingsController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/UpdateInforForUser.fxml"));
         Pane pane = loader.load();
         UpdateUserDialogController updateUserDialogController = loader.getController();
-        updateUserDialogController.setCurrentUser(currentUser);
         updateUserDialogController.setMainPane(mainPane);
         mainPane.setCenter(pane);
     }

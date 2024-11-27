@@ -4678,3 +4678,6 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-icon-size: 16px;
 }
 
+.mfx-button .mfx-ripple-generator {
+  -mfx-ripple-color: -color-accent-2;
+}

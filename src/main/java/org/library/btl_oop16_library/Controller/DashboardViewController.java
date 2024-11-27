@@ -77,18 +77,15 @@ public class DashboardViewController {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         int returnedCount = DBConnector.getCount("SELECT COUNT(*) FROM bookLoans WHERE status = 'returned'");
-        System.out.println(returnedCount);
         int notReturnedCount = DBConnector.getCount("SELECT COUNT(*) FROM bookLoans WHERE status = 'not returned'");
-        System.out.println(notReturnedCount);
         int preOrderedCount = DBConnector.getCount("SELECT COUNT(*) FROM bookLoans WHERE status = 'pre-ordered'");
-        System.out.println(preOrderedCount);
 
-        pieChartData.add(new PieChart.Data("returned", returnedCount));
-        pieChartData.add(new PieChart.Data("not returned", notReturnedCount));
-        pieChartData.add(new PieChart.Data("pre-ordered", preOrderedCount));
+        pieChartData.add(new PieChart.Data("Returned", returnedCount));
+        pieChartData.add(new PieChart.Data("Not Returned", notReturnedCount));
+        pieChartData.add(new PieChart.Data("Pre-ordered", preOrderedCount));
 
         loanStatusChart.setData(pieChartData);
-        loanStatusChart.setTitle("Book Loans Status");
+        loanStatusChart.setTitle("Book loans status");
         loanStatusChart.setLegendVisible(true);
         loanStatusChart.setLabelsVisible(true);
 
@@ -104,8 +101,6 @@ public class DashboardViewController {
         icon.setOnMouseClicked(event -> {
             searchActivitiesByDate();
         });
-
-
     }
 
     private void loadActivities() {
@@ -122,7 +117,6 @@ public class DashboardViewController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         activityListView.setItems(activityList);
     }
 
@@ -132,15 +126,12 @@ public class DashboardViewController {
             ApplicationAlert.invalidTimeRange();
             return;
         }
-
         LocalDate startDate = startDatePicker.getValue();
         LocalDate endDate = endDatePicker.getValue();
-
         if (startDate.isAfter(endDate)) {
             ApplicationAlert.invalidTimeRange();
             return;
         }
-
         LocalDateTime startTimestamp = startDate.atStartOfDay();
         LocalDateTime endTimestamp = endDate.atTime(23, 59, 59);
 

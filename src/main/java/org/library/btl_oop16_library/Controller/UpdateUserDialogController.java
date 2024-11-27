@@ -3,15 +3,13 @@ package org.library.btl_oop16_library.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
+import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
 import java.io.IOException;
@@ -41,20 +39,15 @@ public class UpdateUserDialogController {
     @FXML
     private Button cancelButton;
 
-    private User currentUser;
 
     private BorderPane mainPane;
-
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-    }
 
     public void setMainPane(BorderPane mainPane) {
         this.mainPane = mainPane;
     }
 
     @FXML
-    private void updateInfor(ActionEvent event) {
+    private void updateInfo(ActionEvent event) {
         String newName = nameField.getText();
         String newEmail = emailField.getText();
         String newAddress = addressField.getText();
@@ -71,20 +64,20 @@ public class UpdateUserDialogController {
             return;
         }
 
-        if (!passwordCheck.equals(currentUser.getPassword())) {
+        if (!passwordCheck.equals(SessionManager.getInstance().getCurrentUser().getPassword())) {
             ApplicationAlert.wrongPassword();
             return;
         }
 
-        currentUser.setName(newName);
-        currentUser.setEmail(newEmail);
-        currentUser.setAddress(newAddress);
-        currentUser.setPhoneNumber(newPhone);
+        SessionManager.getInstance().getCurrentUser().setName(newName);
+        SessionManager.getInstance().getCurrentUser().setEmail(newEmail);
+        SessionManager.getInstance().getCurrentUser().setAddress(newAddress);
+        SessionManager.getInstance().getCurrentUser().setPhoneNumber(newPhone);
 
 
         boolean result = ApplicationAlert.areYouSureAboutThat();
         if (result) {
-            UserDBConnector.updateUserInfor(currentUser);
+            UserDBConnector.updateUserInfo(SessionManager.getInstance().getCurrentUser());
             ApplicationAlert.updateSuccess();
             return;
         }
@@ -101,8 +94,6 @@ public class UpdateUserDialogController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
             Pane pane = (Pane) fxmlLoader.load();
             mainPane.setCenter(pane);
-            SettingsController settingsController = fxmlLoader.getController();
-            settingsController.setCurrentUser(currentUser);
         }
     }
 

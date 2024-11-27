@@ -44,6 +44,9 @@ public class AddBookDialogController {
     }
 
     public int getQuantity() {
+        if(quantityField.getText().isEmpty()) {
+            return -1;
+        }
         return Integer.parseInt(quantityField.getText());
     }
 }

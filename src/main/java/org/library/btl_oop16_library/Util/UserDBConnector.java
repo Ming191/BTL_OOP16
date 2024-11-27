@@ -458,7 +458,7 @@ public class UserDBConnector extends DBConnector<User> {
         }
     }
 
-    public static boolean updateUserInfor(User user) {
+    public static void updateUserInfo(User user) {
         String query = "UPDATE user SET name = ?, email = ?, address = ?, phoneNumber = ? WHERE id = ?";
 
         try (Connection connection = DBConnector.getConnection();
@@ -471,11 +471,9 @@ public class UserDBConnector extends DBConnector<User> {
             preparedStatement.setInt(5, user.getId());
 
             int rowsAffected = preparedStatement.executeUpdate();
-            return rowsAffected > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 

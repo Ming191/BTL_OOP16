@@ -17,6 +17,7 @@ import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Services.EmailAPI;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;
+import org.library.btl_oop16_library.Util.SessionManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +30,6 @@ import java.util.List;
 public class CatalogViewController {
     private List<BookLoans> history;
     private final BookLoanDBConnector bookLoanDBConnector = BookLoanDBConnector.getInstance();
-    private User currentUser;
     boolean canLendBook = true;
     boolean canPreorder = true;
 
@@ -78,11 +78,10 @@ public class CatalogViewController {
     @FXML
     private TextField searchField;
 
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-        if (currentUser != null && !"admin".equalsIgnoreCase(currentUser.getRole())) {
-            canLendBook = bookLoanDBConnector.canLendBook(currentUser, 20);
-            canPreorder = bookLoanDBConnector.canPreorderBook(currentUser);
+    public void setCurrentUser() {
+        if (!"admin".equalsIgnoreCase(SessionManager.getInstance().getCurrentUser().getRole())) {
+            canLendBook = bookLoanDBConnector.canLendBook(SessionManager.getInstance().getCurrentUser(), 20);
+            canPreorder = bookLoanDBConnector.canPreorderBook(SessionManager.getInstance().getCurrentUser());
             userNameCol.setVisible(false);
             returnBookButton.setVisible(false);
             lendBookButton.setVisible(false);
@@ -91,11 +90,10 @@ public class CatalogViewController {
             exportButton.setVisible(false);
         }
         try {
-            initializeBaseOnUser(currentUser);
+            initializeBaseOnUser();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML
@@ -129,7 +127,6 @@ public class CatalogViewController {
             preorderStage.setResizable(false);
             preorderStage.initModality(Modality.APPLICATION_MODAL);
             preorderStage.setTitle("Lending Book");
-            System.out.println("Lending Book button clicked.");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/PreorderDialog.fxml"));
             Parent root = loader.load();
             preorderStage.setScene(new Scene(root));
@@ -188,11 +185,13 @@ public class CatalogViewController {
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
         formatDateColumn(startDateCol);
         formatDateColumn(dueDateCol);
+
+        setCurrentUser();
     }
 
-    private void initializeBaseOnUser(User currentUser) throws SQLException {
-        if (currentUser != null && !"admin".equalsIgnoreCase(currentUser.getRole())) {
-            loadHistoryForUser(currentUser);
+    private void initializeBaseOnUser() throws SQLException {
+        if (!"admin".equalsIgnoreCase(SessionManager.getInstance().getCurrentUser().getRole())) {
+            loadHistoryForUser();
         } else {
             loadHistory();
         }
@@ -204,9 +203,9 @@ public class CatalogViewController {
         table.getItems().addAll(history);
     }
 
-    private void loadHistoryForUser(User user) throws SQLException {
+    private void loadHistoryForUser() throws SQLException {
         bookLoanDBConnector.updateBookLoan();
-        history = bookLoanDBConnector.importFromDBForUser(user);
+        history = bookLoanDBConnector.importFromDBForUser(SessionManager.getInstance().getCurrentUser());
         table.getItems().addAll(history);
     }
 
@@ -214,7 +213,7 @@ public class CatalogViewController {
         table.getItems().clear();
         history.clear();
         try {
-            initializeBaseOnUser(currentUser);
+            initializeBaseOnUser();
         } catch (SQLException e) {
             e.printStackTrace();
         }

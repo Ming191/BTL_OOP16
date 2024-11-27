@@ -15,10 +15,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
+import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.Transition;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class LoginController {
 
@@ -53,10 +55,9 @@ public class LoginController {
             User user = UserDBConnector.getInstance().getUser(usernameField.getText(), passwordField.getText());
             if(user != null) {
                 try {
+                    SessionManager.getInstance().setCurrentUser(user);
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/MainMenu.fxml"));
                     Parent root = loader.load();
-                    MainMenuController mainMenuController = loader.getController();
-                    mainMenuController.setCurrentUser(user);
                     Scene mainMenuScene = new Scene(root);
                     Stage stage = (Stage) signInButton.getScene().getWindow();
                     Transition.fadeTransition(stage, signInButton.getScene(), mainMenuScene);
@@ -81,6 +82,5 @@ public class LoginController {
     @FXML
     public void initialize() {
         signInButton.setDefaultButton(true);
-        signUpButton.setStyle(Styles.BG_DEFAULT);
     }
 }

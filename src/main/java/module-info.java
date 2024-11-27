@@ -14,6 +14,8 @@ module org.library.btl_oop16_library {
     requires org.kordamp.ikonli.material2;
 
 
+    opens org.library.btl_oop16_library.U_Controllers to javafx.fxml;
+    exports org.library.btl_oop16_library.U_Controllers;
     opens org.library.btl_oop16_library to javafx.fxml;
     exports org.library.btl_oop16_library;
     exports org.library.btl_oop16_library.Controller;

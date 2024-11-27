@@ -8,14 +8,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
+import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 import org.library.btl_oop16_library.Model.User;
 
 import java.io.IOException;
 
 public class ChangePasswordViewController {
-
-
     @FXML
     private Button confirmButton;
 
@@ -29,12 +28,6 @@ public class ChangePasswordViewController {
     private TextField newPasswordField;
 
     private BorderPane mainPane;
-
-    private User currentUser;
-
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-    }
 
     public void setMainPane(BorderPane mainPane) {
         this.mainPane = mainPane;
@@ -56,12 +49,12 @@ public class ChangePasswordViewController {
             return;
         }
 
-        if (!currentUser.getPassword().equals(currentPassword)) {
+        if (!SessionManager.getInstance().getCurrentUser().getPassword().equals(currentPassword)) {
             ApplicationAlert.wrongPassword();
             return;
         }
 
-        boolean success = UserDBConnector.getInstance().updatePassword(currentUser.getId(), newPassword);
+        boolean success = UserDBConnector.getInstance().updatePassword(SessionManager.getInstance().getCurrentUser().getId(), newPassword);
 
         if (success) {
             ApplicationAlert.updateSuccess();
@@ -78,8 +71,6 @@ public class ChangePasswordViewController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
             Pane pane = (Pane) fxmlLoader.load();
             mainPane.setCenter(pane);
-            SettingsController settingsController = fxmlLoader.getController();
-            settingsController.setCurrentUser(currentUser);
         }
     }
 }

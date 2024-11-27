@@ -58,7 +58,7 @@
             </PasswordField>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
-                  <Button fx:id="confirmButton1" mnemonicParsing="false" onAction="#updateInfor" prefHeight="34.0" prefWidth="110.0" text="Confirm ">
+                  <Button fx:id="confirmButton1" mnemonicParsing="false" onAction="#updateInfo" prefHeight="34.0" prefWidth="110.0" text="Confirm ">
                      <font>
                         <Font name="Montserrat Regular" size="14.0" />
                      </font>

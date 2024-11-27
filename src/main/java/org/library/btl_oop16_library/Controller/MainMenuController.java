@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import jakarta.mail.Session;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
+import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.Transition;
 
 public class MainMenuController {
@@ -61,31 +63,8 @@ public class MainMenuController {
     @FXML
     private Button menuSettings;
 
-    private User currentUser;
-
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-        initializeRoleBasedAccess();
-    }
-
     private void initializeRoleBasedAccess() {
-        if (currentUser != null) {
-            if ("admin".equalsIgnoreCase(currentUser.getRole())) {
-                menuUser.setDisable(false);
-                menuUser.setVisible(true);
-
-                menuCatalog.setDisable(false);
-                menuCatalog.setVisible(true);
-            } else {
-                menuUser.setDisable(true);
-                menuUser.setVisible(false);
-
-                //menuCatalog.setDisable(true);
-                //menuCatalog.setVisible(false);
-            }
-        }
-        System.out.println("Current Role: " + currentUser.getRole());
-
+        menuUser.setDisable(SessionManager.getInstance().getCurrentUser().getRole().equals("user"));
     }
 
     private void startClock() {
@@ -108,7 +87,6 @@ public class MainMenuController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookView.fxml"));
         Pane pane = loader.load();
         BookViewController bookViewController = loader.getController();
-        bookViewController.setCurrentUser(currentUser);
         mainPane.setCenter(pane);
     }
 
@@ -117,7 +95,6 @@ public class MainMenuController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/CatalogView.fxml"));
         Pane pane = loader.load();
         CatalogViewController catalogViewController = loader.getController();
-        catalogViewController.setCurrentUser(currentUser);
         mainPane.setCenter(pane);
     }
 
@@ -162,8 +139,6 @@ public class MainMenuController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
             Pane pane = loader.load();
             mainPane.setCenter(pane);
-            SettingsController settingsController = loader.getController();
-            settingsController.setCurrentUser(currentUser);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -181,6 +156,7 @@ public class MainMenuController {
             throw new RuntimeException(e);
         }
         mainPane.setCenter(pane);
+        initializeRoleBasedAccess();
     }
 
 

@@ -13,9 +13,10 @@ public class Test extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserFXMLs/U_MainMenu.fxml"));
         Parent root = loader.load();
 
+        Application.setUserAgentStylesheet(getClass().getResource("/css/nord-light.css").toExternalForm());
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(new NordLight().getUserAgentStylesheet());

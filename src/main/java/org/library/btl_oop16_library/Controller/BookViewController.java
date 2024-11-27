@@ -27,6 +27,7 @@ import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookDBConnector;
+import org.library.btl_oop16_library.Util.SessionManager;
 
 public class BookViewController {
     private static final BookDBConnector db = BookDBConnector.getInstance();
@@ -74,19 +75,12 @@ public class BookViewController {
     @FXML
     private Button importButton;
 
-    private User currentUser;
-
     private ModalPane modalPane;
 
     private AnchorPane detailsPane;
 
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-        initializeRoleBasedAccess();
-    }
-
     private void initializeRoleBasedAccess() {
-        if (currentUser != null && !"admin".equalsIgnoreCase(currentUser.getRole())) {
+        if (!"admin".equalsIgnoreCase(SessionManager.getInstance().getCurrentUser().getRole())) {
             addBookButton.setDisable(true);
             deleteBookButton.setDisable(true);
             addBookButton.setVisible(false);
@@ -160,6 +154,7 @@ public class BookViewController {
             modalPane.show(detailsPane);
         });
 
+        initializeRoleBasedAccess();
     }
 
     private void refresh() throws SQLException {
