@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.SettingsController">
+<AnchorPane prefHeight="720.0" prefWidth="1218.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.SettingsController">
    <children>
       <BorderPane fx:id="mainPane" prefHeight="720.0" prefWidth="1279.0">
          <top>
@@ -29,7 +29,7 @@
             </HBox>
          </top>
          <center>
-            <VBox spacing="10.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="556.0" prefWidth="1174.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="changePasswordButton" graphicTextGap="30.0" mnemonicParsing="false" onAction="#viewChangePasswordView" prefHeight="70.0" prefWidth="240.0" text="Change Password">
                      <VBox.margin>

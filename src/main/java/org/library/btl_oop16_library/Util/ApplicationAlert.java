@@ -132,4 +132,12 @@ public class ApplicationAlert {
         showAlert("Deleted!","", INFORMATION_ICON, false);
     }
 
+    public static void invalidPhoneNumber() {
+        showAlert("Invalid Phone Number!", "Please provide a valid phone number!", ERROR_ICON, false);
+    }
+
+    public static void weakPassword() {
+        showAlert("Weak Password!", "Please provide a stronger password!", ERROR_ICON, false);
+    }
+
 }

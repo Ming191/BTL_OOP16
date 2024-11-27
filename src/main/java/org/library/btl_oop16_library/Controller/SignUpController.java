@@ -49,8 +49,8 @@ public class SignUpController {
     }
 
     @FXML
-    public void signUpOnClick(ActionEvent actionEvent) throws SQLException {
-        if(nameField.getText().isEmpty() || usernameField.getText().isEmpty() || emailField.getText().isEmpty() ||
+    public void signUpOnClick(ActionEvent actionEvent) throws SQLException, IOException {
+        if (nameField.getText().isEmpty() || usernameField.getText().isEmpty() || emailField.getText().isEmpty() ||
                 passwordField.getText().isEmpty() || phoneField.getText().isEmpty() || addressField.getText().isEmpty()) {
             ApplicationAlert.missingInformation();
             return;
@@ -61,6 +61,20 @@ public class SignUpController {
             return;
         }
 
+        String phoneNumber = phoneField.getText();
+        if (phoneNumber.length() != 10 || !phoneNumber.matches("\\d+") || !phoneNumber.startsWith("0")) {
+            ApplicationAlert.invalidPhoneNumber();
+            return;
+        }
+
+        String password = passwordField.getText();
+        if (password.length() < 8 ||
+                !password.matches(".*[A-Z].*") ||
+                !password.matches(".*[a-z].*") ||
+                !password.matches(".*\\d.*")) {
+            ApplicationAlert.weakPassword();
+            return;
+        }
 
         if (UserDBConnector.isAlreadyExist(usernameField.getText())) {
             ApplicationAlert.userAlreadyExists();
@@ -69,17 +83,29 @@ public class SignUpController {
 
         boolean result = ApplicationAlert.areYouSureAboutThat();
         if (result) {
-            User newUser = new User(nameField.getText(), emailField.getText(), phoneField.getText(), addressField.getText(), usernameField.getText(), passwordField.getText());
+            User newUser = new User(
+                    nameField.getText(),
+                    emailField.getText(),
+                    phoneNumber,
+                    addressField.getText(),
+                    usernameField.getText(),
+                    password
+            );
+
             UserDBConnector.getInstance().addToDB(newUser);
+
             ActivitiesDBConnector activitiesDBConnector = new ActivitiesDBConnector();
             activitiesDBConnector.logActivity(String.format("New user signed up: %s", newUser.getName()));
+
             ApplicationAlert.signUpSuccess();
-            return;
-        }
-        else {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Login.fxml"));
+            Scene loginScene = new Scene(loader.load());
+            Transition.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
+        } else {
             System.out.println("User cancelled the sign-up process.");
         }
     }
+
 
     @FXML
     void initialize() {
