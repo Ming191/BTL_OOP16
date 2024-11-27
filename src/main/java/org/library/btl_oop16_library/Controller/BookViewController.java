@@ -225,13 +225,7 @@ public class BookViewController {
         List<Book> searchedBook = null;
 
         if (!searchText.isEmpty()) {
-            searchedBook = new ArrayList<>();
-            if (searchText.matches("-?\\d+(\\.\\d+)?")) {
-                Book book = db.searchById(Integer.parseInt(searchText));
-                searchedBook.add(book);
-            } else {
-                searchedBook = db.searchByTitle(searchText);
-            }
+            searchedBook = db.searchBookFromDB(searchText);
         }
         table.getItems().clear();
 

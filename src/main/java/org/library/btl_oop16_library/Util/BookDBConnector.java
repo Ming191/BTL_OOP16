@@ -143,56 +143,23 @@ public class BookDBConnector extends DBConnector<Book> {
 
     @Override
     public Book searchById(int id) {
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE id = ?";
-        Book book = null;
-
-        try(Connection conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    book = new Book(
-                            rs.getInt("id"),
-                            rs.getString("title"),
-                            rs.getString("description"),
-                            rs.getString("author"),
-                            rs.getString("category"),
-                            rs.getString("language"),
-                            rs.getInt("quantity"),
-                            rs.getString("imgURL"),
-                            rs.getString("rating"),
-                            rs.getString("previewURL")
-                    );
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return book;
+        return null;
     }
 
-    public int getIdByTitle(String title) throws SQLException {
-        String query = "SELECT id FROM " + TABLE_NAME + " WHERE title = ?";
-        int id = 0;
-        try (Connection conn = getConnection();
-        PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, title);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    id = rs.getInt("id");
-                }
-            }
-        }
-        return id;
-    }
-
-    public List<Book> searchByTitle(String name) throws SQLException {
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE title LIKE ?";
+    public List<Book> searchBookFromDB(String name) throws SQLException {
+        String searchById = "SELECT * FROM " + TABLE_NAME + " WHERE id = ?";
+        String searchByTitle = "select * from " + TABLE_NAME + " WHERE title LIKE ?";
         List<Book> books = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, "%" + name + "%");
+        try (Connection conn = getConnection()) {
+            PreparedStatement ps = null;
+            if (name.matches("-?\\d+")) {
+                ps = conn.prepareStatement(searchById);
+                ps.setInt(1, Integer.parseInt(name));
+            } else {
+                ps = conn.prepareStatement(searchByTitle);
+                ps.setString(1, "%" + name + "%");
+            }
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Book book = new Book(

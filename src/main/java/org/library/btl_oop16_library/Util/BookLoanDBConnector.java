@@ -180,15 +180,30 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
 
     @Override
     public BookLoans searchById(int id) {
-        String searchQuery = "select * from bookLoans\n" +
+        return null;
+    }
+
+    public List<BookLoans> searchBookFromDB(String text) {
+        String searchById = "select * from bookLoans\n" +
                         "join user on bookLoans.userId = user.id\n" +
                         "join book on bookLoans.bookId = book.id\n" +
                         "where bookLoans.id = ?";
+        String searchByBookTitle = "select * from bookLoans\n" +
+                                "join user on bookLoans.userId = user.id\n" +
+                                "join book on bookLoans.bookId = book.id\n" +
+                                "where book.title like ?";
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        try (Connection con = DBConnector.getConnection();
-            PreparedStatement pst = con.prepareStatement(searchQuery)){
-            pst.setInt(1, id);
-            ResultSet rs = pst.executeQuery();
+        List<BookLoans> bookLoans = new ArrayList<>();
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = null;
+            if (text.matches("-?\\d+")) {
+                ps = con.prepareStatement(searchById);
+                ps.setInt(1, Integer.parseInt(text));
+            } else {
+                ps = con.prepareStatement(searchByBookTitle);
+                ps.setString(1, "%" + text + "%");
+            }
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int Id = rs.getInt("id");
                 String userName = rs.getString("name");
@@ -199,10 +214,11 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                     Date startDate = df.parse(rs.getString("startDate"));
                     Date dueDate = df.parse(rs.getString("dueDate"));
 
-                    return new BookLoans(Id, userName, bookTitle, startDate, dueDate, amount, status);
+                    bookLoans.add(new BookLoans(Id, userName, bookTitle, startDate, dueDate, amount, status));
                 } catch (ParseException e) {
                     System.out.println(e.getMessage());
                 }
+                return bookLoans;
             }
         } catch (SQLException e) {
             e.printStackTrace();

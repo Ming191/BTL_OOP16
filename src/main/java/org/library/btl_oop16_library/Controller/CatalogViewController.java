@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
@@ -24,6 +21,7 @@ import org.library.btl_oop16_library.Util.BookLoanDBConnector;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.sql.SQLException;
 import java.util.List;
@@ -77,6 +75,9 @@ public class CatalogViewController {
     @FXML
     private Button importButton;
 
+    @FXML
+    private TextField searchField;
+
     public void setCurrentUser(User user) {
         this.currentUser = user;
         if (currentUser != null && !"admin".equalsIgnoreCase(currentUser.getRole())) {
@@ -86,9 +87,8 @@ public class CatalogViewController {
             returnBookButton.setVisible(false);
             lendBookButton.setVisible(false);
             importButton.setVisible(false);
-            if (!canPreorder) {
-                preorderButton.setVisible(false);
-            }
+            mailButton.setVisible(false);
+            exportButton.setVisible(false);
         }
         try {
             initializeBaseOnUser(currentUser);
@@ -162,6 +162,22 @@ public class CatalogViewController {
     }
 
     @FXML
+    private void searchButtonOnClick(ActionEvent event) throws IOException {
+        String searchText = searchField.getText();
+        List<BookLoans>  searchedBook = null;
+        if (!searchText.isEmpty()) {
+            searchedBook = bookLoanDBConnector.searchBookFromDB(searchText);
+        }
+        table.getItems().clear();
+
+        if (searchedBook != null) {
+            table.getItems().addAll(searchedBook);
+        } else {
+            refreshHistory();
+        }
+    }
+
+    @FXML
     private void initialize() {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         userNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
@@ -189,6 +205,7 @@ public class CatalogViewController {
     }
 
     private void loadHistoryForUser(User user) throws SQLException {
+        bookLoanDBConnector.updateBookLoan();
         history = bookLoanDBConnector.importFromDBForUser(user);
         table.getItems().addAll(history);
     }
