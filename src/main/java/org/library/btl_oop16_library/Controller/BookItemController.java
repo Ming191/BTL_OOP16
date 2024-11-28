@@ -30,7 +30,12 @@ public class BookItemController {
 
     public void setCard(Book book, AnchorPane mainPane) {
         card.setPrefWidth(180);
-        ImageView imageView = new ImageView(new Image(book.getImgURL(), true));
+        ImageView imageView = new ImageView();
+        if (book.getImgURL() != null && !book.getImgURL().isEmpty()) {
+            imageView.setImage(new Image(book.getImgURL(),true));
+        } else {
+            imageView.setImage(new Image(getClass().getResource("/img/defBookCover.png").toExternalForm()));
+        }
         imageView.setFitWidth(120);
         imageView.setPreserveRatio(true);
 

@@ -73,7 +73,11 @@ public class BookDetailsController {
         author.setText(book.getAuthor());
         title.setText(book.getTitle());
         rating.setText(book.getRating());
-        imgHolder.setImage(new Image(book.getImgURL(), true));
+        if (book.getImgURL() == null || book.getImgURL().isEmpty()) {
+            imgHolder.setImage(new Image(getClass().getResourceAsStream("/img/defBookCover.png")));
+        } else {
+            imgHolder.setImage(new Image(book.getImgURL(), true));
+        }
         qrHolder.setImage(ZXingAPI.toQRCode(book, 100, 100));
 
         Hyperlink seeMoreLink = new Hyperlink("See More");

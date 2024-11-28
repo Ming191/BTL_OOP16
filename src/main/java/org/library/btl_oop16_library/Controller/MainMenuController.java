@@ -26,7 +26,6 @@ import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.Transition;
 
 public class MainMenuController {
-
     @FXML
     private ResourceBundle resources;
 
@@ -97,7 +96,13 @@ public class MainMenuController {
 
     @FXML
     private void switchToDashboard(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DashboardView.fxml"));
+        FXMLLoader loader = null;
+        if(SessionManager.getInstance().getCurrentUser().getRole().equals("admin")) {
+            loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DashboardView.fxml"));
+        } else {
+            loader = new FXMLLoader(getClass().getResource("/UserFXMLs/U_Dashboard.fxml"));
+
+        }
         Pane pane = loader.load();
         mainPane.setCenter(pane);
     }
