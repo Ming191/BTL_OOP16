@@ -223,6 +223,51 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         return null;
     }
 
+    public List<BookLoans> searchBookFromDBForUser(User user,String text) {
+        String searchById = "select * from bookLoans\n" +
+                "join user on bookLoans.userId = user.id\n" +
+                "join book on bookLoans.bookId = book.id\n" +
+                "where bookLoans.id = ? and userId = ?";
+        String searchByBookTitle = "select * from bookLoans\n" +
+                "join user on bookLoans.userId = user.id\n" +
+                "join book on bookLoans.bookId = book.id\n" +
+                "where book.title like ? and userId = ?";
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        List<BookLoans> bookLoans = new ArrayList<>();
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = null;
+            if (text.matches("-?\\d+")) {
+                ps = con.prepareStatement(searchById);
+                ps.setInt(1, Integer.parseInt(text));
+                ps.setInt(2, user.getId());
+            } else {
+                ps = con.prepareStatement(searchByBookTitle);
+                ps.setString(1, "%" + text + "%");
+                ps.setInt(2, user.getId());
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int Id = rs.getInt("id");
+                String userName = rs.getString("name");
+                String bookTitle = rs.getString("title");
+                int amount = rs.getInt("amount");
+                String status = rs.getString("status");
+                try {
+                    Date startDate = df.parse(rs.getString("startDate"));
+                    Date dueDate = df.parse(rs.getString("dueDate"));
+
+                    bookLoans.add(new BookLoans(Id, userName, bookTitle, startDate, dueDate, amount, status));
+                } catch (ParseException e) {
+                    System.out.println(e.getMessage());
+                }
+                return bookLoans;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public void exportToExcel() {
         LocalDate currentDate = LocalDate.now();

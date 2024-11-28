@@ -160,7 +160,11 @@ public class ServicesViewController {
         String searchText = searchField.getText();
         List<BookLoans>  searchedBook = null;
         if (!searchText.isEmpty()) {
-            searchedBook = bookLoanDBConnector.searchBookFromDB(searchText);
+            if (SessionManager.getInstance().getCurrentUser().getRole().equalsIgnoreCase("admin")) {
+                searchedBook = bookLoanDBConnector.searchBookFromDB(searchText);
+            } else {
+                searchedBook = bookLoanDBConnector.searchBookFromDBForUser(SessionManager.getInstance().getCurrentUser(),searchText);
+            }
         }
         table.getItems().clear();
 
