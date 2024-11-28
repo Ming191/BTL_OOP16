@@ -11,9 +11,7 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.BookLoans;
-import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Services.EmailAPI;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;
@@ -22,12 +20,11 @@ import org.library.btl_oop16_library.Util.SessionManager;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CatalogViewController {
+public class ServicesViewController {
     private List<BookLoans> history;
     private final BookLoanDBConnector bookLoanDBConnector = BookLoanDBConnector.getInstance();
     boolean canLendBook = true;

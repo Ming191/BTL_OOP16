@@ -1,9 +1,6 @@
 package org.library.btl_oop16_library.Util;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.BookLoans;
@@ -264,7 +261,8 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                     Cell cell = dataRow.createCell(i - 1);
                     String columnName = rs.getMetaData().getColumnName(i);
 
-                    if ("amount".equalsIgnoreCase(columnName)) {
+                    if ("amount".equalsIgnoreCase(columnName) || "id".equalsIgnoreCase(columnName) ||
+                    "userId".equalsIgnoreCase(columnName) || "bookId".equalsIgnoreCase(columnName)) {
                         int quantity = rs.getInt(i);
                         cell.setCellValue(quantity);
                     } else {
@@ -293,11 +291,11 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     }
 
     @Override
-    public void importFromExcel(String filename) {
-        File file = new File(filename);
+    public void importFromExcel(String filePath) {
+        File file = new File(filePath);
 
         if (!file.exists()) {
-            System.err.println("File does not exist: " + filename);
+            System.err.println("File does not exist: " + filePath);
             return;
         }
 
@@ -306,52 +304,68 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
 
             Sheet sheet = workbook.getSheetAt(0);
 
-            String deleteQuery = "DELETE FROM bookLoans";
-            try (Connection conn = getConnection();
-                 PreparedStatement ps = conn.prepareStatement(deleteQuery)) {
-                ps.executeUpdate();
-                System.out.println("All existing data deleted from table 'bookLoans'.");
-            } catch (SQLException e) {
-                System.err.println("Error while deleting old data: " + e.getMessage());
-                return;
-            }
-
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
                     continue;
                 }
-                int id = row.getCell(0) != null ? (int) row.getCell(0).getNumericCellValue() : -1;
-                int userId = row.getCell(1) != null ? (int) row.getCell(1).getNumericCellValue() : -1;
-                int amount = row.getCell(2) != null ? (int) row.getCell(2).getNumericCellValue() : -1;
-                String startDate = row.getCell(3) != null ? (String) row.getCell(3).getStringCellValue() : "";
-                String dueDate = row.getCell(4) != null ? (String) row.getCell(4).getStringCellValue() : "";
-                int bookId = row.getCell(5) != null ? (int) row.getCell(5).getNumericCellValue() : -1;
-                String status = row.getCell(6) != null ? (String) row.getCell(6).getStringCellValue() : "";
 
-                insertBookLoanToDB(id,userId, amount, startDate, dueDate, bookId, status);
+                int id = (row.getCell(0) != null && row.getCell(0).getCellType() == CellType.NUMERIC)
+                        ? (int) row.getCell(0).getNumericCellValue() : -1;
+                int userId = (row.getCell(1) != null && row.getCell(1).getCellType() == CellType.NUMERIC)
+                        ? (int) row.getCell(1).getNumericCellValue() : -1;
+                int amount = (row.getCell(2) != null && row.getCell(2).getCellType() == CellType.NUMERIC)
+                        ? (int) row.getCell(2).getNumericCellValue() : -1;
+                String startDate = (row.getCell(3) != null && row.getCell(3).getCellType() == CellType.STRING)
+                        ? row.getCell(3).getStringCellValue() : "";
+                String dueDate = (row.getCell(4) != null && row.getCell(4).getCellType() == CellType.STRING)
+                        ? row.getCell(4).getStringCellValue() : "";
+                int bookId = (row.getCell(5) != null && row.getCell(5).getCellType() == CellType.NUMERIC)
+                        ? (int) row.getCell(5).getNumericCellValue() : -1;
+                String status = (row.getCell(6) != null && row.getCell(6).getCellType() == CellType.STRING)
+                        ? row.getCell(6).getStringCellValue() : "";
+
+                upsertBookLoan(id, userId, amount, startDate, dueDate, bookId, status);
             }
 
-            System.out.println("Data successfully imported from Excel file: " + filename);
+            System.out.println("Data successfully imported from Excel file: " + filePath);
+            ApplicationAlert.importSuccess();
 
         } catch (IOException e) {
             System.err.println("Error while reading Excel file: " + e.getMessage());
+            ApplicationAlert.importFailed();
         }
     }
 
-    private void insertBookLoanToDB(int id, int userId, int amount, String startDate, String dueDate, int bookId, String status) {
-        String query = "insert into bookLoans values(?,?,?,?,?,?,?)";
-        try (Connection con = DBConnector.getConnection()){
-            PreparedStatement ps = con.prepareStatement(query);
+    private void upsertBookLoan(int id, int userId, int amount, String startDate,
+                            String dueDate, int bookId, String status) {
+        String upsertQuery = """
+        INSERT INTO bookLoans (id, userId, amount , startDate, dueDate, bookId, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT (id) 
+        DO UPDATE SET
+            id = EXCLUDED.id,
+            userId = EXCLUDED.userId,
+            amount = EXCLUDED.amount,
+            startDate = EXCLUDED.startDate, 
+            dueDate = EXCLUDED.dueDate,
+            bookId = EXCLUDED.bookId,
+            status = EXCLUDED.status
+    """;
+
+        try (Connection conn = DBConnector.getConnection();
+             PreparedStatement ps = conn.prepareStatement(upsertQuery)) {
             ps.setInt(1, id);
-            ps.setInt(2,userId);
-            ps.setInt(3,amount);
-            ps.setString(4,startDate);
-            ps.setString(5,dueDate);
-            ps.setInt(6,bookId);
-            ps.setString(7,status);
+            ps.setInt(2, userId);
+            ps.setInt(3, amount);
+            ps.setString(4, startDate);
+            ps.setString(5, dueDate);
+            ps.setInt(6, bookId);
+            ps.setString(7, status);
+
             ps.executeUpdate();
+            System.out.println("BookLoan upserted: " + id);
         } catch (SQLException e) {
-            System.out.println("Error while inserting book loan: " + e.getMessage());
+            System.err.println("Error while upserting bookloan: " + e.getMessage());
         }
     }
 
