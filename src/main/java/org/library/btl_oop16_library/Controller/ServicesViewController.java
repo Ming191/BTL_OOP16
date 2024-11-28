@@ -163,7 +163,7 @@ public class ServicesViewController {
             if (SessionManager.getInstance().getCurrentUser().getRole().equalsIgnoreCase("admin")) {
                 searchedBook = bookLoanDBConnector.searchBookFromDB(searchText);
             } else {
-                searchedBook = bookLoanDBConnector.searchBookFromDBForUser(SessionManager.getInstance().getCurrentUser(),searchText);
+                searchedBook = bookLoanDBConnector.searchBookFromDBForUser(searchText, SessionManager.getInstance().getCurrentUser());
             }
         }
         table.getItems().clear();

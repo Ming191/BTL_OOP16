@@ -109,41 +109,47 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     @Override
     public void deleteFromDB(int id) throws SQLException {
         try (Connection con = DBConnector.getConnection()) {
-            String query = "SELECT bl.id, bl.userId, bl.bookId, bl.amount, u.name AS userName, b.title AS bookTitle " +
-                    "FROM bookLoans bl " +
-                    "JOIN user u ON bl.userId = u.id " +
-                    "JOIN book b ON bl.bookId = b.id " +
-                    "WHERE bl.id = ?";
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            int isReturned = DBConnector.getCount(
+            "select count(*) from bookLoans where status = 'returned' and id = " + id);
+            if (isReturned != 0) {
+                ApplicationAlert.bookIsReturned();
+            } else {
+                String query = "SELECT bl.id, bl.userId, bl.bookId, bl.amount, u.name AS userName, b.title AS bookTitle " +
+                        "FROM bookLoans bl " +
+                        "JOIN user u ON bl.userId = u.id " +
+                        "JOIN book b ON bl.bookId = b.id " +
+                        "WHERE bl.id = ?";
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
 
-            String userName = null;
-            String bookTitle = null;
-            int amount = 0;
-            int bookId = 0;
+                String userName = null;
+                String bookTitle = null;
+                int amount = 0;
+                int bookId = 0;
 
-            if (rs.next()) {
-                userName = rs.getString("userName");
-                bookTitle = rs.getString("bookTitle");
-                amount = rs.getInt("amount");
-                bookId = rs.getInt("bookId");
-            }
+                if (rs.next()) {
+                    userName = rs.getString("userName");
+                    bookTitle = rs.getString("bookTitle");
+                    amount = rs.getInt("amount");
+                    bookId = rs.getInt("bookId");
+                }
 
-            String deleteBookLoan = "UPDATE bookLoans SET status = 'returned' WHERE id = ?";
-            ps = con.prepareStatement(deleteBookLoan);
-            ps.setInt(1, id);
-            ps.executeUpdate();
+                String deleteBookLoan = "UPDATE bookLoans SET status = 'returned' WHERE id = ?";
+                ps = con.prepareStatement(deleteBookLoan);
+                ps.setInt(1, id);
+                ps.executeUpdate();
 
-            String updateBook = "UPDATE book SET quantity = quantity + ? WHERE id = ?";
-            ps = con.prepareStatement(updateBook);
-            ps.setInt(1, amount);
-            ps.setInt(2, bookId);
-            ps.executeUpdate();
+                String updateBook = "UPDATE book SET quantity = quantity + ? WHERE id = ?";
+                ps = con.prepareStatement(updateBook);
+                ps.setInt(1, amount);
+                ps.setInt(2, bookId);
+                ps.executeUpdate();
 
-            if (userName != null && bookTitle != null) {
-                ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
-                activitiesDB.logActivity(userName + " returned '" + bookTitle + "'");
+                if (userName != null && bookTitle != null) {
+                    ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+                    activitiesDB.logActivity(userName + " returned '" + bookTitle + "'");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,46 +182,30 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     }
 
     @Override
-    public BookLoans searchById(int id) {
-        return null;
-    }
-
-    public List<BookLoans> searchBookFromDB(String text) {
-        String searchById = "select * from bookLoans\n" +
-                        "join user on bookLoans.userId = user.id\n" +
+    public BookLoans searchById(int ID) {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String query = "select bookLoans.id, user.name as borrower, book.title as bookTitle, amount, startDate, dueDate, status\n" +
+                        "from bookLoans\n" +
                         "join book on bookLoans.bookId = book.id\n" +
+                        "join user on bookLoans.userId = user.id\n" +
                         "where bookLoans.id = ?";
-        String searchByBookTitle = "select * from bookLoans\n" +
-                                "join user on bookLoans.userId = user.id\n" +
-                                "join book on bookLoans.bookId = book.id\n" +
-                                "where book.title like ?";
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        List<BookLoans> bookLoans = new ArrayList<>();
         try (Connection con = DBConnector.getConnection()) {
-            PreparedStatement ps = null;
-            if (text.matches("-?\\d+")) {
-                ps = con.prepareStatement(searchById);
-                ps.setInt(1, Integer.parseInt(text));
-            } else {
-                ps = con.prepareStatement(searchByBookTitle);
-                ps.setString(1, "%" + text + "%");
-            }
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, ID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int Id = rs.getInt("id");
-                String userName = rs.getString("name");
-                String bookTitle = rs.getString("title");
+                int id = rs.getInt("id");
+                String borrower = rs.getString("borrower");
+                String bookTitle = rs.getString("bookTitle");
                 int amount = rs.getInt("amount");
-                String status = rs.getString("status");
                 try {
                     Date startDate = df.parse(rs.getString("startDate"));
                     Date dueDate = df.parse(rs.getString("dueDate"));
-
-                    bookLoans.add(new BookLoans(Id, userName, bookTitle, startDate, dueDate, amount, status));
+                    String status = rs.getString("status");
+                    return new BookLoans(id, borrower, bookTitle, startDate, dueDate, amount, status);
                 } catch (ParseException e) {
-                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                 }
-                return bookLoans;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -223,49 +213,121 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         return null;
     }
 
-    public List<BookLoans> searchBookFromDBForUser(User user,String text) {
-        String searchById = "select * from bookLoans\n" +
-                "join user on bookLoans.userId = user.id\n" +
-                "join book on bookLoans.bookId = book.id\n" +
-                "where bookLoans.id = ? and userId = ?";
-        String searchByBookTitle = "select * from bookLoans\n" +
-                "join user on bookLoans.userId = user.id\n" +
-                "join book on bookLoans.bookId = book.id\n" +
-                "where book.title like ? and userId = ?";
+    public BookLoans searchByIdForUser(int ID, User user) {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        List<BookLoans> bookLoans = new ArrayList<>();
+        String query = "select bookLoans.id, user.name as borrower, book.title as bookTitle, amount, startDate, dueDate, status\n" +
+                "from bookLoans\n" +
+                "join book on bookLoans.bookId = book.id\n" +
+                "join user on bookLoans.userId = user.id\n" +
+                "where bookLoans.id = ? and userId = ?";
         try (Connection con = DBConnector.getConnection()) {
-            PreparedStatement ps = null;
-            if (text.matches("-?\\d+")) {
-                ps = con.prepareStatement(searchById);
-                ps.setInt(1, Integer.parseInt(text));
-                ps.setInt(2, user.getId());
-            } else {
-                ps = con.prepareStatement(searchByBookTitle);
-                ps.setString(1, "%" + text + "%");
-                ps.setInt(2, user.getId());
-            }
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, ID);
+            ps.setInt(2, user.getId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int Id = rs.getInt("id");
-                String userName = rs.getString("name");
-                String bookTitle = rs.getString("title");
+                int id = rs.getInt("id");
+                String borrower = rs.getString("borrower");
+                String bookTitle = rs.getString("bookTitle");
                 int amount = rs.getInt("amount");
-                String status = rs.getString("status");
                 try {
                     Date startDate = df.parse(rs.getString("startDate"));
                     Date dueDate = df.parse(rs.getString("dueDate"));
-
-                    bookLoans.add(new BookLoans(Id, userName, bookTitle, startDate, dueDate, amount, status));
+                    String status = rs.getString("status");
+                    return new BookLoans(id, borrower, bookTitle, startDate, dueDate, amount, status);
                 } catch (ParseException e) {
-                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                 }
-                return bookLoans;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<BookLoans> searchByTitle(String title) {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        List<BookLoans> bookLoans = new ArrayList<>();
+        String query = "select bookLoans.id, user.name as borrower, book.title as bookTitle, amount, startDate, dueDate, status\n" +
+                "from bookLoans\n" +
+                "join book on bookLoans.bookId = book.id\n" +
+                "join user on bookLoans.userId = user.id\n" +
+                "where bookTitle like ?";
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, "%" + title + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String borrower = rs.getString("borrower");
+                String bookTitle = rs.getString("bookTitle");
+                int amount = rs.getInt("amount");
+                try {
+                    Date startDate = df.parse(rs.getString("startDate"));
+                    Date dueDate = df.parse(rs.getString("dueDate"));
+                    String status = rs.getString("status");
+                    bookLoans.add(new BookLoans(id, borrower, bookTitle, startDate, dueDate, amount, status));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookLoans;
+    }
+
+    public List<BookLoans> searchByTitleForUser(String title, User user) {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        List<BookLoans> bookLoans = new ArrayList<>();
+        String query = "select bookLoans.id, user.name as borrower, book.title as bookTitle, amount, startDate, dueDate, status\n" +
+                "from bookLoans\n" +
+                "join book on bookLoans.bookId = book.id\n" +
+                "join user on bookLoans.userId = user.id\n" +
+                "where bookTitle like ? and userId = ?";
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, "%" + title + "%");
+            ps.setInt(2, user.getId());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String borrower = rs.getString("borrower");
+                String bookTitle = rs.getString("bookTitle");
+                int amount = rs.getInt("amount");
+                try {
+                    Date startDate = df.parse(rs.getString("startDate"));
+                    Date dueDate = df.parse(rs.getString("dueDate"));
+                    String status = rs.getString("status");
+                    bookLoans.add(new BookLoans(id, borrower, bookTitle, startDate, dueDate, amount, status));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookLoans;
+    }
+
+    public List<BookLoans> searchBookFromDB(String searchText) {
+        List<BookLoans> bookLoans = new ArrayList<>();
+        if (searchText.matches("-?\\d+")) {
+            bookLoans.add(searchById(Integer.parseInt(searchText)));
+        } else {
+            bookLoans = searchByTitle(searchText);
+        }
+        return bookLoans;
+    }
+
+    public List<BookLoans> searchBookFromDBForUser(String searchText, User user) {
+        List<BookLoans> bookLoans = new ArrayList<>();
+        if (searchText.matches("-?\\d+")) {
+            bookLoans.add(searchByIdForUser(Integer.parseInt(searchText), user));
+        } else {
+            bookLoans = searchByTitleForUser(searchText, user);
+        }
+        return bookLoans;
     }
 
     @Override
@@ -495,7 +557,8 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     }
 
     public int getBookLentAmount(String userId) {
-        String query = "select sum(amount) from BookLoans where userId = " + userId;
+        String query = "select sum(amount) from BookLoans where userId = " + userId +
+                        " and status != 'returned'";
         return DBConnector.getCount(query);
     }
 
