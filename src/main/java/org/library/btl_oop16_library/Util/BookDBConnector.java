@@ -220,6 +220,78 @@ public class BookDBConnector extends DBConnector<Book> {
         return bookList;
     }
 
+    public List<Book> searchByAuthor(String author) {
+        String query = "SELECT * FROM book WHERE book.author LIKE ?";
+        List<Book> bookList = new ArrayList<>();
+
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, "%" + author + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getString("category"),
+                        rs.getString("language"),
+                        rs.getInt("quantity"),
+                        rs.getString("imgURL"),
+                        rs.getString("rating"),
+                        rs.getString("description"),
+                        rs.getString("previewURL")
+                );
+                bookList.add(book);
+            }
+
+            if (bookList.isEmpty()) {
+                System.out.println("No books found");
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return bookList;
+    }
+
+    public List<Book> searchByCategory(String category) {
+        String query = "SELECT * FROM book WHERE book.category LIKE ?";
+        List<Book> bookList = new ArrayList<>();
+
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, "%" + category + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getString("category"),
+                        rs.getString("language"),
+                        rs.getInt("quantity"),
+                        rs.getString("imgURL"),
+                        rs.getString("rating"),
+                        rs.getString("description"),
+                        rs.getString("previewURL")
+                );
+                bookList.add(book);
+            }
+
+            if (bookList.isEmpty()) {
+                System.out.println("No books found");
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return bookList;
+    }
+
     @Override
     public void exportToExcel() {
         LocalDate currentDate = LocalDate.now();

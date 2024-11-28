@@ -25,7 +25,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.library.btl_oop16_library.Model.Book;
-import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.*;
 
 public class BookViewController {
@@ -239,22 +238,34 @@ public class BookViewController {
 
     private void realTimeSearch(String searchInput) {
         table.getItems().clear();
-        List<Book> booksByName = BookDBConnector.getInstance().searchByName(searchInput);
-        List<Book> booksById = new ArrayList<>();
-        try {
-            int id = Integer.parseInt(searchInput);
-            booksById = BookDBConnector.getInstance().searchById(id);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        List<Book> bookList = new ArrayList<>();
+        String selectedType = typeSearchBox.getValue();
+        switch (selectedType) {
+            case "id":
+                try {
+                    int id = Integer.parseInt(searchInput);
+                    bookList = BookDBConnector.getInstance().searchById(id);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "title":
+                bookList = BookDBConnector.getInstance().searchByName(searchInput);
+                break;
+            case "author":
+                bookList = BookDBConnector.getInstance().searchByAuthor(searchInput);
+                break;
+            case "category":
+                bookList = BookDBConnector.getInstance().searchByCategory(searchInput);
+                break;
+            default:
+                System.out.println("Invalid search type selected.");
         }
 
-        if (!booksById.isEmpty()) {
-            table.getItems().addAll(booksById);
+        if (!bookList.isEmpty()) {
+            table.getItems().addAll(bookList);
         }
 
-        if (!booksByName.isEmpty()) {
-            table.getItems().addAll(booksByName);
-        }
     }
 
     @FXML

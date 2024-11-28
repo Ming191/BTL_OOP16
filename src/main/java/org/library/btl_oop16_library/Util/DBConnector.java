@@ -37,8 +37,6 @@ public abstract class DBConnector<T> {
 
     public abstract void addToDB(T item) throws SQLException;
 
-    //public abstract List<T> searchByName(String name);
-
     public abstract List<T> searchById(int id);
 
     public abstract void exportToExcel();
