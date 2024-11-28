@@ -26,10 +26,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.User;
-import org.library.btl_oop16_library.Util.ApplicationAlert;
-import org.library.btl_oop16_library.Util.BookDBConnector;
-import org.library.btl_oop16_library.Util.SessionManager;
-import org.library.btl_oop16_library.Util.UserDBConnector;
+import org.library.btl_oop16_library.Util.*;
 
 public class BookViewController {
     private static final BookDBConnector db = BookDBConnector.getInstance();
@@ -80,14 +77,20 @@ public class BookViewController {
     @FXML
     private ChoiceBox<String> typeSearchBox;
 
+    @FXML
+    private Button preorderButton;
+
     private PauseTransition searchPause;
 
     private ModalPane modalPane;
 
     private AnchorPane detailsPane;
 
+    private boolean canPreorder = false;
+
     private void initializeRoleBasedAccess() {
         if (!"admin".equalsIgnoreCase(SessionManager.getInstance().getCurrentUser().getRole())) {
+            canPreorder = BookLoanDBConnector.getInstance().canPreorderBook(SessionManager.getInstance().getCurrentUser());
             addBookButton.setDisable(true);
             deleteBookButton.setDisable(true);
             addBookButton.setVisible(false);
@@ -252,5 +255,29 @@ public class BookViewController {
         if (!booksByName.isEmpty()) {
             table.getItems().addAll(booksByName);
         }
+    }
+
+    @FXML
+    private void preorderButtonOnClick(ActionEvent event) throws IOException, SQLException {
+        if (canPreorder) {
+            System.out.println("Can preorder book");
+            Stage preorderStage = new Stage();
+            preorderStage.setResizable(false);
+            preorderStage.initModality(Modality.APPLICATION_MODAL);
+            preorderStage.setTitle("Lending Book");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/PreorderDialog.fxml"));
+            Parent root = loader.load();
+            preorderStage.setScene(new Scene(root));
+            Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+            preorderStage.getIcons().add(favicon);
+            PreorderDialogController preorderDialogController = loader.getController();
+            preorderDialogController.setCurrentUser(SessionManager.getInstance().getCurrentUser());
+            preorderStage.showAndWait();
+
+        } else {
+            System.out.println("Can not preorder book");
+            ApplicationAlert.canNotLendBook();
+        }
+        refresh();
     }
 }

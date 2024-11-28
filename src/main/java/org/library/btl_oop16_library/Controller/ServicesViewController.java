@@ -65,9 +65,6 @@ public class ServicesViewController {
     private Button returnBookButton;
 
     @FXML
-    private Button preorderButton;
-
-    @FXML
     private Button exportButton;
 
     @FXML
@@ -115,28 +112,6 @@ public class ServicesViewController {
 
         } else {
             System.out.println("Can not lend book");
-            ApplicationAlert.canNotLendBook();
-        }
-        refreshHistory();
-    }
-
-    @FXML
-    private void preorderButtonOnClick(ActionEvent event) throws IOException {
-        if (canPreorder) {
-            System.out.println("Can preorder book");
-            Stage preorderStage = new Stage();
-            preorderStage.setResizable(false);
-            preorderStage.initModality(Modality.APPLICATION_MODAL);
-            preorderStage.setTitle("Lending Book");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/PreorderDialog.fxml"));
-            Parent root = loader.load();
-            preorderStage.setScene(new Scene(root));
-            Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
-            preorderStage.getIcons().add(favicon);
-            preorderStage.showAndWait();
-
-        } else {
-            System.out.println("Can not preorder book");
             ApplicationAlert.canNotLendBook();
         }
         refreshHistory();
