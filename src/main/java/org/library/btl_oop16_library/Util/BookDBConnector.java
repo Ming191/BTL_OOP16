@@ -296,6 +296,7 @@ public class BookDBConnector extends DBConnector<Book> {
     @Override
     public void importFromExcel(String filePath) {
         File file = new File(filePath);
+        ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
 
         if (!file.exists()) {
             System.err.println("File does not exist: " + filePath);
@@ -336,6 +337,8 @@ public class BookDBConnector extends DBConnector<Book> {
                 upsertBook(id, title, author, category, language, quantity, imgURL, rating, description, previewURL);
             }
             System.out.println("Data successfully imported from Excel file: " + filePath);
+            activitiesDB.logActivity("Imported file: " + new File(filePath).getName() + " to book table.");
+
             ApplicationAlert.importSuccess();
 
         } catch (IOException e) {

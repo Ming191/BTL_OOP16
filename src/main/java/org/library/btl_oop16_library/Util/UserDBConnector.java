@@ -256,6 +256,7 @@ public class UserDBConnector extends DBConnector<User> {
             System.err.println("File does not exist: " + filePath);
             return;
         }
+        ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
 
         try (FileInputStream fis = new FileInputStream(file);
              XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
@@ -288,6 +289,7 @@ public class UserDBConnector extends DBConnector<User> {
             }
 
             System.out.println("Data successfully imported from Excel file: " + filePath);
+            activitiesDB.logActivity("Imported file: " + new File(filePath).getName() + " to user table.");
             ApplicationAlert.importSuccess();
 
         } catch (IOException e) {

@@ -112,22 +112,35 @@ public class UserViewController {
 
     private void realTimeSearch(String searchInput) {
         table.getItems().clear();
-        List<User> usersByName = UserDBConnector.getInstance().searchByName(searchInput);
-        List<User> usersById = new ArrayList<>();
-        try {
-            int id = Integer.parseInt(searchInput);
-            usersById = UserDBConnector.getInstance().searchById(id);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        List<User> userList = new ArrayList<>();
+        String selectedType = typeSearchBox.getValue(); // Get the selected option from the choice box.
+
+        switch (selectedType) {
+            case "id":
+                try {
+                    int id = Integer.parseInt(searchInput);
+                    userList = UserDBConnector.getInstance().searchById(id);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "name":
+                userList = UserDBConnector.getInstance().searchByName(searchInput);
+                break;
+            case "email":
+                //userList = UserDBConnector.getInstance().searchByName(searchInput);
+                break;
+            case "phoneNumber":
+                //userList = UserDBConnector.getInstance().searchByName(searchInput);
+                break;
+            default:
+                System.out.println("Invalid search type selected.");
         }
 
-        if (!usersById.isEmpty()) {
-            table.getItems().addAll(usersById);
+        if (!userList.isEmpty()) {
+            table.getItems().addAll(userList);
         }
 
-        if (!usersByName.isEmpty()) {
-            table.getItems().addAll(usersByName);
-        }
     }
 
 

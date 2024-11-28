@@ -29,7 +29,7 @@ public class BookItemController {
     private ModalPane modalPane;
 
     public void setCard(Book book, AnchorPane mainPane) {
-        card.setPrefWidth(200);
+        card.setPrefWidth(180);
         ImageView imageView = new ImageView(new Image(book.getImgURL(), true));
         imageView.setFitWidth(120);
         imageView.setPreserveRatio(true);
@@ -38,7 +38,7 @@ public class BookItemController {
         imageView.setClip(clip);
 
         StackPane imageContainer = new StackPane(imageView);
-        imageContainer.setPrefSize(200, 200);
+        imageContainer.setPrefSize(180, 200);
         imageContainer.setStyle("-fx-alignment: center;");
 
         card.setHeader(imageContainer);
@@ -72,7 +72,7 @@ public class BookItemController {
         button.setOnAction(event -> {
             modalPane.hide();
             modalPane = new ModalPane();
-            modalPane.setPrefSize(1280, 720);
+            modalPane.setPrefSize(1060, 720);
             mainPane.getChildren().add(modalPane);
             modalPane.setAlignment(Pos.CENTER);
         });
@@ -82,6 +82,6 @@ public class BookItemController {
     @FXML
     private void initialize() {
         modalPane = new ModalPane();
-        modalPane.setPrefSize(1280, 720);
+        modalPane.setPrefSize(1060, 720);
     }
 }
