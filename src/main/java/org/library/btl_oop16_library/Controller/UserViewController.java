@@ -128,10 +128,10 @@ public class UserViewController {
                 userList = UserDBConnector.getInstance().searchByName(searchInput);
                 break;
             case "email":
-                //userList = UserDBConnector.getInstance().searchByName(searchInput);
+                userList = UserDBConnector.getInstance().searchByEmail(searchInput);
                 break;
             case "phoneNumber":
-                //userList = UserDBConnector.getInstance().searchByName(searchInput);
+                userList = UserDBConnector.getInstance().searchByPhoneNumber(searchInput);
                 break;
             default:
                 System.out.println("Invalid search type selected.");
