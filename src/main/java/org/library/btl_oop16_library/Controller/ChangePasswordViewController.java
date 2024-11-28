@@ -54,6 +54,14 @@ public class ChangePasswordViewController {
             return;
         }
 
+        if (newPassword.length() < 8 ||
+                !newPassword.matches(".*[A-Z].*") ||
+                !newPassword.matches(".*[a-z].*") ||
+                !newPassword.matches(".*\\d.*")) {
+            ApplicationAlert.weakPassword();
+            return;
+        }
+
         boolean success = UserDBConnector.getInstance().updatePassword(SessionManager.getInstance().getCurrentUser().getId(), newPassword);
 
         if (success) {

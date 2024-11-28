@@ -101,7 +101,7 @@ public class UserDBConnector extends DBConnector<User> {
     }
 
 
-
+    @Override
     public void deleteFromDB(int id) {
         String deleteLoansQuery = "DELETE FROM bookLoans WHERE userId = ?";
         String deleteUserQuery = "DELETE FROM user WHERE id = ?";
@@ -143,17 +143,21 @@ public class UserDBConnector extends DBConnector<User> {
         }
     }
 
+    @Override
+    public List<User> searchById(int id) {
+        String query = "SELECT * FROM user WHERE id = ? OR CAST(id AS TEXT) LIKE ?";
+        List<User> userList = new ArrayList<>();
 
-    public User searchById(int id) {
-        String query = "SELECT * FROM user WHERE id = ?";
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
             stmt.setInt(1, id);
+            stmt.setString(2, id + "%");
+
             ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                return new User(
+            while (rs.next()) {
+                User user = new User(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("email"),
@@ -163,15 +167,21 @@ public class UserDBConnector extends DBConnector<User> {
                         rs.getString("password"),
                         rs.getString("role")
                 );
+                userList.add(user);
+            }
+
+            if (userList.isEmpty()) {
+                System.out.println("No users found with ID " + id + " or IDs starting with " + id + ".");
             } else {
-                System.out.println("User with ID " + id + " not found.");
-                return null;
+                System.out.println("Found " + userList.size() + " user(s) with ID " + id + " or IDs starting with " + id + ".");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Failed to search user by ID: " + e.getMessage());
+            throw new RuntimeException("Failed to search users by ID: " + e.getMessage());
         }
+        return userList;
     }
+
 
     @Override
     public void exportToExcel() {

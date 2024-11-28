@@ -25,6 +25,7 @@ import org.library.btl_oop16_library.Util.UserDBConnector;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserViewController {
@@ -55,9 +56,6 @@ public class UserViewController {
     private Button updateUserButton;
 
     @FXML
-    private Button searchButton;
-
-    @FXML
     private TextField searchField;
 
     @FXML
@@ -67,18 +65,20 @@ public class UserViewController {
     private TableColumn<User, String> phoneCol;
 
     @FXML
+    private ChoiceBox<String> typeSearchBox;
+
+    @FXML
     private TableView<User> table;
 
     private User selectedUser;
 
     private static final UserDBConnector db = UserDBConnector.getInstance();
 
-
     private PauseTransition searchPause;
 
 
     @FXML
-    void initialize() {
+    private void initialize() {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -105,23 +105,24 @@ public class UserViewController {
         });
 
         deleteUserButton.disableProperty().bind(table.getSelectionModel().selectedItemProperty().isNull());
+
+        typeSearchBox.getItems().addAll("id", "name", "email", "phoneNumber");
+        typeSearchBox.setValue("name");
     }
 
     private void realTimeSearch(String searchInput) {
         table.getItems().clear();
-
         List<User> usersByName = UserDBConnector.getInstance().searchByName(searchInput);
-        User userById = null;
-
+        List<User> usersById = new ArrayList<>();
         try {
             int id = Integer.parseInt(searchInput);
-            userById = UserDBConnector.getInstance().searchById(id);
+            usersById = UserDBConnector.getInstance().searchById(id);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
 
-        if (userById != null) {
-            table.getItems().add(userById);
+        if (!usersById.isEmpty()) {
+            table.getItems().addAll(usersById);
         }
 
         if (!usersByName.isEmpty()) {
@@ -129,8 +130,9 @@ public class UserViewController {
         }
     }
 
+
     @FXML
-    void addUserButtonOnClick(ActionEvent event) throws IOException {
+    private void addUserButtonOnClick(ActionEvent event) throws IOException {
         Stage addUserStage = new Stage();
         addUserStage.setResizable(false);
         addUserStage.initModality(Modality.APPLICATION_MODAL);
@@ -150,7 +152,7 @@ public class UserViewController {
         }
     }
     @FXML
-    void deleteUserButtonOnClick(ActionEvent event) throws IOException {
+    private void deleteUserButtonOnClick(ActionEvent event) throws IOException {
         User selectedUser = table.getSelectionModel().getSelectedItem();
 
         if (selectedUser == null) {
@@ -168,7 +170,7 @@ public class UserViewController {
 
 
     @FXML
-    void updateUserButtonOnClick(ActionEvent event) throws IOException {
+    private void updateUserButtonOnClick(ActionEvent event) throws IOException {
         Stage updateUserStage = new Stage();
         updateUserStage.setResizable(false);
         updateUserStage.initModality(Modality.APPLICATION_MODAL);
@@ -192,36 +194,7 @@ public class UserViewController {
 
     }
 
-    @FXML
-    void searchButtonOnClick(ActionEvent event) {
-        String searchInput = searchField.getText();
 
-        if (searchInput.isEmpty()) {
-            ApplicationAlert.missingInformation();
-            return;
-        }
-
-        List<User> users = UserDBConnector.getInstance().searchByName(searchInput);
-        User userById = null;
-
-        try {
-            int id = Integer.parseInt(searchInput);
-            userById = UserDBConnector.getInstance().searchById(id);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-
-        table.getItems().clear();
-
-        if (userById != null) {
-            table.getItems().add(userById);
-        }
-
-        if (!users.isEmpty()) {
-            table.getItems().addAll(users);
-        }
-
-    }
 
     @FXML
     void exportOnClick(ActionEvent event) {
