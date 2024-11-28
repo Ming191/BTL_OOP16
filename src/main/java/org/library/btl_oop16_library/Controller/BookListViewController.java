@@ -46,7 +46,7 @@ public class BookListViewController {
             pane.prefWidthProperty().bind(flowPane.widthProperty().divide(4).subtract(flowPane.getHgap()));
             pane.setPrefHeight(300);
             BookItemController controller = loader.getController();
-            controller.setCard(book, generalPane);
+            controller.setCard(book, generalPane,true);
             flowPane.getChildren().add(pane);
         }
     }

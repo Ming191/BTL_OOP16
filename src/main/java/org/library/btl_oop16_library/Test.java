@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.library.btl_oop16_library.Util.GlobalVariables;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -30,9 +31,11 @@ public class Test extends Application {
 
     private Region createContent() {
         ImageView imageView = new ImageView();
+        Image loadingImage = new Image(GlobalVariables.LOADING_IMG);
+        imageView.setImage(loadingImage);
+
         Image image = new Image("https://www.pragmaticcoding.ca/assets/images/794.png", 700, 0, true, true, true);
         image.progressProperty().addListener(observable -> {
-            System.out.println("Progress " + image.getProgress());
             if (image.getProgress() == 1.0) {
                 if (!image.isError()) {
                     imageView.setImage(image);

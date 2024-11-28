@@ -1,3 +1,18 @@
+@font-face {
+  font-family: "Montserrat";
+  src: url("static/Montserrat-Medium.ttf");
+}
+@font-face {
+  font-family: "Montserrat Bold";
+  src: url("static/Montserrat-Bold.ttf");
+}
+
+
+@font-face {
+  font-family: "Montserrat ExtraBold";
+  src: url("static/Montserrat-ExtraBold.ttf");
+}
+
 .root {
   -color-dark: #232730;
   -color-light: #fafafc;
@@ -4680,4 +4695,9 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 
 .mfx-button .mfx-ripple-generator {
   -mfx-ripple-color: -color-accent-2;
+}
+
+.label-on-emphasis {
+  -fx-font-family: "Montserrat ExtraBold";
+  -fx-font-size: 24px;
 }

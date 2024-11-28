@@ -21,6 +21,7 @@ import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Services.ZXingAPI;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookDBConnector;
+import org.library.btl_oop16_library.Util.ImageLoader;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -73,11 +74,7 @@ public class BookDetailsController {
         author.setText(book.getAuthor());
         title.setText(book.getTitle());
         rating.setText(book.getRating());
-        if (book.getImgURL() == null || book.getImgURL().isEmpty()) {
-            imgHolder.setImage(new Image(getClass().getResourceAsStream("/img/defBookCover.png")));
-        } else {
-            imgHolder.setImage(new Image(book.getImgURL(), true));
-        }
+        ImageLoader.loadImage(imgHolder, book.getImgURL());
         qrHolder.setImage(ZXingAPI.toQRCode(book, 100, 100));
 
         Hyperlink seeMoreLink = new Hyperlink("See More");

@@ -126,16 +126,6 @@ public class MainMenuController {
     }
 
     @FXML
-    private void handleMouseClick(MouseEvent event) {
-        for (Node button : menuVbox.getChildren().filtered(node -> node instanceof Button)) {
-            button.getStyleClass().remove("selected");
-        }
-
-        Button selectedButton = (Button) event.getSource();
-        selectedButton.getStyleClass().add("selected");
-    }
-
-    @FXML
     public void switchToSettings(ActionEvent event) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));

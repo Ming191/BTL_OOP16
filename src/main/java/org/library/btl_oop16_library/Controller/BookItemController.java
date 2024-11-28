@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import org.library.btl_oop16_library.Model.Book;
+import org.library.btl_oop16_library.Util.ImageLoader;
 
 import java.io.IOException;
 
@@ -28,14 +29,10 @@ public class BookItemController {
 
     private ModalPane modalPane;
 
-    public void setCard(Book book, AnchorPane mainPane) {
+    public void setCard(Book book, AnchorPane mainPane, boolean showAddBtn) {
         card.setPrefWidth(180);
         ImageView imageView = new ImageView();
-        if (book.getImgURL() != null && !book.getImgURL().isEmpty()) {
-            imageView.setImage(new Image(book.getImgURL(),true));
-        } else {
-            imageView.setImage(new Image(getClass().getResource("/img/defBookCover.png").toExternalForm()));
-        }
+        ImageLoader.loadImage(imageView,book.getImgURL());
         imageView.setFitWidth(120);
         imageView.setPreserveRatio(true);
 
@@ -60,19 +57,22 @@ public class BookItemController {
 
         card.setOnMouseClicked(event -> {
             try {
-                modalPane.show(showBookDetailsModal(book, mainPane));
+                modalPane.show(showBookDetailsModal(book, mainPane, showAddBtn));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
-    private AnchorPane showBookDetailsModal(Book book, AnchorPane mainPane) throws IOException {
+    private AnchorPane showBookDetailsModal(Book book, AnchorPane mainPane, boolean showAddBtn) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookDetails.fxml"));
         Parent root = fxmlLoader.load();
 
         BookDetailsController bookDetailsController = fxmlLoader.getController();
         bookDetailsController.setInfo(book);
+        if(!showAddBtn) {
+            bookDetailsController.getButton1().setVisible(false);
+        }
         Button button  = bookDetailsController.getButton2();
         button.setOnAction(event -> {
             modalPane.hide();

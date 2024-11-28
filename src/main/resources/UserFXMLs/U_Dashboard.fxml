@@ -2,18 +2,18 @@
 
 <?import atlantafx.base.controls.Card?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTableView?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="dashboardPane" prefHeight="720.0" prefWidth="1060.0" styleClass="bg-inset" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.U_Controllers.U_DashboardController">
+<AnchorPane fx:id="dashboardPane" maxHeight="720.0" maxWidth="1060.0" prefHeight="720.0" prefWidth="1060.0" styleClass="bg-inset" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.U_Controllers.U_DashboardController">
    <children>
-      <VBox layoutX="39.0" layoutY="50.0" spacing="30.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
+      <VBox layoutX="39.0" layoutY="50.0" maxWidth="600.0" spacing="30.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
          <children>
             <GridPane fx:id="cardGrid" hgap="30.0" prefWidth="600.0">
                <columnConstraints>
@@ -25,37 +25,42 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Card fx:id="top1" prefHeight="300.0" prefWidth="200.0" />
-                  <Card fx:id="top2" prefHeight="300.0" prefWidth="200.0" GridPane.columnIndex="1" />
-                  <Card fx:id="top3" prefHeight="300.0" prefWidth="200.0" GridPane.columnIndex="2" />
+                  <Card fx:id="top1" prefHeight="300.0" prefWidth="200.0" styleClass="bg-inset" />
+                  <Card fx:id="top2" prefHeight="300.0" prefWidth="200.0" styleClass="bg-inset" GridPane.columnIndex="1" />
+                  <Card fx:id="top3" prefHeight="300.0" prefWidth="200.0" styleClass="bg-inset" GridPane.columnIndex="2" />
                </children>
             </GridPane>
             <GridPane hgap="30.0" prefHeight="86.0" prefWidth="600.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <MFXButton buttonType="RAISED" prefHeight="80.0" prefWidth="300.0" text="YOUR BORROWED BOOK LIST" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
-                  <MFXButton buttonType="RAISED" prefHeight="80.0" prefWidth="300.0" text="YOUR RETURNED BOOK LIST" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" />
-                  <MFXButton buttonType="RAISED" prefHeight="80.0" prefWidth="300.0" text="EXPORE OUR BOOK LIST" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" />
+                  <MFXButton fx:id="toBookLoans" buttonType="RAISED" onAction="#toBookLoansView" prefHeight="80.0" prefWidth="300.0" text="YOUR BORROWED BOOK LIST" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+                  <MFXButton fx:id="toBook" buttonType="RAISED" onAction="#toBookView" prefHeight="80.0" prefWidth="300.0" text="EXPORE OUR BOOK LIST" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" />
                </children>
             </GridPane>
-            <Card fx:id="quoteCard" prefHeight="214.0" prefWidth="600.0" />
+            <Card fx:id="quoteCard" prefHeight="215.0" prefWidth="600.0" />
          </children>
       </VBox>
-      <VBox layoutX="871.0" layoutY="21.0" prefHeight="413.0" prefWidth="384.0" spacing="15.0" AnchorPane.bottomAnchor="277.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+      <VBox alignment="BOTTOM_CENTER" layoutX="600.0" layoutY="52.0" prefHeight="644.0" prefWidth="360.0" spacing="30.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
          <children>
-            <PieChart fx:id="pieChart" prefWidth="353.0" title="Book loans status" />
+            <VBox fx:id="chartHolder" alignment="CENTER">
+               <children>
+                  <PieChart fx:id="pieChart" prefWidth="360.0" title="Book loans status" />
+               </children>
+            </VBox>
+            <TableView fx:id="adminInfoTable" maxHeight="215.0" prefWidth="360.0">
+               <columns>
+                  <TableColumn fx:id="nameCol" prefWidth="81.0" text="NAME" />
+                  <TableColumn fx:id="emailCol" prefWidth="141.0" text="EMAIL" />
+                  <TableColumn fx:id="phoneCol" prefWidth="137.0" text="PHONE" />
+               </columns>
+            </TableView>
          </children>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" />
-         </padding>
       </VBox>
-      <MFXTableView fx:id="adminInfoTable" layoutX="654.0" layoutY="476.0" prefHeight="214.0" prefWidth="367.0" />
    </children>
 </AnchorPane>

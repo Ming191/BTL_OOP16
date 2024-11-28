@@ -2,7 +2,6 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.MainMenuController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.MainMenuController">
    <children>
       <BorderPane fx:id="mainPane" layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -41,53 +40,53 @@
                               <Font name="Montserrat Medium" size="20.0" />
                            </font>
                         </MFXButton>
-                        <Button fx:id="menuCatalog" graphicTextGap="30.0" minHeight="70.0" minWidth="220.0" mnemonicParsing="false" onAction="#switchToCatalog" style="-fx-alignment: center-left;" styleClass="flat" text="Services">
-                           <font>
-                              <Font name="Montserrat Medium" size="20.0" />
-                           </font>
+                        <MFXButton fx:id="menuCatalog" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="70.0" onAction="#switchToCatalog" prefWidth="220.0" style="-fx-alignment: center-left;" styleClass="flat" text="Services">
                            <graphic>
-                              <FontIcon iconLiteral="mdal-collections_bookmark" iconSize="128" wrappingWidth="40.0" />
+                              <FontIcon fx:id="menu" iconLiteral="mdal-collections_bookmark" iconSize="128" wrappingWidth="40.0" />
                            </graphic>
-                        </Button>
-                        <Button fx:id="menuBook" graphicTextGap="30.0" minHeight="70.0" minWidth="220.0" mnemonicParsing="false" onAction="#switchToBook" style="-fx-alignment: center-left;" styleClass="flat" text="Books">
                            <font>
                               <Font name="Montserrat Medium" size="20.0" />
                            </font>
+                        </MFXButton>
+                        <MFXButton fx:id="menuBook" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="70.0" onAction="#switchToBook" prefHeight="70.0" prefWidth="220.0" style="-fx-alignment: center-left;" styleClass="flat" text="Books">
                            <graphic>
-                              <FontIcon iconLiteral="mdal-book" iconSize="128" wrappingWidth="40.0" />
+                              <FontIcon iconLiteral="mdal-book" iconSize="128" text="" wrappingWidth="40.0" />
                            </graphic>
-                        </Button>
-                        <Button fx:id="menuUser" graphicTextGap="30.0" minHeight="70.0" minWidth="220.0" mnemonicParsing="false" onAction="#switchToUser" style="-fx-alignment: center-left;" styleClass="flat" text="Users">
                            <font>
                               <Font name="Montserrat Medium" size="20.0" />
                            </font>
+                        </MFXButton>
+                        <MFXButton fx:id="menuUser" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="70.0" onAction="#switchToUser" prefHeight="70.0" prefWidth="220.0" style="-fx-alignment: center-left;" styleClass="flat" text="Users">
                            <graphic>
                               <FontIcon iconLiteral="mdal-group" iconSize="128" wrappingWidth="40.0" />
                            </graphic>
-                        </Button>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="220.0">
-                     <children>
-                        <Button fx:id="menuSettings" graphicTextGap="30.0" minHeight="43.0" minWidth="220.0" mnemonicParsing="false" onAction="#switchToSettings" prefWidth="220.0" style="-fx-alignment: center-left;" styleClass="flat" text="Settings">
                            <font>
                               <Font name="Montserrat Medium" size="20.0" />
                            </font>
+                        </MFXButton>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="220.0">
+                     <children>
+                        <MFXButton fx:id="menuSettings" minHeight="70.0" onAction="#switchToSettings" prefWidth="220.0" style="-fx-alignment: center-left;" styleClass="flat" text="Settings">
                            <graphic>
                               <FontIcon iconLiteral="mdmz-settings" iconSize="128" wrappingWidth="40.0" />
                            </graphic>
-                        </Button>
-                        <Button fx:id="logOutButton" graphicTextGap="30.0" minHeight="70.0" minWidth="220.0" mnemonicParsing="false" onAction="#logOut" style="-fx-alignment: center-left;" styleClass="flat" text="LogOut">
                            <font>
                               <Font name="Montserrat Medium" size="20.0" />
                            </font>
+                        </MFXButton>
+                        <MFXButton fx:id="logOutButton" minHeight="70.0" onAction="#logOut" prefWidth="220.0" style="-fx-alignment: center-left;" styleClass="flat" text="Log out">
                            <graphic>
                               <FontIcon iconLiteral="mdal-log_out" iconSize="128" wrappingWidth="40.0" />
                            </graphic>
-                        </Button>
+                           <font>
+                              <Font name="Montserrat Medium" size="20.0" />
+                           </font>
+                        </MFXButton>
                      </children>
                      <padding>
-                        <Insets top="60.0" />
+                        <Insets bottom="30.0" />
                      </padding>
                   </VBox>
                </children>

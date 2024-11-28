@@ -559,7 +559,7 @@ public class UserDBConnector extends DBConnector<User> {
         }
     }
 
-    public static List<User> getAdminData() {
+    public List<User> getAdminData() {
         String query = "SELECT name, email, phoneNumber FROM user WHERE role = 'admin'";
         List<User> users = new ArrayList<>();
 
