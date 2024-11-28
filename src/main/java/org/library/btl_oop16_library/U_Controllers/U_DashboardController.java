@@ -50,7 +50,6 @@
         @FXML
         private Card quoteCard;
 
-
         @FXML
         private GridPane cardGrid;
 
@@ -105,7 +104,7 @@
         private void cardSetup() throws IOException {
             List<Book> books = BookLoanDBConnector.getInstance().getTop3Books();
 
-            for (int i = 0; i< 3; i++) {    
+            for (int i = 0; i< books.size(); i++) {
                 Book book = books.get(i);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookItem.fxml"));
                 Parent bookItemRoot = loader.load();
