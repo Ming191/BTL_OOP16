@@ -1,5 +1,4 @@
 module org.library.btl_oop16_library {
-    requires javafx.fxml;
     requires org.xerial.sqlitejdbc;
     requires org.json;
     requires java.net.http;
@@ -8,10 +7,10 @@ module org.library.btl_oop16_library {
     requires com.google.zxing.javase;
     requires org.apache.poi.ooxml;
     requires atlantafx.base;
-    requires mfx.core;
     requires jakarta.mail;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.material2;
+    requires MaterialFX;
 
 
     opens org.library.btl_oop16_library.U_Controllers to javafx.fxml;

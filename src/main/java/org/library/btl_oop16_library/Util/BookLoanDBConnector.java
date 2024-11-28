@@ -118,7 +118,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                 status = rs.getString("status");
             }
             if (status.equals("returned")) {
-                ApplicationAlert.bookIsReturned();
+                //ApplicationAlert.bookIsReturned();
             } else {
                 String query = "SELECT bl.id, bl.userId, bl.bookId, bl.amount, u.name AS userName, b.title AS bookTitle " +
                         "FROM bookLoans bl " +
@@ -573,5 +573,41 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     public int getBookAvailable(String bookId) {
         String query1 = "select quantity from book where id = " + bookId;
         return DBConnector.getCount(query1);
+    }
+
+    public List<Book> getTop3Books() {
+        List<Book> books = new ArrayList<>();
+        String query = """
+                SELECT b.*, COUNT(bl.id) AS borrow_count
+                FROM book b
+                JOIN bookLoans bl ON b.id = bl.bookId
+                GROUP BY b.id, b.title
+                ORDER BY borrow_count DESC
+                LIMIT 3;
+                """;
+        try (Connection conn = getConnection();
+        PreparedStatement ps = conn.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int bookId = rs.getInt("id");
+                String title = rs.getString("title");
+                int borrowCount = rs.getInt("borrow_count");
+
+                String author = rs.getString("author");
+                String category = rs.getString("category");
+                String language = rs.getString("language");
+                int quantity = rs.getInt("quantity");
+                String imgUrl = rs.getString("imgUrl");
+                String rating = rs.getString("rating");
+                String description = rs.getString("description");
+                String previewURL = rs.getString("previewURL");
+
+                Book book = new Book(bookId,title,description,author,category,language,quantity,imgUrl,rating,previewURL);
+                books.add(book);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return books;
     }
 }

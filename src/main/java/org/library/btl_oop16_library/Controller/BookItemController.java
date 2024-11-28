@@ -72,7 +72,7 @@ public class BookItemController {
         button.setOnAction(event -> {
             modalPane.hide();
             modalPane = new ModalPane();
-            modalPane.setPrefSize(1280, 720);
+            modalPane.setPrefSize(1060, 720);
             mainPane.getChildren().add(modalPane);
             modalPane.setAlignment(Pos.CENTER);
         });
@@ -82,6 +82,6 @@ public class BookItemController {
     @FXML
     private void initialize() {
         modalPane = new ModalPane();
-        modalPane.setPrefSize(1280, 720);
+        modalPane.setPrefSize(1060, 720);
     }
 }

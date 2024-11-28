@@ -3,29 +3,46 @@ package org.library.btl_oop16_library;
 import atlantafx.base.theme.NordLight;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Test extends Application {
-    @Override
-    public void start(Stage stage) throws IOException {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserFXMLs/U_MainMenu.fxml"));
-        Parent root = loader.load();
-
-        Application.setUserAgentStylesheet(getClass().getResource("/css/nord-light.css").toExternalForm());
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(new NordLight().getUserAgentStylesheet());
-        stage.setScene(scene);
-        stage.setTitle("Tooi");
-        stage.show();
-    }
 
     public static void main(String[] args) {
         launch();
+    }
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        Scene scene = new Scene(createContent(), 820, 640);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private Region createContent() {
+        ImageView imageView = new ImageView();
+        Image image = new Image("https://www.pragmaticcoding.ca/assets/images/794.png", 700, 0, true, true, true);
+        image.progressProperty().addListener(observable -> {
+            System.out.println("Progress " + image.getProgress());
+            if (image.getProgress() == 1.0) {
+                if (!image.isError()) {
+                    imageView.setImage(image);
+                } else {
+                    System.out.println("Error");
+                }
+            }
+        });
+        VBox vBox = new VBox(imageView);
+        vBox.setPadding(new Insets(30));
+        return vBox;
     }
 }

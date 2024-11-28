@@ -61,7 +61,7 @@ public class MainMenuController {
     private Button menuSettings;
 
     private void initializeRoleBasedAccess() {
-        menuUser.setDisable(SessionManager.getInstance().getCurrentUser().getRole().equals("user"));
+        menuUser.setVisible(SessionManager.getInstance().getCurrentUser().getRole().equals("admin"));
     }
 
     private void startClock() {
@@ -145,7 +145,13 @@ public class MainMenuController {
     @FXML
     private void initialize() {
         startClock();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DashboardView.fxml"));
+        FXMLLoader loader = null;
+        if(SessionManager.getInstance().getCurrentUser().getRole().equals("admin")) {
+             loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DashboardView.fxml"));
+        } else {
+             loader = new FXMLLoader(getClass().getResource("/UserFXMLs/U_Dashboard.fxml"));
+        }
+
         Pane pane = null;
         try {
             pane = loader.load();
