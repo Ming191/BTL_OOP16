@@ -140,4 +140,7 @@ public class ApplicationAlert {
         showAlert("Weak Password!", "Please provide a stronger password!", ERROR_ICON, false);
     }
 
+    public static void bookIsReturned() {
+        showAlert("This book is returned", "Please choose another book!", ERROR_ICON, false);
+    }
 }

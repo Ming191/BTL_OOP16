@@ -109,9 +109,15 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     @Override
     public void deleteFromDB(int id) throws SQLException {
         try (Connection con = DBConnector.getConnection()) {
-            int isReturned = DBConnector.getCount(
-            "select count(*) from bookLoans where status = 'returned' and id = " + id);
-            if (isReturned != 0) {
+            String isReturned = "select * from bookLoans where id = ?";
+            PreparedStatement ps = con.prepareStatement(isReturned);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            String status = "";
+            if (rs.next()) {
+                status = rs.getString("status");
+            }
+            if (status.equals("returned")) {
                 ApplicationAlert.bookIsReturned();
             } else {
                 String query = "SELECT bl.id, bl.userId, bl.bookId, bl.amount, u.name AS userName, b.title AS bookTitle " +
@@ -119,9 +125,9 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                         "JOIN user u ON bl.userId = u.id " +
                         "JOIN book b ON bl.bookId = b.id " +
                         "WHERE bl.id = ?";
-                PreparedStatement ps = con.prepareStatement(query);
+                ps = con.prepareStatement(query);
                 ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
+                rs = ps.executeQuery();
 
                 String userName = null;
                 String bookTitle = null;
