@@ -188,8 +188,9 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     }
 
     @Override
-    public BookLoans searchById(int ID) {
+    public List<BookLoans> searchById(int ID) {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        List<BookLoans> bookLoans = new ArrayList<>();
         String query = "select bookLoans.id, user.name as borrower, book.title as bookTitle, amount, startDate, dueDate, status\n" +
                         "from bookLoans\n" +
                         "join book on bookLoans.bookId = book.id\n" +
@@ -208,7 +209,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                     Date startDate = df.parse(rs.getString("startDate"));
                     Date dueDate = df.parse(rs.getString("dueDate"));
                     String status = rs.getString("status");
-                    return new BookLoans(id, borrower, bookTitle, startDate, dueDate, amount, status);
+                    bookLoans.add(new BookLoans(id, borrower, bookTitle, startDate, dueDate, amount, status));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -216,11 +217,12 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return bookLoans;
     }
 
-    public BookLoans searchByIdForUser(int ID, User user) {
+    public List<BookLoans> searchByIdForUser(int ID, User user) {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        List<BookLoans> bookLoans = new ArrayList<>();
         String query = "select bookLoans.id, user.name as borrower, book.title as bookTitle, amount, startDate, dueDate, status\n" +
                 "from bookLoans\n" +
                 "join book on bookLoans.bookId = book.id\n" +
@@ -240,7 +242,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                     Date startDate = df.parse(rs.getString("startDate"));
                     Date dueDate = df.parse(rs.getString("dueDate"));
                     String status = rs.getString("status");
-                    return new BookLoans(id, borrower, bookTitle, startDate, dueDate, amount, status);
+                    bookLoans.add( new BookLoans(id, borrower, bookTitle, startDate, dueDate, amount, status));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -248,7 +250,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return bookLoans;
     }
 
     public List<BookLoans> searchByTitle(String title) {
@@ -319,7 +321,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     public List<BookLoans> searchBookFromDB(String searchText) {
         List<BookLoans> bookLoans = new ArrayList<>();
         if (searchText.matches("-?\\d+")) {
-            bookLoans.add(searchById(Integer.parseInt(searchText)));
+            bookLoans = searchById(Integer.parseInt(searchText));
         } else {
             bookLoans = searchByTitle(searchText);
         }
@@ -329,7 +331,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     public List<BookLoans> searchBookFromDBForUser(String searchText, User user) {
         List<BookLoans> bookLoans = new ArrayList<>();
         if (searchText.matches("-?\\d+")) {
-            bookLoans.add(searchByIdForUser(Integer.parseInt(searchText), user));
+            bookLoans = searchByIdForUser(Integer.parseInt(searchText), user);
         } else {
             bookLoans = searchByTitleForUser(searchText, user);
         }

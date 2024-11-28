@@ -76,6 +76,9 @@ public class ServicesViewController {
     @FXML
     private TextField searchField;
 
+    @FXML
+    private ChoiceBox<String> typeSearchBox;
+
     public void setCurrentUser() {
         if (!"admin".equalsIgnoreCase(SessionManager.getInstance().getCurrentUser().getRole())) {
             canLendBook = bookLoanDBConnector.canLendBook(SessionManager.getInstance().getCurrentUser(), 20);
@@ -187,6 +190,9 @@ public class ServicesViewController {
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
         formatDateColumn(startDateCol);
         formatDateColumn(dueDateCol);
+
+        typeSearchBox.getItems().addAll("id", "name", "bookTitle", "startDate", "dueDate", "status");
+        typeSearchBox.setValue("id");
 
         setCurrentUser();
     }

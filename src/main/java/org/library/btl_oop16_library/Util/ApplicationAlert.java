@@ -141,6 +141,6 @@ public class ApplicationAlert {
     }
 
     public static void bookIsReturned() {
-        showAlert("This book is returned", "Please choose another book!", ERROR_ICON, false);
+        showAlert("This book is returned!", "Please choose another.", ERROR_ICON, false);
     }
 }
