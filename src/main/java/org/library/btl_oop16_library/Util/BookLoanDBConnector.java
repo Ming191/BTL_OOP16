@@ -528,7 +528,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
             if (rs.next()) {
                 lendQuantity = rs.getInt("quantity");
             }
-            if (lendQuantity > 20) {
+            if (lendQuantity >= 20) {
                 return true;
             }
         } catch (SQLException e) {
