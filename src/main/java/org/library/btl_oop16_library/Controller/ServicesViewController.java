@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.BookLoans;
+import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Services.EmailAPI;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;

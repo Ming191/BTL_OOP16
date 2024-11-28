@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import atlantafx.base.controls.ModalPane;
-import javafx.application.Platform;
+import javafx.animation.PauseTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -23,11 +23,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookDBConnector;
 import org.library.btl_oop16_library.Util.SessionManager;
+import org.library.btl_oop16_library.Util.UserDBConnector;
 
 public class BookViewController {
     private static final BookDBConnector db = BookDBConnector.getInstance();
@@ -74,6 +76,11 @@ public class BookViewController {
 
     @FXML
     private Button importButton;
+
+    @FXML
+    private ChoiceBox<String> typeSearchBox;
+
+    private PauseTransition searchPause;
 
     private ModalPane modalPane;
 
@@ -155,6 +162,19 @@ public class BookViewController {
         });
 
         initializeRoleBasedAccess();
+
+        searchPause = new PauseTransition(Duration.millis(500));
+        searchPause.setOnFinished(event -> {
+            realTimeSearch(searchField.getText());
+        });
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchPause.stop();
+            searchPause.playFromStart();
+        });
+
+        typeSearchBox.getItems().addAll("id", "title", "author", "category");
+        typeSearchBox.setValue("title");
     }
 
     private void refresh() throws SQLException {
@@ -214,20 +234,23 @@ public class BookViewController {
         refresh();
     }
 
-    @FXML
-    private void searchBookOnClick(ActionEvent event) throws SQLException {
-        String searchText = searchField.getText();
-        List<Book> searchedBook = null;
-
-        if (!searchText.isEmpty()) {
-            searchedBook = db.searchBookFromDB(searchText);
-        }
+    private void realTimeSearch(String searchInput) {
         table.getItems().clear();
+        List<Book> booksByName = BookDBConnector.getInstance().searchByName(searchInput);
+        List<Book> booksById = new ArrayList<>();
+        try {
+            int id = Integer.parseInt(searchInput);
+            booksById = BookDBConnector.getInstance().searchById(id);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
 
-        if (searchedBook != null) {
-            table.getItems().addAll(searchedBook);
-        } else {
-            table.getItems().addAll(db.importFromDB());
+        if (!booksById.isEmpty()) {
+            table.getItems().addAll(booksById);
+        }
+
+        if (!booksByName.isEmpty()) {
+            table.getItems().addAll(booksByName);
         }
     }
 }

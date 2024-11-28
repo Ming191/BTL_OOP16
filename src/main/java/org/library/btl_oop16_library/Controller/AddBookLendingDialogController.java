@@ -57,7 +57,7 @@ public class AddBookLendingDialogController {
         System.out.println(bookLentAmount);
         System.out.println(bookAvailable);
         if (quantity > 20 || quantity + bookLentAmount > 20 || bookAvailable - quantity < 0) {
-            ApplicationAlert.canNotLendBook();
+            ApplicationAlert.overMaxQuantity();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBookLendingDialog.fxml"));
             try {
                 Parent root = loader.load();

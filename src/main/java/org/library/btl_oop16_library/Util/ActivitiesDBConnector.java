@@ -61,7 +61,7 @@ public class ActivitiesDBConnector extends DBConnector<Activity> {
     }
 
     @Override
-    public Activity searchById(int id) {
+    public List<Activity> searchById(int id) {
         return null;
     }
 

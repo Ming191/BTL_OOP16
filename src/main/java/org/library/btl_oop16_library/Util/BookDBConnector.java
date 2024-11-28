@@ -3,6 +3,7 @@ package org.library.btl_oop16_library.Util;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.library.btl_oop16_library.Model.Book;
+import org.library.btl_oop16_library.Model.User;
 
 import java.io.*;
 import java.sql.Connection;
@@ -142,43 +143,81 @@ public class BookDBConnector extends DBConnector<Book> {
     }
 
     @Override
-    public Book searchById(int id) {
-        return null;
+    public List<Book> searchById(int id) {
+        String query = "SELECT * FROM book  WHERE id = ? OR CAST(id AS TEXT) LIKE ?";
+        List<Book> bookList = new ArrayList<>();
+
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, id);
+            stmt.setString(2, id + "%");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getString("category"),
+                        rs.getString("language"),
+                        rs.getInt("quantity"),
+                        rs.getString("imgURL"),
+                        rs.getString("rating"),
+                        rs.getString("description"),
+                        rs.getString("previewURL")
+                );
+                bookList.add(book);
+            }
+
+            if (bookList.isEmpty()) {
+                System.out.println("No books found with ID " + id + " or IDs starting with " + id + ".");
+            } else {
+                System.out.println("Found " + bookList.size() + " books with ID " + id + " or IDs starting with " + id + ".");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to search books by ID: " + e.getMessage());
+        }
+        return bookList;
     }
 
-    public List<Book> searchBookFromDB(String name) throws SQLException {
-        String searchById = "SELECT * FROM " + TABLE_NAME + " WHERE id = ?";
-        String searchByTitle = "select * from " + TABLE_NAME + " WHERE title LIKE ?";
-        List<Book> books = new ArrayList<>();
+    public List<Book> searchByName(String name) {
+        String query = "SELECT * FROM book WHERE book.title LIKE ?";
+        List<Book> bookList = new ArrayList<>();
 
-        try (Connection conn = getConnection()) {
-            PreparedStatement ps = null;
-            if (name.matches("-?\\d+")) {
-                ps = conn.prepareStatement(searchById);
-                ps.setInt(1, Integer.parseInt(name));
-            } else {
-                ps = conn.prepareStatement(searchByTitle);
-                ps.setString(1, "%" + name + "%");
+        try (Connection connection = DBConnector.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, "%" + name + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getString("category"),
+                        rs.getString("language"),
+                        rs.getInt("quantity"),
+                        rs.getString("imgURL"),
+                        rs.getString("rating"),
+                        rs.getString("description"),
+                        rs.getString("previewURL")
+                );
+                bookList.add(book);
             }
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Book book = new Book(
-                            rs.getInt("id"),
-                            rs.getString("title"),
-                            rs.getString("description"),
-                            rs.getString("author"),
-                            rs.getString("category"),
-                            rs.getString("language"),
-                            rs.getInt("quantity"),
-                            rs.getString("imgURL"),
-                            rs.getString("rating"),
-                            rs.getString("previewURL")
-                    );
-                    books.add(book);
-                }
+
+            if (bookList.isEmpty()) {
+                System.out.println("No books found with name: " + name);
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to search books by name: " + e.getMessage());
         }
-        return books;
+
+        return bookList;
     }
 
     @Override

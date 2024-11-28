@@ -73,6 +73,13 @@ public class UpdateUserDialogForAdminController {
                     ApplicationAlert.wrongEmailPattern();
                     return;
                 }
+
+                String phoneNumber = phoneField.getText();
+                if (phoneNumber.length() != 10 || !phoneNumber.matches("\\d+") || !phoneNumber.startsWith("0")) {
+                    ApplicationAlert.invalidPhoneNumber();
+                    return;
+                }
+
                 selectedUser.setName(newName);
                 selectedUser.setPhoneNumber(newPhone);
                 selectedUser.setAddress(newAddress);

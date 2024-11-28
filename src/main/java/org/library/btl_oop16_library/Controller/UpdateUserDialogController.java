@@ -64,6 +64,12 @@ public class UpdateUserDialogController {
             return;
         }
 
+        String phoneNumber = phoneField.getText();
+        if (phoneNumber.length() != 10 || !phoneNumber.matches("\\d+") || !phoneNumber.startsWith("0")) {
+            ApplicationAlert.invalidPhoneNumber();
+            return;
+        }
+
         if (!passwordCheck.equals(SessionManager.getInstance().getCurrentUser().getPassword())) {
             ApplicationAlert.wrongPassword();
             return;
