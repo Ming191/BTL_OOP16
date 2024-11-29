@@ -2,20 +2,18 @@ package org.library.btl_oop16_library.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
+import org.library.btl_oop16_library.Util.ContainerSwitcher;
 import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
 import java.io.IOException;
 
+import static org.library.btl_oop16_library.Util.GlobalVariables.SETTINGS_PATH;
 import static org.library.btl_oop16_library.Util.GlobalVariables.emailRegex;
 
 public class UpdateUserDialogController {
@@ -91,14 +89,7 @@ public class UpdateUserDialogController {
 
     @FXML
     private void onCancelButtonClick() throws IOException {
-        Scene scene = updateInfoBox.getScene();
-        VBox settings = (VBox) scene.lookup("#settings");
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
-        VBox box = loader.load();
-
-        settings.getChildren().setAll(box);
-
+        ContainerSwitcher.switchView(updateInfoBox, SETTINGS_PATH, "settings");
     }
 
 }

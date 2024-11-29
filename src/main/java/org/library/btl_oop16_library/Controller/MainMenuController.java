@@ -155,8 +155,7 @@ public class MainMenuController {
     public void settingsPaneSetup() {
         VBox settings = new VBox();
         settings.setId("settings");
-        settings.setAlignment(Pos.TOP_CENTER);
-        settings.setMinSize(400, 400);
+        settings.setAlignment(Pos.CENTER);
         settings.setMaxSize(400, 500);
         settings.setStyle("-fx-background-color: -color-bg-default;");
 

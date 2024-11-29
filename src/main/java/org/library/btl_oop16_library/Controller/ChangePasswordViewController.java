@@ -10,11 +10,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
+import org.library.btl_oop16_library.Util.ContainerSwitcher;
 import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 import org.library.btl_oop16_library.Model.User;
 
 import java.io.IOException;
+
+import static org.library.btl_oop16_library.Util.GlobalVariables.CHANGE_PASSWORD_PATH;
+import static org.library.btl_oop16_library.Util.GlobalVariables.SETTINGS_PATH;
 
 public class ChangePasswordViewController {
     @FXML
@@ -72,12 +76,6 @@ public class ChangePasswordViewController {
 
     @FXML
     private void cancelChange (ActionEvent event) throws IOException {
-        Scene scene = changePasswordBox.getScene();
-        VBox settings = (VBox) scene.lookup("#settings");
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
-        VBox box = loader.load();
-
-        settings.getChildren().setAll(box);
+        ContainerSwitcher.switchView(changePasswordBox, SETTINGS_PATH, "settings");
     }
 }

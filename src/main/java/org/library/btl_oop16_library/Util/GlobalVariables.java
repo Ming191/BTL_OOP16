@@ -8,4 +8,7 @@ public class GlobalVariables {
     public static final String LIGHT_THEME = String.valueOf(GlobalVariables.class.getResource("/css/nord-light.css"));
     public static final String DARK_THEME = String.valueOf(GlobalVariables.class.getResource("/css/nord-dark.css"));
     public static final String MAINMENU_PATH = "/org/library/btl_oop16_library/view/MainMenu.fxml";
+    public static final String SETTINGS_PATH = "/org/library/btl_oop16_library/view/Settings.fxml";
+    public static final String CHANGE_PASSWORD_PATH = "/org/library/btl_oop16_library/view/ChangePasswordView.fxml";
+    public static final String UPDATE_INFO_PATH = "/org/library/btl_oop16_library/view/UpdateInforForUser.fxml";
 }

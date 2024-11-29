@@ -15,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Util.ContainerSwitcher;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -39,27 +40,12 @@ public class SettingsController {
 
     @FXML
     private void viewChangePasswordView(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/ChangePasswordView.fxml"));
-        VBox box = loader.load();
-        Scene scene = settingsBox.getScene();
-
-        VBox settings = (VBox) scene.lookup("#settings");
-        settings.getChildren().setAll(box);
-
-//        controller.setMainPane(mainPane);
-//        mainPane.setCenter(pane);
+        ContainerSwitcher.switchView(settingsBox, CHANGE_PASSWORD_PATH, "settings");
     }
 
     @FXML
     private void viewUpdateInformationView(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/UpdateInforForUser.fxml"));
-        VBox box = loader.load();
-        Scene scene = settingsBox.getScene();
-
-        VBox settings = (VBox) scene.lookup("#settings");
-        settings.getChildren().setAll(box);
-//        updateUserDialogController.setMainPane(mainPane);
-//        mainPane.setCenter(pane);
+        ContainerSwitcher.switchView(settingsBox, UPDATE_INFO_PATH, "settings");
     }
 
     @FXML
