@@ -1,6 +1,11 @@
 package org.library.btl_oop16_library.Controller;
 
 import atlantafx.base.theme.Styles;
+import eu.iamgio.animated.binding.Animated;
+import eu.iamgio.animated.binding.property.animation.AnimationProperty;
+import eu.iamgio.animated.common.Curve;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,8 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
@@ -22,11 +27,10 @@ import org.library.btl_oop16_library.Util.UserDBConnector;
 import java.io.IOException;
 import java.util.Objects;
 
+import static org.library.btl_oop16_library.Util.GlobalVariables.MAINMENU_PATH;
+
 public class LoginController {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     @FXML
     private TextField usernameField;
 
@@ -34,7 +38,7 @@ public class LoginController {
     private TextField passwordField;
 
     @FXML
-    private BorderPane rootPane;
+    private AnchorPane rootPane;
 
     @FXML
     private Button signInButton;
@@ -43,7 +47,7 @@ public class LoginController {
     private Button signUpButton;
 
     @FXML
-    private AnchorPane mainPane;
+    private BorderPane mainPane;
 
     @FXML
     public void signInOnClick(ActionEvent event) throws IOException {
@@ -54,17 +58,8 @@ public class LoginController {
         } else {
             User user = UserDBConnector.getInstance().getUser(usernameField.getText(), passwordField.getText());
             if(user != null) {
-                try {
-                    SessionManager.getInstance().setCurrentUser(user);
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/MainMenu.fxml"));
-                    Parent root = loader.load();
-                    Scene mainMenuScene = new Scene(root);
-                    Stage stage = (Stage) signInButton.getScene().getWindow();
-                    Transition.fadeTransition(stage, signInButton.getScene(), mainMenuScene);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                SessionManager.getInstance().setCurrentUser(user);
+                Transition.switchScene(rootPane,MAINMENU_PATH);
 
             } else {
                 ApplicationAlert.wrongUsernameOrPassword();

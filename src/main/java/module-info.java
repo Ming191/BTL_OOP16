@@ -12,6 +12,7 @@ module org.library.btl_oop16_library {
     requires org.kordamp.ikonli.material2;
     requires MaterialFX;
     requires eu.iamgio.animated;
+    requires AnimateFX;
 
     opens org.library.btl_oop16_library.U_Controllers to javafx.fxml;
     exports org.library.btl_oop16_library.U_Controllers;
