@@ -37,7 +37,6 @@ public class SearchBookDialogController {
 
     private Book selectedBook;
 
-
     @FXML
     private void onSearchButtonClick(ActionEvent event) throws IOException {
         String searchText = searchField.getText();
@@ -56,7 +55,6 @@ public class SearchBookDialogController {
         controller.setBooks(books);
         mainPane.setCenter(root);
     }
-
 
     @FXML
     private void initialize() {

@@ -3,10 +3,12 @@ package org.library.btl_oop16_library.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.UserDBConnector;
@@ -27,11 +29,8 @@ public class ChangePasswordViewController {
     @FXML
     private TextField newPasswordField;
 
-    private BorderPane mainPane;
-
-    public void setMainPane(BorderPane mainPane) {
-        this.mainPane = mainPane;
-    }
+    @FXML
+    private VBox changePasswordBox;
 
     @FXML
     private void confirmPasswordChange (ActionEvent event) {
@@ -73,12 +72,12 @@ public class ChangePasswordViewController {
 
     @FXML
     private void cancelChange (ActionEvent event) throws IOException {
-        if (mainPane != null) {
-            mainPane.setCenter(null);
-            mainPane.setTop(null);
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
-            Pane pane = (Pane) fxmlLoader.load();
-            mainPane.setCenter(pane);
-        }
+        Scene scene = changePasswordBox.getScene();
+        VBox settings = (VBox) scene.lookup("#settings");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
+        VBox box = loader.load();
+
+        settings.getChildren().setAll(box);
     }
 }

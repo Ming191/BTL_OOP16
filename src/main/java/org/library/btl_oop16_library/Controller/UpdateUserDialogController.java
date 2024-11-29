@@ -3,11 +3,13 @@ package org.library.btl_oop16_library.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.UserDBConnector;
@@ -39,12 +41,8 @@ public class UpdateUserDialogController {
     @FXML
     private Button cancelButton;
 
-
-    private BorderPane mainPane;
-
-    public void setMainPane(BorderPane mainPane) {
-        this.mainPane = mainPane;
-    }
+    @FXML
+    VBox updateInfoBox;
 
     @FXML
     private void updateInfo(ActionEvent event) {
@@ -80,7 +78,6 @@ public class UpdateUserDialogController {
         SessionManager.getInstance().getCurrentUser().setAddress(newAddress);
         SessionManager.getInstance().getCurrentUser().setPhoneNumber(newPhone);
 
-
         boolean result = ApplicationAlert.areYouSureAboutThat();
         if (result) {
             UserDBConnector.updateUserInfo(SessionManager.getInstance().getCurrentUser());
@@ -94,13 +91,14 @@ public class UpdateUserDialogController {
 
     @FXML
     private void onCancelButtonClick() throws IOException {
-        if (mainPane != null) {
-            mainPane.setCenter(null);
-            mainPane.setTop(null);
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
-            Pane pane = (Pane) fxmlLoader.load();
-            mainPane.setCenter(pane);
-        }
+        Scene scene = updateInfoBox.getScene();
+        VBox settings = (VBox) scene.lookup("#settings");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
+        VBox box = loader.load();
+
+        settings.getChildren().setAll(box);
+
     }
 
 }

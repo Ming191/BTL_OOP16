@@ -6,22 +6,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import atlantafx.base.controls.ModalPane;
+import atlantafx.base.theme.Styles;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2OutlinedAL;
+import org.library.btl_oop16_library.App;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.Transition;
@@ -67,6 +71,9 @@ public class MainMenuController {
 
     @FXML
     private Button menuSettings;
+
+    @FXML
+    private ModalPane settingsPane;
 
     private void initializeRoleBasedAccess() {
         menuUser.setVisible(SessionManager.getInstance().getCurrentUser().getRole().equals("admin"));
@@ -134,7 +141,6 @@ public class MainMenuController {
         return;
     }
 
-    @FXML
     public void switchToSettings(ActionEvent event) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
@@ -146,14 +152,38 @@ public class MainMenuController {
         }
     }
 
+    public void settingsPaneSetup() {
+        VBox settings = new VBox();
+        settings.setId("settings");
+        settings.setAlignment(Pos.TOP_CENTER);
+        settings.setMinSize(400, 400);
+        settings.setMaxSize(400, 500);
+        settings.setStyle("-fx-background-color: -color-bg-default;");
+
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
+        VBox target = null;
+        try {
+            target = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        settings.getChildren().setAll(target);
+
+        rootPane.getChildren().addAll(settingsPane);
+
+        menuSettings.setOnAction(actionEvent -> {
+            settingsPane.show(settings);
+        });
+    }
+
     @FXML
     private void initialize() {
         startClock();
         FXMLLoader loader = null;
-        if(SessionManager.getInstance().getCurrentUser().getRole().equals("admin")) {
-             loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DashboardView.fxml"));
+        if (SessionManager.getInstance().getCurrentUser().getRole().equals("admin")) {
+            loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DashboardView.fxml"));
         } else {
-             loader = new FXMLLoader(getClass().getResource("/UserFXMLs/U_Dashboard.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/UserFXMLs/U_Dashboard.fxml"));
         }
 
         Pane pane = null;
@@ -162,7 +192,17 @@ public class MainMenuController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         mainPane.setCenter(pane);
         initializeRoleBasedAccess();
+        settingsPane = new ModalPane();
+        settingsPane.setPrefSize(1280, 720);
+        settingsPane.displayProperty().addListener((obs, old, val) -> {
+            if (!val) {
+                settingsPane.setAlignment(Pos.CENTER);
+                settingsPane.usePredefinedTransitionFactories(null);
+            }
+        });
+        settingsPaneSetup();
     }
 }
