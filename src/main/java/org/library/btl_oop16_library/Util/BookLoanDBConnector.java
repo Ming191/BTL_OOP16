@@ -5,6 +5,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.BookLoans;
 import org.library.btl_oop16_library.Model.User;
+import org.sqlite.core.DB;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -118,7 +119,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                 status = rs.getString("status");
             }
             if (status.equals("returned")) {
-                //ApplicationAlert.bookIsReturned();
+                ApplicationAlert.bookIsReturned();
             } else {
                 String query = "SELECT bl.id, bl.userId, bl.bookId, bl.amount, u.name AS userName, b.title AS bookTitle " +
                         "FROM bookLoans bl " +
@@ -153,12 +154,52 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                 ps.executeUpdate();
 
                 if (userName != null && bookTitle != null) {
-                    ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+                    ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
                     activitiesDB.logActivity(userName + " returned '" + bookTitle + "'");
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void changeToReturned(int id) {
+        String query = "update bookLoans set status = 'returned' where id = " + id;
+        try (Connection con = DBConnector.getConnection()){
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeToNotReturned(int id) {
+        String query = "update bookLoans set status = 'not returned' where id = " + id;
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeToCancelled(int id) {
+        String query = "update bookLoans set status = 'cancelled' where id = " + id;
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateStatus(int id, String status) {
+        if (status.equals("Returned")) {
+            changeToReturned(id);
+        } else if (status.equals("Not returned")) {
+            changeToNotReturned(id);
+        } else if (status.equals("Cancelled")) {
+            changeToCancelled(id);
         }
     }
 
@@ -329,7 +370,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     }
 
     public List<BookLoans> searchBookFromDBForUser(String searchText, User user) {
-        List<BookLoans> bookLoans = new ArrayList<>();
+        List<BookLoans> bookLoans;
         if (searchText.matches("-?\\d+")) {
             bookLoans = searchByIdForUser(Integer.parseInt(searchText), user);
         } else {

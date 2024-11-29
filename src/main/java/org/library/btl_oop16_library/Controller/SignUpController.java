@@ -94,7 +94,7 @@ public class SignUpController {
 
             UserDBConnector.getInstance().addToDB(newUser);
 
-            ActivitiesDBConnector activitiesDBConnector = new ActivitiesDBConnector();
+            ActivitiesDBConnector activitiesDBConnector = ActivitiesDBConnector.getInstance();
             activitiesDBConnector.logActivity(String.format("New user signed up: %s", newUser.getName()));
 
             ApplicationAlert.signUpSuccess();

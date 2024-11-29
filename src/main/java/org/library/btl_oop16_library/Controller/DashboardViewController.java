@@ -105,7 +105,7 @@ public class DashboardViewController {
 
     private void loadActivities() {
         activityList = FXCollections.observableArrayList();
-        ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+        ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         try {
@@ -135,7 +135,7 @@ public class DashboardViewController {
         LocalDateTime startTimestamp = startDate.atStartOfDay();
         LocalDateTime endTimestamp = endDate.atTime(23, 59, 59);
 
-        ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+        ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
         try {
             List<Activity> activities = activitiesDB.searchByTimeRange(startTimestamp, endTimestamp);
             activityList.clear();

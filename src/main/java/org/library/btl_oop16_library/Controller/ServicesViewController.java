@@ -1,6 +1,7 @@
 package org.library.btl_oop16_library.Controller;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,6 +31,7 @@ public class ServicesViewController {
     private final BookLoanDBConnector bookLoanDBConnector = BookLoanDBConnector.getInstance();
     boolean canLendBook = true;
     boolean canPreorder = true;
+    BookLoans selectedBookLoan = null;
 
     @FXML
     private Button mailButton;
@@ -76,6 +78,21 @@ public class ServicesViewController {
     @FXML
     private ChoiceBox<String> typeSearchBox;
 
+    @FXML
+    private MenuButton updateStatusMenu;
+
+    @FXML
+    private MenuItem notReturnedItem;
+
+    @FXML
+    private MenuItem preorderItem;
+
+    @FXML
+    private MenuItem returnedItem;
+
+    @FXML
+    private MenuItem cancelItem;
+
     public void setCurrentUser() {
         if (!"admin".equalsIgnoreCase(SessionManager.getInstance().getCurrentUser().getRole())) {
             canLendBook = bookLoanDBConnector.canLendBook(SessionManager.getInstance().getCurrentUser(), 20);
@@ -118,23 +135,6 @@ public class ServicesViewController {
     }
 
     @FXML
-    private void returnBookButtonOnClick(ActionEvent event) throws IOException {
-        Stage bookReturnStage = new Stage();
-        bookReturnStage.setResizable(false);
-        bookReturnStage.initModality(Modality.APPLICATION_MODAL);
-        bookReturnStage.setTitle("Return Book");
-        System.out.println("Return Book button clicked.");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/ReturnBookLoansDialog.fxml"));
-        Parent root = loader.load();
-        bookReturnStage.setScene(new Scene(root));
-        Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
-        bookReturnStage.getIcons().add(favicon);
-        bookReturnStage.showAndWait();
-
-        refreshHistory();
-    }
-
-    @FXML
     private void searchButtonOnClick(ActionEvent event) throws IOException {
         String searchText = searchField.getText();
         List<BookLoans>  searchedBook = null;
@@ -170,6 +170,20 @@ public class ServicesViewController {
         typeSearchBox.setValue("id");
 
         setCurrentUser();
+    }
+
+    @FXML
+    private void handleOption(ActionEvent event) {
+        selectedBookLoan = table.getSelectionModel().getSelectedItem();
+        if (selectedBookLoan == null) {
+            return;
+        }
+        System.out.println(selectedBookLoan.getBookTitle());
+        MenuItem clickedItem = (MenuItem) event.getSource();
+        String option = clickedItem.getText();
+        int id = selectedBookLoan.getId();
+        bookLoanDBConnector.updateStatus(id, option);
+        refreshHistory();
     }
 
     private void initializeBaseOnUser() throws SQLException {

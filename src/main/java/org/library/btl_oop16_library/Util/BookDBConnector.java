@@ -86,7 +86,7 @@ public class BookDBConnector extends DBConnector<Book> {
         }
 
         if (bookName != null) {
-            ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+            ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
             activitiesDB.logActivity("Deleted book: '" + bookName + "'.");
         }
         else {
@@ -118,7 +118,7 @@ public class BookDBConnector extends DBConnector<Book> {
                     psUpdate.executeUpdate();
                 }
 
-                ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+                ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
                 activitiesDB.logActivity("Added " + newQuantity + " copies of book: '" + item.getTitle() + "'.");
             } else {
                 try (PreparedStatement psInsert = conn.prepareStatement(insertQuery)) {
@@ -134,7 +134,7 @@ public class BookDBConnector extends DBConnector<Book> {
                     psInsert.executeUpdate();
                 }
 
-                ActivitiesDBConnector activitiesDB = new ActivitiesDBConnector();
+                ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
                 activitiesDB.logActivity("Added " + item.getAvailable() + " copies of new book: '" + item.getTitle() + "'.");
             }
         } catch (SQLException e) {

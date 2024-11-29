@@ -14,7 +14,7 @@ public class ActivitiesDBConnector extends DBConnector<Activity> {
 
     private static ActivitiesDBConnector instance;
     private static final Object lock = new Object();
-    public ActivitiesDBConnector() {
+    private ActivitiesDBConnector() {
 
     }
 
