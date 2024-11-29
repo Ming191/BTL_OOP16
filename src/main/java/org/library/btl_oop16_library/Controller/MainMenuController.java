@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -25,7 +26,15 @@ import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.Transition;
 
+import static org.library.btl_oop16_library.Util.GlobalVariables.*;
+
 public class MainMenuController {
+    @FXML
+    public Pane themePane;
+
+    @FXML
+    private AnchorPane rootPane;
+
     @FXML
     private ResourceBundle resources;
 
@@ -156,6 +165,4 @@ public class MainMenuController {
         mainPane.setCenter(pane);
         initializeRoleBasedAccess();
     }
-
-
 }

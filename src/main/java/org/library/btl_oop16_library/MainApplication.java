@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+import static org.library.btl_oop16_library.Util.GlobalVariables.LIGHT_THEME;
+
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
@@ -18,7 +20,7 @@ public class MainApplication extends Application {
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        Application.setUserAgentStylesheet(getClass().getResource("/css/nord-light.css").toExternalForm());
+        Application.setUserAgentStylesheet(LIGHT_THEME);
         Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
         stage.getIcons().add(favicon);
 

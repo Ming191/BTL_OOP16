@@ -32,9 +32,7 @@ public class BookItemController {
     public void setCard(Book book, AnchorPane mainPane, boolean showAddBtn) {
         card.setPrefWidth(180);
         ImageView imageView = new ImageView();
-        ImageLoader.loadImage(imageView,book.getImgURL());
-        imageView.setFitWidth(120);
-        imageView.setPreserveRatio(true);
+        ImageLoader.loadImage(imageView,book.getImgURL(), 120);
 
         Rectangle clip = new Rectangle(120, 200);
         imageView.setClip(clip);

@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import org.library.btl_oop16_library.Model.User;
@@ -16,9 +17,12 @@ import org.library.btl_oop16_library.Model.User;
 import java.io.IOException;
 import java.util.Objects;
 
-import static org.library.btl_oop16_library.Util.GlobalVariables.isLightTheme;
+import static org.library.btl_oop16_library.Util.GlobalVariables.*;
 
 public class SettingsController {
+    @FXML
+    public AnchorPane settingsPane;
+
     @FXML
     private Button changePasswordButton;
 
@@ -54,16 +58,16 @@ public class SettingsController {
 
     @FXML
     private void changeTheme(ActionEvent event) {
-        if(isLightTheme) {
-            System.out.printf("changed to dark theme\n");
-            isLightTheme = false;
-            Application.setUserAgentStylesheet(Objects.requireNonNull(getClass().getResource("/css/nord-dark.css")).toExternalForm());
-        }
-        else {
-            System.out.printf("changed to light theme\n");
-            isLightTheme = true;
-            Application.setUserAgentStylesheet(Objects.requireNonNull(getClass().getResource("/css/nord-light.css")).toExternalForm());
-        }
+        Scene scene = settingsPane.getScene();
+        AnimatedThemeSwitcher themeSwitcher = new AnimatedThemeSwitcher(scene, new CircleClipOut());
+        themeSwitcher.init();
+        isLightTheme = !isLightTheme;
+        String styleSheetPath = (isLightTheme ? LIGHT_THEME : DARK_THEME);
+        Application.setUserAgentStylesheet(styleSheetPath);
     }
 
+    @FXML
+    void initialize() {
+
+    }
 }

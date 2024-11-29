@@ -74,7 +74,7 @@ public class BookDetailsController {
         author.setText(book.getAuthor());
         title.setText(book.getTitle());
         rating.setText(book.getRating());
-        ImageLoader.loadImage(imgHolder, book.getImgURL());
+        ImageLoader.loadImage(imgHolder, book.getImgURL(), 200);
         qrHolder.setImage(ZXingAPI.toQRCode(book, 100, 100));
 
         Hyperlink seeMoreLink = new Hyperlink("See More");
