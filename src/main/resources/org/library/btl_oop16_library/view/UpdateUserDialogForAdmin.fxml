@@ -9,12 +9,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.UpdateUserDialogForAdminController">
+<AnchorPane prefHeight="271.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.UpdateUserDialogForAdminController">
    <opaqueInsets>
       <Insets top="10.0" />
    </opaqueInsets>
    <children>
-      <VBox layoutY="-6.0">
+      <VBox layoutY="-6.0" prefHeight="262.0" prefWidth="451.0">
          <children>
             <TextField fx:id="nameField" layoutX="10.0" layoutY="10.0" maxWidth="385.0" prefHeight="25.0" promptText="Name">
                <VBox.margin>
@@ -55,14 +55,20 @@
             </ChoiceBox>
             <HBox spacing="30.0">
                <children>
-                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="30.0" prefWidth="110.0" text="Cancel">
-                     <font>
-                        <Font name="Montserrat Regular" size="14.0" />
-                     </font></Button>
                   <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="30.0" prefWidth="110.0" text="Confirm ">
                      <font>
                         <Font name="Montserrat Regular" size="14.0" />
-                     </font></Button>
+                     </font>
+                     <HBox.margin>
+                        <Insets left="72.0" top="15.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="30.0" prefWidth="110.0" text="Cancel">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin></Button>
                </children>
                <VBox.margin>
                   <Insets bottom="30.0" left="30.0" right="30.0" top="15.0" />

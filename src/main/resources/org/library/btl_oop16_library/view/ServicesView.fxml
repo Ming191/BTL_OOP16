@@ -45,7 +45,7 @@
                                     <MenuItem fx:id="cancelItem" mnemonicParsing="false" onAction="#handleOption" text="Cancelled" />
                                 </items>
                               </MenuButton>
-                              <TextField fx:id="searchField" onAction="#searchButtonOnClick" promptText="Search..." />
+                              <TextField fx:id="searchField" onAction="#searchButtonOnClick" promptText="Type here to search" />
                               <ChoiceBox fx:id="typeSearchBox" prefHeight="26.0" prefWidth="86.0" />
                            </children></HBox>
                         <TableView fx:id="table" prefHeight="657.0">

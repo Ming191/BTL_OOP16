@@ -69,7 +69,7 @@
                               </MFXButton>
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="220.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="128.0" prefWidth="220.0">
                            <children>
                               <MFXButton fx:id="menuSettings" minHeight="70.0" prefWidth="220.0" style="-fx-alignment: center-left;" styleClass="flat" text="Settings">
                                  <graphic>
@@ -89,7 +89,7 @@
                               </MFXButton>
                            </children>
                            <padding>
-                              <Insets bottom="30.0" />
+                              <Insets top="35.0" />
                            </padding>
                         </VBox>
                      </children>
