@@ -118,4 +118,9 @@ public class CommentsDBConnector extends DBConnector<Comment> {
     public void importFromExcel(String filename) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public List<Comment> searchByAttributes(String searchInput, String type) {
+        return null;
+    }
 }

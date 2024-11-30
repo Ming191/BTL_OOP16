@@ -39,6 +39,8 @@ public abstract class DBConnector<T> {
 
     public abstract List<T> searchById(int id);
 
+    public abstract List<T> searchByAttributes(String searchInput, String type);
+
     public abstract void exportToExcel();
 
     public abstract void importFromExcel(String filename);

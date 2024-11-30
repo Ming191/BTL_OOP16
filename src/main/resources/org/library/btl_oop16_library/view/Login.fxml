@@ -23,7 +23,7 @@
                <children>
                   <ImageView fitHeight="330.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../img/logo_2min.png" />
+                        <Image url="@../../../../img/logo.png" />
                      </image>
                   </ImageView>
                   <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="-head" text="WELCOME TO 2MIN LIBRARY BABE!">

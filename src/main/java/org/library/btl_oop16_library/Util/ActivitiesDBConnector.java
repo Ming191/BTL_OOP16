@@ -103,6 +103,11 @@ public class ActivitiesDBConnector extends DBConnector<Activity> {
 
     }
 
+    @Override
+    public List<Activity> searchByAttributes(String searchInput, String type) {
+        return null;
+    }
+
     public void logActivity(String description) {
         String query = "INSERT INTO activities (description) VALUES (?)";
 

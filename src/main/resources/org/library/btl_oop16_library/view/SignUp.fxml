@@ -19,7 +19,7 @@
          <children>
             <ImageView fitHeight="190.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../img/logo_2min.png" />
+                  <Image url="@../../../../img/logo.png" />
                </image>
             </ImageView>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="GET YOURSELF AN ACCOUNT" textAlignment="CENTER">

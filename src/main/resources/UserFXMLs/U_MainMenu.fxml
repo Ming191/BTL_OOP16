@@ -17,7 +17,7 @@
          <children>
             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/logo_2min.png" />
+                  <Image url="@../img/logo.png" />
                </image></ImageView>
             <MFXButton fx:id="dashboardBtn" contentDisplay="GRAPHIC_ONLY" prefHeight="60.0" prefWidth="100.0" rippleColor="#bdbdbd">
                <graphic>

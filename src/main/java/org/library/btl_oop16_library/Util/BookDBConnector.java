@@ -186,13 +186,13 @@ public class BookDBConnector extends DBConnector<Book> {
         return bookList;
     }
 
-    public List<Book> searchByName(String name) {
-        String query = "SELECT * FROM book WHERE book.title LIKE ?";
+    public List<Book> searchByAttributes(String value, String type) {
+        String query = "SELECT * FROM book WHERE book." + type + " LIKE ?";
         List<Book> bookList = new ArrayList<>();
 
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, "%" + name + "%");
+            stmt.setString(1, "%" + value + "%");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -212,88 +212,17 @@ public class BookDBConnector extends DBConnector<Book> {
             }
 
             if (bookList.isEmpty()) {
-                System.out.println("No books found with name: " + name);
+                System.out.println("No books found with " + type + ": " + value);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Failed to search books by name: " + e.getMessage());
+            throw new RuntimeException("Failed to search books by " + type + ": " + e.getMessage());
         }
 
         return bookList;
     }
 
-    public List<Book> searchByAuthor(String author) {
-        String query = "SELECT * FROM book WHERE book.author LIKE ?";
-        List<Book> bookList = new ArrayList<>();
-
-        try (Connection connection = DBConnector.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, "%" + author + "%");
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Book book = new Book(
-                        rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("author"),
-                        rs.getString("category"),
-                        rs.getString("language"),
-                        rs.getInt("quantity"),
-                        rs.getString("imgURL"),
-                        rs.getString("rating"),
-                        rs.getString("description"),
-                        rs.getString("previewURL")
-                );
-                bookList.add(book);
-            }
-
-            if (bookList.isEmpty()) {
-                System.out.println("No books found");
-            }
-
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-
-        return bookList;
-    }
-
-    public List<Book> searchByCategory(String category) {
-        String query = "SELECT * FROM book WHERE book.category LIKE ?";
-        List<Book> bookList = new ArrayList<>();
-
-        try (Connection connection = DBConnector.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, "%" + category + "%");
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Book book = new Book(
-                        rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("author"),
-                        rs.getString("category"),
-                        rs.getString("language"),
-                        rs.getInt("quantity"),
-                        rs.getString("imgURL"),
-                        rs.getString("rating"),
-                        rs.getString("description"),
-                        rs.getString("previewURL")
-                );
-                bookList.add(book);
-            }
-
-            if (bookList.isEmpty()) {
-                System.out.println("No books found");
-            }
-
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-
-        return bookList;
-    }
 
     @Override
     public void exportToExcel() {

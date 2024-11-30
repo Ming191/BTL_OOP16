@@ -1,6 +1,5 @@
 package org.library.btl_oop16_library;
 
-import atlantafx.base.theme.NordLight;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +20,7 @@ public class MainApplication extends Application {
 
         Scene scene = new Scene(root);
         Application.setUserAgentStylesheet(LIGHT_THEME);
-        Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+        Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm())   ;
         stage.getIcons().add(favicon);
 
         stage.setTitle("2Min Library!");

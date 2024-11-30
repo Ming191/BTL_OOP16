@@ -384,6 +384,10 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         return bookLoans;
     }
 
+    public List<BookLoans> searchByAttributes(String searchInput, String type) {
+        return null;
+    }
+
     public List<BookLoans> searchBookFromDBForUser(String searchText, User user) {
         List<BookLoans> bookLoans;
         if (searchText.matches("-?\\d+")) {

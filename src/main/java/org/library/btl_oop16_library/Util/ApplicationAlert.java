@@ -14,7 +14,7 @@ public class ApplicationAlert {
     private static final String ERROR_ICON = "mdal-error";
     private static final String INFORMATION_ICON = "mdal-info";
     private static final String CONFIRMATION_ICON = "mdal-check_box";
-    private static final String FAVICON = "/img/logo_2min.png";
+    private static final String FAVICON = "/img/logo.png";
 
     public static boolean showAlert(String title, String message, String iconPath, boolean showCancelButton) {
         try {

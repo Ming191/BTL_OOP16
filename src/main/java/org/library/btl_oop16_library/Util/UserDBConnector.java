@@ -334,13 +334,14 @@ public class UserDBConnector extends DBConnector<User> {
         }
     }
 
-    public List<User> searchByName(String name) {
-        String query = "SELECT * FROM user WHERE user.name LIKE ?";
+    @Override
+    public List<User> searchByAttributes(String searchInput, String type) {
+        String query = "SELECT * FROM user WHERE user." + type + " LIKE ?";
         List<User> users = new ArrayList<>();
 
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, "%" + name + "%");
+            stmt.setString(1, "%" + searchInput + "%");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -358,86 +359,17 @@ public class UserDBConnector extends DBConnector<User> {
             }
 
             if (users.isEmpty()) {
-                System.out.println("No users found with name: " + name);
+                System.out.println("No users found with " + type + ": " + searchInput);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Failed to search users by name: " + e.getMessage());
+            throw new RuntimeException("Failed to search users by " + type + ": " + e.getMessage());
         }
 
         return users;
     }
 
-    public List<User> searchByPhoneNumber(String phoneNumber) {
-        String query = "SELECT * FROM user WHERE user.phoneNumber LIKE ?";
-        List<User> users = new ArrayList<>();
-
-        try (Connection connection = DBConnector.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, "%" + phoneNumber + "%");
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                User user = new User(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("address"),
-                        rs.getString("userName"),
-                        rs.getString("password"),
-                        rs.getString("role")
-                );
-                users.add(user);
-            }
-
-            if (users.isEmpty()) {
-                System.out.println("No users found with phoneNumber: " + phoneNumber);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to search users by phoneNumber: " + e.getMessage());
-        }
-
-        return users;
-    }
-
-    public List<User> searchByEmail (String email) {
-        String query = "SELECT * FROM user WHERE user.email LIKE ?";
-        List<User> users = new ArrayList<>();
-
-        try (Connection connection = DBConnector.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, "%" + email + "%");
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                User user = new User(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("address"),
-                        rs.getString("userName"),
-                        rs.getString("password"),
-                        rs.getString("role")
-                );
-                users.add(user);
-            }
-
-            if (users.isEmpty()) {
-                System.out.println("No users found with email: " + email);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to search users by email: " + e.getMessage());
-        }
-
-        return users;
-    }
 
     public User getUser(String userName, String password) {
         String query = "SELECT * FROM user WHERE username = ? AND password = ?";

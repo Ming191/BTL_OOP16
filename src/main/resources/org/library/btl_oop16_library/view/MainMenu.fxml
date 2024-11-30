@@ -22,7 +22,7 @@
                      <children>
                         <ImageView fitHeight="220.0" fitWidth="257.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../img/logo_2min.png" />
+                              <Image url="@../../../../img/logo.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="clockField" alignment="CENTER" text="Clock">

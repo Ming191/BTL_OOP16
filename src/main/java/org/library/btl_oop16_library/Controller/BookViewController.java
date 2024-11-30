@@ -116,7 +116,7 @@ public class BookViewController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SearchBookDialog.fxml"));
         Parent root = loader.load();
 
-        Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+        Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm())   ;
         addBookStage.getIcons().add(favicon);
 
         addBookStage.setScene(new Scene(root));
@@ -253,13 +253,13 @@ public class BookViewController {
                 }
                 break;
             case "title":
-                bookList = BookDBConnector.getInstance().searchByName(searchInput);
+                bookList = BookDBConnector.getInstance().searchByAttributes(searchInput, "title");
                 break;
             case "author":
-                bookList = BookDBConnector.getInstance().searchByAuthor(searchInput);
+                bookList = BookDBConnector.getInstance().searchByAttributes(searchInput, "author");
                 break;
             case "category":
-                bookList = BookDBConnector.getInstance().searchByCategory(searchInput);
+                bookList = BookDBConnector.getInstance().searchByAttributes(searchInput, "category");
                 break;
             default:
                 System.out.println("Invalid search type selected.");
@@ -282,7 +282,7 @@ public class BookViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/PreorderDialog.fxml"));
             Parent root = loader.load();
             preorderStage.setScene(new Scene(root));
-            Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+            Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm())   ;
             preorderStage.getIcons().add(favicon);
             PreorderDialogController preorderDialogController = loader.getController();
             preorderDialogController.setCurrentUser(SessionManager.getInstance().getCurrentUser());

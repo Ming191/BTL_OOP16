@@ -16,10 +16,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
-import org.library.btl_oop16_library.Util.BookDBConnector;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
 import java.io.File;
@@ -113,7 +111,7 @@ public class UserViewController {
     private void realTimeSearch(String searchInput) {
         table.getItems().clear();
         List<User> userList = new ArrayList<>();
-        String selectedType = typeSearchBox.getValue(); // Get the selected option from the choice box.
+        String selectedType = typeSearchBox.getValue();
 
         switch (selectedType) {
             case "id":
@@ -125,13 +123,13 @@ public class UserViewController {
                 }
                 break;
             case "name":
-                userList = UserDBConnector.getInstance().searchByName(searchInput);
+                userList = UserDBConnector.getInstance().searchByAttributes(searchInput, "name");
                 break;
             case "email":
-                userList = UserDBConnector.getInstance().searchByEmail(searchInput);
+                userList = UserDBConnector.getInstance().searchByAttributes(searchInput, "email");
                 break;
             case "phoneNumber":
-                userList = UserDBConnector.getInstance().searchByPhoneNumber(searchInput);
+                userList = UserDBConnector.getInstance().searchByAttributes(searchInput, "phoneNumber");
                 break;
             default:
                 System.out.println("Invalid search type selected.");
@@ -155,7 +153,7 @@ public class UserViewController {
         try {
             Parent root = fxmlLoader.load();
             addUserStage.setScene(new Scene(root));
-            Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+            Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm())   ;
             addUserStage.getIcons().add(favicon);
             addUserStage.showAndWait();
 
@@ -196,7 +194,7 @@ public class UserViewController {
             UpdateUserDialogForAdminController controller = fxmlLoader.getController();
             controller.setSelectedUser(selectedUser);
             updateUserStage.setScene(new Scene(root));
-            Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+            Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm())   ;
             updateUserStage.getIcons().add(favicon);
             updateUserStage.showAndWait();
 

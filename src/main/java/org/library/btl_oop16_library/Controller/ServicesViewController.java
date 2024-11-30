@@ -1,7 +1,6 @@
 package org.library.btl_oop16_library.Controller;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +12,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.BookLoans;
-import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Services.EmailAPI;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;
@@ -123,7 +121,7 @@ public class ServicesViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/AddBookLoansDialog.fxml"));
             Parent root = loader.load();
             bookLendingStage.setScene(new Scene(root));
-            Image favicon = new Image(getClass().getResource("/img/logo_2min.png").toExternalForm())   ;
+            Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm())   ;
             bookLendingStage.getIcons().add(favicon);
             bookLendingStage.showAndWait();
 
