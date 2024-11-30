@@ -77,6 +77,6 @@ public class AlertController {
     @FXML
     private void initialize() {
         okButton.setDefaultButton(true);
-        cancelButton.setCancelButton(true);
+        //cancelButton.setCancelButton(true);
     }
 }
