@@ -76,8 +76,6 @@ public class Transition {
 
         new Thread(() -> {
             try {
-                Thread.sleep(2000);
-
                 Platform.runLater(() -> {
                     try {
                         FXMLLoader loader = new FXMLLoader(Transition.class.getResource(fxmlPath));
@@ -90,7 +88,7 @@ public class Transition {
                         e.printStackTrace();
                     }
                 });
-            } catch (InterruptedException e) {
+            } catch (Exception e ) {
                 e.printStackTrace();
             }
         }).start();
