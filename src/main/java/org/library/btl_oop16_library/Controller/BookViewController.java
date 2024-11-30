@@ -98,6 +98,9 @@ public class BookViewController {
             exportButton.setDisable(true);
             importButton.setVisible(false);
             exportButton.setVisible(false);
+        } else {
+            preorderButton.setDisable(true);
+           preorderButton.setVisible(false);
         }
     }
 

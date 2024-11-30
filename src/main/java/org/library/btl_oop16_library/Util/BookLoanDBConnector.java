@@ -163,18 +163,16 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         }
     }
 
-    public void changeToReturned(int id) {
-        String query = "update bookLoans set status = 'returned' where id = " + id;
-        try (Connection con = DBConnector.getConnection()){
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.executeUpdate();
+    public void changeToReturned(BookLoans bookLoan) {
+        try {
+            deleteFromDB(bookLoan.getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void changeToNotReturned(int id) {
-        String query = "update bookLoans set status = 'not returned' where id = " + id;
+    public void changeToNotReturned(BookLoans bookLoan) {
+        String query = "update bookLoans set status = 'not returned' where id = " + bookLoan.getId();
         try (Connection con = DBConnector.getConnection()) {
             PreparedStatement ps = con.prepareStatement(query);
             ps.executeUpdate();
@@ -183,23 +181,29 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         }
     }
 
-    public void changeToCancelled(int id) {
-        String query = "update bookLoans set status = 'cancelled' where id = " + id;
+    public void changeToCancelled(BookLoans bookLoan) {
+        String query = "update bookLoans set status = 'cancelled' where id = " + bookLoan.getId();
         try (Connection con = DBConnector.getConnection()) {
             PreparedStatement ps = con.prepareStatement(query);
+            ps.executeUpdate();
+
+            String updateBook = "update book set quantity = quantity + ? WHERE title = ?";
+            ps = con.prepareStatement(updateBook);
+            ps.setInt(1, bookLoan.getAmount());
+            ps.setString(2, bookLoan.getBookTitle());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateStatus(int id, String status) {
+    public void updateStatus(BookLoans bookLoan, String status) {
         if (status.equals("Returned")) {
-            changeToReturned(id);
+            changeToReturned(bookLoan);
         } else if (status.equals("Not returned")) {
-            changeToNotReturned(id);
+            changeToNotReturned(bookLoan);
         } else if (status.equals("Cancelled")) {
-            changeToCancelled(id);
+            changeToCancelled(bookLoan);
         }
     }
 
@@ -529,7 +533,8 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
        String updateStatus = "update bookLoans set status = 'overdued'"
                             + " WHERE STRFTIME('%Y-%m-%d', SUBSTR(dueDate, 7, 4) || '-'\n"
                             + "|| SUBSTR(dueDate, 4, 2) || '-'\n"
-                            + "|| SUBSTR(dueDate, 1, 2)) < DATE ('now')";
+                            + "|| SUBSTR(dueDate, 1, 2)) < DATE ('now')\n"
+                            + "and status != 'returned'";
        try (Connection con = DBConnector.getConnection()) {
            PreparedStatement ps = con.prepareStatement(updateStatus);
            ps.executeUpdate();

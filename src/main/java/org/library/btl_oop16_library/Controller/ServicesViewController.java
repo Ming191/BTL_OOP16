@@ -98,11 +98,11 @@ public class ServicesViewController {
             canLendBook = bookLoanDBConnector.canLendBook(SessionManager.getInstance().getCurrentUser(), 20);
             canPreorder = bookLoanDBConnector.canPreorderBook(SessionManager.getInstance().getCurrentUser());
             userNameCol.setVisible(false);
-            returnBookButton.setVisible(false);
             lendBookButton.setVisible(false);
             importButton.setVisible(false);
             mailButton.setVisible(false);
             exportButton.setVisible(false);
+            updateStatusMenu.setVisible(false);
         }
         try {
             initializeBaseOnUser();
@@ -170,6 +170,7 @@ public class ServicesViewController {
         typeSearchBox.setValue("id");
 
         setCurrentUser();
+        bookLoanDBConnector.updateBookLoan();
     }
 
     @FXML
@@ -181,8 +182,7 @@ public class ServicesViewController {
         System.out.println(selectedBookLoan.getBookTitle());
         MenuItem clickedItem = (MenuItem) event.getSource();
         String option = clickedItem.getText();
-        int id = selectedBookLoan.getId();
-        bookLoanDBConnector.updateStatus(id, option);
+        bookLoanDBConnector.updateStatus(selectedBookLoan, option);
         refreshHistory();
     }
 
@@ -195,13 +195,11 @@ public class ServicesViewController {
     }
 
     private void loadHistory() throws SQLException {
-        bookLoanDBConnector.updateBookLoan();
         history = bookLoanDBConnector.importFromDB();
         table.getItems().addAll(history);
     }
 
     private void loadHistoryForUser() throws SQLException {
-        bookLoanDBConnector.updateBookLoan();
         history = bookLoanDBConnector.importFromDBForUser(SessionManager.getInstance().getCurrentUser());
         table.getItems().addAll(history);
     }
