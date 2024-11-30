@@ -1,8 +1,5 @@
 package org.library.btl_oop16_library.Util;
 
-import eu.iamgio.animated.binding.Animated;
-import eu.iamgio.animated.binding.property.animation.AnimationProperty;
-import eu.iamgio.animated.common.Curve;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;

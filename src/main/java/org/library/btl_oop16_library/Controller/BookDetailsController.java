@@ -22,8 +22,8 @@ import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.Comment;
 import org.library.btl_oop16_library.Services.ZXingAPI;
 import org.library.btl_oop16_library.Util.*;
-import org.library.btl_oop16_library.Util.CommentPaneFactory;
-import org.library.btl_oop16_library.Util.DialogFactory;
+import org.library.btl_oop16_library.Factory.CommentPaneFactory;
+import org.library.btl_oop16_library.Factory.DialogFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
