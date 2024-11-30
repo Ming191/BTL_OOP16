@@ -87,7 +87,8 @@ public class BookDBConnector extends DBConnector<Book> {
 
         if (bookName != null) {
             ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
-            activitiesDB.logActivity("Deleted book: '" + bookName + "'.");
+            String adminName = SessionManager.getInstance().getCurrentUser().getName();
+            activitiesDB.logActivity("Admin " + adminName + " deleted book: " + bookName + "'.");
         }
         else {
             System.out.println("Book not found, nothing to delete.");
@@ -119,7 +120,8 @@ public class BookDBConnector extends DBConnector<Book> {
                 }
 
                 ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
-                activitiesDB.logActivity("Added " + newQuantity + " copies of book: '" + item.getTitle() + "'.");
+                String adminName = SessionManager.getInstance().getCurrentUser().getName();
+                activitiesDB.logActivity(adminName + " added " + newQuantity + " copies of book: '" + item.getTitle() + "'.");
             } else {
                 try (PreparedStatement psInsert = conn.prepareStatement(insertQuery)) {
                     psInsert.setString(1, item.getTitle());
@@ -135,7 +137,8 @@ public class BookDBConnector extends DBConnector<Book> {
                 }
 
                 ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
-                activitiesDB.logActivity("Added " + item.getAvailable() + " copies of new book: '" + item.getTitle() + "'.");
+                String adminName = SessionManager.getInstance().getCurrentUser().getName();
+                activitiesDB.logActivity( adminName + "added " + item.getAvailable() + " copies of new book: '" + item.getTitle() + "'.");
             }
         } catch (SQLException e) {
             throw new SQLException("Error while adding book or copy to DB", e);
@@ -409,7 +412,8 @@ public class BookDBConnector extends DBConnector<Book> {
                 upsertBook(id, title, author, category, language, quantity, imgURL, rating, description, previewURL);
             }
             System.out.println("Data successfully imported from Excel file: " + filePath);
-            activitiesDB.logActivity("Imported file: " + new File(filePath).getName() + " to book table.");
+            String adminName = SessionManager.getInstance().getCurrentUser().getName();
+            activitiesDB.logActivity(adminName + " imported file: " + new File(filePath).getName() + " to book table.");
 
             ApplicationAlert.importSuccess();
 
