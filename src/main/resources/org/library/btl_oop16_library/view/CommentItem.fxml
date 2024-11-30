@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.mfxcore.controls.Text?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="commentItem" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.CommentItemController">
+<AnchorPane fx:id="commentItem" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.CommentItemController">
    <children>
       <VBox fx:id="commentHolder" layoutX="15.0" layoutY="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-0.0">
          <children>
@@ -25,6 +26,9 @@
                <font>
                   <Font size="15.0" />
                </font>
+               <VBox.margin>
+                  <Insets left="38.0" />
+               </VBox.margin>
             </Text>
          </children>
       </VBox>

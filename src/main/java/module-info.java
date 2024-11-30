@@ -1,7 +1,6 @@
 module org.library.btl_oop16_library {
     requires org.xerial.sqlitejdbc;
     requires org.json;
-    requires java.net.http;
     requires jdk.compiler;
     requires com.google.zxing;
     requires com.google.zxing.javase;
@@ -11,8 +10,9 @@ module org.library.btl_oop16_library {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.material2;
     requires MaterialFX;
-    requires eu.iamgio.animated;
     requires AnimateFX;
+    requires javafx.web;
+    requires java.net.http;
 
     opens org.library.btl_oop16_library.U_Controllers to javafx.fxml;
     exports org.library.btl_oop16_library.U_Controllers;

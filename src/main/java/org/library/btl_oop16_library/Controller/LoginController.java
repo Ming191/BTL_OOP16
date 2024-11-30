@@ -1,10 +1,6 @@
 package org.library.btl_oop16_library.Controller;
 
 import atlantafx.base.theme.Styles;
-import eu.iamgio.animated.binding.Animated;
-import eu.iamgio.animated.binding.property.animation.AnimationProperty;
-import eu.iamgio.animated.common.Curve;
-import eu.iamgio.animated.transition.AnimatedSwitcher;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -31,8 +27,6 @@ import java.util.Objects;
 import static org.library.btl_oop16_library.Util.GlobalVariables.MAINMENU_PATH;
 
 public class LoginController {
-    @FXML
-    public AnimatedSwitcher animatedSwitcher;
     @FXML
     private TextField usernameField;
 

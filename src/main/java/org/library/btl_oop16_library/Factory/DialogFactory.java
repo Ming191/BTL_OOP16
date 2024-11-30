@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library.Util;
+package org.library.btl_oop16_library.Factory;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

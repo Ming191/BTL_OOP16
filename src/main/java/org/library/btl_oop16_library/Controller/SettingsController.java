@@ -1,7 +1,5 @@
 package org.library.btl_oop16_library.Controller;
 
-import eu.iamgio.animated.transition.AnimatedThemeSwitcher;
-import eu.iamgio.animated.transition.animations.clip.CircleClipOut;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

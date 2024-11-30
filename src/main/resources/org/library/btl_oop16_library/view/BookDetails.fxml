@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" styleClass="bg-default" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookDetailsController">
+<AnchorPane fx:id="mainPane" styleClass="bg-default" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookDetailsController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="1060.0" minHeight="-Infinity" minWidth="1060.0" prefHeight="720.0">
          <padding>
