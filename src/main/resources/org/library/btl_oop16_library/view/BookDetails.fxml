@@ -21,16 +21,16 @@
          <center>
             <ScrollPane hbarPolicy="NEVER" prefWidth="900.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox maxWidth="982.0" prefHeight="668.0" prefWidth="732.0" spacing="10.0">
+                  <VBox fx:id="contentHolder" prefHeight="361.0" prefWidth="740.0" spacing="10.0">
                      <children>
                         <Label fx:id="title" text="Title Label" wrappingWidth="600.0">
                            <font>
-                              <Font name="Montserrat ExtraBold" size="48.0" />
+                              <Font name="Montserrat ExtraBold" size="36.0" />
                            </font>
                         </Label>
                         <HBox spacing="10.0">
                            <children>
-                              <Label fx:id="author1" text="Author:" wrappingWidth="400.0">
+                              <Label fx:id="author1" text="Author:" textOverrun="CLIP" wrappingWidth="400.0">
                                  <font>
                                     <Font name="Montserrat SemiBold" size="28.0" />
                                  </font>
@@ -79,6 +79,11 @@
                               </MFXButton>
                            </children>
                         </HBox>
+                        <Label text="Comments">
+                           <font>
+                              <Font name="Montserrat ExtraBold" size="31.0" />
+                           </font>
+                        </Label>
                      </children>
                      <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

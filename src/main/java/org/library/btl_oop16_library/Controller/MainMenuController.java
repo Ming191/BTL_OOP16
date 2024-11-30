@@ -77,6 +77,19 @@ public class MainMenuController {
 
     private void initializeRoleBasedAccess() {
         menuUser.setVisible(SessionManager.getInstance().getCurrentUser().getRole().equals("admin"));
+        FXMLLoader loader = null;
+        if (SessionManager.getInstance().getCurrentUser().getRole().equals("admin")) {
+            loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DashboardView.fxml"));
+        } else {
+            loader = new FXMLLoader(getClass().getResource("/UserFXMLs/U_Dashboard.fxml"));
+        }
+        Pane pane = null;
+        try {
+            pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        mainPane.setCenter(pane);
     }
 
     private void startClock() {
@@ -153,6 +166,8 @@ public class MainMenuController {
     }
 
     public void settingsPaneSetup() {
+        settingsPane = new ModalPane();
+        settingsPane.setPrefSize(1280, 720);
         VBox settings = new VBox();
         settings.setId("settings");
         settings.setAlignment(Pos.CENTER);
@@ -178,30 +193,7 @@ public class MainMenuController {
     @FXML
     private void initialize() {
         startClock();
-        FXMLLoader loader = null;
-        if (SessionManager.getInstance().getCurrentUser().getRole().equals("admin")) {
-            loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/DashboardView.fxml"));
-        } else {
-            loader = new FXMLLoader(getClass().getResource("/UserFXMLs/U_Dashboard.fxml"));
-        }
-
-        Pane pane = null;
-        try {
-            pane = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        mainPane.setCenter(pane);
         initializeRoleBasedAccess();
-        settingsPane = new ModalPane();
-        settingsPane.setPrefSize(1280, 720);
-        settingsPane.displayProperty().addListener((obs, old, val) -> {
-            if (!val) {
-                settingsPane.setAlignment(Pos.CENTER);
-                settingsPane.usePredefinedTransitionFactories(null);
-            }
-        });
         settingsPaneSetup();
     }
 }

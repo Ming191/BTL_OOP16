@@ -12,19 +12,24 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
+import org.library.btl_oop16_library.Model.Comment;
 import org.library.btl_oop16_library.Services.ZXingAPI;
-import org.library.btl_oop16_library.Util.ApplicationAlert;
-import org.library.btl_oop16_library.Util.BookDBConnector;
-import org.library.btl_oop16_library.Util.ImageLoader;
+import org.library.btl_oop16_library.Util.*;
+import org.library.btl_oop16_library.Util.CommentPaneFactory;
+import org.library.btl_oop16_library.Util.DialogFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+
+import static org.library.btl_oop16_library.Util.GlobalVariables.COMMENT_ITEM_PATH;
 
 public class BookDetailsController {
 
@@ -57,6 +62,9 @@ public class BookDetailsController {
 
     @FXML
     private VBox descBox;
+
+    @FXML
+    private VBox contentHolder;
 
     public AnchorPane getMainPane() {
         return mainPane;
@@ -99,21 +107,12 @@ public class BookDetailsController {
 
         imgHolder.setEffect(dropShadow);
 
+        commentsSetup(book);
+
         button1.setOnAction(actionEvent -> {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/AddBookDialog.fxml"));
-            Parent root = null;
-            try {
-                root = loader.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            AddBookDialogController controller = loader.getController();
-            Stage stage = new Stage();
-            stage.setResizable(false);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("ADD");
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+            AddBookDialogController controller = DialogFactory.createAddBookDialog(
+                    "/org/library/btl_oop16_library/view/AddBookDialog.fxml"
+            );
 
             int quantity = controller.getQuantity();
 
@@ -136,4 +135,10 @@ public class BookDetailsController {
 
     }
 
+    private void commentsSetup(Book book) {
+        List<Comment> comments = CommentsDBConnector.getInstance().searchByBookId(book.getId());
+        for (Comment comment : comments) {
+            contentHolder.getChildren().add(CommentPaneFactory.createCommentPane(comment));
+        }
+    }
 }

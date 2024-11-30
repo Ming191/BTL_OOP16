@@ -456,6 +456,4 @@ public class BookDBConnector extends DBConnector<Book> {
             System.err.println("Error while upserting book: " + e.getMessage());
         }
     }
-
-
 }

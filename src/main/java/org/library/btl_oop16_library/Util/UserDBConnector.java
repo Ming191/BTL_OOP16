@@ -582,6 +582,26 @@ public class UserDBConnector extends DBConnector<User> {
         return users;
     }
 
+    public User getUserByID(int id) {
+        String query = "SELECT name, email, phoneNumber FROM user WHERE id = ?";
+
+        try(Connection conn = getConnection();
+        PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    User user = new User();
+                    user.setName(rs.getString("name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPhoneNumber(rs.getString("phoneNumber"));
+                    return user;
+                }
+            }
+        } catch (SQLException e ) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
 
 
