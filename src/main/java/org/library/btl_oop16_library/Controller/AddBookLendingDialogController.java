@@ -53,9 +53,6 @@ public class AddBookLendingDialogController {
         int quantity = Integer.parseInt(quantityField.getText());
         int bookAvailable = bookLoanDBConnector.getBookAvailable(bookIDField.getText());
         int bookLentAmount = bookLoanDBConnector.getBookLentAmount(userIdField.getText());
-        System.out.println(quantity);
-        System.out.println(bookLentAmount);
-        System.out.println(bookAvailable);
         if (quantity > 20 || quantity + bookLentAmount > 20 || bookAvailable - quantity < 0) {
             ApplicationAlert.overMaxQuantity();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBookLendingDialog.fxml"));

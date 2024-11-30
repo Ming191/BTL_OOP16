@@ -26,7 +26,7 @@ public class CommentsDBConnector extends DBConnector<Comment> {
 
     @Override
     public List<Comment> importFromDB() throws SQLException {
-        String query = "SELECT * FROM comments ORDER BY id";
+        String query = "SELECT * FROM comments ORDER BY id desc";
         List<Comment> comments = new ArrayList<>();
 
 
@@ -58,13 +58,12 @@ public class CommentsDBConnector extends DBConnector<Comment> {
 
     @Override
     public void addToDB(Comment item) throws SQLException {
-        String query = "INSERT INTO comments (id, book_id, user_id, context) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO comments (book_id, user_id, context) VALUES (?, ?, ?)";
         try (Connection conn = DBConnector.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, item.getId());
-            stmt.setInt(2, item.getBookId());
-            stmt.setInt(3, item.getUserId());
-            stmt.setString(4, item.getContext());
+            stmt.setInt(1, item.getBookId());
+            stmt.setInt(2, item.getUserId());
+            stmt.setString(3, item.getContext());
             stmt.executeUpdate();
         }
     }
@@ -72,7 +71,7 @@ public class CommentsDBConnector extends DBConnector<Comment> {
     @Override
     public List<Comment> searchById(int id) {
         List<Comment> comments = new ArrayList<>();
-        String query = "SELECT * FROM comments WHERE id = ?";
+        String query = "SELECT * FROM comments WHERE id = ? ORDER BY id desc";
 
         try (Connection conn = DBConnector.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -92,7 +91,7 @@ public class CommentsDBConnector extends DBConnector<Comment> {
 
     public List<Comment> searchByBookId(int book_id) {
         List<Comment> comments = new ArrayList<>();
-        String query = "SELECT * FROM comments WHERE book_id = ?";
+        String query = "SELECT * FROM comments WHERE book_id = ? ORDER BY id desc";
         try (Connection conn = getConnection();
         PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, book_id);

@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="commentItem" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.CommentItemController">
+<AnchorPane fx:id="commentItem" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.CommentItemController">
    <children>
       <VBox fx:id="commentHolder" layoutX="15.0" layoutY="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-0.0">
          <children>
@@ -22,7 +22,7 @@
                   </Text>
                </children>
             </HBox>
-            <Text fx:id="context" cssWrappingWidth="400.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed posuere nulla. Suspendisse at lorem quam. Phasellus ut feugiat felis. Vestibulum pretium magna leo, sed dignissim lectus luctus at. Nullam pellentesque vitae nulla in volutpat. Mauris ac rutrum augue. Vivamus at augue sit amet augue egestas iaculis et eu elit. Mauris pharetra lobortis auctor. Sed tristique nisl ac leo ornare fringilla. Ut blandit tincidunt vehicula.">
+            <Text fx:id="context" cssWrappingWidth="620.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed posuere nulla. Suspendisse at lorem quam. Phasellus ut feugiat felis. Vestibulum pretium magna leo, sed dignissim lectus luctus at. Nullam pellentesque vitae nulla in volutpat. Mauris ac rutrum augue. Vivamus at augue sit amet augue egestas iaculis et eu elit. Mauris pharetra lobortis auctor. Sed tristique nisl ac leo ornare fringilla. Ut blandit tincidunt vehicula.">
                <font>
                   <Font size="15.0" />
                </font>

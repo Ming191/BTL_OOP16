@@ -66,6 +66,8 @@ public class BookDetailsController {
     @FXML
     private VBox contentHolder;
 
+    private VBox commentsHolder;
+
     public AnchorPane getMainPane() {
         return mainPane;
     }
@@ -78,13 +80,26 @@ public class BookDetailsController {
         return button1;
     }
 
+    private Book currentBook;
+
     public void setInfo(Book book) {
+        this.currentBook = book; // Save the current book for refresh operations
         author.setText(book.getAuthor());
         title.setText(book.getTitle());
         rating.setText(book.getRating());
         ImageLoader.loadImage(imgHolder, book.getImgURL(), 200);
         qrHolder.setImage(ZXingAPI.toQRCode(book, 100, 100));
 
+        setupDescription(book);
+        setupButtons(book);
+        commentsHolder = new VBox();
+        Runnable refreshCallback = this::refreshComments;
+        contentHolder.getChildren().add(CommentPaneFactory.createCommentBox(book, refreshCallback));
+        contentHolder.getChildren().add(commentsHolder);
+        commentsSetup(book);
+    }
+
+    private void setupDescription(Book book) {
         Hyperlink seeMoreLink = new Hyperlink("See More");
         if (book.getDescription().length() > 300) {
             String truncatedText = book.getDescription().substring(0, 200) + "... ";
@@ -96,7 +111,6 @@ public class BookDetailsController {
             descBox.getChildren().add(seeMoreLink);
         } else {
             description.setText(book.getDescription());
-            seeMoreLink.setVisible(false);
         }
 
         DropShadow dropShadow = new DropShadow();
@@ -106,9 +120,9 @@ public class BookDetailsController {
         dropShadow.setRadius(30);
 
         imgHolder.setEffect(dropShadow);
+    }
 
-        commentsSetup(book);
-
+    private void setupButtons(Book book) {
         button1.setOnAction(actionEvent -> {
             AddBookDialogController controller = DialogFactory.createAddBookDialog(
                     "/org/library/btl_oop16_library/view/AddBookDialog.fxml"
@@ -130,15 +144,15 @@ public class BookDetailsController {
         });
     }
 
-    @FXML
-    private void initialize() {
-
-    }
-
     private void commentsSetup(Book book) {
+        commentsHolder.getChildren().clear();
         List<Comment> comments = CommentsDBConnector.getInstance().searchByBookId(book.getId());
         for (Comment comment : comments) {
-            contentHolder.getChildren().add(CommentPaneFactory.createCommentPane(comment));
+            commentsHolder.getChildren().add(CommentPaneFactory.createCommentPane(comment));
         }
     }
+    private void refreshComments() {
+        commentsSetup(currentBook);
+    }
+
 }

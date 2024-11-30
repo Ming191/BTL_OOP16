@@ -12,4 +12,5 @@ public class GlobalVariables {
     public static final String CHANGE_PASSWORD_PATH = "/org/library/btl_oop16_library/view/ChangePasswordView.fxml";
     public static final String UPDATE_INFO_PATH = "/org/library/btl_oop16_library/view/UpdateInforForUser.fxml";
     public static final String COMMENT_ITEM_PATH = "/org/library/btl_oop16_library/view/CommentItem.fxml";
+    public static final String COMMENT_BOX_PATH = "/org/library/btl_oop16_library/view/CommentBox.fxml";
 }
