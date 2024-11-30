@@ -64,6 +64,7 @@ public class AddUserDialogController {
         }
         UserDBConnector userDBConnector = UserDBConnector.getInstance();
         userDBConnector.addToDB(new User(name, email, phoneNumber, address, userName, password));
+        ApplicationAlert.addSuccess();
 
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();

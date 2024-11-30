@@ -121,7 +121,7 @@ public class BookDBConnector extends DBConnector<Book> {
 
                 ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
                 String adminName = SessionManager.getInstance().getCurrentUser().getName();
-                activitiesDB.logActivity(adminName + " added " + newQuantity + " copies of book: '" + item.getTitle() + "'.");
+                activitiesDB.logActivity("Admin " + adminName + " added " + newQuantity + " copies of book: '" + item.getTitle() + "'.");
             } else {
                 try (PreparedStatement psInsert = conn.prepareStatement(insertQuery)) {
                     psInsert.setString(1, item.getTitle());
@@ -138,7 +138,7 @@ public class BookDBConnector extends DBConnector<Book> {
 
                 ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
                 String adminName = SessionManager.getInstance().getCurrentUser().getName();
-                activitiesDB.logActivity( adminName + "added " + item.getAvailable() + " copies of new book: '" + item.getTitle() + "'.");
+                activitiesDB.logActivity(  "Admin " + adminName + " added " + item.getAvailable() + " copies of new book: '" + item.getTitle() + "'.");
             }
         } catch (SQLException e) {
             throw new SQLException("Error while adding book or copy to DB", e);
@@ -413,7 +413,7 @@ public class BookDBConnector extends DBConnector<Book> {
             }
             System.out.println("Data successfully imported from Excel file: " + filePath);
             String adminName = SessionManager.getInstance().getCurrentUser().getName();
-            activitiesDB.logActivity(adminName + " imported file: " + new File(filePath).getName() + " to book table.");
+            activitiesDB.logActivity("Admin " + adminName + " imported file: " + new File(filePath).getName() + " to book table.");
 
             ApplicationAlert.importSuccess();
 

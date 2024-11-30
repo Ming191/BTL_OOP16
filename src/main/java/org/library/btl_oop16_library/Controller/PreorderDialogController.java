@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.BookLoans;
 import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Util.ActivitiesDBConnector;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;
 import org.library.btl_oop16_library.Util.SessionManager;
@@ -68,6 +69,7 @@ public class PreorderDialogController {
                            bookId, startDate, dueDate, quantity, "pre-ordered");
         try {
             BookLoanDBConnector.getInstance().addToDB(bookLoan);
+            ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

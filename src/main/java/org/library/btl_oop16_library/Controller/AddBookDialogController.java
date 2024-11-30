@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
+import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookDBConnector;
 
 import java.sql.SQLException;
@@ -35,6 +36,7 @@ public class AddBookDialogController {
             e.printStackTrace();
             return;
         }
+        ApplicationAlert.addSuccess();
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }

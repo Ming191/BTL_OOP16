@@ -155,7 +155,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
 
                 if (userName != null && bookTitle != null) {
                     ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
-                    activitiesDB.logActivity(userName + " returned '" + bookTitle + "'");
+                    activitiesDB.logActivity( "User " + userName + " returned '" + bookTitle + "'");
                 }
             }
         } catch (SQLException e) {
@@ -227,6 +227,17 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
             ps.setInt(1, bookLoan.getAmount());
             ps.setInt(2, bookLoan.getBookId());
             ps.executeUpdate();
+            ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
+            String borrowerName = SessionManager.getInstance().getCurrentUser().getName();
+            if (bookLoan.getStatus() == "not returned") {
+                activitiesDB.logActivity("User " +borrowerName + " borrowed " + bookLoan.getAmount()
+                        + " book(id:" + bookLoan.getBookId() + ")");
+            }
+
+            if (bookLoan.getStatus() == "pre-ordered") {
+                activitiesDB.logActivity("User " + borrowerName + " pre-oredered " + bookLoan.getAmount()
+                        + " book(id:" + bookLoan.getBookId() + ")");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
