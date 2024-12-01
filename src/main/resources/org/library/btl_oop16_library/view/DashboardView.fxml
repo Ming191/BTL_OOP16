@@ -49,15 +49,15 @@
          </children>
       </VBox>
       <PieChart fx:id="loanStatusChart" layoutX="32.0" layoutY="117.0" prefHeight="374.0" prefWidth="418.0" />
-      <ListView fx:id="activityListView" layoutX="679.0" layoutY="102.0" prefHeight="340.0" prefWidth="340.0" />
+      <ListView fx:id="activityListView" layoutX="679.0" layoutY="102.0" prefHeight="346.0" prefWidth="346.0" />
       <VBox layoutX="679.0" layoutY="485.0" prefHeight="186.0" prefWidth="340.0">
          <children>
-            <Label alignment="CENTER" prefHeight="26.0" prefWidth="332.0" text="Admin Info">
+            <Label alignment="CENTER" prefHeight="26.0" prefWidth="345.0" text="Admin Info" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <TableView fx:id="adminInforTableView" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="340.0">
+            <TableView fx:id="adminInforTableView" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="346.0">
               <columns>
                 <TableColumn fx:id="adminNameCol" prefWidth="75.0" text="Name" />
                 <TableColumn fx:id="adminEmailCol" prefWidth="133.5" text="Email" />
@@ -71,13 +71,13 @@
       </VBox>
       <HBox layoutX="679.0" layoutY="66.0" prefHeight="36.0" prefWidth="340.0">
          <children>
-            <Label prefHeight="36.0" prefWidth="24.0" text="Start">
+            <Label prefHeight="36.0" prefWidth="27.0" text="Start">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
             <DatePicker fx:id="startDatePicker" prefHeight="36.0" prefWidth="130.0" />
-            <Label layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="24.0" text="End">
+            <Label layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="27.0" text="End">
                <font>
                   <Font size="10.0" />
                </font>

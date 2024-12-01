@@ -291,7 +291,7 @@ public class UserDBConnector extends DBConnector<User> {
 
             System.out.println("Data successfully imported from Excel file: " + filePath);
             String adminName = SessionManager.getInstance().getCurrentUser().getName();
-            activitiesDB.logActivity(adminName + " imported file: " + new File(filePath).getName() + " to user table.");
+            activitiesDB.logActivity( "Admin" + adminName + " imported file: " + new File(filePath).getName() + " to user table.");
             ApplicationAlert.importSuccess();
 
         } catch (IOException e) {

@@ -3838,6 +3838,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 }
 .scroll-bar:vertical {
   -fx-pref-width: 8px;
+  -fx-opacity: 0;
 }
 .scroll-bar:hover, .scroll-bar:pressed, .scroll-bar:focused {
   -fx-opacity: 1;

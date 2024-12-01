@@ -112,13 +112,57 @@ public class DashboardViewController {
             List<Activity> activities = activitiesDB.importFromDB();
             for (Activity activity : activities) {
                 String formattedTimestamp = activity.getTimestamp().format(formatter);
-                activityList.add(activity.getDescription() + " at " + formattedTimestamp);
+                String fullDescription = activity.getDescription() + " at " + formattedTimestamp;
+                String shortenedDescription = fullDescription.length() > 46 ? fullDescription.substring(0, 46) + "..." : fullDescription;
+
+                activityList.add(shortenedDescription);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         activityListView.setItems(activityList);
+
+        activityListView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                String selectedActivity = activityListView.getSelectionModel().getSelectedItem();
+                if (selectedActivity != null) {
+                    String fullDescription = getFullDescription(selectedActivity);
+
+                    ApplicationAlert.showFullDetails(fullDescription);
+                }
+            }
+        });
     }
+
+
+    private String getFullDescription(String shortenedDescription) {
+        ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            List<Activity> activities = activitiesDB.importFromDB();
+            for (Activity activity : activities) {
+                String formattedTimestamp = activity.getTimestamp().format(formatter);
+                String fullDescription = activity.getDescription() + " at " + formattedTimestamp;
+
+                if (shortenedDescription.equals(fullDescription.length() > 46 ? fullDescription.substring(0, 46) + "..." : fullDescription)) {
+                    return fullDescription;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    private String truncateLogEntry(String logEntry, int limit) {
+        if (logEntry.length() > limit) {
+            return logEntry.substring(0, limit) + "...";
+        }
+        return logEntry;
+    }
+
 
     private void searchActivitiesByDate() {
         if (startDatePicker.getValue() == null || endDatePicker.getValue() == null) {

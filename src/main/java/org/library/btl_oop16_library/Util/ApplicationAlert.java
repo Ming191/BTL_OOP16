@@ -147,4 +147,8 @@ public class ApplicationAlert {
     public static void addSuccess() {
         showAlert("Added!","", INFORMATION_ICON, false);
     }
+
+    public static void showFullDetails(String logEntry) {
+        showAlert("Activity Details!",logEntry,INFORMATION_ICON, false);
+    }
 }
