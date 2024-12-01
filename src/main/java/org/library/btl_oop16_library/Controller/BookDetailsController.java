@@ -96,7 +96,9 @@ public class BookDetailsController {
         }
 
         title.setWrapText(true);
+        title.maxWidthProperty().bind(contentHolder.widthProperty());
         author.setWrapText(true);
+        author.maxWidthProperty().bind(contentHolder.widthProperty());
 
         author.setText(book.getAuthor());
         title.setText(book.getTitle());
@@ -113,6 +115,9 @@ public class BookDetailsController {
         if(Objects.equals(stage, "viewDetails")) {
             if(canPreorder) {
                 preorderButtonSetup(book);
+            } else {
+                button1.setDisable(true);
+                button1.setText("Preorder not available");
             }
             commentsHolder = new VBox();
             Runnable refreshCallback = this::refreshComments;

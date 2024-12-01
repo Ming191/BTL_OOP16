@@ -43,7 +43,7 @@ public class BookItemController {
         imageContainer.setStyle("-fx-alignment: center;");
 
         Text title = new Text(book.getTitle());
-        title.setWrappingWidth(180);
+        title.setWrappingWidth(170);
         card.setHeader(imageContainer);
         card.setBody(title);
         card.setFooter(new Label(book.getAuthor()));
