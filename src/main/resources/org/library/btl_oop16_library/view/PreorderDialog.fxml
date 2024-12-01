@@ -2,8 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,33 +11,13 @@
     <children>
         <VBox layoutY="27.0" prefWidth="400.0" spacing="10.0">
             <children>
-                <TextField fx:id="bookIDField" maxWidth="1.7976931348623157E308" prefWidth="350.0" promptText="BookID" />
                 <TextField fx:id="quantityField" maxWidth="1.7976931348623157E308" promptText="Quantity" />
             </children>
             <padding>
                 <Insets bottom="30.0" left="20.0" right="20.0" />
             </padding>
         </VBox>
-      <HBox layoutX="5.0" layoutY="118.0" prefHeight="26.0" spacing="20.0">
-         <children>
-            <VBox>
-               <children>
-                  <Label text="StartDate" />
-                  <DatePicker fx:id="startDatePicker" prefHeight="36.0" prefWidth="167.0" />
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <Label text="DueDate" />
-                  <DatePicker fx:id="dueDatePicker" prefWidth="167.0" />
-               </children>
-            </VBox>
-         </children>
-         <padding>
-            <Insets bottom="30.0" left="20.0" right="20.0" />
-         </padding>
-      </HBox>
-      <HBox layoutX="67.0" layoutY="190.0" spacing="20.0">
+      <HBox layoutX="65.0" layoutY="84.0" spacing="20.0">
          <children>
               <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefWidth="125.0" text="Confirm" />
               <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" prefWidth="125.0" text="Cancel" />

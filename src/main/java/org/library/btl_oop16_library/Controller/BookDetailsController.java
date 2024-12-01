@@ -3,7 +3,6 @@ package org.library.btl_oop16_library.Controller;
 import io.github.palexdev.mfxcore.controls.Label;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,7 +11,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -28,8 +26,10 @@ import org.library.btl_oop16_library.Factory.DialogFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
-import static org.library.btl_oop16_library.Util.GlobalVariables.COMMENT_ITEM_PATH;
+import static org.library.btl_oop16_library.Util.GlobalVariables.ICON_PATH;
+import static org.library.btl_oop16_library.Util.GlobalVariables.PREORDER_DIALOG;
 
 public class BookDetailsController {
 
@@ -66,7 +66,13 @@ public class BookDetailsController {
     @FXML
     private VBox contentHolder;
 
+    @FXML
     private VBox commentsHolder;
+
+    @FXML
+    private Label commentsLabel;
+
+    private boolean canPreorder = false;
 
     public AnchorPane getMainPane() {
         return mainPane;
@@ -82,8 +88,16 @@ public class BookDetailsController {
 
     private Book currentBook;
 
-    public void setInfo(Book book) {
-        this.currentBook = book; // Save the current book for refresh operations
+    public void setInfo(Book book, String stage) {
+        this.currentBook = book;
+        if(!Objects.equals(SessionManager.getInstance().getCurrentUser().getRole(), "admin")) {
+            canPreorder = BookLoanDBConnector.getInstance().canPreorderBook(SessionManager.getInstance().getCurrentUser());
+            System.out.println(canPreorder);
+        }
+
+        title.setWrapText(true);
+        author.setWrapText(true);
+
         author.setText(book.getAuthor());
         title.setText(book.getTitle());
         rating.setText(book.getRating());
@@ -91,12 +105,21 @@ public class BookDetailsController {
         qrHolder.setImage(ZXingAPI.toQRCode(book, 100, 100));
 
         setupDescription(book);
-        setupButtons(book);
-        commentsHolder = new VBox();
-        Runnable refreshCallback = this::refreshComments;
-        contentHolder.getChildren().add(CommentPaneFactory.createCommentBox(book, refreshCallback));
-        contentHolder.getChildren().add(commentsHolder);
-        commentsSetup(book);
+
+        if(Objects.equals(stage, "addBook")) {
+            addBookSetup(book);
+        }
+
+        if(Objects.equals(stage, "viewDetails")) {
+            if(canPreorder) {
+                preorderButtonSetup(book);
+            }
+            commentsHolder = new VBox();
+            Runnable refreshCallback = this::refreshComments;
+            contentHolder.getChildren().add(CommentPaneFactory.createCommentBox(book, refreshCallback));
+            contentHolder.getChildren().add(commentsHolder);
+            commentsSetup(book);
+        }
     }
 
     private void setupDescription(Book book) {
@@ -122,7 +145,8 @@ public class BookDetailsController {
         imgHolder.setEffect(dropShadow);
     }
 
-    private void setupButtons(Book book) {
+    private void addBookButtonSetup(Book book) {
+        button1.setText("Add Book");
         button1.setOnAction(actionEvent -> {
             AddBookDialogController controller = DialogFactory.createAddBookDialog(
                     "/org/library/btl_oop16_library/view/AddBookDialog.fxml"
@@ -144,6 +168,37 @@ public class BookDetailsController {
         });
     }
 
+    private void preorderButtonSetup(Book book) {
+        button1.setText("Preorder");
+        button1.setOnAction(actionEvent -> {
+            if (canPreorder) {
+                System.out.println("Can preorder book");
+                Stage preorderStage = new Stage();
+                preorderStage.setResizable(false);
+                preorderStage.initModality(Modality.APPLICATION_MODAL);
+                preorderStage.setTitle("Pre-order");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/PreorderDialog.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                preorderStage.setScene(new Scene(root));
+                Image favicon = new Image(getClass().getResource(ICON_PATH).toExternalForm())   ;
+                preorderStage.getIcons().add(favicon);
+
+                PreorderDialogController preorderDialogController = loader.getController();
+                preorderDialogController.setCurrentBook(book);
+                preorderStage.showAndWait();
+
+            } else {
+                System.out.println("Can not preorder book");
+                ApplicationAlert.canNotLendBook();
+            }
+        });
+    }
+
     private void commentsSetup(Book book) {
         commentsHolder.getChildren().clear();
         List<Comment> comments = CommentsDBConnector.getInstance().searchByBookId(book.getId());
@@ -155,4 +210,8 @@ public class BookDetailsController {
         commentsSetup(currentBook);
     }
 
+    private void addBookSetup(Book book) {
+        addBookButtonSetup(book);
+        commentsLabel.setVisible(false);
+    }
 }

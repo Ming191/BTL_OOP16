@@ -80,7 +80,7 @@ public class ApplicationAlert {
     }
 
     public static void invalidQuantity() {
-        showAlert("Invalid Quantity!", "Please provide a positive number.",
+        showAlert("Invalid Quantity!", "Please provide a valid number.",
                 ERROR_ICON, false);
     }
 

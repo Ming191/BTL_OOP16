@@ -135,7 +135,7 @@
                 Parent bookItemRoot = loader.load();
                 BookItemController bookItemController = loader.getController();
 
-                bookItemController.setCard(book, dashboardPane,false);
+                bookItemController.setCard(book, dashboardPane, "viewDetails");
                 cardGrid.add(bookItemRoot, i, 0);
             }
         }

@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.BookLoans;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ActivitiesDBConnector;
@@ -38,11 +39,7 @@ public class PreorderDialogController {
     @FXML
     private DatePicker dueDatePicker;
 
-    private User currentUser;
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
+    private Book currentBook;
 
     @FXML
     void onCancelButtonClick(ActionEvent event) {
@@ -52,15 +49,15 @@ public class PreorderDialogController {
 
     @FXML
     private void onConfirmButtonClick(ActionEvent event) {
-        int bookId = Integer.parseInt(bookIDField.getText());
+        int bookId = currentBook.getId();
         int quantity = Integer.parseInt(quantityField.getText());
-        int bookAvailable = BookLoanDBConnector.getInstance().getBookAvailable(bookIDField.getText());
+        int bookAvailable = BookLoanDBConnector.getInstance().getBookAvailable(String.valueOf(bookId));
         if (quantity <= 0 || quantity > bookAvailable) {
             ApplicationAlert.invalidQuantity();
             return;
         }
-        LocalDate startLocalDate = startDatePicker.getValue();
-        LocalDate dueLocalDate = dueDatePicker.getValue();
+        LocalDate startLocalDate = LocalDate.now();
+        LocalDate dueLocalDate = startLocalDate.plusDays(3);
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date startDate = Date.from(startLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -75,5 +72,10 @@ public class PreorderDialogController {
         }
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
+    }
+
+    public void setCurrentBook(Book currentBook) {
+        this.currentBook = currentBook;
+        System.out.printf(String.valueOf(currentBook.getId()));
     }
 }

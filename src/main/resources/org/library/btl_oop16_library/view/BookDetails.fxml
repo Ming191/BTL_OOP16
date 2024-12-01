@@ -16,10 +16,10 @@
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="1060.0" minHeight="-Infinity" minWidth="1060.0" prefHeight="720.0">
          <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            <Insets left="30.0" right="30.0" />
          </padding>
          <center>
-            <ScrollPane hbarPolicy="NEVER" prefWidth="900.0" BorderPane.alignment="CENTER">
+            <ScrollPane hbarPolicy="NEVER" prefWidth="740.0" BorderPane.alignment="CENTER">
                <content>
                   <VBox fx:id="contentHolder" prefHeight="361.0" prefWidth="740.0" spacing="10.0">
                      <children>
@@ -30,7 +30,7 @@
                         </Label>
                         <HBox spacing="10.0">
                            <children>
-                              <Label fx:id="author1" text="Author:" textOverrun="CLIP" wrappingWidth="400.0">
+                              <Label fx:id="author1" text="Author:">
                                  <font>
                                     <Font name="Montserrat SemiBold" size="28.0" />
                                  </font>
@@ -72,14 +72,14 @@
                         </VBox>
                         <HBox spacing="30.0">
                            <children>
-                              <MFXButton fx:id="button1" buttonType="RAISED" prefHeight="36.0" prefWidth="148.0" styleClass="mfx-button" text="ADD">
+                              <MFXButton fx:id="button1" buttonType="RAISED" prefHeight="50.0" prefWidth="150.0" styleClass="mfx-button" text="ADD">
                                  <font>
                                     <Font name="Montserrat Medium" size="18.0" />
                                  </font>
                               </MFXButton>
                            </children>
                         </HBox>
-                        <Label text="Comments">
+                        <Label fx:id="commentsLabel" text="Comments">
                            <font>
                               <Font name="Montserrat ExtraBold" size="31.0" />
                            </font>
@@ -96,7 +96,7 @@
          <left>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton fx:id="button2" buttonType="RAISED" prefHeight="36.0" prefWidth="228.0" styleClass="mfx-button" text="BACK">
+                  <MFXButton fx:id="button2" buttonType="RAISED" prefHeight="40.0" prefWidth="150.0" styleClass="mfx-button" text="BACK">
                      <font>
                         <Font name="Montserrat Medium" size="18.0" />
                      </font>

@@ -952,7 +952,7 @@ Text {
 }
 .table-view > .column-header-background .column-header .label {
   -fx-text-fill: -color-header-fg;
-  -fx-alignment: CENTER_LEFT;
+  -fx-alignment: CENTER;
   -fx-padding: 0 0.5em 0 0.5em;
 }
 .table-view > .column-header-background .column-header GridPane {
@@ -1045,7 +1045,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .table-view .table-row-cell > .table-cell {
   -fx-padding: 0 0.5em 0 0.5em;
   -fx-text-fill: -color-cell-fg;
-  -fx-alignment: BASELINE_LEFT;
+  -fx-alignment: BASELINE_CENTER;
 }
 .table-view .table-row-cell > .table-cell.table-column.align-left {
   -fx-alignment: BASELINE_LEFT;
@@ -4677,5 +4677,14 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-icon-color: -color-fg-default;
   -fx-fill: -color-fg-default;
   -fx-icon-size: 16px;
+}
+
+.mfx-button .mfx-ripple-generator {
+  -mfx-ripple-color: -color-accent-2;
+}
+
+.label-on-emphasis {
+  -fx-font-family: "Montserrat ExtraBold";
+  -fx-font-size: 24px;
 }
 

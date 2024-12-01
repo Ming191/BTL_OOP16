@@ -211,8 +211,7 @@ public class BookViewController {
         controller.getButton2().setOnAction(event -> {
             modalPane.hide();
         });
-        controller.setInfo(selectedBook);
-        controller.getButton1().setVisible(false);
+        controller.setInfo(selectedBook, "viewDetails");
         detailsPane = controller.getMainPane();
     }
 
@@ -269,29 +268,5 @@ public class BookViewController {
             table.getItems().addAll(bookList);
         }
 
-    }
-
-    @FXML
-    private void preorderButtonOnClick(ActionEvent event) throws IOException, SQLException {
-        if (canPreorder) {
-            System.out.println("Can preorder book");
-            Stage preorderStage = new Stage();
-            preorderStage.setResizable(false);
-            preorderStage.initModality(Modality.APPLICATION_MODAL);
-            preorderStage.setTitle("Lending Book");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/PreorderDialog.fxml"));
-            Parent root = loader.load();
-            preorderStage.setScene(new Scene(root));
-            Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm())   ;
-            preorderStage.getIcons().add(favicon);
-            PreorderDialogController preorderDialogController = loader.getController();
-            preorderDialogController.setCurrentUser(SessionManager.getInstance().getCurrentUser());
-            preorderStage.showAndWait();
-
-        } else {
-            System.out.println("Can not preorder book");
-            ApplicationAlert.canNotLendBook();
-        }
-        refresh();
     }
 }
