@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library.Controller;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,9 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.library.btl_oop16_library.Model.BookLoans;
+import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Services.EmailAPI;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;
@@ -133,14 +136,16 @@ public class ServicesViewController {
     }
 
     @FXML
-    private void searchButtonOnClick(ActionEvent event) throws IOException {
+    private void searchButtonOnClick() {
         String searchText = searchField.getText();
         List<BookLoans>  searchedBook = null;
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        String type = typeSearchBox.getValue();
         if (!searchText.isEmpty()) {
-            if (SessionManager.getInstance().getCurrentUser().getRole().equalsIgnoreCase("admin")) {
-                searchedBook = bookLoanDBConnector.searchBookFromDB(searchText);
+            if (currentUser.getRole().equalsIgnoreCase("admin")) {
+                searchedBook = bookLoanDBConnector.searchByAttributes(searchText, type);
             } else {
-                searchedBook = bookLoanDBConnector.searchBookFromDBForUser(searchText, SessionManager.getInstance().getCurrentUser());
+                searchedBook = bookLoanDBConnector.searchByAttributesForUser(searchText, type, currentUser);
             }
         }
         table.getItems().clear();
@@ -164,11 +169,25 @@ public class ServicesViewController {
         formatDateColumn(startDateCol);
         formatDateColumn(dueDateCol);
 
-        typeSearchBox.getItems().addAll("id", "name", "bookTitle", "startDate", "dueDate", "status");
+        if (SessionManager.getInstance().getCurrentUser().getRole().equalsIgnoreCase("admin")) {
+            typeSearchBox.getItems().addAll("id", "name", "bookTitle", "startDate", "dueDate", "status");
+        } else {
+            typeSearchBox.getItems().addAll("id", "bookTitle", "startDate", "dueDate", "status");
+        }
         typeSearchBox.setValue("id");
 
         setCurrentUser();
         bookLoanDBConnector.updateBookLoan();
+
+        PauseTransition searchPause = new PauseTransition(Duration.millis(500));
+        searchPause.setOnFinished(event -> {
+            searchButtonOnClick();
+        });
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchPause.stop();
+            searchPause.playFromStart();
+        });
     }
 
     @FXML
