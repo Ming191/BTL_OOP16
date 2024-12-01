@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="156.0" prefWidth="588.0" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AlertController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="588.0" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.AlertController">
    <center>
-      <AnchorPane fx:id="mainPane" minWidth="150.0" prefHeight="156.0" prefWidth="543.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="mainPane" minWidth="150.0" prefHeight="140.0" prefWidth="588.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" layoutX="66.0" layoutY="12.0" prefHeight="25.0" prefWidth="449.0">
                <children>
@@ -21,7 +21,7 @@
                      </font></Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="66.0" layoutY="31.0" prefHeight="67.0" prefWidth="468.0">
+            <HBox alignment="CENTER" layoutX="75.0" layoutY="31.0" prefHeight="67.0" prefWidth="436.0">
                <children>
                   <Label fx:id="messageLabel" alignment="CENTER" text="Label" textAlignment="CENTER" wrapText="true">
                      <font>
