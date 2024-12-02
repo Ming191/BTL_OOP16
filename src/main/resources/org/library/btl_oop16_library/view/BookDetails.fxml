@@ -5,14 +5,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" styleClass="bg-default" stylesheets="@../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookDetailsController">
+
+<VBox fx:id="mainPane" alignment="CENTER" style="-fx-background-color: -color-bg-default;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.BookDetailsController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="1060.0" minHeight="-Infinity" minWidth="1060.0" prefHeight="720.0">
          <padding>
@@ -117,4 +117,4 @@
          </left>
       </BorderPane>
    </children>
-</AnchorPane>
+</VBox>

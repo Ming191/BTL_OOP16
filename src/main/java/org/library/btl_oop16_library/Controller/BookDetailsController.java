@@ -58,7 +58,7 @@ public class BookDetailsController {
     private Label title;
 
     @FXML
-    private AnchorPane mainPane;
+    private VBox mainPane;
 
     @FXML
     private VBox descBox;
@@ -73,10 +73,6 @@ public class BookDetailsController {
     private Label commentsLabel;
 
     private boolean canPreorder = false;
-
-    public AnchorPane getMainPane() {
-        return mainPane;
-    }
 
     public Button getButton2() {
         return button2;

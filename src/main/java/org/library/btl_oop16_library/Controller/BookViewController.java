@@ -1,26 +1,23 @@
 package org.library.btl_oop16_library.Controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import atlantafx.base.controls.ModalPane;
 import javafx.animation.PauseTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -79,10 +76,6 @@ public class BookViewController {
 
     private PauseTransition searchPause;
 
-    private ModalPane modalPane;
-
-    private AnchorPane detailsPane;
-
     private void initializeRoleBasedAccess() {
         if (!"admin".equalsIgnoreCase(SessionManager.getInstance().getCurrentUser().getRole())) {
             addBookButton.setDisable(true);
@@ -93,29 +86,62 @@ public class BookViewController {
             exportButton.setDisable(true);
             importButton.setVisible(false);
             exportButton.setVisible(false);
+        } else {
+            deleteBookButton.setDisable(true);
+            viewDetailsButton.setDisable(true);
         }
     }
 
 
-    @FXML
-    private void addBookButtonOnClick() throws IOException, SQLException {
-        Stage addBookStage = new Stage();
-        addBookStage.setHeight(720.0);
-        addBookStage.setWidth(1060);
-        addBookStage.setResizable(false);
-        addBookStage.initModality(Modality.APPLICATION_MODAL);
-        addBookStage.setTitle("Add Book");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SearchBookDialog.fxml"));
-        Parent root = loader.load();
+//    @FXML
+//    private void addBookButtonOnClick() throws IOException, SQLException {
+//        Stage addBookStage = new Stage();
+//        addBookStage.setHeight(720.0);
+//        addBookStage.setWidth(1060);
+//        addBookStage.setResizable(false);
+//        addBookStage.initModality(Modality.APPLICATION_MODAL);
+//        addBookStage.setTitle("Add Book");
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SearchBookDialog.fxml"));
+//        Parent root = loader.load();
+//
+//        Image favicon = new Image(Objects.requireNonNull(getClass().getResource("/img/logo.png")).toExternalForm())   ;
+//        addBookStage.getIcons().add(favicon);
+//
+//        addBookStage.setScene(new Scene(root));
+//        addBookStage.showAndWait();
+//
+//        refresh();
+//    }
 
-        Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm())   ;
-        addBookStage.getIcons().add(favicon);
-
-        addBookStage.setScene(new Scene(root));
-        addBookStage.showAndWait();
-
-        refresh();
+    private void setupViewDetailsButton() {
+        viewDetailsButton.setOnAction(event -> {
+            VBox contentHolder = (VBox) rootPane.getScene().lookup("#bookContentVbox");
+            ModalPane modalPane = (ModalPane) rootPane.getScene().lookup("#bookContent");
+            try {
+                contentHolder.getChildren().clear();
+                contentHolder.getChildren().addAll(getBookDetailsPane(modalPane));
+                modalPane.show(contentHolder);
+            } catch (IOException | SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
+
+    private void setupAddBookButton() {
+        addBookButton.setOnAction(event -> {
+            VBox contentHolder = (VBox) rootPane.getScene().lookup("#bookContentVbox");
+            ModalPane modalPane = (ModalPane) rootPane.getScene().lookup("#bookContent");
+            try {
+                contentHolder.getChildren().clear();
+                contentHolder.getChildren().addAll(getAddBookPane(modalPane));
+                modalPane.show(contentHolder);
+            } catch (IOException | SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+
 
     @FXML
     private void initialize() throws SQLException {
@@ -126,44 +152,18 @@ public class BookViewController {
         languageCol.setCellValueFactory(new PropertyValueFactory<>("language"));
         availableCol.setCellValueFactory(new PropertyValueFactory<>("available"));
 
-        deleteBookButton.setDisable(true);
-
-        table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Book>() {
-            @Override
-            public void changed(ObservableValue<? extends Book> observableValue, Book oldValue, Book newValue) {
-                selectedBook = newValue;
-                deleteBookButton.setDisable(selectedBook == null);
-            }
+        table.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            selectedBook = newValue;
+            deleteBookButton.setDisable(selectedBook == null);
+            viewDetailsButton.setDisable(selectedBook == null);
         });
         loadBook();
-
-        modalPane = new ModalPane();
-
-        modalPane.displayProperty().addListener((obs, old, val) -> {
-            if (!val) {
-                modalPane.setAlignment(Pos.CENTER);
-                modalPane.usePredefinedTransitionFactories(null);
-            }
-        });
-
-        rootPane.getChildren().add(modalPane);
-        modalPane.setPrefSize(1060,720);
-
-        viewDetailsButton.setOnAction(event -> {
-            try {
-                setupModalPane();
-            } catch (IOException | SQLException e) {
-                throw new RuntimeException(e);
-            }
-            modalPane.show(detailsPane);
-        });
-
         initializeRoleBasedAccess();
+        setupViewDetailsButton();
+        setupAddBookButton();
 
         searchPause = new PauseTransition(Duration.millis(500));
-        searchPause.setOnFinished(event -> {
-            realTimeSearch(searchField.getText());
-        });
+        searchPause.setOnFinished(event -> realTimeSearch(searchField.getText()));
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchPause.stop();
@@ -196,15 +196,21 @@ public class BookViewController {
         refresh();
     }
 
-    private void setupModalPane () throws IOException, SQLException {
+    private Pane getBookDetailsPane(ModalPane modalPane) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookDetails.fxml"));
-        Parent root = loader.load();
+        Pane root = loader.load();
         BookDetailsController controller = loader.getController();
-        controller.getButton2().setOnAction(event -> {
-            modalPane.hide();
-        });
+        controller.getButton2().setOnAction(event -> modalPane.hide());
         controller.setInfo(selectedBook, "viewDetails");
-        detailsPane = controller.getMainPane();
+        return root;
+    }
+
+    private Pane getAddBookPane(ModalPane modalPane) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SearchBookDialog.fxml"));
+        Pane root = loader.load();
+        SearchBookDialogController controller = loader.getController();
+        controller.getBackButton().setOnAction(event -> modalPane.hide());
+        return root;
     }
 
     @FXML
@@ -228,7 +234,7 @@ public class BookViewController {
                     int id = Integer.parseInt(searchInput);
                     bookList = BookDBConnector.getInstance().searchById(id);
                 } catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                 }
                 break;
             case "title":

@@ -1,37 +1,21 @@
     package org.library.btl_oop16_library.U_Controllers;
 
     import atlantafx.base.controls.Card;
-    import atlantafx.base.controls.ModalPane;
-    import atlantafx.base.theme.Styles;
     import io.github.palexdev.materialfx.controls.MFXButton;
-    import io.github.palexdev.materialfx.controls.MFXTableColumn;
-    import io.github.palexdev.materialfx.controls.MFXTableView;
-    import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
-    import io.github.palexdev.materialfx.filter.StringFilter;
-    import io.github.palexdev.mfxcore.collections.Grid;
-    import javafx.beans.property.SimpleStringProperty;
     import javafx.collections.FXCollections;
     import javafx.collections.ObservableList;
     import javafx.event.ActionEvent;
     import javafx.fxml.FXML;
     import javafx.fxml.FXMLLoader;
-    import javafx.geometry.Pos;
-    import javafx.scene.Node;
     import javafx.scene.Parent;
     import javafx.scene.Scene;
     import javafx.scene.chart.PieChart;
-    import javafx.scene.control.Button;
     import javafx.scene.control.Label;
     import javafx.scene.control.TableColumn;
     import javafx.scene.control.TableView;
     import javafx.scene.control.cell.PropertyValueFactory;
-    import javafx.scene.image.Image;
-    import javafx.scene.image.ImageView;
     import javafx.scene.layout.*;
-    import javafx.scene.shape.Rectangle;
-    import org.library.btl_oop16_library.Controller.BookDetailsController;
     import org.library.btl_oop16_library.Controller.BookItemController;
-    import org.library.btl_oop16_library.Controller.ServicesViewController;
     import org.library.btl_oop16_library.Model.Book;
     import org.library.btl_oop16_library.Model.User;
     import org.library.btl_oop16_library.Util.BookLoanDBConnector;
@@ -40,7 +24,6 @@
     import org.library.btl_oop16_library.Util.UserDBConnector;
 
     import java.io.IOException;
-    import java.util.Comparator;
     import java.util.List;
 
     public class U_DashboardController {

@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class SearchBookDialogController {
+    @FXML
+    public Button backButton;
 
     @FXML
     private Button addButton;
@@ -32,6 +34,10 @@ public class SearchBookDialogController {
 
     private Book selectedBook;
 
+    public Button getBackButton() {
+        return backButton;
+    }
+
     @FXML
     private void onSearchButtonClick(ActionEvent event) throws IOException {
         String searchText = searchField.getText();
@@ -49,11 +55,6 @@ public class SearchBookDialogController {
 
         controller.setBooks(books);
         mainPane.setCenter(root);
-    }
-
-    @FXML
-    private void initialize() {
-        addButton.setVisible(false);
     }
 }
 

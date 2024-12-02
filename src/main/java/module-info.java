@@ -13,6 +13,7 @@ module org.library.btl_oop16_library {
     requires AnimateFX;
     requires java.net.http;
     requires langchain4j.github.models;
+    requires jcommander;
 
     opens org.library.btl_oop16_library.U_Controllers to javafx.fxml;
     exports org.library.btl_oop16_library.U_Controllers;

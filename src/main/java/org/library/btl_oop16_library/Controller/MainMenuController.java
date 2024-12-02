@@ -74,6 +74,12 @@ public class MainMenuController {
     @FXML
     private ModalPane settingsPane;
 
+    @FXML
+    private ModalPane modalPane;
+
+    @FXML
+    private VBox contentHolder;
+
     private void initializeRoleBasedAccess() {
         menuUser.setVisible(SessionManager.getInstance().getCurrentUser().getRole().equals("admin"));
         FXMLLoader loader = null;
@@ -189,10 +195,23 @@ public class MainMenuController {
         });
     }
 
+    public void bookPaneSetup() {
+        modalPane = new ModalPane();
+        modalPane.setId("bookContent");
+        modalPane.setPrefSize(1280, 720);
+        contentHolder = new VBox();
+        contentHolder.setId("bookContentVbox");
+        contentHolder.setAlignment(Pos.CENTER);
+        contentHolder.setMaxSize(1280, 720);
+        contentHolder.setStyle("-fx-background-color: -color-bg-default;");
+        rootPane.getChildren().addAll(modalPane,contentHolder);
+    }
+
     @FXML
     private void initialize() {
         startClock();
         initializeRoleBasedAccess();
         settingsPaneSetup();
+        bookPaneSetup();
     }
 }
