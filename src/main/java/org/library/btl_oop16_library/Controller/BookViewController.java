@@ -76,20 +76,14 @@ public class BookViewController {
     @FXML
     private ChoiceBox<String> typeSearchBox;
 
-    @FXML
-    private Button preorderButton;
-
     private PauseTransition searchPause;
 
     private ModalPane modalPane;
 
     private AnchorPane detailsPane;
 
-    private boolean canPreorder = false;
-
     private void initializeRoleBasedAccess() {
         if (!"admin".equalsIgnoreCase(SessionManager.getInstance().getCurrentUser().getRole())) {
-            canPreorder = BookLoanDBConnector.getInstance().canPreorderBook(SessionManager.getInstance().getCurrentUser());
             addBookButton.setDisable(true);
             deleteBookButton.setDisable(true);
             addBookButton.setVisible(false);
@@ -98,9 +92,6 @@ public class BookViewController {
             exportButton.setDisable(true);
             importButton.setVisible(false);
             exportButton.setVisible(false);
-        } else {
-            preorderButton.setDisable(true);
-           preorderButton.setVisible(false);
         }
     }
 

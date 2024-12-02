@@ -1,75 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.Controller.DashboardViewController">
    <children>
-      <VBox layoutX="417.0" layoutY="226.0" prefHeight="200.0" prefWidth="239.0">
+      <VBox layoutX="662.0" layoutY="52.0" prefHeight="256.0" prefWidth="346.0">
          <children>
-            <HBox prefHeight="50.0" prefWidth="294.0">
+            <HBox focusTraversable="true" prefHeight="75.0" prefWidth="346.0" style="-fx-border-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;">
                <children>
-                  <Label fx:id="userCountLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="119.0">
+                  <FontIcon iconLiteral="mdmz-supervised_user_circle" wrappingWidth="40.5">
+                     <HBox.margin>
+                        <Insets left="24.0" top="22.0" />
+                     </HBox.margin>
+                  </FontIcon>
+                  <Line endX="-100.0" endY="75.0" fill="GREY" startX="-100.0">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Line>
+                  <Label fx:id="userCountLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="75.0" prefWidth="120.0">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="50.0" prefWidth="125.0" text="Total user" />
+                  <Label prefHeight="73.0" prefWidth="172.0" text="Total user" />
                </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox prefHeight="50.0" prefWidth="294.0">
+            <HBox prefHeight="75.0" prefWidth="346.0" style="-fx-border-color: lightgray; -fx-background-radius: 5; -fx-border-radius: 5;">
                <children>
-                  <Label fx:id="bookCountLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="119.0">
+                  <FontIcon iconLiteral="mdomz-menu_book" wrappingWidth="40.5">
+                     <HBox.margin>
+                        <Insets left="24.0" top="22.0" />
+                     </HBox.margin>
+                  </FontIcon>
+                  <Line endX="-100.0" endY="75.0" fill="GREY" startX="-100.0">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Line>
+                  <Label fx:id="bookCountLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="75.0" prefWidth="120.0">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="50.0" prefWidth="125.0" text="Total book" />
+                  <Label prefHeight="94.0" prefWidth="172.0" text="Total book">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Label>
                </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </HBox>
-            <HBox prefHeight="50.0" prefWidth="294.0">
+            <HBox prefHeight="75.0" prefWidth="346.0" style="-fx-background-radius: 5; -fx-border-color: lightgray; -fx-border-radius: 5;">
                <children>
-                  <Label fx:id="adminCountLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="119.0">
+                  <FontIcon iconLiteral="mdral-admin_panel_settings" wrappingWidth="40.5">
+                     <HBox.margin>
+                        <Insets left="24.0" top="22.0" />
+                     </HBox.margin>
+                  </FontIcon>
+                  <Line endX="-100.0" endY="73.29289245605469" fill="GREY" startX="-100.0">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Line>
+                  <Label fx:id="adminCountLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="94.0" prefWidth="121.0">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="50.0" prefWidth="125.0" text="Total admin" />
+                  <Label prefHeight="92.0" prefWidth="172.0" text="Total admin" />
                </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
-      <PieChart fx:id="loanStatusChart" layoutX="32.0" layoutY="117.0" prefHeight="374.0" prefWidth="418.0" />
-      <ListView fx:id="activityListView" layoutX="679.0" layoutY="102.0" prefHeight="346.0" prefWidth="346.0" />
-      <VBox layoutX="679.0" layoutY="485.0" prefHeight="186.0" prefWidth="340.0">
-         <children>
-            <Label alignment="CENTER" prefHeight="26.0" prefWidth="345.0" text="Admin Info" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <TableView fx:id="adminInforTableView" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="346.0">
-              <columns>
-                <TableColumn fx:id="adminNameCol" prefWidth="75.0" text="Name" />
-                <TableColumn fx:id="adminEmailCol" prefWidth="133.5" text="Email" />
-                  <TableColumn fx:id="adminPhoneNumberCol" prefWidth="117.5" text="PhoneNumber" />
-              </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-         </children>
-      </VBox>
-      <HBox layoutX="679.0" layoutY="66.0" prefHeight="36.0" prefWidth="340.0">
+      <PieChart fx:id="loanStatusChart" layoutX="31.0" layoutY="52.0" prefHeight="374.0" prefWidth="599.0" />
+      <ListView fx:id="activityListView" layoutX="662.0" layoutY="369.0" prefHeight="337.0" prefWidth="346.0" />
+      <HBox layoutX="662.0" layoutY="333.0" prefHeight="36.0" prefWidth="346.0">
          <children>
             <Label prefHeight="36.0" prefWidth="27.0" text="Start">
                <font>
@@ -86,5 +112,14 @@
             <FontIcon fx:id="icon" iconLiteral="mdal-find_in_page" />
          </children>
       </HBox>
+      <StackedBarChart fx:id="stackedBarChart" layoutX="26.0" layoutY="447.0" prefHeight="266.0" prefWidth="599.0">
+        <xAxis>
+          <CategoryAxis fx:id="horizontalAxis" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="verticalAxis" side="LEFT" />
+        </yAxis>
+      </StackedBarChart>
+      <Line endX="-100.0" layoutX="837.0" layoutY="447.0" startX="-100.0" />
    </children>
 </AnchorPane>

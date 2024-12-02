@@ -3,28 +3,21 @@ package org.library.btl_oop16_library.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.library.btl_oop16_library.Model.Activity;
-import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ActivitiesDBConnector;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.DBConnector;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
-import java.awt.*;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 public class DashboardViewController {
     @FXML
@@ -49,16 +42,13 @@ public class DashboardViewController {
     private DatePicker endDatePicker;
 
     @FXML
-    private TableColumn<User, String> adminEmailCol;
+    private StackedBarChart<String, Number> stackedBarChart;
 
     @FXML
-    private TableColumn<User, String> adminNameCol;
+    private CategoryAxis horizontalAxis;
 
     @FXML
-    private TableView<User> adminInforTableView;
-
-    @FXML
-    private TableColumn<User, String> adminPhoneNumberCol;
+    private NumberAxis verticalAxis;
 
     @FXML
     private FontIcon icon;
@@ -92,16 +82,61 @@ public class DashboardViewController {
         loadActivities();
 
         UserDBConnector userDB = UserDBConnector.getInstance();
-        adminNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        adminEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-        adminPhoneNumberCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-
-        adminInforTableView.getItems().setAll(userDB.getAdminData());
 
         icon.setOnMouseClicked(event -> {
             searchActivitiesByDate();
         });
+
+        loadStackedBarChartData();
     }
+
+    private void loadStackedBarChartData() {
+        stackedBarChart.setTitle("Activities Overview");
+        horizontalAxis.setLabel("Date");
+        verticalAxis.setLabel("Count");
+        verticalAxis.setTickUnit(5);
+
+        XYChart.Series<String, Number> newUserSeries = new XYChart.Series<>();
+        newUserSeries.setName("New Users");
+
+        XYChart.Series<String, Number> lendingSeries = new XYChart.Series<>();
+        lendingSeries.setName("Lending Count");
+
+        XYChart.Series<String, Number> newBookSeries = new XYChart.Series<>();
+        newBookSeries.setName("New Books");
+
+        String query = """
+                SELECT strftime('%Y/%m/%d', timestamp) AS date, 
+                       COUNT(CASE WHEN description LIKE 'User % added' THEN 1 END) AS newUsersAdded, 
+                       COUNT(CASE WHEN description LIKE 'User % borrowed%' THEN 1 END) AS lendingCount,
+                       COUNT(CASE WHEN description LIKE '%new book%' THEN 1 END) AS newBooksAdded
+                FROM activities 
+                GROUP BY strftime('%Y/%m/%d', timestamp) 
+                ORDER BY date
+                """;
+
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String date = rs.getString("date");
+                int newUsersAdded = rs.getInt("newUsersAdded");
+                int lendingCount = rs.getInt("lendingCount");
+                int newBooksAdded = rs.getInt("newBooksAdded");
+
+                newUserSeries.getData().add(new XYChart.Data<>(date, newUsersAdded));
+                lendingSeries.getData().add(new XYChart.Data<>(date, lendingCount));
+                newBookSeries.getData().add(new XYChart.Data<>(date, newBooksAdded));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        stackedBarChart.getData().clear();
+        stackedBarChart.getData().addAll(newUserSeries, lendingSeries, newBookSeries);
+    }
+
 
     private void loadActivities() {
         activityList = FXCollections.observableArrayList();
