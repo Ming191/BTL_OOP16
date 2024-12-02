@@ -49,7 +49,7 @@ public class SignUpController {
     }
 
     @FXML
-    public void signUpOnClick(ActionEvent actionEvent) throws SQLException, IOException {
+    public void signUpOnClick(ActionEvent actionEvent) throws IOException {
         if (nameField.getText().isEmpty() || usernameField.getText().isEmpty() || emailField.getText().isEmpty() ||
                 passwordField.getText().isEmpty() || phoneField.getText().isEmpty() || addressField.getText().isEmpty()) {
             ApplicationAlert.missingInformation();

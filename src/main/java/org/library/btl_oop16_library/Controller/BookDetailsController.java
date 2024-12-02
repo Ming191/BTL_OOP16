@@ -156,14 +156,11 @@ public class BookDetailsController {
             AddBookDialogController controller = DialogFactory.createAddBookDialog(
                     "/org/library/btl_oop16_library/view/AddBookDialog.fxml"
             );
-
             int quantity = controller.getQuantity();
-
             if (quantity < 0) {
                 ApplicationAlert.invalidQuantity();
                 return;
             }
-
             book.setAvailable(quantity);
             try {
                 BookDBConnector.getInstance().addToDB(book);
@@ -182,15 +179,15 @@ public class BookDetailsController {
                 preorderStage.setResizable(false);
                 preorderStage.initModality(Modality.APPLICATION_MODAL);
                 preorderStage.setTitle("Pre-order");
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/PreorderDialog.fxml"));
-                Parent root = null;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PREORDER_DIALOG));
+                Parent root;
                 try {
                     root = loader.load();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 preorderStage.setScene(new Scene(root));
-                Image favicon = new Image(getClass().getResource(ICON_PATH).toExternalForm())   ;
+                Image favicon = new Image(Objects.requireNonNull(getClass().getResource(ICON_PATH)).toExternalForm())   ;
                 preorderStage.getIcons().add(favicon);
 
                 PreorderDialogController preorderDialogController = loader.getController();

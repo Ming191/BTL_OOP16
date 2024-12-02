@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.Model.Book;
 import org.library.btl_oop16_library.Model.BookLoans;
-import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ActivitiesDBConnector;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;
@@ -59,7 +58,6 @@ public class PreorderDialogController {
         LocalDate startLocalDate = LocalDate.now();
         LocalDate dueLocalDate = startLocalDate.plusDays(3);
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date startDate = Date.from(startLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date dueDate = Date.from(dueLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         BookLoans bookLoan = new BookLoans(SessionManager.getInstance().getCurrentUser().getId(),

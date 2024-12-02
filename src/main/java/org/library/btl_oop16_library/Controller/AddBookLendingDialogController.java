@@ -67,7 +67,6 @@ public class AddBookLendingDialogController {
             LocalDate startLocalDate = startDatePicker.getValue();
             LocalDate dueLocalDate = dueDatePicker.getValue();
 
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date startDate = Date.from(startLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date dueDate = Date.from(dueLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 

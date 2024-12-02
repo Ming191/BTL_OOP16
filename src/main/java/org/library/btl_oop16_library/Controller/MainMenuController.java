@@ -25,7 +25,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
-import org.library.btl_oop16_library.App;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.SessionManager;
 import org.library.btl_oop16_library.Util.Transition;
@@ -174,7 +173,7 @@ public class MainMenuController {
         settings.setMaxSize(400, 500);
         settings.setStyle("-fx-background-color: -color-bg-default;");
 
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Settings.fxml"));
         VBox target = null;
         try {
             target = loader.load();

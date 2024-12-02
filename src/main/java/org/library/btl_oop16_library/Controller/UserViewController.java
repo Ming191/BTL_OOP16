@@ -17,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.library.btl_oop16_library.Model.User;
+import org.library.btl_oop16_library.Services.ExcelAPI;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.UserDBConnector;
 
@@ -218,19 +219,7 @@ public class UserViewController {
 
     @FXML
     void importOnClick(ActionEvent event) throws SQLException {
-        FileChooser fileChooser = new FileChooser();
-
-        FileChooser.ExtensionFilter excelFilter = new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx");
-        fileChooser.getExtensionFilters().add(excelFilter);
-
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
-
-        if (selectedFile != null) {
-            String filePath = selectedFile.getAbsolutePath();
-            db.importFromExcel(filePath);
-        } else {
-            System.out.println("No file selected.");
-        }
+        ExcelAPI.importExcel(UserDBConnector.getInstance());
         refresh();
     }
 

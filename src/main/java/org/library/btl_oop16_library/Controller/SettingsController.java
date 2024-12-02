@@ -3,20 +3,9 @@ package org.library.btl_oop16_library.Controller;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Util.ContainerSwitcher;
-
-import java.io.IOException;
-import java.util.Objects;
 
 import static org.library.btl_oop16_library.Util.GlobalVariables.*;
 
@@ -28,21 +17,18 @@ public class SettingsController {
     private Button changePasswordButton;
 
     @FXML
-    private TextField headBar;
-
-    @FXML
     private Button updateInformationButton;
 
     @FXML
     private Button changeThemeButton;
 
     @FXML
-    private void viewChangePasswordView(ActionEvent event) throws IOException {
+    private void viewChangePasswordView(ActionEvent event) {
         ContainerSwitcher.switchView(settingsBox, CHANGE_PASSWORD_PATH, "settings");
     }
 
     @FXML
-    private void viewUpdateInformationView(ActionEvent event) throws IOException {
+    private void viewUpdateInformationView(ActionEvent event) {
         ContainerSwitcher.switchView(settingsBox, UPDATE_INFO_PATH, "settings");
     }
 

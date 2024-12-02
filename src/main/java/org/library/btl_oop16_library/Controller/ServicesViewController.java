@@ -16,6 +16,7 @@ import javafx.util.Duration;
 import org.library.btl_oop16_library.Model.BookLoans;
 import org.library.btl_oop16_library.Model.User;
 import org.library.btl_oop16_library.Services.EmailAPI;
+import org.library.btl_oop16_library.Services.ExcelAPI;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.BookLoanDBConnector;
 import org.library.btl_oop16_library.Util.SessionManager;
@@ -253,19 +254,7 @@ public class ServicesViewController {
 
     @FXML
     private void importOnClick() throws SQLException {
-        FileChooser fileChooser = new FileChooser();
-
-        FileChooser.ExtensionFilter excelFilter = new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx");
-        fileChooser.getExtensionFilters().add(excelFilter);
-
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
-
-        if (selectedFile != null) {
-            String filePath = selectedFile.getAbsolutePath();
-            bookLoanDBConnector.importFromExcel(filePath);
-        } else {
-            System.out.println("No file selected.");
-        }
+        ExcelAPI.importExcel(BookLoanDBConnector.getInstance());
         refreshHistory();
     }
 

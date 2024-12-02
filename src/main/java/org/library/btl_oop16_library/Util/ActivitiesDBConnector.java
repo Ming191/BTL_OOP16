@@ -95,12 +95,12 @@ public class ActivitiesDBConnector extends DBConnector<Activity> {
 
     @Override
     public void exportToExcel() {
-
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void importFromExcel(String filename) {
-
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -119,6 +119,4 @@ public class ActivitiesDBConnector extends DBConnector<Activity> {
             e.printStackTrace();
         }
     }
-
-
 }

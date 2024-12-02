@@ -83,9 +83,7 @@ public class DashboardViewController {
 
         UserDBConnector userDB = UserDBConnector.getInstance();
 
-        icon.setOnMouseClicked(event -> {
-            searchActivitiesByDate();
-        });
+        icon.setOnMouseClicked(event -> searchActivitiesByDate());
 
         loadStackedBarChartData();
     }
@@ -106,12 +104,12 @@ public class DashboardViewController {
         newBookSeries.setName("New Books");
 
         String query = """
-                SELECT strftime('%Y/%m/%d', timestamp) AS date, 
-                       COUNT(CASE WHEN description LIKE 'User % added' THEN 1 END) AS newUsersAdded, 
+                SELECT strftime('%Y/%m/%d', timestamp) AS date,
+                       COUNT(CASE WHEN description LIKE 'User % added' THEN 1 END) AS newUsersAdded,
                        COUNT(CASE WHEN description LIKE 'User % borrowed%' THEN 1 END) AS lendingCount,
                        COUNT(CASE WHEN description LIKE '%new book%' THEN 1 END) AS newBooksAdded
-                FROM activities 
-                GROUP BY strftime('%Y/%m/%d', timestamp) 
+                FROM activities
+                GROUP BY strftime('%Y/%m/%d', timestamp)
                 ORDER BY date
                 """;
 

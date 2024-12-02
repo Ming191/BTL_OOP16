@@ -43,7 +43,7 @@ public class BookListViewController {
         for (Book book : books) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookItem.fxml"));
             Region pane = loader.load();
-            pane.prefWidthProperty().bind(flowPane.widthProperty().divide(4).subtract(flowPane.getHgap()));
+            pane.prefWidthProperty().bind(flowPane.widthProperty().divide(itemsPerRow).subtract(flowPane.getHgap()));
             pane.setPrefHeight(300);
             BookItemController controller = loader.getController();
             controller.setCard(book, generalPane,"addBook");

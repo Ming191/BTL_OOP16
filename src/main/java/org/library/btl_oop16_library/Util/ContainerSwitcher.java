@@ -3,7 +3,6 @@ package org.library.btl_oop16_library.Util;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 public class ContainerSwitcher {
     public static void switchView(Node root, String fxmlPath, String parentID) {

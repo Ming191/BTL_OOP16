@@ -88,7 +88,7 @@ public class UpdateUserDialogController {
     }
 
     @FXML
-    private void onCancelButtonClick() throws IOException {
+    private void onCancelButtonClick() {
         ContainerSwitcher.switchView(updateInfoBox, SETTINGS_PATH, "settings");
     }
 
