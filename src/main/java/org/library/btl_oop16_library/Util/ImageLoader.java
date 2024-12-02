@@ -12,7 +12,7 @@ public class ImageLoader {
         }
         imgHolder.setOpacity(0.5);
         imgHolder.setFitWidth(50);
-        imgHolder.setImage(new Image(GlobalVariables.LOADING_IMG));
+        //imgHolder.setImage(new Image(GlobalVariables.LOADING_IMG));
         Image image = new Image(URL,true);
         image.progressProperty().addListener(observable -> {
             if (image.getProgress() == 1.0) {

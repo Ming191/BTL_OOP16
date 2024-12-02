@@ -18,8 +18,8 @@ public class TEST2 extends Application {
     public void start(Stage stage) throws IOException {
 
         stage.resizableProperty().setValue(Boolean.FALSE);
-        SessionManager.getInstance().setCurrentUser(UserDBConnector.getInstance().getUser("1","1"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(MAINMENU_PATH));
+        SessionManager.getInstance().setCurrentUser(UserDBConnector.getInstance().getUser("minh","minh"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/MainMenu.fxml"));
         Parent root = loader.load();
 
 

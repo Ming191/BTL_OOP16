@@ -2,6 +2,7 @@
 
     import atlantafx.base.controls.Card;
     import io.github.palexdev.materialfx.controls.MFXButton;
+    import javafx.application.Platform;
     import javafx.collections.FXCollections;
     import javafx.collections.ObservableList;
     import javafx.event.ActionEvent;
@@ -66,11 +67,13 @@
         private void initialize() {
             pieChartSetup();
             tableSetup();
-            try {
-                cardSetup();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            Platform.runLater(() -> {
+                try {
+                    cardSetup();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
 
         private void pieChartSetup() {

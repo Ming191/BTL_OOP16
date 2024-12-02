@@ -38,7 +38,7 @@ public class BookListViewController {
         flowPane.setHgap(15);
         flowPane.setVgap(15);
 
-        int itemsPerRow = 4;
+        int itemsPerRow = 5;
 
         for (Book book : books) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookItem.fxml"));

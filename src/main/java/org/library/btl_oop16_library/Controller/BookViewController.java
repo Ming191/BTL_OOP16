@@ -92,27 +92,6 @@ public class BookViewController {
         }
     }
 
-
-//    @FXML
-//    private void addBookButtonOnClick() throws IOException, SQLException {
-//        Stage addBookStage = new Stage();
-//        addBookStage.setHeight(720.0);
-//        addBookStage.setWidth(1060);
-//        addBookStage.setResizable(false);
-//        addBookStage.initModality(Modality.APPLICATION_MODAL);
-//        addBookStage.setTitle("Add Book");
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SearchBookDialog.fxml"));
-//        Parent root = loader.load();
-//
-//        Image favicon = new Image(Objects.requireNonNull(getClass().getResource("/img/logo.png")).toExternalForm())   ;
-//        addBookStage.getIcons().add(favicon);
-//
-//        addBookStage.setScene(new Scene(root));
-//        addBookStage.showAndWait();
-//
-//        refresh();
-//    }
-
     private void setupViewDetailsButton() {
         viewDetailsButton.setOnAction(event -> {
             VBox contentHolder = (VBox) rootPane.getScene().lookup("#bookContentVbox");
@@ -200,7 +179,10 @@ public class BookViewController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/BookDetails.fxml"));
         Pane root = loader.load();
         BookDetailsController controller = loader.getController();
-        controller.getButton2().setOnAction(event -> modalPane.hide());
+        controller.getButton2().setOnAction(event -> {
+            modalPane.hide();
+            root.getChildren().clear();
+        });
         controller.setInfo(selectedBook, "viewDetails");
         return root;
     }
@@ -209,7 +191,10 @@ public class BookViewController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/SearchBookDialog.fxml"));
         Pane root = loader.load();
         SearchBookDialogController controller = loader.getController();
-        controller.getBackButton().setOnAction(event -> modalPane.hide());
+        controller.getBackButton().setOnAction(event -> {
+            modalPane.hide();
+            root.getChildren().clear();
+        });
         return root;
     }
 
