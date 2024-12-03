@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="588.0" stylesheets="@../../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.general.AlertController">
+   <center>
+      <AnchorPane fx:id="mainPane" minWidth="150.0" prefHeight="140.0" prefWidth="588.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" layoutX="66.0" layoutY="12.0" prefHeight="25.0" prefWidth="449.0">
+               <children>
+                  <Label fx:id="titleLabel" alignment="CENTER" text="Label" textAlignment="CENTER">
+                     <font>
+                        <Font name="Montserrat Medium" size="16.0" />
+                     </font></Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="75.0" layoutY="31.0" prefHeight="67.0" prefWidth="436.0">
+               <children>
+                  <Label fx:id="messageLabel" alignment="CENTER" text="Label" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" layoutX="217.0" layoutY="62.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="30.0" prefWidth="110.0" text="CANCEL">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="okButton" mnemonicParsing="false" onAction="#onOkButtonClick" prefHeight="30.0" prefWidth="110.0" text="OK">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" />
+               </padding>
+            </HBox>
+            <FontIcon fx:id="icon" iconLiteral="mdal-error" layoutX="8.0" layoutY="92.0" styleClass="large-font-icon" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

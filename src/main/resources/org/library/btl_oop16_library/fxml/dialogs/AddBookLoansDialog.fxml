@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.AddBookLendingDialogController">
+    <children>
+        <VBox alignment="CENTER" layoutY="27.0" prefHeight="216.0" prefWidth="382.0" spacing="10.0">
+            <children>
+                <TextField fx:id="userIdField" prefHeight="25.0" prefWidth="284.0" promptText="UserID" />
+                <TextField fx:id="bookIDField" prefHeight="25.0" prefWidth="284.0" promptText="BookID" />
+                <TextField fx:id="quantityField" prefHeight="25.0" prefWidth="284.0" promptText="Quantity" />
+            <HBox prefHeight="10.0" prefWidth="342.0" spacing="20.0">
+               <children>
+                  <Label text="StartDate" />
+                  <Region prefHeight="18.0" prefWidth="82.0" />
+                  <Label text="DueDate" />
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="342.0">
+               <children>
+                  <DatePicker fx:id="startDatePicker" />
+                  <DatePicker fx:id="dueDatePicker" />
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="342.0">
+               <children>
+                    <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="30.0" prefWidth="110.0" text="Confirm">
+                     <HBox.margin>
+                        <Insets left="45.0" />
+                     </HBox.margin></Button>
+                    <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="30.0" prefWidth="110.0" text="Cancel">
+                     <HBox.margin>
+                        <Insets left="40.0" right="20.0" />
+                     </HBox.margin></Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

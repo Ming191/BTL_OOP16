@@ -6,12 +6,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.library.btl_oop16_library.Util.SessionManager;
-import org.library.btl_oop16_library.Util.UserDBConnector;
+import org.library.btl_oop16_library.utils.general.SessionManager;
+import org.library.btl_oop16_library.utils.database.UserDBConnector;
 
 import java.io.IOException;
 
-import static org.library.btl_oop16_library.Util.GlobalVariables.*;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.*;
 
 public class TEST2 extends Application {
     @Override
@@ -19,7 +19,7 @@ public class TEST2 extends Application {
 
         stage.resizableProperty().setValue(Boolean.FALSE);
         SessionManager.getInstance().setCurrentUser(UserDBConnector.getInstance().getUser("minh","minh"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserFXMLs/AIChat.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/AIChat.fxml"));
         Parent root = loader.load();
 
 

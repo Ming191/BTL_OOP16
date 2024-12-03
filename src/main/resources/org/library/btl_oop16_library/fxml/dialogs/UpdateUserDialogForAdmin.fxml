@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="271.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.dialogs.UpdateUserDialogForAdminController">
+   <opaqueInsets>
+      <Insets top="10.0" />
+   </opaqueInsets>
+   <children>
+      <VBox layoutY="-6.0" prefHeight="262.0" prefWidth="451.0">
+         <children>
+            <TextField fx:id="nameField" layoutX="10.0" layoutY="10.0" maxWidth="385.0" prefHeight="25.0" promptText="Name">
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="emailField" layoutX="10.0" layoutY="36.0" maxWidth="385.0" prefHeight="25.0" promptText="Email">
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="phoneField" layoutX="40.0" layoutY="145.0" maxWidth="385.0" prefHeight="25.0" promptText="Phone">
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="addressField" layoutX="40.0" layoutY="185.0" maxWidth="385.0" prefHeight="25.0" promptText="Address">
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
+            </TextField>
+            <ChoiceBox fx:id="roleBox" prefHeight="25.0" prefWidth="391.0">
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" top="15.0" />
+               </VBox.margin>
+            </ChoiceBox>
+            <HBox spacing="30.0">
+               <children>
+                  <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="30.0" prefWidth="110.0" text="Confirm ">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="72.0" top="15.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="30.0" prefWidth="110.0" text="Cancel">
+                     <font>
+                        <Font name="Montserrat Regular" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin></Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="15.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
