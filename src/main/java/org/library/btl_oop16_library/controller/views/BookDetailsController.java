@@ -155,14 +155,10 @@ public class BookDetailsController {
         button1.setText("Add Book");
         button1.setOnAction(actionEvent -> {
             AddBookDialogController controller = DialogFactory.createAddBookDialog(
-                    "/org/library/btl_oop16_library/fxml/dialogs/AddBookDialog.fxml"
+                    "/org/library/btl_oop16_library/fxml/dialogs/UpdateBookDialog.fxml"
             );
-            int quantity = controller.getQuantity();
-            if (quantity < 0) {
-                ApplicationAlert.invalidQuantity();
-                return;
-            }
-            book.setAvailable(quantity);
+
+            book.setAvailable(controller.getQuantity());
             try {
                 BookDBConnector.getInstance().addToDB(book);
             } catch (SQLException e) {

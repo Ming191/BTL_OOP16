@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library.controller.views;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,16 +61,13 @@ public class ServicesViewController {
     private TableColumn<BookLoans, Integer> idCol;
 
     @FXML
-    private Button lendBookButton;
+    private MFXButton lendBookButton;
 
     @FXML
-    private Button returnBookButton;
+    private MFXButton exportButton;
 
     @FXML
-    private Button exportButton;
-
-    @FXML
-    private Button importButton;
+    private MFXButton importButton;
 
     @FXML
     private TextField searchField;

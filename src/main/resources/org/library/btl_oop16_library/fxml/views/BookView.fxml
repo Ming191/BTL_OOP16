@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="1060.0" styleClass="bg-default" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.BookViewController">
+<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="1060.0" styleClass="bg-default" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.BookViewController">
    <children>
       <BorderPane layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -21,37 +21,42 @@
                <children>
                   <HBox alignment="TOP_RIGHT" spacing="5.0">
                      <children>
-                        <Button fx:id="addBookButton" graphicTextGap="30.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="Add book" textAlignment="CENTER">
+                        <MFXButton fx:id="updateBookButton" onAction="#updateBookButtonOnClick" prefHeight="35.0" prefWidth="100.0" text="Modify book">
                            <font>
                               <Font name="Montserrat Medium" size="12.0" />
                            </font>
-                        </Button>
-                        <Button fx:id="deleteBookButton" alignment="CENTER" graphicTextGap="10.0" layoutX="198.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteBookButtonOnClick" prefHeight="35.0" prefWidth="100.0" text="Delete book">
+                        </MFXButton>
+                        <MFXButton fx:id="addBookButton" prefHeight="35.0" prefWidth="100.0" text="Add book">
                            <font>
                               <Font name="Montserrat Medium" size="12.0" />
                            </font>
-                        </Button>
-                        <Button fx:id="exportButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#exportOnClick" prefHeight="35.0" prefWidth="100.0" text="Export">
+                        </MFXButton>
+                        <MFXButton fx:id="deleteBookButton" onAction="#deleteBookButtonOnClick" prefHeight="35.0" prefWidth="100.0" text="Delete book">
                            <font>
                               <Font name="Montserrat Medium" size="12.0" />
                            </font>
-                        </Button>
-                        <Button fx:id="importButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#importOnClick" prefHeight="35.0" prefWidth="100.0" text="Import">
+                        </MFXButton>
+                        <MFXButton fx:id="exportButton" onAction="#exportOnClick" prefHeight="35.0" prefWidth="100.0" text="Export">
                            <font>
                               <Font name="Montserrat Medium" size="12.0" />
                            </font>
-                        </Button>
-                        <Button fx:id="viewDetailsButton" alignment="CENTER" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="View details">
+                        </MFXButton>
+                        <MFXButton fx:id="importButton" onAction="#importOnClick" prefHeight="35.0" prefWidth="100.0" text="Import">
                            <font>
                               <Font name="Montserrat Medium" size="12.0" />
                            </font>
-                        </Button>
+                        </MFXButton>
+                        <MFXButton fx:id="viewDetailsButton" prefHeight="35.0" prefWidth="100.0" text="View details">
+                           <font>
+                              <Font name="Montserrat Medium" size="12.0" />
+                           </font>
+                        </MFXButton>
                         <TextField fx:id="searchField" prefHeight="35.0" promptText="Type here to search">
                            <font>
-                              <Font name="Montserrat Regular" size="12.0" />
+                              <Font name="Montserrat Medium" size="12.0" />
                            </font>
                         </TextField>
-                        <ChoiceBox fx:id="typeSearchBox" prefHeight="35.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="typeSearchBox" prefHeight="35.0" prefWidth="114.0" />
                      </children>
                   </HBox>
                   <TableView fx:id="table" minHeight="600.0" minWidth="500.0" styleClass="table">

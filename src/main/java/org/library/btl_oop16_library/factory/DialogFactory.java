@@ -3,6 +3,7 @@ package org.library.btl_oop16_library.factory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.controller.views.AddBookDialogController;
@@ -25,6 +26,8 @@ public class DialogFactory {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Add Book");
         stage.setScene(new Scene(root));
+        Image favicon = new Image(DialogFactory.class.getResource("/img/logo.png").toExternalForm());
+        stage.getIcons().add(favicon);
         stage.showAndWait();
 
         return controller;

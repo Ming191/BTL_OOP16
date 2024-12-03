@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library.controller.authentication;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,10 +30,10 @@ public class LoginController {
     private AnchorPane rootPane;
 
     @FXML
-    private Button signInButton;
+    private MFXButton signInButton;
 
     @FXML
-    private Button signUpButton;
+    private MFXButton signUpButton;
 
     @FXML
     private BorderPane mainPane;
