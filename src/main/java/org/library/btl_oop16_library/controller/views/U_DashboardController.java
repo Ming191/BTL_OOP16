@@ -65,14 +65,17 @@
 
         @FXML
         private void initialize() {
+
             pieChartSetup();
             tableSetup();
             Platform.runLater(() -> {
                 try {
                     cardSetup();
+                    setupAIChatBox();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                Scene scene = dashboardPane.getScene();
             });
         }
 

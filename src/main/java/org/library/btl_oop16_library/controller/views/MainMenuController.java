@@ -189,10 +189,10 @@ public class MainMenuController {
 
     public void bookPaneSetup() {
         modalPane = new ModalPane();
-        modalPane.setId("detailsPane");
+        modalPane.setId("bookContent");
         modalPane.setPrefSize(1280, 720);
         contentHolder = new VBox();
-        contentHolder.setId("detailsVbox");
+        contentHolder.setId("bookContentVBox");
         contentHolder.setAlignment(Pos.CENTER);
         contentHolder.setMaxSize(1280, 720);
         contentHolder.setStyle("-fx-background-color: -color-bg-default;");

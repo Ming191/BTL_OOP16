@@ -67,17 +67,31 @@ public class BookItemController {
     }
 
     private void setupCardEvent(Book book, AnchorPane generalPane, String stage) {
-        card.setOnMouseClicked(event -> {
-            ModalPane detailsPane = (ModalPane) generalPane.getScene().lookup("#detailsPane");
-            VBox detailsVBox = (VBox) generalPane.getScene().lookup("#detailsVBox");
-            try {
-                detailsVBox.getChildren().clear();
-                detailsVBox.getChildren().add(showBookDetailsModal(book, detailsPane, "addBook"));
-                detailsPane.show(detailsVBox);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        if(stage == "addBook") {
+            card.setOnMouseClicked(event -> {
+                ModalPane detailsPane = (ModalPane) generalPane.getScene().lookup("#detailsPane");
+                VBox detailsVBox = (VBox) generalPane.getScene().lookup("#detailsVBox");
+                try {
+                    detailsVBox.getChildren().clear();
+                    detailsVBox.getChildren().add(showBookDetailsModal(book, detailsPane, "addBook"));
+                    detailsPane.show(detailsVBox);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } else {
+            card.setOnMouseClicked(event -> {
+                ModalPane detailsPane = (ModalPane) generalPane.getScene().lookup("#bookContent");
+                VBox detailsVBox = (VBox) generalPane.getScene().lookup("#bookContentVBox");
+                try {
+                    detailsVBox.getChildren().clear();
+                    detailsVBox.getChildren().add(showBookDetailsModal(book, detailsPane, "viewDetails"));
+                    detailsPane.show(detailsVBox);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
     }
 
     private Pane showBookDetailsModal(Book book, ModalPane modalPane, String stage) throws IOException {
