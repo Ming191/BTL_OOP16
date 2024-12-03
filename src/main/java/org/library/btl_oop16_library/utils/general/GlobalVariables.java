@@ -30,5 +30,6 @@ public class GlobalVariables {
     public static final String ADD_USER_DIALOG_PATH = "/org/library/btl_oop16_library/fxml/dialogs/AddUserDialog.fxml";
     public static final String UPDATE_USER_DIALOG_FOR_ADMIN_PATH = "/org/library/btl_oop16_library/fxml/dialogs/UpdateUserDialogForAdmin.fxml";
     public static final String AICHATBOX_PATH = "/org/library/btl_oop16_library/fxml/views/AIChat.fxml";
-    public static final String UPDATE_BOOK = "/org/library/btl_oop16_library/fxml/dialogs/UpdateBookDialog.fxml";
+    public static final String UPDATE_BOOK_DIALOG = "/org/library/btl_oop16_library/fxml/dialogs/UpdateBookDialog.fxml";
+    public static final String MODIFY_BOOK_DIALOG = "/org/library/btl_oop16_library/fxml/dialogs/ModifyBookDialog.fxml";
 }

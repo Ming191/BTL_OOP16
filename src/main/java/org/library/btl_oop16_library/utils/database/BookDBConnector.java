@@ -146,6 +146,25 @@ public class BookDBConnector extends DBConnector<Book> {
         }
     }
 
+    public void modifyBook(Book item) throws SQLException {
+        String query = """
+                update book
+                set title = ?, author = ?, description = ?, quantity = quantity + ?
+                where id = ?
+                """;
+        try (Connection conn = getConnection();
+        PreparedStatement psUpdate = conn.prepareStatement(query)) {
+            psUpdate.setString(1, item.getTitle());
+            psUpdate.setString(2, item.getAuthor());
+            psUpdate.setString(3, item.getDescription());
+            psUpdate.setInt(4, item.getAvailable());
+            psUpdate.setInt(5, item.getId());
+            psUpdate.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public List<Book> searchById(int id) {
         String query = "SELECT * FROM book  WHERE id = ? OR CAST(id AS TEXT) LIKE ?";

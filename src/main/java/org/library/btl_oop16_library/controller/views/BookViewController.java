@@ -269,17 +269,15 @@ public class BookViewController {
         updateBook.setResizable(false);
         updateBook.initModality(Modality.APPLICATION_MODAL);
         updateBook.setTitle("Update Book");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(UPDATE_BOOK));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(MODIFY_BOOK_DIALOG));
         Pane root = loader.load();
         updateBook.setScene(new Scene(root));
         Image favicon = new Image(Objects.requireNonNull(getClass().getResource(ICON_PATH)).toExternalForm());
         updateBook.getIcons().add(favicon);
+        ModifyBookDialogController controller = loader.getController();
+        controller.setCurrentBook(selectedBook);
         updateBook.showAndWait();
 
-        AddBookDialogController controller = loader.getController();
-        int quantity = controller.getQuantity();
-        selectedBook.setAvailable(quantity);
-        db.addToDB(selectedBook);
         refresh();
     }
 }

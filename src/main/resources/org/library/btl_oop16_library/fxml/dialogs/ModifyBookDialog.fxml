@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="106.0" prefWidth="347.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.ModifyBookDialogController">
+    <children>
+        <VBox layoutY="27.0" prefHeight="42.0" prefWidth="382.0" spacing="10.0">
+            <children>
+            <MFXTextField fx:id="titleField" maxHeight="26.0" minHeight="26.0" prefHeight="25.0" prefWidth="342.0" promptText="Title" />
+            <MFXTextField fx:id="authorField" maxHeight="26.0" minHeight="26.0" prefHeight="25.0" prefWidth="342.0" promptText="Author" />
+            <MFXTextField fx:id="descriptionField" maxHeight="26.0" minHeight="26.0" prefHeight="25.0" prefWidth="342.0" promptText="Description" />
+            <MFXTextField fx:id="quantityField" maxHeight="26.0" minHeight="26.0" prefHeight="25.0" prefWidth="342.0" promptText="Quantity" />
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                    <children>
+                        <MFXButton fx:id="confirmButton" onAction="#onConfirmButtonClick" prefHeight="30.0" prefWidth="110.0" text="Confirm">
+                            <font>
+                                <Font name="Montserrat Medium" size="13.0" />
+                            </font>
+                        </MFXButton>
+                        <MFXButton fx:id="cancelButton" onAction="#onCancelButtonClick" prefHeight="30.0" prefWidth="110.0" text="Cancel">
+                            <font>
+                                <Font name="Montserrat Medium" size="13.0" />
+                            </font>
+                        </MFXButton>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

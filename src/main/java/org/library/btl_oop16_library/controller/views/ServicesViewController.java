@@ -144,7 +144,7 @@ public class ServicesViewController {
             if (currentUser.getRole().equalsIgnoreCase("admin")) {
                 searchedBook = bookLoanDBConnector.searchByAttributes(searchText, type);
             } else {
-                searchedBook = bookLoanDBConnector.searchByAttributesForUser(searchText, type, currentUser);
+                searchedBook = bookLoanDBConnector.searchByAttributes(searchText, type, currentUser);
             }
         }
         table.getItems().clear();
@@ -216,7 +216,7 @@ public class ServicesViewController {
     }
 
     private void loadHistoryForUser() {
-        history = bookLoanDBConnector.importFromDBForUser(SessionManager.getInstance().getCurrentUser());
+        history = bookLoanDBConnector.importFromDB(SessionManager.getInstance().getCurrentUser());
         table.getItems().addAll(history);
     }
 

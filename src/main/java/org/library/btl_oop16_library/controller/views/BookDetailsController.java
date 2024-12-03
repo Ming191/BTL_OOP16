@@ -34,8 +34,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.ICON_PATH;
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.PREORDER_DIALOG_PATH;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.*;
 
 public class BookDetailsController {
 
@@ -155,9 +154,7 @@ public class BookDetailsController {
     private void addBookButtonSetup(Book book) {
         button1.setText("Add Book");
         button1.setOnAction(actionEvent -> {
-            AddBookDialogController controller = DialogFactory.createAddBookDialog(
-                    "/org/library/btl_oop16_library/fxml/dialogs/UpdateBookDialog.fxml"
-            );
+            AddBookDialogController controller = DialogFactory.createAddBookDialog(UPDATE_BOOK_DIALOG);
             int quantity = controller.getQuantity();
             if (quantity < 0) {
                 return;

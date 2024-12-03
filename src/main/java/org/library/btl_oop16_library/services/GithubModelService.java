@@ -69,7 +69,7 @@ public class GithubModelService {
                 .append("    Start Date: 2024-01-01\n")
                 .append("    Due Date: 2024-01-14\n")
                 .append("    Status: Returned\n\n");
-        List<BookLoans> borrowingHistory = BookLoanDBConnector.getInstance().importFromDBForUser(SessionManager.getInstance().getCurrentUser());
+        List<BookLoans> borrowingHistory = BookLoanDBConnector.getInstance().importFromDB(SessionManager.getInstance().getCurrentUser());
         prompt.append("User Borrowing History:\n");
         if (borrowingHistory.isEmpty()) {
             prompt.append("The user has no borrowing history.\n");
