@@ -15,4 +15,5 @@ public class GlobalVariables {
     public static final String COMMENT_BOX_PATH = "/org/library/btl_oop16_library/fxml/items/CommentBox.fxml";
     public static final String ICON_PATH = "/img/logo.png";
     public static final String PREORDER_DIALOG = "/org/library/btl_oop16_library/fxml/dialogs/PreorderDialog.fxml";
+    public static final String AICHATBOX_PATH = "/org/library/btl_oop16_library/fxml/views/AIChat.fxml";
 }

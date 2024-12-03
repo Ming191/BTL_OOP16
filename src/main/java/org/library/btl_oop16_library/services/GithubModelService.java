@@ -42,7 +42,7 @@ public class GithubModelService {
         prompt.append("Here is the current list of books available in our library. Each entry includes the title, author, genre, and a brief description. \n");
         prompt.append("The books are organized by genre to help users find what they are interested in. \n");
 
-        List<Book> books = null;
+        List<Book> books;
         try {
             books = BookDBConnector.getInstance().importFromDB();
         } catch (SQLException e) {

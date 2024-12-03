@@ -20,6 +20,7 @@
     import org.library.btl_oop16_library.model.User;
     import org.library.btl_oop16_library.utils.database.BookLoanDBConnector;
     import org.library.btl_oop16_library.utils.database.DBConnector;
+    import org.library.btl_oop16_library.utils.general.GlobalVariables;
     import org.library.btl_oop16_library.utils.general.SessionManager;
     import org.library.btl_oop16_library.utils.database.UserDBConnector;
 
@@ -142,5 +143,11 @@
             Scene scene = dashboardPane.getScene();
             BorderPane nodeToFind = (BorderPane) scene.lookup("#mainPane");
             nodeToFind.setCenter(pane);
+        }
+
+        private void setupAIChatBox() throws IOException {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GlobalVariables.AICHATBOX_PATH));
+            Pane pane = loader.load();
+            aiChatHolder.getChildren().add(pane);
         }
     }
