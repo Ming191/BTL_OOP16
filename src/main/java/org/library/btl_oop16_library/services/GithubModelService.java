@@ -16,7 +16,7 @@ import static dev.langchain4j.model.github.GitHubModelsChatModelName.GPT_4_O_MIN
 
 public class GithubModelService {
     private static final GitHubModelsChatModel model = GitHubModelsChatModel.builder()
-            .gitHubToken("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")
+            .gitHubToken("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")
             .modelName(GPT_4_O_MINI)
             .logRequestsAndResponses(true)
             .build();
