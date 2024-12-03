@@ -15,6 +15,7 @@ module org.library.btl_oop16_library {
     requires langchain4j.github.models;
     requires jcommander;
     requires annotations;
+    requires javafx.graphics;
 
     opens org.library.btl_oop16_library to javafx.fxml;
     exports org.library.btl_oop16_library;

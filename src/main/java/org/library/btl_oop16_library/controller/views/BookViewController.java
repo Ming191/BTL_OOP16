@@ -6,15 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import atlantafx.base.controls.ModalPane;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.library.btl_oop16_library.controller.dialogs.SearchBookDialogController;
 import org.library.btl_oop16_library.model.Book;
@@ -23,8 +28,7 @@ import org.library.btl_oop16_library.utils.database.BookDBConnector;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.general.SessionManager;
 
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.BOOK_DETAILS_PATH;
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.SEARCH_BOOK_DIALOG_PATH;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.*;
 
 public class BookViewController {
     private static final BookDBConnector db = BookDBConnector.getInstance();
@@ -46,10 +50,10 @@ public class BookViewController {
     private AnchorPane bookViewPane;
 
     @FXML
-    private Button addBookButton;
+    private MFXButton addBookButton;
 
     @FXML
-    private Button deleteBookButton;
+    private MFXButton deleteBookButton;
 
     @FXML
     private TableView<Book> table;
@@ -64,13 +68,16 @@ public class BookViewController {
     private TextField searchField;
 
     @FXML
-    private Button viewDetailsButton;
+    private MFXButton viewDetailsButton;
 
     @FXML
-    private Button exportButton;
+    private MFXButton exportButton;
 
     @FXML
-    private Button importButton;
+    private MFXButton importButton;
+
+    @FXML
+    private Button updateButton;
 
     @FXML
     private ChoiceBox<String> typeSearchBox;
@@ -246,5 +253,30 @@ public class BookViewController {
             table.getItems().addAll(bookList);
         }
 
+    }
+
+    @FXML
+    private void updateBookButtonOnClick() throws SQLException, IOException {
+        selectedBook = table.getSelectionModel().getSelectedItem();
+        if (selectedBook == null) {
+            return;
+        }
+        Stage updateBook = new Stage();
+        updateBook.setResizable(false);
+        updateBook.initModality(Modality.APPLICATION_MODAL);
+        updateBook.setTitle("Update Book");
+        System.out.println("updateBook on clicked");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(UPDATE_BOOK));
+        Pane root = loader.load();
+        updateBook.setScene(new Scene(root));
+        Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm());
+        updateBook.getIcons().add(favicon);
+        updateBook.showAndWait();
+
+        AddBookDialogController controller = loader.getController();
+        int quantity = controller.getQuantity();
+        selectedBook.setAvailable(quantity);
+        db.addToDB(selectedBook);
+        refresh();
     }
 }

@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library.controller.views;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.PauseTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -47,13 +48,13 @@ public class UserViewController {
     private VBox menuVbox;
 
     @FXML
-    private Button addUserButton;
+    private MFXButton addUserButton;
 
     @FXML
-    private Button deleteUserButton;
+    private MFXButton deleteUserButton;
 
     @FXML
-    private Button updateUserButton;
+    private MFXButton updateUserButton;
 
     @FXML
     private TextField searchField;
