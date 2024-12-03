@@ -28,8 +28,7 @@ import org.library.btl_oop16_library.utils.database.BookDBConnector;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.general.SessionManager;
 
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.BOOK_DETAILS_PATH;
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.SEARCH_BOOK_DIALOG_PATH;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.*;
 
 public class BookViewController {
     private static final BookDBConnector db = BookDBConnector.getInstance();
@@ -267,7 +266,7 @@ public class BookViewController {
         updateBook.initModality(Modality.APPLICATION_MODAL);
         updateBook.setTitle("Update Book");
         System.out.println("updateBook on clicked");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/dialogs/UpdateBookDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(UPDATE_BOOK));
         Pane root = loader.load();
         updateBook.setScene(new Scene(root));
         Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm());
