@@ -2,10 +2,13 @@ package org.library.btl_oop16_library.Services;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 import java.util.Properties;
 
 public class EmailAPI {
-    public static void sendEmail(String recipient, String userName, String bookTitle, String dueDate) {
+    public static void sendEmail(List<String[]> overdueEmails) {
         final String senderEmail = "2minlibrary@gmail.com";
         final String senderPassword = "xspg gfqk dxhd ddwh";
 
@@ -24,10 +27,11 @@ public class EmailAPI {
 
         try {
             Message message = new MimeMessage(session);
+            String recipient = overdueEmails.getFirst()[1];
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
             message.setSubject("Library Due Date Reminder");
-            String fullContent = getContent(userName, bookTitle, dueDate);
+            String fullContent = getContent(overdueEmails);
             message.setContent(fullContent, "text/html");
             Transport.send(message);
             System.out.println("Email sent to " + recipient);
@@ -37,7 +41,7 @@ public class EmailAPI {
         }
     }
 
-    private static String getContent(String userName, String bookTitle, String dueDate) {
+    private static String getContent(List<String[]> overdueEmails) {
         String header = """
             <div style="background-color: #f4f4f4; padding: 20px; text-align: center;">
                 <h2 style="color: #333;">2-Minute Library</h2>
@@ -45,14 +49,8 @@ public class EmailAPI {
             </div>
             """;
 
-        String body = String.format("""
-            <div style="padding: 20px; font-family: Arial, sans-serif; color: #333;">
-                <p>Dear %s,</p>
-                <p>This is a reminder that the book titled <strong>%s</strong> is due for return on <strong>%s</strong>.</p>
-                <p>Please ensure the book is returned on time to avoid any late fees.</p>
-                <p>Thank you for using our library services!</p>
-            </div>
-            """, userName, bookTitle, dueDate);
+        StringBuilder body = getStringBuilder(overdueEmails);
+
 
         String footer = """
             <div style="background-color: #f4f4f4; padding: 20px; text-align: center; font-size: 12px; color: #888;">
@@ -63,4 +61,25 @@ public class EmailAPI {
 
         return header + body + footer;
     }
+
+    @NotNull
+    private static StringBuilder getStringBuilder(List<String[]> overdueEmails) {
+        StringBuilder body = new StringBuilder();
+        for (String[] email : overdueEmails) {
+            String userName = email[2];
+            String bookTitle = email[3];
+            String dueDate = email[4];
+            String s = String.format("""
+            <div style="padding: 20px; font-family: Arial, sans-serif; color: #333;">
+                <p>Dear %s,</p>
+                <p>This is a reminder that the book titled <strong>%s</strong> is due for return on <strong>%s</strong>.</p>
+                <p>Please ensure the book is returned on time to avoid any late fees.</p>
+                <p>Thank you for using our library services!</p>
+            </div>
+            """, userName, bookTitle, dueDate);
+            body.append(s);
+        }
+        return body;
+    }
+
 }

@@ -24,9 +24,8 @@ import org.library.btl_oop16_library.Util.SessionManager;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 import java.sql.SQLException;
-import java.util.List;
 
 public class ServicesViewController {
     private List<BookLoans> history;
@@ -262,14 +261,22 @@ public class ServicesViewController {
     private void mailButtonOnClick() {
         BookLoanDBConnector dbConnector = BookLoanDBConnector.getInstance();
         List<String[]> overdueEmails = dbConnector.getOverdueUserEmails();
+        Map<String, List<String[]>> overdueEmailsMap = new HashMap<>();
 
         for (String[] details : overdueEmails) {
-            String email = details[0];
-            String userName = details[1];
-            String bookTitle = details[2];
-            String dueDate = details[3];
+            String userId = details[0];
 
-            EmailAPI.sendEmail(email, userName, bookTitle, dueDate);
+            if (!overdueEmailsMap.containsKey(userId)) {
+                overdueEmailsMap.put(userId, new ArrayList<>());
+            }
+            overdueEmailsMap.get(userId).add(details);
         }
+
+        for (Map.Entry<String, List<String[]>> entry : overdueEmailsMap.entrySet()) {
+            List<String[]> overdueUserEmails = entry.getValue();
+            EmailAPI.sendEmail(overdueUserEmails);
+        }
+
+        //EmailAPI.sendEmail(email, userName, bookTitle, dueDate);
     }
 }

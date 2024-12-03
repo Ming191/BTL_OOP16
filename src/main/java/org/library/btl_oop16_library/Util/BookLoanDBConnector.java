@@ -865,7 +865,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
 
     public List<String[]> getOverdueUserEmails() {
         List<String[]> overdueEmails = new ArrayList<>();
-        String query = "SELECT u.email, u.name AS userName, b.title AS bookTitle, bl.dueDate " +
+        String query = "SELECT u.id, u.email, u.name AS userName, b.title AS bookTitle, bl.dueDate " +
                 "FROM bookLoans bl " +
                 "JOIN user u ON bl.userId = u.id " +
                 "JOIN book b ON bl.bookId = b.id " +
@@ -875,14 +875,15 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
              PreparedStatement ps = con.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                String id = rs.getString("id");
                 String email = rs.getString("email");
                 String userName = rs.getString("userName");
                 String bookTitle = rs.getString("bookTitle");
                 String dueDate = rs.getString("dueDate");
 
-                System.out.println(email + " " + userName + " " + bookTitle + " " + dueDate);
+                System.out.println(id + " " + email + " " + userName + " " + bookTitle + " " + dueDate);
 
-                overdueEmails.add(new String[] { email, userName, bookTitle, dueDate });
+                overdueEmails.add(new String[] {id, email, userName, bookTitle, dueDate });
             }
         } catch (SQLException e) {
             e.printStackTrace();
