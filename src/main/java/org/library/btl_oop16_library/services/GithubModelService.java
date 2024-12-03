@@ -23,7 +23,9 @@ public class GithubModelService {
     public static String makePrompt(String userMessage) {
         StringBuilder prompt = new StringBuilder();
 
-        prompt.append("You are an AI-powered library assistant with a 2-minute response time. Your task is to assist users by providing information about books available in our library. \n");
+
+
+        prompt.append("You are an AI-powered library assistant working for a library named 2-min library. Your task is to assist users by providing information about books available in our library. \n");
         prompt.append("You can answer questions about book titles, authors, genres, categories, and recommendations from our catalog. Please refrain from answering questions on other topics unrelated to books. \n");
         prompt.append("If the user asks for help outside the scope of book-related queries, kindly refuse to provide an answer. \n");
 

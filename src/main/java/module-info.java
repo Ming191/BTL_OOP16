@@ -20,8 +20,10 @@ module org.library.btl_oop16_library {
     exports org.library.btl_oop16_library;
     exports org.library.btl_oop16_library.model;
     opens org.library.btl_oop16_library.model to javafx.fxml;
-    exports org.library.btl_oop16_library.utils;
-    opens org.library.btl_oop16_library.utils to javafx.fxml;
+    exports org.library.btl_oop16_library.utils.database;
+    opens org.library.btl_oop16_library.utils.database to javafx.fxml;
+    exports org.library.btl_oop16_library.utils.general;
+    opens org.library.btl_oop16_library.utils.general to javafx.fxml;
     exports org.library.btl_oop16_library.services;
     opens org.library.btl_oop16_library.services to javafx.fxml;
     exports org.library.btl_oop16_library.controller.authentication;
@@ -36,8 +38,4 @@ module org.library.btl_oop16_library {
     opens org.library.btl_oop16_library.controller.items to javafx.fxml;
     exports org.library.btl_oop16_library.controller.views.settings;
     opens org.library.btl_oop16_library.controller.views.settings to javafx.fxml;
-    exports org.library.btl_oop16_library.utils.database;
-    opens org.library.btl_oop16_library.utils.database to javafx.fxml;
-    exports org.library.btl_oop16_library.utils.general;
-    opens org.library.btl_oop16_library.utils.general to javafx.fxml;
 }
