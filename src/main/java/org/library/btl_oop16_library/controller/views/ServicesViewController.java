@@ -270,11 +270,23 @@ public class ServicesViewController {
             overdueEmailsMap.get(userId).add(details);
         }
 
+        boolean allEmailsSent = true;
+
         for (Map.Entry<String, List<String[]>> entry : overdueEmailsMap.entrySet()) {
             List<String[]> overdueUserEmails = entry.getValue();
-            EmailAPI.sendEmail(overdueUserEmails);
+            try {
+                EmailAPI.sendEmail(overdueUserEmails);
+            } catch (Exception e) {
+                allEmailsSent = false;
+                e.printStackTrace();
+            }
         }
 
-        //EmailAPI.sendEmail(email, userName, bookTitle, dueDate);
+        if (allEmailsSent) {
+            ApplicationAlert.emailSent();
+        } else {
+            ApplicationAlert.emailFailed();
+        }
+
     }
 }

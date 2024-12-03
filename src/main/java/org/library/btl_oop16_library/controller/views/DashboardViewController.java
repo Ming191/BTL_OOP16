@@ -209,11 +209,14 @@ public class DashboardViewController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             for (Activity activity : activities) {
                 String formattedTimestamp = activity.getTimestamp().format(formatter);
-                activityList.add(activity.getDescription() + " at " + formattedTimestamp);
+                String fullDescription = activity.getDescription() + " at " + formattedTimestamp;
+                String shortenedDescription = fullDescription.length() > 46 ? fullDescription.substring(0, 46) + "..." : fullDescription;
+
+                activityList.add(shortenedDescription);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        activityListView.setItems(activityList);
     }
-
 }

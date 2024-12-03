@@ -151,4 +151,12 @@ public class ApplicationAlert {
     public static void showFullDetails(String logEntry) {
         showAlert("Activity Details!",logEntry,INFORMATION_ICON, false);
     }
+
+    public static void emailSent() {
+        showAlert("Email Sent!","", INFORMATION_ICON, false);
+    }
+
+    public static void emailFailed() {
+        showAlert("Can not send emails!","Try again -_-!", ERROR_ICON, false);
+    }
 }

@@ -680,6 +680,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         if (!outputFolder.exists()) {
             if (!outputFolder.mkdir()) {
                 System.err.println("Failed to create output folder: " + outputFolder.getAbsolutePath());
+                ApplicationAlert.exportFailed();
                 return;
             }
         }
@@ -726,11 +727,14 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
             workbook.close();
 
             System.out.println("Data successfully exported to: " + outputFilePath);
+            ApplicationAlert.exportSuccess();
 
         } catch (SQLException e) {
             System.err.println("Error while accessing database: " + e.getMessage());
+            ApplicationAlert.exportFailed();
         } catch (IOException e) {
             System.err.println("Error while writing Excel file: " + e.getMessage());
+            ApplicationAlert.exportFailed();
         }
     }
 
