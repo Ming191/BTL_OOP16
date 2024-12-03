@@ -27,6 +27,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.*;
+
 public class UserViewController {
     UserDBConnector userDB = UserDBConnector.getInstance();
 
@@ -150,11 +152,11 @@ public class UserViewController {
         addUserStage.initModality(Modality.APPLICATION_MODAL);
         addUserStage.setTitle("Add User");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/dialogs/AddUserDialog.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ADD_USER_DIALOG_PATH));
         try {
             Parent root = fxmlLoader.load();
             addUserStage.setScene(new Scene(root));
-            Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm())   ;
+            Image favicon = new Image(getClass().getResource(ICON_PATH).toExternalForm())   ;
             addUserStage.getIcons().add(favicon);
             addUserStage.showAndWait();
 
@@ -188,7 +190,7 @@ public class UserViewController {
         updateUserStage.initModality(Modality.APPLICATION_MODAL);
         updateUserStage.setTitle("Update User");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/dialogs/UpdateUserDialogForAdmin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(UPDATE_USER_DIALOG_FOR_ADMIN_PATH));
 
         try {
             Parent root = fxmlLoader.load();

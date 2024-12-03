@@ -23,6 +23,8 @@ import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.general.SessionManager;
 import org.library.btl_oop16_library.utils.general.Animation;
 
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.*;
+
 public class MainMenuController {
     @FXML
     public Pane themePane;
@@ -76,9 +78,9 @@ public class MainMenuController {
         menuUser.setVisible(SessionManager.getInstance().getCurrentUser().getRole().equals("admin"));
         FXMLLoader loader = null;
         if (SessionManager.getInstance().getCurrentUser().getRole().equals("admin")) {
-            loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/DashboardView.fxml"));
+            loader = new FXMLLoader(getClass().getResource(DASHBOARD_VIEW_PATH));
         } else {
-            loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/U_Dashboard.fxml"));
+            loader = new FXMLLoader(getClass().getResource(USER_DASHBOARD_VIEW_PATH));
         }
         Pane pane = null;
         try {
@@ -106,7 +108,7 @@ public class MainMenuController {
 
     @FXML
     private void switchToBook(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/BookView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_VIEW_PATH));
         Pane pane = loader.load();
         BookViewController bookViewController = loader.getController();
         mainPane.setCenter(pane);
@@ -114,7 +116,7 @@ public class MainMenuController {
 
     @FXML
     private void switchToCatalog(ActionEvent event) throws IOException  {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/ServicesView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SERVICES_VIEW_PATH));
         Pane pane = loader.load();
         ServicesViewController servicesViewController = loader.getController();
         mainPane.setCenter(pane);
@@ -124,9 +126,9 @@ public class MainMenuController {
     private void switchToDashboard(ActionEvent event) throws IOException {
         FXMLLoader loader = null;
         if(SessionManager.getInstance().getCurrentUser().getRole().equals("admin")) {
-            loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/DashboardView.fxml"));
+            loader = new FXMLLoader(getClass().getResource(DASHBOARD_VIEW_PATH));
         } else {
-            loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/U_Dashboard.fxml"));
+            loader = new FXMLLoader(getClass().getResource(USER_DASHBOARD_VIEW_PATH));
 
         }
         Pane pane = loader.load();
@@ -136,7 +138,7 @@ public class MainMenuController {
     @FXML
     private void switchToUser(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        Pane pane = loader.load(getClass().getResource("/org/library/btl_oop16_library/fxml/views/UserView.fxml"));
+        Pane pane = loader.load(getClass().getResource(USER_VIEW_PATH));
         mainPane.setCenter(pane);
     }
 
@@ -144,22 +146,11 @@ public class MainMenuController {
     private void logOut(ActionEvent event) throws IOException {
         boolean result = ApplicationAlert.areYouSureAboutThat();
         if (result) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/authentication/Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGIN_PATH));
             Scene loginScene = new Scene(loader.load());
             Animation.fadeTransition((Stage) logOutButton.getScene().getWindow(), logOutButton.getScene(), loginScene);
         }
         return;
-    }
-
-    public void switchToSettings(ActionEvent event) throws IOException {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/settings/SettingsView.fxml"));
-            Pane pane = loader.load();
-            mainPane.setCenter(pane);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void settingsPaneSetup() {
@@ -171,7 +162,7 @@ public class MainMenuController {
         settings.setMaxSize(400, 500);
         settings.setStyle("-fx-background-color: -color-bg-default;");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/settings/SettingsView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SETTINGS_PATH));
         VBox target = null;
         try {
             target = loader.load();
@@ -192,7 +183,7 @@ public class MainMenuController {
         modalPane.setId("bookContent");
         modalPane.setPrefSize(1280, 720);
         contentHolder = new VBox();
-        contentHolder.setId("bookContentVbox");
+        contentHolder.setId("bookContentVBox");
         contentHolder.setAlignment(Pos.CENTER);
         contentHolder.setMaxSize(1280, 720);
         contentHolder.setStyle("-fx-background-color: -color-bg-default;");

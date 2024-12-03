@@ -10,7 +10,7 @@ import org.library.btl_oop16_library.model.User;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.database.UserDBConnector;
 
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.emailRegex;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.EMAIL_REGEX;
 
 public class UpdateUserDialogForAdminController {
 
@@ -61,6 +61,7 @@ public class UpdateUserDialogForAdminController {
     private void onConfirmButtonClick(ActionEvent event) {
         try {
             UserDBConnector userDBConnector = UserDBConnector.getInstance();
+
             if (selectedUser != null) {
                 String newName = nameField.getText();
                 String newPhone = phoneField.getText();
@@ -68,7 +69,7 @@ public class UpdateUserDialogForAdminController {
                 String newEmail = emailField.getText();
                 String newRole = roleBox.getValue();
 
-                if (!newEmail.matches(emailRegex)) {
+                if (!newEmail.matches(EMAIL_REGEX)) {
                     ApplicationAlert.wrongEmailPattern();
                     return;
                 }
@@ -103,5 +104,4 @@ public class UpdateUserDialogForAdminController {
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }
-
 }

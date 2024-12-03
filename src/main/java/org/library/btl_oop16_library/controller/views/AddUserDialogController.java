@@ -10,7 +10,7 @@ import org.library.btl_oop16_library.model.User;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.database.UserDBConnector;
 
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.emailRegex;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.EMAIL_REGEX;
 
 public class AddUserDialogController {
     @FXML
@@ -58,7 +58,7 @@ public class AddUserDialogController {
             ApplicationAlert.missingInformation();
             return;
         }
-        if (!email.matches(emailRegex)) {
+        if (!email.matches(EMAIL_REGEX)) {
             ApplicationAlert.wrongEmailPattern();
             return;
         }

@@ -45,7 +45,7 @@
                               </MFXButton>
                               <MFXButton fx:id="menuCatalog" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="70.0" onAction="#switchToCatalog" prefWidth="220.0" style="-fx-alignment: center-left;" styleClass="flat" text="Services">
                                  <graphic>
-                                    <FontIcon fx:id="menu" iconLiteral="mdal-collections_bookmark" iconSize="128" wrappingWidth="40.0" />
+                                    <FontIcon iconLiteral="mdal-collections_bookmark" iconSize="128" wrappingWidth="40.0" />
                                  </graphic>
                                  <font>
                                     <Font name="Montserrat Medium" size="20.0" />

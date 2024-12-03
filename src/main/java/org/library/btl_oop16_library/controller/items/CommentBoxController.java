@@ -39,7 +39,7 @@ public class CommentBoxController {
 
     @FXML
     public void submit(ActionEvent event) throws SQLException {
-        if(commentField.getText().isEmpty()) {
+        if (commentField.getText().isEmpty()) {
             commentField.pseudoClassStateChanged(Styles.STATE_DANGER,true);
             return;
         }

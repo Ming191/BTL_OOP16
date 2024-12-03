@@ -20,11 +20,14 @@
     import org.library.btl_oop16_library.model.User;
     import org.library.btl_oop16_library.utils.database.BookLoanDBConnector;
     import org.library.btl_oop16_library.utils.database.DBConnector;
+    import org.library.btl_oop16_library.utils.general.GlobalVariables;
     import org.library.btl_oop16_library.utils.general.SessionManager;
     import org.library.btl_oop16_library.utils.database.UserDBConnector;
 
     import java.io.IOException;
     import java.util.List;
+
+    import static org.library.btl_oop16_library.utils.general.GlobalVariables.BOOK_ITEM_PATH;
 
     public class U_DashboardController {
 
@@ -64,14 +67,17 @@
 
         @FXML
         private void initialize() {
+
             pieChartSetup();
             tableSetup();
             Platform.runLater(() -> {
                 try {
                     cardSetup();
+                    setupAIChatBox();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                Scene scene = dashboardPane.getScene();
             });
         }
 
@@ -116,7 +122,7 @@
 
             for (int i = 0; i< books.size(); i++) {
                 Book book = books.get(i);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/items/BookItem.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_ITEM_PATH));
                 Parent bookItemRoot = loader.load();
                 BookItemController bookItemController = loader.getController();
 
@@ -142,5 +148,11 @@
             Scene scene = dashboardPane.getScene();
             BorderPane nodeToFind = (BorderPane) scene.lookup("#mainPane");
             nodeToFind.setCenter(pane);
+        }
+
+        private void setupAIChatBox() throws IOException {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GlobalVariables.AICHATBOX_PATH));
+            Pane pane = loader.load();
+            aiChatHolder.getChildren().add(pane);
         }
     }

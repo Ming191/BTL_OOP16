@@ -17,6 +17,8 @@ import org.library.btl_oop16_library.services.GoogleBookAPI;
 import java.io.IOException;
 import java.util.List;
 
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.BOOK_LIST_VIEW_PATH;
+
 public class SearchBookDialogController {
     @FXML
     public Button backButton;
@@ -51,7 +53,7 @@ public class SearchBookDialogController {
         List<Book> books = GoogleBookAPI.searchBooks(searchText);
         mainPane.getChildren().clear();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/BookListView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_LIST_VIEW_PATH));
         Parent root = loader.load();
 
         BookListViewController controller = loader.getController();
@@ -62,7 +64,7 @@ public class SearchBookDialogController {
     }
 
     @FXML
-    void initialize() {
+    private void initialize() {
         ModalPane detailsPane = new ModalPane();
         detailsPane.setId("detailsPane");
         VBox detailsVBox = new VBox();

@@ -23,45 +23,45 @@ public class GithubModelService {
     public static String makePrompt(String userMessage) {
         StringBuilder prompt = new StringBuilder();
 
+        prompt.append("You are an AI-powered library assistant for a library named 2-min library ")
+                .append("Your role is to assist borrowers by providing accurate and helpful information about our library’s book catalog. Follow these instructions carefully:\n")
+                .append("Your Role and Scope:\n")
+                .append("Answer questions only related to books, including titles, authors, genres, categories, and recommendations.\n")
+                .append("Refuse to answer questions unrelated to books or the library. Simply respond with: \"I'm here to assist with book-related queries.\n");
 
+        prompt.append("Library Policies:\n")
+                .append("Borrowers can pre-order books if they have borrowed more than 20 books in the past.\n")
+                .append("Borrowers must visit the library in person to borrow books. Online or phone borrowing is not allowed.\n")
+                .append("Ensure all responses about borrowing or pre-ordering highlight these policies.\n");
 
-        prompt.append("You are an AI-powered library assistant working for a library named 2-min library. Your task is to assist users by providing information about books available in our library. \n");
-        prompt.append("You can answer questions about book titles, authors, genres, categories, and recommendations from our catalog. Please refrain from answering questions on other topics unrelated to books. \n");
-        prompt.append("If the user asks for help outside the scope of book-related queries, kindly refuse to provide an answer. \n");
+        prompt.append("Recommendation Guidelines:\n")
+                .append("Provide book recommendations based on user interests or genres.\n")
+                .append("Include the book title, author, and a brief description or review.\n")
+                .append("Example:\n")
+                .append("      *Title*: \"Dune\"\n")
+                .append("      *Author*: Frank Herbert\n")
+                .append("      *Description*: A classic science fiction novel about politics, religion, and ecology on a desert planet.\n\n");
 
-        prompt.append("Our library supports pre-ordering of books, but borrowers must have already borrowed at least 20 books to qualify for pre-ordering. \n");
-        prompt.append("Borrowers must visit the library in person to borrow books. Books cannot be borrowed online or by phone. \n");
-        prompt.append("Please ensure that borrowers are aware of these rules when they inquire about borrowing or pre-ordering books. \n");
-
-        prompt.append("If a borrower requests book recommendations, provide suggestions from our available catalog. \n");
-        prompt.append("Tailor your recommendations based on the user's interests. For example, if they ask for science fiction books, suggest titles from the genre and provide a brief review or summary. \n");
-        prompt.append("Do not say 'sorry' or offer apologies; simply recommend books and share relevant information. \n");
-        prompt.append("For each book, provide the title, author, and a short description or review to help the borrower make an informed decision. \n");
-        prompt.append("If a borrower ask for information about a book you can search for information on internet for further details. \n");
-
-        prompt.append("Here is the current list of books available in our library. Each entry includes the title, author, genre, and a brief description. \n");
-        prompt.append("The books are organized by genre to help users find what they are interested in. \n");
-
-        List<Book> books = null;
+        prompt.append("Catalog Information:\n")
+                .append("The library catalog includes the following books:\n");
         try {
-            books = BookDBConnector.getInstance().importFromDB();
+            List<Book> books = BookDBConnector.getInstance().importFromDB();
+            for (Book book : books) {
+                prompt.append(book.toString()).append("\n");
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to fetch books from the database.", e);
         }
+        prompt.append("Use this catalog to answer user queries. Match their interests to relevant titles.");
 
-        for (Book book : books) {
-            prompt.append(book.toString()).append("\n");
-        }
+        prompt.append("Formatting:\n")
+                .append("Responses should be in plain text with no special characters, Markdown, or HTML.\n")
+                .append("Keep answers concise and avoid unnecessary details.\n");
 
-        prompt.append("Please ensure all answers are in plain text format. Do not use Markdown, HTML, or any other formatting styles. \n");
-        prompt.append("Keep responses simple and clear, with no unnecessary special characters or symbols. \n");
-
-        prompt.append("Now, here is the question from our borrower. They may ask about book titles, categories, authors, or request recommendations. \n");
-        prompt.append("The user’s question is: \n");
-        prompt.append(userMessage).append(" \n");
+        prompt.append("User Query:\n")
+                .append("Here is the question from the borrower:\n")
+                .append(userMessage).append("\n");
 
         return prompt.toString();
     }
-
-
 }

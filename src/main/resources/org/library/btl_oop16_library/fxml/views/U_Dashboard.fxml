@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="dashboardPane" maxHeight="720.0" maxWidth="1060.0" prefHeight="720.0" prefWidth="1060.0" styleClass="bg-inset" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.U_DashboardController">
+<AnchorPane fx:id="dashboardPane" maxHeight="720.0" maxWidth="1060.0" prefHeight="720.0" prefWidth="1060.0" styleClass="bg-default" stylesheets="@../../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.U_DashboardController">
    <children>
       <VBox layoutX="39.0" layoutY="50.0" maxWidth="600.0" spacing="30.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
          <children>
@@ -41,8 +41,8 @@
                 <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <MFXButton fx:id="toBookLoans" buttonType="RAISED" onAction="#toBookLoansView" prefHeight="80.0" prefWidth="300.0" text="YOUR BORROWED BOOK LIST" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
-                  <MFXButton fx:id="toBook" buttonType="RAISED" onAction="#toBookView" prefHeight="80.0" prefWidth="300.0" text="EXPORE OUR BOOK LIST" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" />
+                  <MFXButton fx:id="toBookLoans" buttonType="RAISED" onAction="#toBookLoansView" prefHeight="80.0" prefWidth="300.0" styleClass="bg-inset" text="YOUR BORROWED BOOK LIST" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+                  <MFXButton fx:id="toBook" buttonType="RAISED" onAction="#toBookView" prefHeight="80.0" prefWidth="300.0" styleClass="bg-inset" text="EXPORE OUR BOOK LIST" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" />
                </children>
             </GridPane>
             <VBox fx:id="aiChatHolder" prefHeight="215.0" prefWidth="100.0" />

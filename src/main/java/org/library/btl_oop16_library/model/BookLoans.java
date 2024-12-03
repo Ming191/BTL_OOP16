@@ -13,7 +13,13 @@ public class BookLoans {
     private Date dueDate;
     private String status;
 
-    public BookLoans(int id, String userName, String bookTitle, Date startDate, Date dueDate, int amount, String status) {
+    public BookLoans(int id,
+                     String userName,
+                     String bookTitle,
+                     Date startDate,
+                     Date dueDate,
+                     int amount,
+                     String status) {
         this.id = id;
         this.userName = userName;
         this.bookTitle = bookTitle;
@@ -23,7 +29,12 @@ public class BookLoans {
         this.dueDate = dueDate;
     }
 
-    public BookLoans(int userId, int bookId, Date startDate, Date dueDate, int amount, String status) {
+    public BookLoans(int userId,
+                     int bookId,
+                     Date startDate,
+                     Date dueDate,
+                     int amount,
+                     String status) {
         this.userId = userId;
         this.bookId = bookId;
         this.startDate = startDate;
@@ -32,7 +43,11 @@ public class BookLoans {
         this.status = status;
     }
 
-    public BookLoans(int userID, int bookID, Date startDate, Date dueDate, int amount) {
+    public BookLoans(int userID,
+                     int bookID,
+                     Date startDate,
+                     Date dueDate,
+                     int amount) {
         this.userId = userID;
         this.bookId = bookID;
         this.startDate = startDate;
@@ -43,6 +58,7 @@ public class BookLoans {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -66,6 +82,7 @@ public class BookLoans {
     public Date getStartDate() {
         return startDate;
     }
+
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
@@ -73,6 +90,7 @@ public class BookLoans {
     public Date getDueDate() {
         return dueDate;
     }
+
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }

@@ -50,20 +50,22 @@ public class PreorderDialogController {
         int bookId = currentBook.getId();
         int quantity = Integer.parseInt(quantityField.getText());
         int bookAvailable = BookLoanDBConnector.getInstance().getBookAvailable(String.valueOf(bookId));
+
         if (quantity <= 0 || quantity > bookAvailable) {
             ApplicationAlert.invalidQuantity();
             return;
         }
+
         LocalDate startLocalDate = LocalDate.now();
         LocalDate dueLocalDate = startLocalDate.plusDays(3);
 
         Date startDate = Date.from(startLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date dueDate = Date.from(dueLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
         BookLoans bookLoan = new BookLoans(SessionManager.getInstance().getCurrentUser().getId(),
                            bookId, startDate, dueDate, quantity, "pre-ordered");
         try {
             BookLoanDBConnector.getInstance().addToDB(bookLoan);
-            ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

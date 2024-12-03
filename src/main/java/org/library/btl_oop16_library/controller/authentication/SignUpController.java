@@ -18,7 +18,8 @@ import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 
 import java.io.IOException;
 
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.emailRegex;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.LOGIN_PATH;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.EMAIL_REGEX;
 
 public class SignUpController {
     @FXML
@@ -46,7 +47,7 @@ public class SignUpController {
     private MFXButton signUpButton;
 
     public void switchToLoginScene(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/authentication/Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGIN_PATH));
         Scene loginScene = new Scene(loader.load());
         Animation.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
     }
@@ -59,7 +60,7 @@ public class SignUpController {
             return;
         }
 
-        if (!emailField.getText().matches(emailRegex)) {
+        if (!emailField.getText().matches(EMAIL_REGEX)) {
             ApplicationAlert.wrongEmailPattern();
             return;
         }
@@ -111,7 +112,7 @@ public class SignUpController {
 
 
     @FXML
-    void initialize() {
+    private void initialize() {
         signUpButton.setDefaultButton(true);
     }
 }

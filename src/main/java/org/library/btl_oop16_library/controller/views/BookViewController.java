@@ -8,6 +8,7 @@ import java.util.List;
 import atlantafx.base.controls.ModalPane;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,6 +28,9 @@ import org.library.btl_oop16_library.utils.database.BookDBConnector;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.general.SessionManager;
 
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.BOOK_DETAILS_PATH;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.SEARCH_BOOK_DIALOG_PATH;
+
 public class BookViewController {
     private static final BookDBConnector db = BookDBConnector.getInstance();
     private Book selectedBook = null;
@@ -44,7 +48,7 @@ public class BookViewController {
     private TableColumn<Book, String> languageCol;
 
     @FXML
-    private AnchorPane rootPane;
+    private AnchorPane bookViewPane;
 
     @FXML
     private MFXButton addBookButton;
@@ -99,8 +103,8 @@ public class BookViewController {
 
     private void setupViewDetailsButton() {
         viewDetailsButton.setOnAction(event -> {
-            VBox contentHolder = (VBox) rootPane.getScene().lookup("#bookContentVbox");
-            ModalPane modalPane = (ModalPane) rootPane.getScene().lookup("#bookContent");
+            VBox contentHolder = (VBox) bookViewPane.getScene().lookup("#bookContentVBox");
+            ModalPane modalPane = (ModalPane) bookViewPane.getScene().lookup("#bookContent");
             try {
                 contentHolder.getChildren().clear();
                 contentHolder.getChildren().addAll(getBookDetailsPane(modalPane));
@@ -113,8 +117,8 @@ public class BookViewController {
 
     private void setupAddBookButton() {
         addBookButton.setOnAction(event -> {
-            VBox contentHolder = (VBox) rootPane.getScene().lookup("#bookContentVbox");
-            ModalPane modalPane = (ModalPane) rootPane.getScene().lookup("#bookContent");
+            VBox contentHolder = (VBox) bookViewPane.getScene().lookup("#bookContentVBox");
+            ModalPane modalPane = (ModalPane) bookViewPane.getScene().lookup("#bookContent");
             try {
                 contentHolder.getChildren().clear();
                 contentHolder.getChildren().addAll(getAddBookPane(modalPane));
@@ -156,6 +160,12 @@ public class BookViewController {
 
         typeSearchBox.getItems().addAll("id", "title", "author", "category");
         typeSearchBox.setValue("title");
+
+        Platform.runLater(() -> {
+            if(bookViewPane.getScene().lookup("#bookContent") != null) {
+                System.out.printf("OK");
+            }
+        });
     }
 
     private void refresh() throws SQLException {
@@ -181,7 +191,7 @@ public class BookViewController {
     }
 
     private Pane getBookDetailsPane(ModalPane modalPane) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/BookDetails.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_DETAILS_PATH));
         Pane root = loader.load();
         BookDetailsController controller = loader.getController();
         controller.getButton2().setOnAction(event -> {
@@ -193,7 +203,7 @@ public class BookViewController {
     }
 
     private Pane getAddBookPane(ModalPane modalPane) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/dialogs/SearchBookDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SEARCH_BOOK_DIALOG_PATH));
         Pane root = loader.load();
         SearchBookDialogController controller = loader.getController();
         controller.getBackButton().setOnAction(event -> {

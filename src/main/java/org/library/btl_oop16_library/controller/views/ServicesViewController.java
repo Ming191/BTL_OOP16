@@ -26,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.sql.SQLException;
 
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.ADD_BOOKLOANS_DIALOG_PATH;
+
 public class ServicesViewController {
     private List<BookLoans> history;
     private final BookLoanDBConnector bookLoanDBConnector = BookLoanDBConnector.getInstance();
@@ -117,7 +119,7 @@ public class ServicesViewController {
             bookLendingStage.initModality(Modality.APPLICATION_MODAL);
             bookLendingStage.setTitle("Lending Book");
             System.out.println("Lending Book button clicked.");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/dialogs/AddBookLoansDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ADD_BOOKLOANS_DIALOG_PATH));
             Parent root = loader.load();
             bookLendingStage.setScene(new Scene(root));
             Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm())   ;
