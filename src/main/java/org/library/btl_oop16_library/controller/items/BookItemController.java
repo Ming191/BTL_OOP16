@@ -20,6 +20,8 @@ import org.library.btl_oop16_library.utils.general.ImageLoader;
 
 import java.io.IOException;
 
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.BOOK_DETAILS_PATH;
+
 public class BookItemController {
 
     @FXML
@@ -95,7 +97,7 @@ public class BookItemController {
     }
 
     private Pane showBookDetailsModal(Book book, ModalPane modalPane, String stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/BookDetails.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(BOOK_DETAILS_PATH));
         Pane root = fxmlLoader.load();
         VBox vBox = new VBox();
         vBox.setStyle("-fx-background-color: -color-bg-default;");

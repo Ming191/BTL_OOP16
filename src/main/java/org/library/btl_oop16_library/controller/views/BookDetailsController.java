@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.library.btl_oop16_library.utils.general.GlobalVariables.ICON_PATH;
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.PREORDER_DIALOG;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.PREORDER_DIALOG_PATH;
 
 public class BookDetailsController {
 
@@ -109,12 +109,12 @@ public class BookDetailsController {
 
         setupDescription(book);
 
-        if(Objects.equals(stage, "addBook")) {
+        if (Objects.equals(stage, "addBook")) {
             addBookSetup(book);
         }
 
-        if(Objects.equals(stage, "viewDetails")) {
-            if(canPreorder) {
+        if (Objects.equals(stage, "viewDetails")) {
+            if (canPreorder) {
                 preorderButtonSetup(book);
             } else {
                 button1.setDisable(true);
@@ -180,7 +180,7 @@ public class BookDetailsController {
                 preorderStage.setResizable(false);
                 preorderStage.initModality(Modality.APPLICATION_MODAL);
                 preorderStage.setTitle("Pre-order");
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(PREORDER_DIALOG));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PREORDER_DIALOG_PATH));
                 Parent root;
                 try {
                     root = loader.load();

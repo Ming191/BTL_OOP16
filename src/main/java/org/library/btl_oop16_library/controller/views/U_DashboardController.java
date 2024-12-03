@@ -27,6 +27,8 @@
     import java.io.IOException;
     import java.util.List;
 
+    import static org.library.btl_oop16_library.utils.general.GlobalVariables.BOOK_ITEM_PATH;
+
     public class U_DashboardController {
 
         @FXML
@@ -120,7 +122,7 @@
 
             for (int i = 0; i< books.size(); i++) {
                 Book book = books.get(i);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/items/BookItem.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_ITEM_PATH));
                 Parent bookItemRoot = loader.load();
                 BookItemController bookItemController = loader.getController();
 

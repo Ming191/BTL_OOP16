@@ -12,7 +12,7 @@ import org.library.btl_oop16_library.utils.general.SessionManager;
 import org.library.btl_oop16_library.utils.database.UserDBConnector;
 
 import static org.library.btl_oop16_library.utils.general.GlobalVariables.SETTINGS_PATH;
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.emailRegex;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.EMAIL_REGEX;
 
 public class UpdateUserController {
 
@@ -53,7 +53,7 @@ public class UpdateUserController {
             return;
         }
 
-        if (!emailField.getText().matches(emailRegex)) {
+        if (!emailField.getText().matches(EMAIL_REGEX)) {
             ApplicationAlert.wrongEmailPattern();
             return;
         }

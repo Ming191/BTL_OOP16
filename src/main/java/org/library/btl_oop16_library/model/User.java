@@ -13,7 +13,14 @@ public class User {
 
     public User() {}
 
-    public User(int id, String name, String email, String phone, String address, String userName, String password, String role) {
+    public User(int id,
+                String name,
+                String email,
+                String phone,
+                String address,
+                String userName,
+                String password,
+                String role) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -24,7 +31,12 @@ public class User {
         this.role = role;
     }
 
-    public User(String name, String email, String phone, String address, String userName, String password) {
+    public User(String name,
+                String email,
+                String phone,
+                String address,
+                String userName,
+                String password) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phone;
@@ -32,7 +44,6 @@ public class User {
         this.userName = userName;
         this.password = password;
     }
-
 
     public int getId() {
         return id;

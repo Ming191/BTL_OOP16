@@ -17,6 +17,7 @@ import org.library.btl_oop16_library.utils.database.UserDBConnector;
 import java.io.IOException;
 
 import static org.library.btl_oop16_library.utils.general.GlobalVariables.MAINMENU_PATH;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.SIGNUP_PATH;
 
 public class LoginController {
     @FXML
@@ -45,7 +46,7 @@ public class LoginController {
             return;
         } else {
             User user = UserDBConnector.getInstance().getUser(usernameField.getText(), passwordField.getText());
-            if(user != null) {
+            if (user != null) {
                 SessionManager.getInstance().setCurrentUser(user);
                 Animation.switchScene(rootPane,MAINMENU_PATH);
 
@@ -57,13 +58,13 @@ public class LoginController {
 
     @FXML
     public void switchToSignUpScene(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/authentication/SignUp.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SIGNUP_PATH));
         Scene signUpScene = new Scene(loader.load());
         Animation.fadeTransition((Stage) signUpButton.getScene().getWindow(), signUpButton.getScene(), signUpScene);
     }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         signInButton.setDefaultButton(true);
     }
 }

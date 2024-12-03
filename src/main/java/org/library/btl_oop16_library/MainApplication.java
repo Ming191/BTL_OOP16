@@ -9,13 +9,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import static org.library.btl_oop16_library.utils.general.GlobalVariables.LIGHT_THEME;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.LOGIN_PATH;
 
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
         stage.resizableProperty().setValue(Boolean.FALSE);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/authentication/Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGIN_PATH));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

@@ -22,6 +22,9 @@ import org.library.btl_oop16_library.utils.database.BookDBConnector;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.general.SessionManager;
 
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.BOOK_DETAILS_PATH;
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.SEARCH_BOOK_DIALOG_PATH;
+
 public class BookViewController {
     private static final BookDBConnector db = BookDBConnector.getInstance();
     private Book selectedBook = null;
@@ -173,7 +176,7 @@ public class BookViewController {
     }
 
     private Pane getBookDetailsPane(ModalPane modalPane) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/BookDetails.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_DETAILS_PATH));
         Pane root = loader.load();
         BookDetailsController controller = loader.getController();
         controller.getButton2().setOnAction(event -> {
@@ -185,7 +188,7 @@ public class BookViewController {
     }
 
     private Pane getAddBookPane(ModalPane modalPane) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/dialogs/SearchBookDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SEARCH_BOOK_DIALOG_PATH));
         Pane root = loader.load();
         SearchBookDialogController controller = loader.getController();
         controller.getBackButton().setOnAction(event -> {

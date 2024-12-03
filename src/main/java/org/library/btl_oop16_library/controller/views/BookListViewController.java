@@ -12,6 +12,8 @@ import org.library.btl_oop16_library.model.Book;
 import java.io.IOException;
 import java.util.List;
 
+import static org.library.btl_oop16_library.utils.general.GlobalVariables.BOOK_ITEM_PATH;
+
 public class BookListViewController {
 
     @FXML
@@ -38,7 +40,7 @@ public class BookListViewController {
         int itemsPerRow = 5;
 
         for (Book book : books) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/items/BookItem.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_ITEM_PATH));
             Region pane = loader.load();
             pane.prefWidthProperty().bind(flowPane.widthProperty().divide(itemsPerRow).subtract(flowPane.getHgap()));
             pane.setPrefHeight(300);
