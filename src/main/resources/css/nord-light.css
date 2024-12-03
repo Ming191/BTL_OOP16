@@ -2,11 +2,6 @@
   font-family: "Montserrat Medium";
   src: url("static/Montserrat-Medium.ttf");
 }
-@font-face {
-  font-family: "Montserrat Bold";
-  src: url("static/Montserrat-Bold.ttf");
-}
-
 
 @font-face {
   font-family: "Montserrat ExtraBold";
@@ -1194,9 +1189,12 @@ Text {
 }
 .chart > .chart-title {
   -fx-font-size: 1.25em;
+  -fx-font-family: "Montserrat Medium";
 }
 .chart > .chart-content {
   -fx-padding: 10px;
+  -fx-font-family: "Montserrat Medium";
+
 }
 .chart > .chart-content > .chart-plot-background {
   -fx-background-color: -color-bg-default;
@@ -1209,6 +1207,8 @@ Text {
 }
 .chart > .chart-legend {
   -fx-padding: 6px;
+  -fx-font-family: "Montserrat Medium";
+
 }
 .chart .axis {
   -fx-axis-color: -color-border-default;
@@ -1316,6 +1316,7 @@ Text {
 .chart-series-line {
   -fx-stroke: -color-chart-1;
   -fx-stroke-width: 3px;
+
 }
 
 .default-color0.chart-line-symbol {
@@ -2169,6 +2170,7 @@ Text {
   -fx-cell-size: 2.8em;
   -fx-border-width: 0 0 1 0;
   -fx-border-color: transparent;
+  -fx-font-family: "Montserrat Medium";
 }
 .list-view.bordered .list-cell {
   -fx-border-color: -color-cell-border;
@@ -2228,6 +2230,7 @@ Text {
   -fx-font-weight: bold;
   -fx-border-color: -color-cell-border;
   -fx-border-width: 0 1 1 0;
+  -fx-font-family: "Montserrat ExtraBold";
 }
 .table-view > .column-header-background .column-header .label {
   -fx-text-fill: -color-header-fg;
@@ -2325,6 +2328,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-padding: 0 0.5em 0 0.5em;
   -fx-text-fill: -color-cell-fg;
   -fx-alignment: BASELINE_CENTER;
+  -fx-font-family: "Montserrat Medium";
 }
 .table-view .table-row-cell > .table-cell.table-column.align-left {
   -fx-alignment: BASELINE_LEFT;

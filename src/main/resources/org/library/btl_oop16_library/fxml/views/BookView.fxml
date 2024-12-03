@@ -65,7 +65,7 @@
                       <TableColumn fx:id="titleCol" editable="false" maxWidth="350.0" minWidth="200.0" prefWidth="342.0" resizable="false" text="TITLE" />
                         <TableColumn fx:id="authorCol" editable="false" maxWidth="393.0" minWidth="165.0" prefWidth="207.0" resizable="false" text="AUTHORS" />
                         <TableColumn fx:id="category" editable="false" maxWidth="354.0" minWidth="126.0" prefWidth="205.0" resizable="false" text="TYPE" />
-                        <TableColumn fx:id="languageCol" editable="false" maxWidth="263.0" minWidth="68.0" prefWidth="94.0" resizable="false" text="LANGUAGE" />
+                        <TableColumn fx:id="languageCol" editable="false" maxWidth="263.0" minWidth="68.0" prefWidth="94.0" resizable="false" text="LANG" />
                         <TableColumn fx:id="availableCol" editable="false" maxWidth="478.0" minWidth="0.0" prefWidth="111.0" resizable="false" text="AVAILABLE" />
                     </columns>
                      <rotationAxis>

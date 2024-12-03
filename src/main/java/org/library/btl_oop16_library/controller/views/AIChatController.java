@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import org.library.btl_oop16_library.services.GithubModelService;
-import org.library.btl_oop16_library.utils.general.Animation;
+import org.library.btl_oop16_library.utils.general.Motion;
 
 public class AIChatController {
 
@@ -39,17 +39,17 @@ public class AIChatController {
                     }
                 };
 
-                aiTask.setOnRunning(workerEvent -> Animation.startTypingAnimation(chatBox));
+                aiTask.setOnRunning(workerEvent -> Motion.startTypingAnimation(chatBox));
 
                 aiTask.setOnSucceeded(workerEvent -> {
-                    Animation.stopTypingAnimation(chatBox);
+                    Motion.stopTypingAnimation(chatBox);
 
                     String aiResponse = aiTask.getValue();
                     displayAIResponseCharacterByCharacter(chatBox, aiResponse);
                 });
 
                 aiTask.setOnFailed(workerEvent -> {
-                    Animation.stopTypingAnimation(chatBox);
+                    Motion.stopTypingAnimation(chatBox);
                     addMessage(chatBox, "[Error generating response]", Pos.CENTER_LEFT);
                 });
 

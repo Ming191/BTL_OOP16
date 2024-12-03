@@ -1,5 +1,6 @@
 package org.library.btl_oop16_library.controller.dialogs;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -45,6 +46,13 @@ public class UpdateUserDialogForAdminController {
     public void initialize() {
         roleBox.getItems().addAll("user", "admin");
         roleBox.setValue("user");
+
+        Platform.runLater(() -> {
+           nameField.setText(selectedUser.getName());
+           emailField.setText(selectedUser.getEmail());
+           phoneField.setText(selectedUser.getPhoneNumber());
+           addressField.setText(selectedUser.getAddress());
+        });
     }
 
     @FXML

@@ -2,6 +2,7 @@ package org.library.btl_oop16_library.controller.views;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.PauseTransition;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -209,12 +210,12 @@ public class ServicesViewController {
         }
     }
 
-    private void loadHistory() throws SQLException {
+    private void loadHistory() {
         history = bookLoanDBConnector.importFromDB();
         table.getItems().addAll(history);
     }
 
-    private void loadHistoryForUser() throws SQLException {
+    private void loadHistoryForUser() {
         history = bookLoanDBConnector.importFromDBForUser(SessionManager.getInstance().getCurrentUser());
         table.getItems().addAll(history);
     }
@@ -250,7 +251,7 @@ public class ServicesViewController {
     }
 
     @FXML
-    private void importOnClick() throws SQLException {
+    private void importOnClick() {
         ExcelAPI.importExcel(BookLoanDBConnector.getInstance());
         refreshHistory();
     }
@@ -258,35 +259,20 @@ public class ServicesViewController {
     @FXML
     private void mailButtonOnClick() {
         BookLoanDBConnector dbConnector = BookLoanDBConnector.getInstance();
-        List<String[]> overdueEmails = dbConnector.getOverdueUserEmails();
-        Map<String, List<String[]>> overdueEmailsMap = new HashMap<>();
+        Map<String, List<String[]>> groupedEmails = dbConnector.getOverdueUserEmailsGrouped();
 
-        for (String[] details : overdueEmails) {
-            String userId = details[0];
-
-            if (!overdueEmailsMap.containsKey(userId)) {
-                overdueEmailsMap.put(userId, new ArrayList<>());
+        Task<Void> emailTask = new Task<>() {
+            @Override
+            protected Void call() {
+                EmailAPI.sendEmail(groupedEmails);
+                return null;
             }
-            overdueEmailsMap.get(userId).add(details);
-        }
+        };
+        emailTask.setOnSucceeded(event -> ApplicationAlert.emailSent());
+        emailTask.setOnFailed(event -> ApplicationAlert.emailFailed());
 
-        boolean allEmailsSent = true;
-
-        for (Map.Entry<String, List<String[]>> entry : overdueEmailsMap.entrySet()) {
-            List<String[]> overdueUserEmails = entry.getValue();
-            try {
-                EmailAPI.sendEmail(overdueUserEmails);
-            } catch (Exception e) {
-                allEmailsSent = false;
-                e.printStackTrace();
-            }
-        }
-
-        if (allEmailsSent) {
-            ApplicationAlert.emailSent();
-        } else {
-            ApplicationAlert.emailFailed();
-        }
-
+        new Thread(emailTask).start();
     }
+
+
 }

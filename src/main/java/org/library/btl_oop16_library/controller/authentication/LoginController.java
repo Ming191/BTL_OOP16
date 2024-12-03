@@ -1,18 +1,17 @@
 package org.library.btl_oop16_library.controller.authentication;
 
+import eu.iamgio.animated.transition.AnimatedSwitcher;
+import eu.iamgio.animated.transition.AnimationPair;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import org.library.btl_oop16_library.model.User;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.general.SessionManager;
-import org.library.btl_oop16_library.utils.general.Animation;
+import org.library.btl_oop16_library.utils.general.Motion;
 import org.library.btl_oop16_library.utils.database.UserDBConnector;
 
 import java.io.IOException;
@@ -39,6 +38,9 @@ public class LoginController {
     @FXML
     private BorderPane mainPane;
 
+    private AnimatedSwitcher switcher;
+
+
     @FXML
     public void signInOnClick(ActionEvent event) throws IOException {
 
@@ -49,7 +51,9 @@ public class LoginController {
             User user = UserDBConnector.getInstance().getUser(usernameField.getText(), passwordField.getText());
             if (user != null) {
                 SessionManager.getInstance().setCurrentUser(user);
-                Animation.switchScene(rootPane,MAINMENU_PATH);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(MAINMENU_PATH));
+                Pane node = loader.load();
+                Motion.switchScene(rootPane,node);
 
             } else {
                 ApplicationAlert.wrongUsernameOrPassword();
@@ -60,12 +64,15 @@ public class LoginController {
     @FXML
     public void switchToSignUpScene(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(SIGNUP_PATH));
-        Scene signUpScene = new Scene(loader.load());
-        Animation.fadeTransition((Stage) signUpButton.getScene().getWindow(), signUpButton.getScene(), signUpScene);
+        Pane node = loader.load();
+        Motion.switchScene(rootPane, node);
     }
 
     @FXML
     private void initialize() {
         signInButton.setDefaultButton(true);
+        switcher = new AnimatedSwitcher(AnimationPair.zoom().setSpeed(2, .8));
+        rootPane.getChildren().add(switcher);
+        switcher.setChild(mainPane);
     }
 }

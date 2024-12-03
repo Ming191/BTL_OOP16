@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="searchPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.dialogs.SearchBookDialogController">
+<AnchorPane fx:id="searchPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.dialogs.SearchBookDialogController">
    <children>
       <VBox spacing="25.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
          <children>
@@ -25,7 +25,7 @@
                                     <Font name="Montserrat Regular" size="14.0" />
                                  </font>
                               </TextField>
-                              <MFXButton fx:id="searchButton" onAction="#onSearchButtonClick" prefHeight="30.0" prefWidth="94.0" text="Search">
+                              <MFXButton fx:id="searchButton" onAction="#onSearchButtonClick" prefHeight="30.0" prefWidth="125.0" text="Search">
                                  <font>
                                     <Font name="Montserrat Medium" size="14.0" />
                                  </font>

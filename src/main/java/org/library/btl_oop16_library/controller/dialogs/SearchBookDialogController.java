@@ -1,11 +1,13 @@
 package org.library.btl_oop16_library.controller.dialogs;
 
 import atlantafx.base.controls.ModalPane;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -48,20 +50,40 @@ public class SearchBookDialogController {
     private void onSearchButtonClick(ActionEvent event) throws IOException {
         String searchText = searchField.getText();
 
-        System.out.println("Search text: " + searchText);
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        progressIndicator.setMaxSize(100, 100);
+        mainPane.setCenter(progressIndicator);
 
-        List<Book> books = GoogleBookAPI.searchBooks(searchText);
-        mainPane.getChildren().clear();
+        Task<List<Book>> searchTask = new Task<>() {
+            @Override
+            protected List<Book> call() throws Exception {
+                return GoogleBookAPI.searchBooks(searchText);
+            }
+        };
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_LIST_VIEW_PATH));
-        Parent root = loader.load();
+        searchTask.setOnSucceeded(e -> {
+            List<Book> books = searchTask.getValue();
+            mainPane.getChildren().clear();
 
-        BookListViewController controller = loader.getController();
-        controller.setGeneralPane(searchPane);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_LIST_VIEW_PATH));
+                Parent root = loader.load();
 
-        controller.setBooks(books);
-        mainPane.setCenter(root);
+                BookListViewController controller = loader.getController();
+                controller.setGeneralPane(searchPane);
+                controller.setBooks(books);
+
+                mainPane.setCenter(root);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } finally {
+                mainPane.getChildren().remove(progressIndicator);
+            }
+        });
+
+        new Thread(searchTask).start();
     }
+
 
     @FXML
     private void initialize() {

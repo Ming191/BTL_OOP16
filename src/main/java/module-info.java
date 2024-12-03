@@ -16,6 +16,7 @@ module org.library.btl_oop16_library {
     requires jcommander;
     requires annotations;
     requires javafx.graphics;
+    requires eu.iamgio.animated;
 
     opens org.library.btl_oop16_library to javafx.fxml;
     exports org.library.btl_oop16_library;

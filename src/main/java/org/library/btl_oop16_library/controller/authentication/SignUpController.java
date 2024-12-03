@@ -1,19 +1,22 @@
 package org.library.btl_oop16_library.controller.authentication;
 
 
+import eu.iamgio.animated.transition.AnimatedSwitcher;
+import eu.iamgio.animated.transition.AnimationPair;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.model.User;
 import org.library.btl_oop16_library.utils.database.ActivitiesDBConnector;
 import org.library.btl_oop16_library.utils.database.UserDBConnector;
-import org.library.btl_oop16_library.utils.general.Animation;
+import org.library.btl_oop16_library.utils.general.Motion;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 
 import java.io.IOException;
@@ -46,10 +49,18 @@ public class SignUpController {
     @FXML
     private MFXButton signUpButton;
 
+    @FXML
+    AnchorPane rootPane;
+
+    @FXML
+    BorderPane mainPane;
+
+    AnimatedSwitcher switcher;
+
     public void switchToLoginScene(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGIN_PATH));
         Scene loginScene = new Scene(loader.load());
-        Animation.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
+        Motion.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
     }
 
     @FXML
@@ -104,7 +115,7 @@ public class SignUpController {
             ApplicationAlert.signUpSuccess();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/authentication/Login.fxml"));
             Scene loginScene = new Scene(loader.load());
-            Animation.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
+            Motion.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
         } else {
             System.out.println("User cancelled the sign-up process.");
         }
@@ -113,6 +124,9 @@ public class SignUpController {
     @FXML
     private void initialize() {
         signUpButton.setDefaultButton(true);
+        switcher = new AnimatedSwitcher(AnimationPair.zoom().setSpeed(2, .8));
+        rootPane.getChildren().add(switcher);
+        switcher.setChild(mainPane);
     }
 }
 

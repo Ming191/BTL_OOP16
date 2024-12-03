@@ -41,11 +41,7 @@ public class GithubModelService {
 
         prompt.append("Recommendation Guidelines:\n")
                 .append("Provide book recommendations based on user interests or genres.\n")
-                .append("Include the book title, author, and a brief description or review.\n")
-                .append("Example:\n")
-                .append("      *Title*: \"Dune\"\n")
-                .append("      *Author*: Frank Herbert\n")
-                .append("      *Description*: A classic science fiction novel about politics, religion, and ecology on a desert planet.\n\n");
+                .append("Include the book title, author, and a brief description or review.\n");
 
         prompt.append("Catalog Information:\n")
                 .append("The library catalog includes the following books:\n");
@@ -62,8 +58,7 @@ public class GithubModelService {
                 .append("Here are the top 3 most borrowed books in our library:\n");
         List<Book> popularBooks = BookLoanDBConnector.getInstance().getTop3Books();
         for (Book book : popularBooks) {
-            prompt.append(String.format("- Title: \"%s\"\n  Author: %s\n  Category: %s\n  Description: %s\n\n",
-                    book.getTitle(), book.getAuthor(), book.getCategory(), book.getDescription()));
+            prompt.append(book.toString()).append("\n");
         }
 
         prompt.append("Borrowing History:\n")

@@ -26,7 +26,7 @@
                         <Insets left="24.0" top="22.0" />
                      </HBox.margin>
                   </FontIcon>
-                  <Line endX="-100.0" endY="75.0" fill="GREY" startX="-100.0">
+                  <Line endX="-100.0" endY="75.0" fill="GREY" startX="-100.0" style="-fx-fill: -color-fg-default;">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -36,7 +36,10 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="73.0" prefWidth="172.0" text="Total user" />
+                  <Label prefHeight="73.0" prefWidth="172.0" text="Total user">
+                     <font>
+                        <Font name="Montserrat Medium" size="20.0" />
+                     </font></Label>
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -49,7 +52,7 @@
                         <Insets left="24.0" top="22.0" />
                      </HBox.margin>
                   </FontIcon>
-                  <Line endX="-100.0" endY="75.0" fill="GREY" startX="-100.0">
+                  <Line endX="-100.0" endY="75.0" fill="GREY" startX="-100.0" style="-fx-fill: -color-fg-default;">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -62,7 +65,10 @@
                   <Label prefHeight="94.0" prefWidth="172.0" text="Total book">
                      <HBox.margin>
                         <Insets />
-                     </HBox.margin></Label>
+                     </HBox.margin>
+                     <font>
+                        <Font name="Montserrat Medium" size="20.0" />
+                     </font></Label>
                </children>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -75,7 +81,7 @@
                         <Insets left="24.0" top="22.0" />
                      </HBox.margin>
                   </FontIcon>
-                  <Line endX="-100.0" endY="73.29289245605469" fill="GREY" startX="-100.0">
+                  <Line endX="-100.0" endY="73.29289245605469" fill="GREY" startX="-100.0" style="-fx-fill: -color-fg-default;">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -85,7 +91,10 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="92.0" prefWidth="172.0" text="Total admin" />
+                  <Label prefHeight="92.0" prefWidth="172.0" text="Total admin">
+                     <font>
+                        <Font name="Montserrat Medium" size="20.0" />
+                     </font></Label>
                </children>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -94,8 +103,8 @@
          </children>
       </VBox>
       <PieChart fx:id="loanStatusChart" layoutX="31.0" layoutY="52.0" prefHeight="374.0" prefWidth="599.0" />
-      <ListView fx:id="activityListView" layoutX="662.0" layoutY="377.0" prefHeight="329.0" prefWidth="346.0" />
-      <HBox alignment="CENTER" layoutX="662.0" layoutY="333.0" prefHeight="36.0" prefWidth="346.0" spacing="5.0">
+      <ListView fx:id="activityListView" layoutX="662.0" layoutY="377.0" prefHeight="329.0" prefWidth="346.0" AnchorPane.bottomAnchor="25.0" />
+      <HBox alignment="CENTER" layoutX="662.0" layoutY="320.0" prefHeight="36.0" prefWidth="346.0" spacing="5.0">
          <children>
             <DatePicker fx:id="startDatePicker" prefHeight="36.0" prefWidth="140.0" />
             <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="21.0" text="to">
@@ -107,7 +116,7 @@
             <FontIcon fx:id="icon" iconLiteral="mdmz-search" />
          </children>
       </HBox>
-      <StackedBarChart fx:id="stackedBarChart" layoutX="26.0" layoutY="447.0" prefHeight="266.0" prefWidth="599.0">
+      <StackedBarChart fx:id="stackedBarChart" layoutX="26.0" layoutY="447.0" prefHeight="266.0" prefWidth="599.0" AnchorPane.bottomAnchor="25.0">
         <xAxis>
           <CategoryAxis fx:id="horizontalAxis" side="BOTTOM" />
         </xAxis>

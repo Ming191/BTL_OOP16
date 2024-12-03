@@ -19,7 +19,7 @@ public class ZXingAPI {
             return createImageFromBitMatrix(bitMatrix);
 
         } catch (WriterException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             return null;
         }
     }
@@ -37,7 +37,7 @@ public class ZXingAPI {
 
             return new Image(byteArrayInputStream);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             return null;
         }
     }

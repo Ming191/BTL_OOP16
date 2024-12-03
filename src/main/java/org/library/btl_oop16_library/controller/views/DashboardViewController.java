@@ -143,7 +143,7 @@ public class DashboardViewController {
             for (Activity activity : activities) {
                 String formattedTimestamp = activity.getTimestamp().format(formatter);
                 String fullDescription = activity.getDescription() + " at " + formattedTimestamp;
-                String shortenedDescription = fullDescription.length() > 46 ? fullDescription.substring(0, 46) + "..." : fullDescription;
+                String shortenedDescription = fullDescription.length() > 40 ? fullDescription.substring(0, 40) + "..." : fullDescription;
 
                 activityList.add(shortenedDescription);
             }
@@ -175,7 +175,7 @@ public class DashboardViewController {
                 String formattedTimestamp = activity.getTimestamp().format(formatter);
                 String fullDescription = activity.getDescription() + " at " + formattedTimestamp;
 
-                if (shortenedDescription.equals(fullDescription.length() > 46 ? fullDescription.substring(0, 46) + "..." : fullDescription)) {
+                if (shortenedDescription.equals(fullDescription.length() > 40 ? fullDescription.substring(0, 40) + "..." : fullDescription)) {
                     return fullDescription;
                 }
             }
@@ -210,7 +210,7 @@ public class DashboardViewController {
             for (Activity activity : activities) {
                 String formattedTimestamp = activity.getTimestamp().format(formatter);
                 String fullDescription = activity.getDescription() + " at " + formattedTimestamp;
-                String shortenedDescription = fullDescription.length() > 46 ? fullDescription.substring(0, 46) + "..." : fullDescription;
+                String shortenedDescription = fullDescription.length() > 40 ? fullDescription.substring(0, 40) + "..." : fullDescription;
 
                 activityList.add(shortenedDescription);
             }

@@ -7,7 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -16,9 +16,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-import static org.library.btl_oop16_library.utils.general.GlobalVariables.LOADING_IMG;
-
-public class Animation {
+public class Motion {
     public static void fadeTransition(Stage stage, Scene currentScene, Scene nextScene) {
         try {
             Parent nextRoot = nextScene.getRoot();
@@ -50,33 +48,13 @@ public class Animation {
         }
     }
 
-    public static void switchScene(Pane root, String fxmlPath) {
-        Stage stage = (Stage)root.getScene().getWindow();
-        ImageView loadingGif = new ImageView(LOADING_IMG);
-        loadingGif.setPreserveRatio(true);
-        loadingGif.setStyle("-fx-alignment: center;");
-        loadingGif.setFitWidth(50);
+    public static void switchScene(Pane root1, Pane root2) {
+        Stage stage = (Stage)root1.getScene().getWindow();
 
-        root.getChildren().add(loadingGif);
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        progressIndicator.setPrefSize(100,100);
 
-        new Thread(() -> {
-            try {
-                Platform.runLater(() -> {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(Animation.class.getResource(fxmlPath));
-                        Parent newRoot = loader.load();
-                        Scene newScene = new Scene(newRoot);
-                        fadeTransition(stage,root.getScene(),newScene);
-                        stage.setScene(newScene);
-                        root.getChildren().remove(loadingGif);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-            } catch (Exception e ) {
-                e.printStackTrace();
-            }
-        }).start();
+        fadeTransition(stage, root1.getScene(), new Scene(root2));
     }
 
     public static void startTypingAnimation(VBox chatArea) {

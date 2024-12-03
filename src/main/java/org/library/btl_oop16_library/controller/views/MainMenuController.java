@@ -1,13 +1,16 @@
 package org.library.btl_oop16_library.controller.views;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
+import animatefx.animation.FadeInDown;
+import animatefx.animation.FadeOutDown;
 import atlantafx.base.controls.ModalPane;
+import eu.iamgio.animated.transition.AnimatedSwitcher;
+import eu.iamgio.animated.transition.Animation;
+import eu.iamgio.animated.transition.AnimationPair;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -22,7 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.general.SessionManager;
-import org.library.btl_oop16_library.utils.general.Animation;
+import org.library.btl_oop16_library.utils.general.Motion;
 
 import static org.library.btl_oop16_library.utils.general.GlobalVariables.*;
 
@@ -59,6 +62,8 @@ public class MainMenuController {
     @FXML
     private ModalPane settingsPane;
 
+    private AnimatedSwitcher switcher;
+
     private void initializeRoleBasedAccess() {
         menuUser.setVisible(SessionManager.getInstance().getCurrentUser().getRole().equals("admin"));
         FXMLLoader loader;
@@ -73,7 +78,7 @@ public class MainMenuController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        mainPane.setCenter(pane);
+        switcher.setChild(pane);
     }
 
     private void startClock() {
@@ -95,14 +100,14 @@ public class MainMenuController {
     private void switchToBook(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_VIEW_PATH));
         Pane pane = loader.load();
-        mainPane.setCenter(pane);
+        switcher.setChild(pane);
     }
 
     @FXML
     private void switchToCatalog(ActionEvent event) throws IOException  {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(SERVICES_VIEW_PATH));
         Pane pane = loader.load();
-        mainPane.setCenter(pane);
+        switcher.setChild(pane);
     }
 
     @FXML
@@ -115,14 +120,14 @@ public class MainMenuController {
 
         }
         Pane pane = loader.load();
-        mainPane.setCenter(pane);
+        switcher.setChild(pane);
     }
 
     @FXML
     private void switchToUser(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         Pane pane = loader.load(Objects.requireNonNull(getClass().getResource(USER_VIEW_PATH)));
-        mainPane.setCenter(pane);
+        switcher.setChild(pane);
     }
 
     @FXML
@@ -131,7 +136,7 @@ public class MainMenuController {
         if (result) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGIN_PATH));
             Scene loginScene = new Scene(loader.load());
-            Animation.fadeTransition((Stage) logOutButton.getScene().getWindow(), logOutButton.getScene(), loginScene);
+            Motion.fadeTransition((Stage) logOutButton.getScene().getWindow(), logOutButton.getScene(), loginScene);
         }
     }
 
@@ -152,9 +157,7 @@ public class MainMenuController {
             throw new RuntimeException(e);
         }
         settings.getChildren().setAll(target);
-
         rootPane.getChildren().addAll(settingsPane);
-
         menuSettings.setOnAction(actionEvent -> settingsPane.show(settings));
     }
 
@@ -172,6 +175,9 @@ public class MainMenuController {
 
     @FXML
     private void initialize() {
+        switcher = new AnimatedSwitcher(AnimationPair.zoom().setSpeed(2, .8));
+        switcher.setId("switcher");
+        mainPane.setCenter(switcher);
         startClock();
         initializeRoleBasedAccess();
         settingsPaneSetup();

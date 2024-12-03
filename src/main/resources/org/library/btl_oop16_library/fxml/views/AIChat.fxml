@@ -10,13 +10,13 @@
 
 <AnchorPane prefHeight="215.0" prefWidth="600.0" styleClass="bg-inset" stylesheets="@../../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.AIChatController">
    <children>
-      <MFXButton fx:id="submitButton" buttonType="RAISED" layoutX="465.0" layoutY="158.0" prefHeight="30.0" prefWidth="120.0" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
+      <MFXButton fx:id="submitButton" layoutX="465.0" layoutY="158.0" prefHeight="30.0" prefWidth="120.0" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
          <font>
             <Font name="Montserrat Medium" size="14.0" />
          </font></MFXButton>
       <MFXScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="14.0" pannable="true" prefHeight="137.0" prefWidth="570.0" vbarPolicy="ALWAYS">
          <content>
-            <VBox fx:id="chatBox" prefHeight="410.0" prefWidth="560.0" spacing="5.0" styleClass="bg-default">
+            <VBox fx:id="chatBox" maxHeight="1.7976931348623157E308" prefHeight="137.0" prefWidth="560.0" spacing="5.0" styleClass="bg-default">
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </padding></VBox>

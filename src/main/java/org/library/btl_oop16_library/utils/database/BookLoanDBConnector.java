@@ -20,9 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 public class BookLoanDBConnector extends DBConnector<BookLoans> {
@@ -789,12 +787,12 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         String upsertQuery = """
         INSERT INTO bookLoans (id, userId, amount , startDate, dueDate, bookId, status)
         VALUES (?, ?, ?, ?, ?, ?, ?)
-        ON CONFLICT (id) 
+        ON CONFLICT (id)
         DO UPDATE SET
             id = EXCLUDED.id,
             userId = EXCLUDED.userId,
             amount = EXCLUDED.amount,
-            startDate = EXCLUDED.startDate, 
+            startDate = EXCLUDED.startDate,
             dueDate = EXCLUDED.dueDate,
             bookId = EXCLUDED.bookId,
             status = EXCLUDED.status
@@ -818,11 +816,12 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     }
 
     public void updateBookLoan() {
-       String updateStatus = "update bookLoans set status = 'overdued'"
-                            + " WHERE STRFTIME('%Y-%m-%d', SUBSTR(dueDate, 7, 4) || '-'\n"
-                            + "|| SUBSTR(dueDate, 4, 2) || '-'\n"
-                            + "|| SUBSTR(dueDate, 1, 2)) < DATE ('now')\n"
-                            + "and status != 'returned'";
+       String updateStatus = """
+               update bookLoans set status = 'overdued'\
+                WHERE STRFTIME('%Y-%m-%d', SUBSTR(dueDate, 7, 4) || '-'
+               || SUBSTR(dueDate, 4, 2) || '-'
+               || SUBSTR(dueDate, 1, 2)) < DATE ('now')
+               and status != 'returned'""";
        try (Connection con = DBConnector.getConnection()) {
            PreparedStatement ps = con.prepareStatement(updateStatus);
            ps.executeUpdate();
@@ -871,32 +870,32 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         return false;
     }
 
-    public List<String[]> getOverdueUserEmails() {
-        List<String[]> overdueEmails = new ArrayList<>();
-        String query = "SELECT u.id, u.email, u.name AS userName, b.title AS bookTitle, bl.dueDate " +
-                "FROM bookLoans bl " +
-                "JOIN user u ON bl.userId = u.id " +
-                "JOIN book b ON bl.bookId = b.id " +
-                "WHERE bl.status = 'overdued'";
+    public Map<String, List<String[]>> getOverdueUserEmailsGrouped() {
+        Map<String, List<String[]>> groupedEmails = new HashMap<>();
+        String query = """
+            SELECT u.id, u.email, u.name AS userName, b.title AS bookTitle, bl.dueDate
+            FROM bookLoans bl
+            JOIN user u ON bl.userId = u.id
+            JOIN book b ON bl.bookId = b.id
+            WHERE bl.status = 'overdued'""";
 
         try (Connection con = DBConnector.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String id = rs.getString("id");
                 String email = rs.getString("email");
                 String userName = rs.getString("userName");
                 String bookTitle = rs.getString("bookTitle");
                 String dueDate = rs.getString("dueDate");
 
-                System.out.println(id + " " + email + " " + userName + " " + bookTitle + " " + dueDate);
-
-                overdueEmails.add(new String[] {id, email, userName, bookTitle, dueDate });
+                groupedEmails
+                        .computeIfAbsent(email, k -> new ArrayList<>())
+                        .add(new String[] {userName, bookTitle, dueDate});
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return overdueEmails;
+        return groupedEmails;
     }
 
     public int getBookLentAmount(String userId) {

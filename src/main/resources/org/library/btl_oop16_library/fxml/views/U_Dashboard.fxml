@@ -41,8 +41,14 @@
                 <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <MFXButton fx:id="toBookLoans" buttonType="RAISED" onAction="#toBookLoansView" prefHeight="80.0" prefWidth="300.0" styleClass="bg-inset" text="YOUR BORROWED BOOK LIST" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
-                  <MFXButton fx:id="toBook" buttonType="RAISED" onAction="#toBookView" prefHeight="80.0" prefWidth="300.0" styleClass="bg-inset" text="EXPORE OUR BOOK LIST" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" />
+                  <MFXButton fx:id="toBookLoans" buttonType="RAISED" onAction="#toBookLoansView" prefHeight="80.0" prefWidth="300.0" styleClass="bg-inset" text="YOUR BORROWED BOOK LIST" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                     <font>
+                        <Font name="Montserrat Medium" size="14.0" />
+                     </font></MFXButton>
+                  <MFXButton fx:id="toBook" buttonType="RAISED" onAction="#toBookView" prefHeight="80.0" prefWidth="300.0" styleClass="bg-inset" text="EXPORE OUR BOOK LIST" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Montserrat Medium" size="14.0" />
+                     </font></MFXButton>
                </children>
             </GridPane>
             <VBox fx:id="aiChatHolder" prefHeight="215.0" prefWidth="100.0" />

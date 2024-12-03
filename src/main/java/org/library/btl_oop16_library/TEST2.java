@@ -1,62 +1,53 @@
 //package org.library.btl_oop16_library;
 //
+//import javafx.animation.RotateTransition;
 //import javafx.application.Application;
-//import javafx.concurrent.Task;
 //import javafx.scene.Scene;
-//import javafx.scene.control.ProgressIndicator;
-//import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
+//import javafx.scene.control.Button;
 //import javafx.scene.layout.StackPane;
 //import javafx.stage.Stage;
+//import javafx.util.Duration;
 //
 //public class TEST2 extends Application {
 //
 //    @Override
 //    public void start(Stage primaryStage) {
-//        // Create a placeholder (loading indicator)
-//        ProgressIndicator loadingIndicator = new ProgressIndicator();
+//        // Create two scenes
+//        StackPane root1 = new StackPane();
+//        root1.setStyle("-fx-background-color: #3498db;");
+//        Scene scene1 = new Scene(root1, 400, 300);
 //
-//        // ImageView to display the image
-//        ImageView imageView = new ImageView();
-//        imageView.setFitWidth(300);
-//        imageView.setFitHeight(200);
-//        imageView.setPreserveRatio(true);
+//        StackPane root2 = new StackPane();
+//        root2.setStyle("-fx-background-color: #e74c3c;");
+//        Scene scene2 = new Scene(root2, 400, 300);
 //
-//        // Container to hold the loading indicator and the image
-//        StackPane stackPane = new StackPane(loadingIndicator, imageView);
+//        // Add some content to the scenes
+//        root1.getChildren().add(new javafx.scene.control.Label("Scene 1"));
+//        root2.getChildren().add(new javafx.scene.control.Label("Scene 2"));
 //
-//        // Task to load the image asynchronously
-//        Task<Image> loadImageTask = new Task<>() {
-//            @Override
-//            protected Image call() {
-//                // Simulate network delay
-//                try {
-//                    Thread.sleep(2000); // 2-second delay
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                    }
-//                    return new Image("https://media.licdn.com/dms/image/v2/D4D12AQGgMCavCcCbEg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1711086616356?e=2147483647&v=beta&t=1N65UooE_qsxL1jn9bwI0x1CFp7-czZxArntN8jCIps");
-//            }
-//        };
+//        // Set up a RotateTransition (Spin Effect)
+//        RotateTransition rotateOut = new RotateTransition(Duration.seconds(0.5), root1);
+//        rotateOut.setFromAngle(0);
+//        rotateOut.setToAngle(360);
 //
-//        // On successful load, display the image and hide the loading indicator
-//        loadImageTask.setOnSucceeded(e -> {
-//            imageView.setImage(loadImageTask.getValue());
-//            loadingIndicator.setVisible(false);
+//        RotateTransition rotateIn = new RotateTransition(Duration.seconds(0.5), root2);
+//        rotateIn.setFromAngle(-360);
+//        rotateIn.setToAngle(0);
 //
-//            // Optional: Add a fade-in effect for the loaded image
-//            imageView.setOpacity(0);
-//            imageView.setVisible(true);
-//            imageView.setOpacity(1); // You can use a FadeTransition for smooth effect
+//        rotateOut.setOnFinished(event -> {
+//            primaryStage.setScene(scene2);
+//            rotateIn.play();
 //        });
 //
-//        // Start the image loading task in a separate thread
-//        new Thread(loadImageTask).start();
+//        Button btnChangeScene = new Button("Change Scene");
+//        btnChangeScene.setOnAction(event -> {
+//            rotateOut.play();
+//        });
 //
-//        // Set up the scene and stage
-//        Scene scene = new Scene(stackPane, 400, 300);
-//        primaryStage.setTitle("Image Loading Effect");
-//        primaryStage.setScene(scene);
+//        root1.getChildren().add(btnChangeScene);
+//
+//        primaryStage.setScene(scene1);
+//        primaryStage.setTitle("Scene Change with Spin Effect");
 //        primaryStage.show();
 //    }
 //

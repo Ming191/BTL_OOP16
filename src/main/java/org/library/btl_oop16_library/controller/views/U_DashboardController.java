@@ -1,5 +1,6 @@
     package org.library.btl_oop16_library.controller.views;
 
+    import eu.iamgio.animated.transition.AnimatedSwitcher;
     import io.github.palexdev.materialfx.controls.MFXButton;
     import javafx.application.Platform;
     import javafx.collections.FXCollections;
@@ -27,7 +28,7 @@
     import java.io.IOException;
     import java.util.List;
 
-    import static org.library.btl_oop16_library.utils.general.GlobalVariables.BOOK_ITEM_PATH;
+    import static org.library.btl_oop16_library.utils.general.GlobalVariables.*;
 
     public class U_DashboardController {
 
@@ -134,20 +135,20 @@
 
         @FXML
         void toBookLoansView(ActionEvent event) throws IOException {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/ServicesView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(SERVICES_VIEW_PATH));
             Pane pane = loader.load();
             Scene scene = dashboardPane.getScene();
-            BorderPane nodeToFind = (BorderPane) scene.lookup("#mainPane");
-            nodeToFind.setCenter(pane);
+            AnimatedSwitcher nodeToFind = (AnimatedSwitcher) scene.lookup("#switcher");
+            nodeToFind.setChild(pane);
         }
 
         @FXML
         void toBookView(ActionEvent event) throws IOException {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/views/BookView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_VIEW_PATH));
             Pane pane = loader.load();
             Scene scene = dashboardPane.getScene();
-            BorderPane nodeToFind = (BorderPane) scene.lookup("#mainPane");
-            nodeToFind.setCenter(pane);
+            AnimatedSwitcher nodeToFind = (AnimatedSwitcher) scene.lookup("#switcher");
+            nodeToFind.setChild(pane);
         }
 
         private void setupAIChatBox() throws IOException {
