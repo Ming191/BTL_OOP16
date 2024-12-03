@@ -57,7 +57,7 @@ public class AddBookLendingDialogController {
             try {
                 Parent root = loader.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         } else {
             int userID = Integer.parseInt(userIdField.getText());

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import atlantafx.base.controls.ModalPane;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -102,12 +103,8 @@ public class BookViewController {
 
     private void setupViewDetailsButton() {
         viewDetailsButton.setOnAction(event -> {
-            VBox contentHolder = (VBox) bookViewPane.getScene().lookup("#bookContentVBox");
-            ModalPane modalPane = (ModalPane) bookViewPane.getScene().lookup("#bookContent");
             try {
-                contentHolder.getChildren().clear();
-                contentHolder.getChildren().addAll(getBookDetailsPane(modalPane));
-                modalPane.show(contentHolder);
+                showModalPane(BOOK_DETAILS_PATH,"viewDetails");
             } catch (IOException | SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -116,19 +113,33 @@ public class BookViewController {
 
     private void setupAddBookButton() {
         addBookButton.setOnAction(event -> {
-            VBox contentHolder = (VBox) bookViewPane.getScene().lookup("#bookContentVBox");
-            ModalPane modalPane = (ModalPane) bookViewPane.getScene().lookup("#bookContent");
             try {
-                contentHolder.getChildren().clear();
-                contentHolder.getChildren().addAll(getAddBookPane(modalPane));
-                modalPane.show(contentHolder);
+                showModalPane(SEARCH_BOOK_DIALOG_PATH,"addBook");
             } catch (IOException | SQLException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
+    private void showModalPane(String fxmlPath, String stage) throws IOException, SQLException {
+        VBox contentHolder = (VBox) bookViewPane.getScene().lookup("#bookContentVBox");
+        ModalPane modalPane = (ModalPane) bookViewPane.getScene().lookup("#bookContent");
+        contentHolder.getChildren().clear();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        Pane pane = loader.load();
 
+        if ("viewDetails".equals(stage)) {
+            BookDetailsController controller = loader.getController();
+            controller.setInfo(selectedBook, stage);
+            controller.getBackButton().setOnAction(event -> modalPane.hide());
+        } else if ("addBook".equals(stage)) {
+            SearchBookDialogController controller = loader.getController();
+            controller.getBackButton().setOnAction(event -> modalPane.hide());
+        }
+
+        contentHolder.getChildren().add(pane);
+        modalPane.show(contentHolder);
+    }
 
     @FXML
     private void initialize() throws SQLException {
@@ -146,8 +157,6 @@ public class BookViewController {
         });
         loadBook();
         initializeRoleBasedAccess();
-        setupViewDetailsButton();
-        setupAddBookButton();
 
         searchPause = new PauseTransition(Duration.millis(500));
         searchPause.setOnFinished(event -> realTimeSearch(searchField.getText()));
@@ -161,9 +170,8 @@ public class BookViewController {
         typeSearchBox.setValue("title");
 
         Platform.runLater(() -> {
-            if(bookViewPane.getScene().lookup("#bookContent") != null) {
-                System.out.printf("OK");
-            }
+            setupViewDetailsButton();
+            setupAddBookButton();
         });
     }
 
@@ -193,7 +201,7 @@ public class BookViewController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_DETAILS_PATH));
         Pane root = loader.load();
         BookDetailsController controller = loader.getController();
-        controller.getButton2().setOnAction(event -> {
+        controller.getBackButton().setOnAction(event -> {
             modalPane.hide();
             root.getChildren().clear();
         });
@@ -265,11 +273,10 @@ public class BookViewController {
         updateBook.setResizable(false);
         updateBook.initModality(Modality.APPLICATION_MODAL);
         updateBook.setTitle("Update Book");
-        System.out.println("updateBook on clicked");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(UPDATE_BOOK));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/dialogs/UpdateBookDialog.fxml"));
         Pane root = loader.load();
         updateBook.setScene(new Scene(root));
-        Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm());
+        Image favicon = new Image(Objects.requireNonNull(getClass().getResource(ICON_PATH)).toExternalForm());
         updateBook.getIcons().add(favicon);
         updateBook.showAndWait();
 

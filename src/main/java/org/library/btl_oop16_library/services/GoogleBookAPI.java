@@ -39,13 +39,27 @@ public class GoogleBookAPI {
                         }
                         author = authorsBuilder.toString();
                     }
-                    String category = bookJson.optJSONArray("categories") != null ? bookJson.getJSONArray("categories").getString(0) : "N/A";
+
+                    String category = bookJson.optJSONArray("categories") != null
+                            ? bookJson.getJSONArray("categories").getString(0)
+                            : "N/A";
                     String language = bookJson.optString("language", "N/A");
 
-                    String imageUrl = bookJson.has("imageLinks") ? bookJson.getJSONObject("imageLinks").optString("thumbnail", "") : "";
-                    String rating = bookJson.has("averageRating") ? String.valueOf(bookJson.getDouble("averageRating")) : "Unknown rating";
-                    String description = bookJson.has("description") ? bookJson.getString("description") : "Unknown description";
-                    String previewURL = bookJson.has("previewLink") ? bookJson.getString("previewLink") : "";
+                    String imageUrl = "";
+                    if (bookJson.has("imageLinks")) {
+                        JSONObject imageLinks = bookJson.getJSONObject("imageLinks");
+                        imageUrl = imageLinks.optString("large  ", imageLinks.optString("thumbnail", ""));
+                    }
+
+                    String rating = bookJson.has("averageRating")
+                            ? String.valueOf(bookJson.getDouble("averageRating"))
+                            : "Unknown rating";
+                    String description = bookJson.has("description")
+                            ? bookJson.getString("description")
+                            : "Unknown description";
+                    String previewURL = bookJson.has("previewLink")
+                            ? bookJson.getString("previewLink")
+                            : "";
 
                     Book book = new Book(title, author, category, language, imageUrl, rating, description, previewURL);
                     books.add(book);
@@ -56,6 +70,7 @@ public class GoogleBookAPI {
         }
         return books;
     }
+
 
     private static JSONArray getObjects(String query) throws IOException, InterruptedException {
         String urlString = GOOGLE_BOOKS_API_URL + query.replace(" ", "+") + "&key=" + API_KEY;

@@ -11,7 +11,6 @@ import org.library.btl_oop16_library.model.Activity;
 import org.library.btl_oop16_library.utils.database.ActivitiesDBConnector;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.database.DBConnector;
-import org.library.btl_oop16_library.utils.database.UserDBConnector;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -81,8 +80,6 @@ public class DashboardViewController {
 
         loadActivities();
 
-        UserDBConnector userDB = UserDBConnector.getInstance();
-
         icon.setOnMouseClicked(event -> searchActivitiesByDate());
 
         loadStackedBarChartData();
@@ -128,7 +125,7 @@ public class DashboardViewController {
                 newBookSeries.getData().add(new XYChart.Data<>(date, newBooksAdded));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         stackedBarChart.getData().clear();
@@ -151,7 +148,7 @@ public class DashboardViewController {
                 activityList.add(shortenedDescription);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         activityListView.setItems(activityList);
 
@@ -183,17 +180,9 @@ public class DashboardViewController {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         return null;
-    }
-
-
-    private String truncateLogEntry(String logEntry, int limit) {
-        if (logEntry.length() > limit) {
-            return logEntry.substring(0, limit) + "...";
-        }
-        return logEntry;
     }
 
 

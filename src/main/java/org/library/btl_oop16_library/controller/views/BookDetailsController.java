@@ -10,6 +10,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -45,7 +46,7 @@ public class BookDetailsController {
     private Button button1;
 
     @FXML
-    private Button button2;
+    private Button backButton;
 
     @FXML
     private Text description;
@@ -63,9 +64,6 @@ public class BookDetailsController {
     private Label title;
 
     @FXML
-    private VBox mainPane;
-
-    @FXML
     private VBox descBox;
 
     @FXML
@@ -77,10 +75,13 @@ public class BookDetailsController {
     @FXML
     private Label commentsLabel;
 
+    @FXML
+    private StackPane stackPane;
+
     private boolean canPreorder = false;
 
-    public Button getButton2() {
-        return button2;
+    public Button getBackButton() {
+        return backButton;
     }
 
     public Button getButton1() {
@@ -104,7 +105,7 @@ public class BookDetailsController {
         author.setText(book.getAuthor());
         title.setText(book.getTitle());
         rating.setText(book.getRating());
-        ImageLoader.loadImage(imgHolder, book.getImgURL(), 200);
+        ImageLoader.loadImage(imgHolder,stackPane, book.getImgURL(), 200);
         qrHolder.setImage(ZXingAPI.toQRCode(book, 100, 100));
 
         setupDescription(book);

@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.DashboardViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1060.0" stylesheets="@../../../../../css/nord-light.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.DashboardViewController">
    <children>
       <VBox layoutX="662.0" layoutY="52.0" prefHeight="256.0" prefWidth="346.0">
          <children>
@@ -94,22 +94,17 @@
          </children>
       </VBox>
       <PieChart fx:id="loanStatusChart" layoutX="31.0" layoutY="52.0" prefHeight="374.0" prefWidth="599.0" />
-      <ListView fx:id="activityListView" layoutX="662.0" layoutY="369.0" prefHeight="337.0" prefWidth="346.0" />
-      <HBox layoutX="662.0" layoutY="333.0" prefHeight="36.0" prefWidth="346.0">
+      <ListView fx:id="activityListView" layoutX="662.0" layoutY="377.0" prefHeight="329.0" prefWidth="346.0" />
+      <HBox alignment="CENTER" layoutX="662.0" layoutY="333.0" prefHeight="36.0" prefWidth="346.0" spacing="5.0">
          <children>
-            <Label prefHeight="36.0" prefWidth="27.0" text="Start">
+            <DatePicker fx:id="startDatePicker" prefHeight="36.0" prefWidth="140.0" />
+            <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="21.0" text="to">
                <font>
-                  <Font size="10.0" />
+                  <Font name="Montserrat Medium" size="14.0" />
                </font>
             </Label>
-            <DatePicker fx:id="startDatePicker" prefHeight="36.0" prefWidth="130.0" />
-            <Label layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="27.0" text="End">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Label>
-            <DatePicker fx:id="endDatePicker" layoutX="43.0" layoutY="10.0" prefHeight="36.0" prefWidth="130.0" />
-            <FontIcon fx:id="icon" iconLiteral="mdal-find_in_page" />
+            <DatePicker fx:id="endDatePicker" layoutX="43.0" layoutY="10.0" prefHeight="36.0" prefWidth="140.0" />
+            <FontIcon fx:id="icon" iconLiteral="mdmz-search" />
          </children>
       </HBox>
       <StackedBarChart fx:id="stackedBarChart" layoutX="26.0" layoutY="447.0" prefHeight="266.0" prefWidth="599.0">

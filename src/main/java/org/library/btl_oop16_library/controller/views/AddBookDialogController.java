@@ -7,8 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 
-import java.sql.SQLException;
-
 public class AddBookDialogController {
     @FXML
     private Button cancelButton;
@@ -26,12 +24,12 @@ public class AddBookDialogController {
     }
 
     @FXML
-     private void onConfirmButtonClick(ActionEvent event) throws SQLException {
+     private void onConfirmButtonClick(ActionEvent event) {
         int quantity;
         try {
             quantity = Integer.parseInt(quantityField.getText());
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             return;
         }
         ApplicationAlert.addSuccess();

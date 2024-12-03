@@ -15,37 +15,37 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.ServicesViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.ServicesViewController">
    <children>
       <BorderPane layoutX="234.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="53.0" layoutY="123.0" prefHeight="200.0" prefWidth="984.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutX="53.0" layoutY="123.0" prefHeight="200.0" prefWidth="984.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox alignment="CENTER_RIGHT" prefHeight="63.0" prefWidth="1037.0" spacing="5.0">
                            <children>
-                              <MFXButton fx:id="mailButton" onAction="#mailButtonOnClick" prefHeight="30.0" prefWidth="100.0" text="Mail">
+                              <MFXButton fx:id="mailButton" onAction="#mailButtonOnClick" prefHeight="40.0" prefWidth="100.0" text="Mail">
                                  <font>
                                     <Font name="Montserrat Medium" size="12.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton fx:id="lendBookButton" onAction="#lendBookButtonOnClick" prefHeight="30.0" prefWidth="100.0" text="Lend Book">
+                              <MFXButton fx:id="lendBookButton" onAction="#lendBookButtonOnClick" prefHeight="40.0" prefWidth="100.0" text="Lend Book">
                                  <font>
                                     <Font name="Montserrat Medium" size="12.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton fx:id="exportButton" onAction="#exportOnClick" prefHeight="30.0" prefWidth="100.0" text="Export">
+                              <MFXButton fx:id="exportButton" onAction="#exportOnClick" prefHeight="40.0" prefWidth="100.0" text="Export">
                                  <font>
                                     <Font name="Montserrat Medium" size="12.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton fx:id="importButton" onAction="#importOnClick" prefHeight="30.0" prefWidth="100.0" text="Import">
+                              <MFXButton fx:id="importButton" onAction="#importOnClick" prefHeight="40.0" prefWidth="100.0" text="Import">
                                  <font>
                                     <Font name="Montserrat Medium" size="12.0" />
                                  </font>
                               </MFXButton>
-                              <MenuButton fx:id="updateStatusMenu" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.0" text="Update Status">
+                              <MenuButton fx:id="updateStatusMenu" mnemonicParsing="false" prefHeight="40.0" prefWidth="143.0" text="Update Status">
                                 <items>
                                   <MenuItem fx:id="returnedItem" mnemonicParsing="false" onAction="#handleOption" text="Returned" />
                                   <MenuItem fx:id="notReturnedItem" mnemonicParsing="false" onAction="#handleOption" text="Not returned" />
@@ -56,11 +56,11 @@
                                     <Font name="Montserrat Medium" size="12.0" />
                                  </font>
                               </MenuButton>
-                              <TextField fx:id="searchField" onAction="#searchButtonOnClick" promptText="Type here to search">
+                              <TextField fx:id="searchField" onAction="#searchButtonOnClick" prefHeight="40.0" promptText="Type here to search">
                                  <font>
                                     <Font name="Montserrat Medium" size="12.0" />
                                  </font></TextField>
-                              <ChoiceBox fx:id="typeSearchBox" prefHeight="26.0" prefWidth="86.0" />
+                              <ChoiceBox fx:id="typeSearchBox" prefHeight="40.0" prefWidth="86.0" />
                            </children></HBox>
                         <TableView fx:id="table" prefHeight="657.0">
                            <columns>

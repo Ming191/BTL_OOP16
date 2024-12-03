@@ -110,7 +110,6 @@ public class SignUpController {
         }
     }
 
-
     @FXML
     private void initialize() {
         signUpButton.setDefaultButton(true);

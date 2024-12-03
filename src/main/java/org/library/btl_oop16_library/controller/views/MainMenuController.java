@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import atlantafx.base.controls.ModalPane;
@@ -26,17 +27,10 @@ import org.library.btl_oop16_library.utils.general.Animation;
 import static org.library.btl_oop16_library.utils.general.GlobalVariables.*;
 
 public class MainMenuController {
-    @FXML
-    public Pane themePane;
+
 
     @FXML
     private AnchorPane rootPane;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private BorderPane mainPane;
@@ -60,29 +54,20 @@ public class MainMenuController {
     private Button menuUser;
 
     @FXML
-    private VBox menuVbox;
-
-    @FXML
     private Button menuSettings;
 
     @FXML
     private ModalPane settingsPane;
 
-    @FXML
-    private ModalPane modalPane;
-
-    @FXML
-    private VBox contentHolder;
-
     private void initializeRoleBasedAccess() {
         menuUser.setVisible(SessionManager.getInstance().getCurrentUser().getRole().equals("admin"));
-        FXMLLoader loader = null;
+        FXMLLoader loader;
         if (SessionManager.getInstance().getCurrentUser().getRole().equals("admin")) {
             loader = new FXMLLoader(getClass().getResource(DASHBOARD_VIEW_PATH));
         } else {
             loader = new FXMLLoader(getClass().getResource(USER_DASHBOARD_VIEW_PATH));
         }
-        Pane pane = null;
+        Pane pane;
         try {
             pane = loader.load();
         } catch (IOException e) {
@@ -110,7 +95,6 @@ public class MainMenuController {
     private void switchToBook(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_VIEW_PATH));
         Pane pane = loader.load();
-        BookViewController bookViewController = loader.getController();
         mainPane.setCenter(pane);
     }
 
@@ -118,13 +102,12 @@ public class MainMenuController {
     private void switchToCatalog(ActionEvent event) throws IOException  {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(SERVICES_VIEW_PATH));
         Pane pane = loader.load();
-        ServicesViewController servicesViewController = loader.getController();
         mainPane.setCenter(pane);
     }
 
     @FXML
     private void switchToDashboard(ActionEvent event) throws IOException {
-        FXMLLoader loader = null;
+        FXMLLoader loader;
         if(SessionManager.getInstance().getCurrentUser().getRole().equals("admin")) {
             loader = new FXMLLoader(getClass().getResource(DASHBOARD_VIEW_PATH));
         } else {
@@ -138,7 +121,7 @@ public class MainMenuController {
     @FXML
     private void switchToUser(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        Pane pane = loader.load(getClass().getResource(USER_VIEW_PATH));
+        Pane pane = loader.load(Objects.requireNonNull(getClass().getResource(USER_VIEW_PATH)));
         mainPane.setCenter(pane);
     }
 
@@ -150,7 +133,6 @@ public class MainMenuController {
             Scene loginScene = new Scene(loader.load());
             Animation.fadeTransition((Stage) logOutButton.getScene().getWindow(), logOutButton.getScene(), loginScene);
         }
-        return;
     }
 
     public void settingsPaneSetup() {
@@ -163,7 +145,7 @@ public class MainMenuController {
         settings.setStyle("-fx-background-color: -color-bg-default;");
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(SETTINGS_PATH));
-        VBox target = null;
+        VBox target;
         try {
             target = loader.load();
         } catch (IOException e) {
@@ -173,21 +155,19 @@ public class MainMenuController {
 
         rootPane.getChildren().addAll(settingsPane);
 
-        menuSettings.setOnAction(actionEvent -> {
-            settingsPane.show(settings);
-        });
+        menuSettings.setOnAction(actionEvent -> settingsPane.show(settings));
     }
 
     public void bookPaneSetup() {
-        modalPane = new ModalPane();
+        ModalPane modalPane = new ModalPane();
         modalPane.setId("bookContent");
         modalPane.setPrefSize(1280, 720);
-        contentHolder = new VBox();
+        VBox contentHolder = new VBox();
         contentHolder.setId("bookContentVBox");
         contentHolder.setAlignment(Pos.CENTER);
         contentHolder.setMaxSize(1280, 720);
         contentHolder.setStyle("-fx-background-color: -color-bg-default;");
-        rootPane.getChildren().addAll(modalPane,contentHolder);
+        rootPane.getChildren().addAll(modalPane, contentHolder);
     }
 
     @FXML

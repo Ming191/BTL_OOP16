@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "Montserrat";
+  font-family: "Montserrat Medium";
   src: url("static/Montserrat-Medium.ttf");
 }
 @font-face {
@@ -4291,6 +4291,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-prompt-text-fill: -color-fg-subtle;
   -fx-padding: 8px 12px 8px 12px;
   -fx-cursor: text;
+  -fx-font-family: "Montserrat Medium";
 }
 .text-input:focused {
   -fx-background-color: -color-input-border-focused, -color-input-bg-focused;

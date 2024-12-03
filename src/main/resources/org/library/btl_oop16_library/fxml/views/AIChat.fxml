@@ -16,9 +16,9 @@
          </font></MFXButton>
       <MFXScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="14.0" pannable="true" prefHeight="137.0" prefWidth="570.0" vbarPolicy="ALWAYS">
          <content>
-            <VBox fx:id="chatBox" prefWidth="560.0" styleClass="bg-default">
+            <VBox fx:id="chatBox" prefHeight="410.0" prefWidth="560.0" spacing="5.0" styleClass="bg-default">
                <padding>
-                  <Insets left="5.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </padding></VBox>
          </content>
       </MFXScrollPane>

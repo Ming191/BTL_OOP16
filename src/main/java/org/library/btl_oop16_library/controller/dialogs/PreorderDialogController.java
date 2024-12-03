@@ -3,12 +3,10 @@ package org.library.btl_oop16_library.controller.dialogs;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.model.Book;
 import org.library.btl_oop16_library.model.BookLoans;
-import org.library.btl_oop16_library.utils.database.ActivitiesDBConnector;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.database.BookLoanDBConnector;
 import org.library.btl_oop16_library.utils.general.SessionManager;
@@ -18,10 +16,6 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class PreorderDialogController {
-
-    @FXML
-    private TextField bookIDField;
-
     @FXML
     private Button cancelButton;
 
@@ -30,12 +24,6 @@ public class PreorderDialogController {
 
     @FXML
     private TextField quantityField;
-
-    @FXML
-    private DatePicker startDatePicker;
-
-    @FXML
-    private DatePicker dueDatePicker;
 
     private Book currentBook;
 

@@ -44,12 +44,12 @@ public class BookItemController {
 
     private void setupImage(Book book) {
         ImageView imageView = new ImageView();
-        ImageLoader.loadImage(imageView, book.getImgURL(), 100);
 
         Rectangle clip = new Rectangle(120, 180);
         imageView.setClip(clip);
 
         StackPane imageContainer = new StackPane(imageView);
+        ImageLoader.loadImage(imageView,imageContainer, book.getImgURL(), 100);
         imageContainer.setPrefSize(180, 180);
         imageContainer.setStyle("-fx-alignment: center;");
         card.setHeader(imageContainer);
@@ -69,34 +69,33 @@ public class BookItemController {
     }
 
     private void setupCardEvent(Book book, AnchorPane generalPane, String stage) {
-        if(stage == "addBook") {
-            card.setOnMouseClicked(event -> {
-                ModalPane detailsPane = (ModalPane) generalPane.getScene().lookup("#detailsPane");
-                VBox detailsVBox = (VBox) generalPane.getScene().lookup("#detailsVBox");
-                try {
-                    detailsVBox.getChildren().clear();
-                    detailsVBox.getChildren().add(showBookDetailsModal(book, detailsPane, "addBook"));
-                    detailsPane.show(detailsVBox);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+        if ("addBook".equals(stage)) {
+            card.setOnMouseClicked(event -> showModal(book,
+                    generalPane,
+                    "addBook",
+                    "detailsPane",
+                    "detailsVBox"));
         } else {
-            card.setOnMouseClicked(event -> {
-                ModalPane detailsPane = (ModalPane) generalPane.getScene().lookup("#bookContent");
-                VBox detailsVBox = (VBox) generalPane.getScene().lookup("#bookContentVBox");
-                try {
-                    detailsVBox.getChildren().clear();
-                    detailsVBox.getChildren().add(showBookDetailsModal(book, detailsPane, "viewDetails"));
-                    detailsPane.show(detailsVBox);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+            card.setOnMouseClicked(event -> showModal(book,
+                    generalPane,
+                    "viewDetails", "bookContent",
+                    "bookContentVBox"));
         }
     }
 
-    private Pane showBookDetailsModal(Book book, ModalPane modalPane, String stage) throws IOException {
+    private void showModal(Book book, AnchorPane generalPane, String stage, String modalPaneId, String modalVBoxId) {
+        ModalPane modalPane = (ModalPane) generalPane.getScene().lookup("#" + modalPaneId);
+        VBox modalVBox = (VBox) generalPane.getScene().lookup("#" + modalVBoxId);
+        try {
+            modalVBox.getChildren().clear();
+            modalVBox.getChildren().add(setupModalPane(book, modalPane, stage));
+            modalPane.show(modalVBox);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private Pane setupModalPane(Book book, ModalPane modalPane, String stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(BOOK_DETAILS_PATH));
         Pane root = fxmlLoader.load();
         VBox vBox = new VBox();
@@ -106,10 +105,8 @@ public class BookItemController {
 
         BookDetailsController bookDetailsController = fxmlLoader.getController();
         bookDetailsController.setInfo(book, stage);
-        Button button = bookDetailsController.getButton2();
-        button.setOnAction(event -> {
-            modalPane.hide();
-        });
+        Button button = bookDetailsController.getBackButton();
+        button.setOnAction(event -> modalPane.hide());
 
         return root;
     }

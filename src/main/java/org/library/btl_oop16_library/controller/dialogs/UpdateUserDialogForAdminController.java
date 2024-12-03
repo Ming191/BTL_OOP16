@@ -41,10 +41,6 @@ public class UpdateUserDialogForAdminController {
         this.selectedUser = selectedUser;
     }
 
-    public User getSelectedUser() {
-        return selectedUser;
-    }
-
     @FXML
     public void initialize() {
         roleBox.getItems().addAll("user", "admin");
