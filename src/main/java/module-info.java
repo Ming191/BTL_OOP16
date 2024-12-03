@@ -16,12 +16,8 @@ module org.library.btl_oop16_library {
     requires jcommander;
     requires annotations;
 
-    opens org.library.btl_oop16_library.U_Controllers to javafx.fxml;
-    exports org.library.btl_oop16_library.U_Controllers;
     opens org.library.btl_oop16_library to javafx.fxml;
     exports org.library.btl_oop16_library;
-    exports org.library.btl_oop16_library.controller;
-    opens org.library.btl_oop16_library.controller to javafx.fxml;
     exports org.library.btl_oop16_library.model;
     opens org.library.btl_oop16_library.model to javafx.fxml;
     exports org.library.btl_oop16_library.utils;
