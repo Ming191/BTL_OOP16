@@ -7,29 +7,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import atlantafx.base.controls.ModalPane;
-import atlantafx.base.theme.Styles;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.material2.Material2OutlinedAL;
 import org.library.btl_oop16_library.Util.ApplicationAlert;
 import org.library.btl_oop16_library.Util.SessionManager;
-import org.library.btl_oop16_library.Util.Transition;
-
-import static org.library.btl_oop16_library.Util.GlobalVariables.*;
+import org.library.btl_oop16_library.Util.Animation;
 
 public class MainMenuController {
     @FXML
@@ -154,7 +146,7 @@ public class MainMenuController {
         if (result) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Login.fxml"));
             Scene loginScene = new Scene(loader.load());
-            Transition.fadeTransition((Stage) logOutButton.getScene().getWindow(), logOutButton.getScene(), loginScene);
+            Animation.fadeTransition((Stage) logOutButton.getScene().getWindow(), logOutButton.getScene(), loginScene);
         }
         return;
     }

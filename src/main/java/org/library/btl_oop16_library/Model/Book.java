@@ -188,16 +188,12 @@ public class Book {
         this.description = description;
     }
 
-
-
     @Override
     public String toString() {
         return "Book{" +
                 "title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", category='" + category + '\'' +
-                ", language='" + language + '\'' +
-                ", rating='" + rating + '\'' +
                 '}';
     }
 

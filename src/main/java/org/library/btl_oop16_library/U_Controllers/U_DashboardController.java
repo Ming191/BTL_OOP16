@@ -39,7 +39,7 @@
         private PieChart pieChart;
 
         @FXML
-        private Card quoteCard;
+        private VBox aiChatHolder;
 
         @FXML
         private GridPane cardGrid;

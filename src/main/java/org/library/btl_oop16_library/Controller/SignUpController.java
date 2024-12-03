@@ -13,7 +13,6 @@ import org.library.btl_oop16_library.Util.*;
 import org.library.btl_oop16_library.Model.User;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import static org.library.btl_oop16_library.Util.GlobalVariables.emailRegex;
 
@@ -45,7 +44,7 @@ public class SignUpController {
     public void switchToLoginScene(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Login.fxml"));
         Scene loginScene = new Scene(loader.load());
-        Transition.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
+        Animation.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
     }
 
     @FXML
@@ -100,7 +99,7 @@ public class SignUpController {
             ApplicationAlert.signUpSuccess();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/Login.fxml"));
             Scene loginScene = new Scene(loader.load());
-            Transition.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
+            Animation.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
         } else {
             System.out.println("User cancelled the sign-up process.");
         }

@@ -2,16 +2,16 @@ package org.library.btl_oop16_library.Util;
 
 import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import static org.library.btl_oop16_library.Util.GlobalVariables.LOADING_IMG;
 
-public class Transition {
+public class Animation {
     public static void fadeTransition(Stage stage, Scene currentScene, Scene nextScene) {
         try {
             Parent nextRoot = nextScene.getRoot();
@@ -51,17 +51,6 @@ public class Transition {
         }
     }
 
-    public static void cellAnimation(Node node) {
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), node);
-        fadeTransition.setFromValue(0.0);
-        fadeTransition.setToValue(1.0);
-
-        PauseTransition pauseTransition = new PauseTransition(Duration.millis( 200));
-
-        SequentialTransition sequentialTransition = new SequentialTransition(pauseTransition, fadeTransition);
-        sequentialTransition.play();
-    }
-
     public static void switchScene(Pane root, String fxmlPath) {
         Stage stage = (Stage)root.getScene().getWindow();
         ImageView loadingGif = new ImageView(LOADING_IMG);
@@ -75,7 +64,7 @@ public class Transition {
             try {
                 Platform.runLater(() -> {
                     try {
-                        FXMLLoader loader = new FXMLLoader(Transition.class.getResource(fxmlPath));
+                        FXMLLoader loader = new FXMLLoader(Animation.class.getResource(fxmlPath));
                         Parent newRoot = loader.load();
                         Scene newScene = new Scene(newRoot);
                         fadeTransition(stage,root.getScene(),newScene);
@@ -89,5 +78,35 @@ public class Transition {
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    public static void startTypingAnimation(VBox chatArea) {
+        Text typingText = new Text("AI is typing");
+
+        HBox typingContainer = new HBox(new TextFlow(typingText));
+        typingContainer.setAlignment(Pos.CENTER_LEFT);
+        typingContainer.setPadding(new Insets(5));
+
+        Platform.runLater(() -> chatArea.getChildren().add(typingContainer));
+
+        Timeline typingAnimation = new Timeline(new KeyFrame(Duration.millis(500), event -> {
+            String currentText = typingText.getText();
+            if (currentText.endsWith("...")) {
+                typingText.setText("AI is typing");
+            } else {
+                typingText.setText(currentText + ".");
+            }
+        }));
+
+        typingAnimation.setCycleCount(Timeline.INDEFINITE);
+        typingAnimation.play();
+    }
+
+    public static void stopTypingAnimation(VBox chatArea) {
+        Platform.runLater(() -> {
+            if (!chatArea.getChildren().isEmpty()) {
+                chatArea.getChildren().removeLast();
+            }
+        });
     }
 }

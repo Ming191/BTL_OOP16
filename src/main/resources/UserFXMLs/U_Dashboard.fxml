@@ -45,7 +45,7 @@
                   <MFXButton fx:id="toBook" buttonType="RAISED" onAction="#toBookView" prefHeight="80.0" prefWidth="300.0" text="EXPORE OUR BOOK LIST" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" />
                </children>
             </GridPane>
-            <Card fx:id="quoteCard" prefHeight="215.0" prefWidth="600.0" />
+            <VBox fx:id="aiChatHolder" prefHeight="215.0" prefWidth="100.0" />
          </children>
       </VBox>
       <AnchorPane layoutX="670.0" layoutY="30.0" prefHeight="660.0">

@@ -19,7 +19,7 @@ public class TEST2 extends Application {
 
         stage.resizableProperty().setValue(Boolean.FALSE);
         SessionManager.getInstance().setCurrentUser(UserDBConnector.getInstance().getUser("minh","minh"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/view/MainMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserFXMLs/AIChat.fxml"));
         Parent root = loader.load();
 
 

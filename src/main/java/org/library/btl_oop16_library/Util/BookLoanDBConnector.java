@@ -43,10 +43,11 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     @Override
     public List<BookLoans> importFromDB() {
         List<BookLoans> bookLoans = new ArrayList<>();
-        String query =  "select bookLoans.*, user.name, book.title\n" +
-                        "from bookLoans\n" +
-                        "join user  on bookLoans.userId = user.id\n" +
-                        "join book on bookLoans.bookId = book.id";
+        String query = """
+                select bookLoans.*, user.name, book.title
+                from bookLoans
+                join user  on bookLoans.userId = user.id
+                join book on bookLoans.bookId = book.id""";
         try (Connection con = DBConnector.getConnection()) {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -75,11 +76,12 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
     public List<BookLoans> importFromDBForUser(User user) {
         List<BookLoans> bookLoans = new ArrayList<>();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String query =  "select bookLoans.*, user.name, book.title\n" +
-                        "from bookLoans\n" +
-                        "join user  on bookLoans.userId = user.id\n" +
-                        "join book on bookLoans.bookId = book.id\n" +
-                        "where userId= ?";
+        String query = """
+                select bookLoans.*, user.name, book.title
+                from bookLoans
+                join user  on bookLoans.userId = user.id
+                join book on bookLoans.bookId = book.id
+                where userId= ?""";
         try (Connection con = DBConnector.getConnection()) {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, user.getId());
