@@ -7,6 +7,7 @@ import java.util.List;
 
 import atlantafx.base.controls.ModalPane;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -42,7 +43,7 @@ public class BookViewController {
     private TableColumn<Book, String> languageCol;
 
     @FXML
-    private AnchorPane rootPane;
+    private AnchorPane bookViewPane;
 
     @FXML
     private Button addBookButton;
@@ -94,8 +95,8 @@ public class BookViewController {
 
     private void setupViewDetailsButton() {
         viewDetailsButton.setOnAction(event -> {
-            VBox contentHolder = (VBox) rootPane.getScene().lookup("#bookContentVbox");
-            ModalPane modalPane = (ModalPane) rootPane.getScene().lookup("#bookContent");
+            VBox contentHolder = (VBox) bookViewPane.getScene().lookup("#bookContentVBox");
+            ModalPane modalPane = (ModalPane) bookViewPane.getScene().lookup("#bookContent");
             try {
                 contentHolder.getChildren().clear();
                 contentHolder.getChildren().addAll(getBookDetailsPane(modalPane));
@@ -108,8 +109,8 @@ public class BookViewController {
 
     private void setupAddBookButton() {
         addBookButton.setOnAction(event -> {
-            VBox contentHolder = (VBox) rootPane.getScene().lookup("#bookContentVbox");
-            ModalPane modalPane = (ModalPane) rootPane.getScene().lookup("#bookContent");
+            VBox contentHolder = (VBox) bookViewPane.getScene().lookup("#bookContentVBox");
+            ModalPane modalPane = (ModalPane) bookViewPane.getScene().lookup("#bookContent");
             try {
                 contentHolder.getChildren().clear();
                 contentHolder.getChildren().addAll(getAddBookPane(modalPane));
@@ -151,6 +152,12 @@ public class BookViewController {
 
         typeSearchBox.getItems().addAll("id", "title", "author", "category");
         typeSearchBox.setValue("title");
+
+        Platform.runLater(() -> {
+            if(bookViewPane.getScene().lookup("#bookContent") != null) {
+                System.out.printf("OK");
+            }
+        });
     }
 
     private void refresh() throws SQLException {
