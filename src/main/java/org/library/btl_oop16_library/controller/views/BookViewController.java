@@ -27,6 +27,7 @@ import org.library.btl_oop16_library.controller.dialogs.SearchBookDialogControll
 import org.library.btl_oop16_library.model.Book;
 import org.library.btl_oop16_library.services.ExcelAPI;
 import org.library.btl_oop16_library.utils.database.BookDBConnector;
+import org.library.btl_oop16_library.utils.database.UserDBConnector;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.general.SessionManager;
 
@@ -196,7 +197,7 @@ public class BookViewController {
         refresh();
     }
 
-    private Pane getBookDetailsPane(ModalPane modalPane) throws IOException, SQLException {
+    private Pane getBookDetailsPane(ModalPane modalPane) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(BOOK_DETAILS_PATH));
         Pane root = loader.load();
         BookDetailsController controller = loader.getController();
@@ -208,7 +209,7 @@ public class BookViewController {
         return root;
     }
 
-    private Pane getAddBookPane(ModalPane modalPane) throws IOException, SQLException {
+    private Pane getAddBookPane(ModalPane modalPane) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(SEARCH_BOOK_DIALOG_PATH));
         Pane root = loader.load();
         SearchBookDialogController controller = loader.getController();
@@ -236,11 +237,15 @@ public class BookViewController {
         String selectedType = typeSearchBox.getValue();
         switch (selectedType) {
             case "id":
-                try {
+                if (searchInput.isEmpty()) {
+                    try {
+                        refresh();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
                     int id = Integer.parseInt(searchInput);
                     bookList = BookDBConnector.getInstance().searchById(id);
-                } catch (NumberFormatException e) {
-                    System.err.println(e.getMessage());
                 }
                 break;
             case "title":

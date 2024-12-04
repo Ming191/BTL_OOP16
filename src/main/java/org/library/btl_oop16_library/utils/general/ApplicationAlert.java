@@ -163,4 +163,8 @@ public class ApplicationAlert {
     public static void preorderSuccess() {
         showAlert("Action success!","You have pre-ordered this book.", INFORMATION_ICON, false);
     }
+
+    public static void modifySuccess() {
+        showAlert("Modify success!","You have modified this book data.", INFORMATION_ICON, false);
+    }
 }

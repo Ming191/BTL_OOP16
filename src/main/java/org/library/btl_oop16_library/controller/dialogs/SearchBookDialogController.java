@@ -47,7 +47,7 @@ public class SearchBookDialogController {
     }
 
     @FXML
-    private void onSearchButtonClick(ActionEvent event) throws IOException {
+    private void onSearchButtonClick(ActionEvent event) {
         String searchText = searchField.getText();
 
         ProgressIndicator progressIndicator = new ProgressIndicator();
@@ -56,7 +56,7 @@ public class SearchBookDialogController {
 
         Task<List<Book>> searchTask = new Task<>() {
             @Override
-            protected List<Book> call() throws Exception {
+            protected List<Book> call() {
                 return GoogleBookAPI.searchBooks(searchText);
             }
         };

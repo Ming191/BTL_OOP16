@@ -20,8 +20,6 @@ import java.util.regex.Pattern;
 public class UserDBConnector extends DBConnector<User> {
     private static UserDBConnector instance;
 
-    private static final Object lock = new Object();
-
     private UserDBConnector() {}
 
     public static UserDBConnector getInstance() {
