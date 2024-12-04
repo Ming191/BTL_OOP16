@@ -2,8 +2,6 @@ package org.library.btl_oop16_library.controller.views;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.PauseTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -96,15 +94,6 @@ public class UserViewController {
             searchPause.stop();
             searchPause.playFromStart();
         });
-
-        table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
-            @Override
-            public void changed(ObservableValue<? extends User> observableValue, User oldValue, User newValue) {
-                selectedUser = newValue;
-                updateUserButton.setDisable(selectedUser == null);
-            }
-        });
-
         deleteUserButton.disableProperty().bind(table.getSelectionModel().selectedItemProperty().isNull());
 
         typeSearchBox.getItems().addAll("id", "name", "email", "phoneNumber");
@@ -118,11 +107,11 @@ public class UserViewController {
 
         switch (selectedType) {
             case "id":
-                try {
+                if (searchInput.isEmpty()) {
+                    refresh();
+                } else {
                     int id = Integer.parseInt(searchInput);
                     userList = UserDBConnector.getInstance().searchById(id);
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
                 }
                 break;
             case "name":
@@ -166,7 +155,7 @@ public class UserViewController {
         }
     }
     @FXML
-    private void deleteUserButtonOnClick(ActionEvent event) throws IOException {
+    private void deleteUserButtonOnClick(ActionEvent event) {
         User selectedUser = table.getSelectionModel().getSelectedItem();
 
         if (selectedUser == null) {
@@ -184,7 +173,7 @@ public class UserViewController {
 
 
     @FXML
-    private void updateUserButtonOnClick(ActionEvent event) throws IOException {
+    private void updateUserButtonOnClick(ActionEvent event) {
         Stage updateUserStage = new Stage();
         updateUserStage.setResizable(false);
         updateUserStage.initModality(Modality.APPLICATION_MODAL);
@@ -215,7 +204,7 @@ public class UserViewController {
         db.exportToExcel();
     }
 
-    void refresh() throws SQLException {
+    void refresh() {
         table.getItems().setAll(db.importFromDB());
     }
 

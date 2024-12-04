@@ -36,7 +36,7 @@ public class GithubModelService {
 
         prompt.append("Library Policies:\n")
                 .append("Borrowers can pre-order books if they have borrowed more than 20 books in the past.\n")
-                .append("Borrowers must visit the library in person to borrow books. Online or phone borrowing is not allowed.\n")
+                .append("Borrowers must visit the library in person to borrow books (but can pre-order online). Online or phone borrowing is not allowed.\n")
                 .append("Ensure all responses about borrowing or pre-ordering highlight these policies.\n");
 
         prompt.append("Recommendation Guidelines:\n")

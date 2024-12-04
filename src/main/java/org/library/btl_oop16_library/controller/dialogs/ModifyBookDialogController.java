@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.model.Book;
 import org.library.btl_oop16_library.utils.database.BookDBConnector;
+import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 
 public class ModifyBookDialogController {
 
@@ -70,6 +71,7 @@ public class ModifyBookDialogController {
         currentBook.setTitle(title);
         try {
             BookDBConnector.getInstance().modifyBook(currentBook);
+            ApplicationAlert.modifySuccess();
         } catch (Exception e) {
             e.printStackTrace();
         }

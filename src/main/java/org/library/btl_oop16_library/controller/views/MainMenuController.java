@@ -5,11 +5,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import animatefx.animation.FadeInDown;
-import animatefx.animation.FadeOutDown;
 import atlantafx.base.controls.ModalPane;
 import eu.iamgio.animated.transition.AnimatedSwitcher;
-import eu.iamgio.animated.transition.Animation;
 import eu.iamgio.animated.transition.AnimationPair;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

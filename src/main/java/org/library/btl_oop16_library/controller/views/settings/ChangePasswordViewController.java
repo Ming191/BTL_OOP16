@@ -69,7 +69,7 @@ public class ChangePasswordViewController {
     }
 
     @FXML
-    private void cancelChange (ActionEvent event) throws IOException {
+    private void cancelChange (ActionEvent event) {
         ContainerSwitcher.switchView(changePasswordBox, SETTINGS_PATH, "settings");
     }
 }
