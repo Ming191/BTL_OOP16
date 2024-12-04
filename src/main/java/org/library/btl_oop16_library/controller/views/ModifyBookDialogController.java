@@ -1,9 +1,10 @@
 package org.library.btl_oop16_library.controller.views;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.model.Book;
 import org.library.btl_oop16_library.utils.database.BookDBConnector;
@@ -11,7 +12,7 @@ import org.library.btl_oop16_library.utils.database.BookDBConnector;
 public class ModifyBookDialogController {
 
     @FXML
-    private MFXTextField authorField;
+    private TextField authorField;
 
     @FXML
     private MFXButton cancelButton;
@@ -20,13 +21,13 @@ public class ModifyBookDialogController {
     private MFXButton confirmButton;
 
     @FXML
-    private MFXTextField descriptionField;
+    private TextArea descriptionField;
 
     @FXML
-    private MFXTextField quantityField;
+    private TextField quantityField;
 
     @FXML
-    private MFXTextField titleField;
+    private TextField titleField;
 
     private Book currentBook;
 
@@ -64,5 +65,4 @@ public class ModifyBookDialogController {
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }
-
 }

@@ -78,7 +78,7 @@ public class BookViewController {
     private MFXButton importButton;
 
     @FXML
-    private Button updateButton;
+    private Button updateBookButton;
 
     @FXML
     private ChoiceBox<String> typeSearchBox;
@@ -91,6 +91,7 @@ public class BookViewController {
             deleteBookButton.setVisible(false);
             importButton.setVisible(false);
             exportButton.setVisible(false);
+            updateBookButton.setVisible(false);
         } else {
             deleteBookButton.setDisable(true);
             viewDetailsButton.setDisable(true);

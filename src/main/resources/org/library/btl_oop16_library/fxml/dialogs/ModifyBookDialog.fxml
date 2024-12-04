@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -12,10 +13,26 @@
     <children>
         <VBox layoutY="27.0" prefHeight="42.0" prefWidth="382.0" spacing="10.0">
             <children>
-            <MFXTextField fx:id="titleField" maxHeight="26.0" minHeight="26.0" prefHeight="25.0" prefWidth="342.0" promptText="Title" />
-            <MFXTextField fx:id="authorField" maxHeight="26.0" minHeight="26.0" prefHeight="25.0" prefWidth="342.0" promptText="Author" />
-            <MFXTextField fx:id="descriptionField" maxHeight="26.0" minHeight="26.0" prefHeight="25.0" prefWidth="342.0" promptText="Description" />
-            <MFXTextField fx:id="quantityField" maxHeight="26.0" minHeight="26.0" prefHeight="25.0" prefWidth="342.0" promptText="Quantity" />
+            <TextField fx:id="tItleField" promptText="Title">
+               <font>
+                  <Font name="Montserrat Medium" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="authorField" promptText="Author">
+               <font>
+                  <Font name="Montserrat Medium" size="12.0" />
+               </font>
+            </TextField>
+            <TextArea fx:id="descriptionField" prefHeight="16.0" prefWidth="342.0" promptText="Description" wrapText="true">
+               <font>
+                  <Font name="Montserrat Medium" size="12.0" />
+               </font>
+            </TextArea>
+            <TextField fx:id="quantityField" promptText="Quantity">
+               <font>
+                  <Font name="Montserrat Medium" size="12.0" />
+               </font>
+            </TextField>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                     <children>
                         <MFXButton fx:id="confirmButton" onAction="#onConfirmButtonClick" prefHeight="30.0" prefWidth="110.0" text="Confirm">
