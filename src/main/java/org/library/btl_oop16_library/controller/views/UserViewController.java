@@ -2,6 +2,8 @@ package org.library.btl_oop16_library.controller.views;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.PauseTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -88,6 +90,15 @@ public class UserViewController {
         searchPause = new PauseTransition(Duration.millis(500));
         searchPause.setOnFinished(event -> {
             realTimeSearch(searchField.getText());
+        });
+
+        updateUserButton.setDisable(true);
+        table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
+            @Override
+            public void changed(ObservableValue<? extends User> observableValue, User oldValue, User newValue) {
+                selectedUser = newValue;
+                updateUserButton.setDisable(selectedUser == null);
+            }
         });
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
