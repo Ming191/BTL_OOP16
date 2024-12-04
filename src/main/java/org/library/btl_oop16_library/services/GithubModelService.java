@@ -16,7 +16,7 @@ import static dev.langchain4j.model.github.GitHubModelsChatModelName.GPT_4_O_MIN
 
 public class GithubModelService {
     private static final GitHubModelsChatModel model = GitHubModelsChatModel.builder()
-            .gitHubToken("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")
+            .gitHubToken(ENV.getInstance().get("GITHUB_APIKEY"))
             .modelName(GPT_4_O_MINI)
             .logRequestsAndResponses(true)
             .build();
@@ -120,7 +120,8 @@ public class GithubModelService {
         prompt.append("Use this catalog to answer user queries. Match their interests to relevant titles.");
 
         prompt.append("Formatting:\n")
-                .append("Responses should be in plain text with no special characters, Markdown, or HTML.\n")
+                .append("Responses should be in 'plain text' with no special characters, Markdown, or HTML.\n")
+                .append("REMEMBER DONT ANSWER IN MARKDOWN FORMAT. ")
                 .append("Keep answers concise and avoid unnecessary details.\n");
 
         prompt.append("User Query:\n")

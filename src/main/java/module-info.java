@@ -17,6 +17,7 @@ module org.library.btl_oop16_library {
     requires annotations;
     requires javafx.graphics;
     requires eu.iamgio.animated;
+    requires io.github.cdimascio.dotenv.java;
 
     opens org.library.btl_oop16_library to javafx.fxml;
     exports org.library.btl_oop16_library;

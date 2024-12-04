@@ -14,7 +14,7 @@ import java.util.List;
 
 public class GoogleBookAPI {
     private static final String GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
-    private static final String API_KEY = "AIzaSyB_Ye1f7z4oQnMk_9Aaf0olRcTpElc8pHs";
+    private static final String API_KEY = ENV.getInstance().get("GOOGLE_BOOK_APIKEY");
 
     public static List<Book> searchBooks(String query) {
         List<Book> books = new ArrayList<>();
@@ -82,10 +82,14 @@ public class GoogleBookAPI {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
-            throw new RuntimeException("HTTP Response Code: " + response.statusCode());
+            System.err.println(API_KEY);
+            System.err.println("Error Response Code: " + response.statusCode());
+            System.err.println("Error Response Body: " + response.body());
+            throw new RuntimeException("Failed to fetch data: HTTP Response Code " + response.statusCode());
         }
 
         JSONObject jsonObject = new JSONObject(response.body());
         return jsonObject.optJSONArray("items");
     }
+
 }
