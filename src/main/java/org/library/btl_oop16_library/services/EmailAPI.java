@@ -10,8 +10,8 @@ import java.util.Properties;
 
 public class EmailAPI {
     public static void sendEmail(Map<String, List<String[]>> groupedEmails) {
-        final String senderEmail = "2minlibrary@gmail.com";
-        final String senderPassword = "xspg gfqk dxhd ddwh";
+        final String senderEmail = ENV.getInstance().get("EMAIL");
+        final String senderPassword = ENV.getInstance().get("EMAIL_PASSWORD");
 
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -65,7 +65,7 @@ public class EmailAPI {
     @NotNull
     private static StringBuilder getStringBuilder(List<String[]> books) {
         StringBuilder body = new StringBuilder();
-        String userName = books.get(0)[0];
+        String userName = books.getFirst()[0];
         body.append(String.format("""
         <div style="padding: 20px; font-family: Arial, sans-serif; color: #333;">
             <p>Dear %s,</p>
