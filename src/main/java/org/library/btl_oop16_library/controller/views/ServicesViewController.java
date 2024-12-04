@@ -247,7 +247,7 @@ public class ServicesViewController {
 
     @FXML
     private void exportOnClick() {
-        bookLoanDBConnector.exportToExcel();
+        ExcelAPI.exportExcel(BookLoanDBConnector.getInstance());
     }
 
     @FXML

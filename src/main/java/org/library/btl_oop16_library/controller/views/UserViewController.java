@@ -212,7 +212,7 @@ public class UserViewController {
 
     @FXML
     void exportOnClick(ActionEvent event) {
-        db.exportToExcel();
+        ExcelAPI.exportExcel(UserDBConnector.getInstance());
     }
 
     void refresh() {

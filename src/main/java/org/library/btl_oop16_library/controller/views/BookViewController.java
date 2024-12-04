@@ -222,7 +222,7 @@ public class BookViewController {
 
     @FXML
     private void exportOnClick() {
-        db.exportToExcel();
+        ExcelAPI.exportExcel(BookDBConnector.getInstance());
     }
 
     @FXML

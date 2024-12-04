@@ -22,4 +22,8 @@ public class ExcelAPI {
             System.out.println("No file selected.");
         }
     }
+
+    public static void exportExcel(DBConnector db) {
+        db.exportToExcel();
+    }
 }

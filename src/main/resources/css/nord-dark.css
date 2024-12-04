@@ -1059,6 +1059,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-padding: 0 0.5em 0 0.5em;
   -fx-text-fill: -color-cell-fg;
   -fx-alignment: BASELINE_CENTER;
+  -fx-font-family: "Montserrat Medium";
 }
 .table-view .table-row-cell > .table-cell.table-column.align-left {
   -fx-alignment: BASELINE_LEFT;
