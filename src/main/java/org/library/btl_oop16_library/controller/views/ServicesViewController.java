@@ -95,7 +95,7 @@ public class ServicesViewController {
 
     public void setCurrentUser() {
         if (!"admin".equalsIgnoreCase(SessionManager.getInstance().getCurrentUser().getRole())) {
-            canLendBook = bookLoanDBConnector.canLendBook(SessionManager.getInstance().getCurrentUser(), 20);
+            canLendBook = bookLoanDBConnector.canLendBook(SessionManager.getInstance().getCurrentUser(), 5);
             canPreorder = bookLoanDBConnector.canPreorderBook(SessionManager.getInstance().getCurrentUser());
             userNameCol.setVisible(false);
             lendBookButton.setVisible(false);
