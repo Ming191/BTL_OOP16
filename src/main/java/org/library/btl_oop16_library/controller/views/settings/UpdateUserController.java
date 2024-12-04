@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import org.library.btl_oop16_library.model.User;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.general.ContainerSwitcher;
 import org.library.btl_oop16_library.utils.general.SessionManager;
@@ -39,6 +40,15 @@ public class UpdateUserController {
 
     @FXML
     VBox updateInfoBox;
+
+    @FXML
+    private void initialize() {
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        nameField.setText(currentUser.getName());
+        emailField.setText(currentUser.getEmail());
+        phoneField.setText(currentUser.getPhoneNumber());
+        addressField.setText(currentUser.getAddress());
+    }
 
     @FXML
     private void updateInfo(ActionEvent event) {

@@ -3,6 +3,11 @@
   src: url("static/Montserrat-Medium.ttf");
 }
 
+@font-face {
+  font-family: "Montserrat ExtraBold";
+  src: url("static/Montserrat-ExtraBold.ttf");
+}
+
 .root {
   -color-dark: #232730;
   -color-light: #fdfdfe;
@@ -956,6 +961,7 @@ Text {
   -fx-font-weight: bold;
   -fx-border-color: -color-cell-border;
   -fx-border-width: 0 1 1 0;
+  -fx-font-family: "Montserrat ExtraBold";
 }
 .table-view > .column-header-background .column-header .label {
   -fx-text-fill: -color-header-fg;
@@ -2223,9 +2229,11 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 }
 .chart > .chart-title {
   -fx-font-size: 1.25em;
+  -fx-font-family: "Montserrat Medium";
 }
 .chart > .chart-content {
   -fx-padding: 10px;
+  -fx-font-family: "Montserrat Medium";
 }
 .chart > .chart-content > .chart-plot-background {
   -fx-background-color: -color-bg-default;
@@ -2238,6 +2246,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 }
 .chart > .chart-legend {
   -fx-padding: 6px;
+  -fx-font-family: "Montserrat Medium";
 }
 .chart .axis {
   -fx-axis-color: -color-border-default;

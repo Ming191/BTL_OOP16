@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.library.btl_oop16_library.controller.dialogs.AddBookDialogController;
 import org.library.btl_oop16_library.controller.dialogs.PreorderDialogController;
 import org.library.btl_oop16_library.model.Book;
 import org.library.btl_oop16_library.model.Comment;

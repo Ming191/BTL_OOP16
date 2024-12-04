@@ -1,6 +1,7 @@
-package org.library.btl_oop16_library.controller.views;
+package org.library.btl_oop16_library.controller.dialogs;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -33,6 +34,16 @@ public class ModifyBookDialogController {
 
     public void setCurrentBook(Book currentBook) {
         this.currentBook = currentBook;
+    }
+
+    @FXML
+    private void initialize() {
+        Platform.runLater(() -> {
+            titleField.setText(currentBook.getTitle());
+            authorField.setText(currentBook.getAuthor());
+            descriptionField.setText(currentBook.getDescription());
+            quantityField.setText(String.valueOf(currentBook.getAvailable()));
+        });
     }
 
     @FXML

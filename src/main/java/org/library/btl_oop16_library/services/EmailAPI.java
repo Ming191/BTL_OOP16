@@ -33,7 +33,8 @@ public class EmailAPI {
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
                 message.setSubject("Library Due Date Reminder");
                 String fullContent = getContent(books);
-                message.setContent(fullContent, "text/html");
+                // Specify UTF-8 encoding
+                message.setContent(fullContent, "text/html; charset=UTF-8");
                 Transport.send(message);
                 System.out.println("Email sent to " + recipient);
             } catch (MessagingException e) {
@@ -65,7 +66,7 @@ public class EmailAPI {
     @NotNull
     private static StringBuilder getStringBuilder(List<String[]> books) {
         StringBuilder body = new StringBuilder();
-        String userName = books.getFirst()[0];
+        String userName = books.get(0)[0];
         body.append(String.format("""
         <div style="padding: 20px; font-family: Arial, sans-serif; color: #333;">
             <p>Dear %s,</p>
@@ -87,6 +88,4 @@ public class EmailAPI {
         """);
         return body;
     }
-
 }
-    

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="106.0" prefWidth="347.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.views.AddBookDialogController">
+<AnchorPane prefHeight="106.0" prefWidth="347.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.dialogs.AddBookDialogController">
    <children>
       <VBox layoutY="27.0" prefHeight="42.0" prefWidth="382.0" spacing="10.0">
          <children>

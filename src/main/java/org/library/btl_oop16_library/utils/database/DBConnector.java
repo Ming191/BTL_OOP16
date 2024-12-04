@@ -25,7 +25,7 @@ public abstract class DBConnector<T> {
                 count = rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         return count;
     }

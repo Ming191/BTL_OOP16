@@ -10,9 +10,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="searchPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.dialogs.SearchBookDialogController">
+<AnchorPane fx:id="searchPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.dialogs.SearchBookDialogController">
    <children>
       <VBox spacing="25.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
          <children>
@@ -20,14 +21,14 @@
                <children>
                   <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1280.0">
                      <children>
-                        <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <HBox layoutX="364.0" spacing="15.0" AnchorPane.bottomAnchor="0.6666666666666643" AnchorPane.rightAnchor="67.33333333333348" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TextField fx:id="searchField" prefHeight="34.0" prefWidth="477.0" promptText="Enter the titlte/ISBN of the book">
+                              <TextField fx:id="searchField" prefHeight="50.0" prefWidth="608.0" promptText="Enter the titlte of the book">
                                  <font>
                                     <Font name="Montserrat Regular" size="14.0" />
                                  </font>
                               </TextField>
-                              <MFXButton fx:id="searchButton" onAction="#onSearchButtonClick" prefHeight="30.0" prefWidth="125.0" text="Search">
+                              <MFXButton fx:id="searchButton" onAction="#onSearchButtonClick" prefHeight="50.0" prefWidth="125.0" text="Search">
                                  <font>
                                     <Font name="Montserrat Medium" size="14.0" />
                                  </font>
@@ -37,7 +38,7 @@
                               </MFXButton>
                            </children>
                         </HBox>
-                        <MFXButton fx:id="backButton" layoutY="1.0" prefHeight="25.0" prefWidth="79.0" text="Back">
+                        <MFXButton fx:id="backButton" layoutY="1.0" prefHeight="50.0" prefWidth="79.0" text="Back">
                            <font>
                               <Font name="Montserrat Medium" size="14.0" />
                            </font>
@@ -51,11 +52,20 @@
                   <Insets />
                </VBox.margin>
                <center>
-                  <ImageView fitHeight="436.0" fitWidth="435.0" pickOnBounds="true" smooth="false" BorderPane.alignment="CENTER">
-                     <image>
-                        <Image url="@../../../../../img/test.png" />
-                     </image>
-                  </ImageView>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FIND SOMETHING BABY &lt;3">
+                           <font>
+                              <Font name="Montserrat ExtraBold" size="39.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="378.0" fitWidth="403.0" pickOnBounds="true" smooth="false">
+                           <image>
+                              <Image url="@../../../../../img/frame-012.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
                </center>
             </BorderPane>
          </children>

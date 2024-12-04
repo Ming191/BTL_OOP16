@@ -79,10 +79,10 @@ public class ActivitiesDBConnector extends DBConnector<Activity> {
                     ));
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         return activities;
@@ -111,7 +111,7 @@ public class ActivitiesDBConnector extends DBConnector<Activity> {
             stmt.setString(1, description);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 }

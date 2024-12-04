@@ -9,12 +9,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="271.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.dialogs.UpdateUserDialogForAdminController">
+<AnchorPane prefHeight="301.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.btl_oop16_library.controller.dialogs.UpdateUserDialogForAdminController">
    <opaqueInsets>
       <Insets top="10.0" />
    </opaqueInsets>
    <children>
-      <VBox layoutY="-6.0" prefHeight="262.0" prefWidth="451.0">
+      <VBox layoutY="14.0" prefHeight="267.0" prefWidth="451.0">
          <children>
             <TextField fx:id="nameField" layoutX="10.0" layoutY="10.0" maxWidth="385.0" prefHeight="25.0" promptText="Name">
                <VBox.margin>
@@ -48,7 +48,7 @@
                   <Font name="Montserrat Regular" size="14.0" />
                </font>
             </TextField>
-            <ChoiceBox fx:id="roleBox" prefHeight="25.0" prefWidth="391.0">
+            <ChoiceBox fx:id="roleBox" prefHeight="25.0" prefWidth="385.0">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="15.0" />
                </VBox.margin>

@@ -22,7 +22,7 @@ public class UserDBConnector extends DBConnector<User> {
 
     private static final Object lock = new Object();
 
-    private UserDBConnector() {};
+    private UserDBConnector() {}
 
     public static UserDBConnector getInstance() {
         if (instance == null) {
@@ -33,7 +33,7 @@ public class UserDBConnector extends DBConnector<User> {
 
     public List<User> importFromDB() {
         String query = "select * from User";
-        List<User> users = new ArrayList<User>();
+        List<User> users = new ArrayList<>();
 
         try (Connection con = DBConnector.getConnection();
              Statement stmt = con.createStatement();
@@ -54,7 +54,7 @@ public class UserDBConnector extends DBConnector<User> {
             System.out.println("Users imported successfully");
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         return users;
@@ -95,7 +95,7 @@ public class UserDBConnector extends DBConnector<User> {
 
             System.out.println("User added successfully: " + user.getName());
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             throw new RuntimeException("Database operation failed: " + e.getMessage());
         }
     }
@@ -109,7 +109,7 @@ public class UserDBConnector extends DBConnector<User> {
 
         try (Connection connection = DBConnector.getConnection()) {
             String findUserQuery = "SELECT name FROM user WHERE id = ?";
-            String userName = null;
+            String userName;
 
             try (PreparedStatement fetchStmt = connection.prepareStatement(findUserQuery)) {
                 fetchStmt.setInt(1, id);
@@ -139,7 +139,7 @@ public class UserDBConnector extends DBConnector<User> {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             throw new RuntimeException("Failed to delete user: " + e.getMessage());
         }
     }
@@ -177,7 +177,7 @@ public class UserDBConnector extends DBConnector<User> {
                 System.out.println("Found " + userList.size() + " user(s) with ID " + id + " or IDs starting with " + id + ".");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             throw new RuntimeException("Failed to search users by ID: " + e.getMessage());
         }
         return userList;
@@ -305,7 +305,7 @@ public class UserDBConnector extends DBConnector<User> {
         String upsertQuery = """
         INSERT INTO user (id, name, phoneNumber , address, email, username, password, role)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ON CONFLICT (id) 
+        ON CONFLICT (id)
         DO UPDATE SET
             name = EXCLUDED.name,
             phoneNumber = EXCLUDED.phoneNumber,
@@ -363,7 +363,7 @@ public class UserDBConnector extends DBConnector<User> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             throw new RuntimeException("Failed to search users by " + type + ": " + e.getMessage());
         }
 
@@ -399,7 +399,7 @@ public class UserDBConnector extends DBConnector<User> {
                 return null;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             throw new RuntimeException("Login failed: " + e.getMessage());
         }
     }
@@ -430,7 +430,7 @@ public class UserDBConnector extends DBConnector<User> {
                 return false;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             throw new RuntimeException("Failed to update user: " + e.getMessage());
         }
     }
@@ -469,7 +469,7 @@ public class UserDBConnector extends DBConnector<User> {
                 return false;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             throw new RuntimeException("Failed to update password: " + e.getMessage());
         }
     }
@@ -489,7 +489,7 @@ public class UserDBConnector extends DBConnector<User> {
             int rowsAffected = preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 
@@ -509,7 +509,7 @@ public class UserDBConnector extends DBConnector<User> {
                 users.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             throw new RuntimeException("Failed to get admin data " + e.getMessage());
         }
 
@@ -532,7 +532,7 @@ public class UserDBConnector extends DBConnector<User> {
                 }
             }
         } catch (SQLException e ) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         return null;
     }

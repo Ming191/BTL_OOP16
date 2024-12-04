@@ -1,4 +1,4 @@
-package org.library.btl_oop16_library.controller.views;
+package org.library.btl_oop16_library.controller.dialogs;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

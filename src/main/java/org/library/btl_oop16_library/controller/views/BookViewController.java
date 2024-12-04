@@ -22,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.library.btl_oop16_library.controller.dialogs.ModifyBookDialogController;
 import org.library.btl_oop16_library.controller.dialogs.SearchBookDialogController;
 import org.library.btl_oop16_library.model.Book;
 import org.library.btl_oop16_library.services.ExcelAPI;

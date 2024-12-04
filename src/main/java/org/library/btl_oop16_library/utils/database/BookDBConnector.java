@@ -39,8 +39,6 @@ public class BookDBConnector extends DBConnector<Book> {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-
                 Book book = new Book(
                         rs.getInt("id"),
                         rs.getString("title"),
@@ -86,7 +84,7 @@ public class BookDBConnector extends DBConnector<Book> {
         if (bookName != null) {
             ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
             String adminName = SessionManager.getInstance().getCurrentUser().getName();
-            activitiesDB.logActivity("Admin " + adminName + " deleted book: " + bookName);
+            activitiesDB.logActivity("Admin " + adminName + " deleted book: " + bookName + "'.");
         }
         else {
             System.out.println("Book not found, nothing to delete.");
@@ -107,7 +105,6 @@ public class BookDBConnector extends DBConnector<Book> {
             ResultSet rs = psCheck.executeQuery();
 
             if (rs.next()) {
-                int existingQuantity = rs.getInt("quantity");
                 int bookId = rs.getInt("id");
                 int newQuantity = item.getAvailable();
 
@@ -119,7 +116,7 @@ public class BookDBConnector extends DBConnector<Book> {
 
                 ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
                 String adminName = SessionManager.getInstance().getCurrentUser().getName();
-                activitiesDB.logActivity("Admin " + adminName + " added " + newQuantity + " copies of book: '" + item.getTitle());
+                activitiesDB.logActivity("Admin " + adminName + " added " + newQuantity + " copies of book: '" + item.getTitle() + "'.");
             } else {
                 try (PreparedStatement psInsert = conn.prepareStatement(insertQuery)) {
                     psInsert.setString(1, item.getTitle());
@@ -136,17 +133,17 @@ public class BookDBConnector extends DBConnector<Book> {
 
                 ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
                 String adminName = SessionManager.getInstance().getCurrentUser().getName();
-                activitiesDB.logActivity(  "Admin " + adminName + " added " + item.getAvailable() + " copies of new book: '" + item.getTitle());
+                activitiesDB.logActivity(  "Admin " + adminName + " added " + item.getAvailable() + " copies of new book: '" + item.getTitle() + "'.");
             }
         } catch (SQLException e) {
             throw new SQLException("Error while adding book or copy to DB", e);
         }
     }
 
-    public void modifyBook(Book item) throws SQLException {
+    public void modifyBook(Book item) {
         String query = """
                 update book
-                set title = ?, author = ?, description = ?, quantity = quantity + ?
+                set title = ?, author = ?, description = ?, quantity = ?
                 where id = ?
                 """;
         try (Connection conn = getConnection();
@@ -359,7 +356,7 @@ public class BookDBConnector extends DBConnector<Book> {
             }
             System.out.println("Data successfully imported from Excel file: " + filePath);
             String adminName = SessionManager.getInstance().getCurrentUser().getName();
-            activitiesDB.logActivity("Admin " + adminName + " imported file: " + new File(filePath).getName() + " to book table");
+            activitiesDB.logActivity("Admin " + adminName + " imported file: " + new File(filePath).getName() + " to book table.");
 
             ApplicationAlert.importSuccess();
 
@@ -374,7 +371,7 @@ public class BookDBConnector extends DBConnector<Book> {
         String upsertQuery = """
         INSERT INTO book (id, title, author , category, language, quantity, imgURL, rating, description, previewURL)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON CONFLICT (id) 
+        ON CONFLICT (id)
         DO UPDATE SET
             title = EXCLUDED.title,
             author = EXCLUDED.author,
