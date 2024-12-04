@@ -191,7 +191,6 @@ public class BookDetailsController {
                 PreorderDialogController preorderDialogController = loader.getController();
                 preorderDialogController.setCurrentBook(book);
                 preorderStage.showAndWait();
-
             } else {
                 System.out.println("Can not preorder book");
                 ApplicationAlert.canNotLendBook();

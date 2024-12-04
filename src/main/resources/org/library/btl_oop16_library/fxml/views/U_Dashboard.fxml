@@ -45,7 +45,7 @@
                      <font>
                         <Font name="Montserrat Medium" size="14.0" />
                      </font></MFXButton>
-                  <MFXButton fx:id="toBook" buttonType="RAISED" onAction="#toBookView" prefHeight="80.0" prefWidth="300.0" styleClass="bg-inset" text="EXPORE OUR BOOK LIST" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1">
+                  <MFXButton fx:id="toBook" buttonType="RAISED" onAction="#toBookView" prefHeight="80.0" prefWidth="300.0" styleClass="bg-inset" text="EXPLORE OUR BOOK LIST" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1">
                      <font>
                         <Font name="Montserrat Medium" size="14.0" />
                      </font></MFXButton>

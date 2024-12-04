@@ -51,14 +51,18 @@ public class AddBookLendingDialogController {
         int quantity = Integer.parseInt(quantityField.getText());
         int bookAvailable = bookLoanDBConnector.getBookAvailable(bookIDField.getText());
         int bookLentAmount = bookLoanDBConnector.getBookLentAmount(userIdField.getText());
+
+        if (quantityField.getText().isEmpty() || bookIDField.getText().isEmpty() || userIdField.getText().isEmpty()) {
+            ApplicationAlert.missingInformation();
+        }
+
+        if (quantity < 0) {
+            ApplicationAlert.invalidQuantity();
+        }
+
         if (quantity > 20 || quantity + bookLentAmount > 20 || bookAvailable - quantity < 0) {
             ApplicationAlert.overMaxQuantity();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBookLendingDialog.fxml"));
-            try {
-                Parent root = loader.load();
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-            }
+
         } else {
             int userID = Integer.parseInt(userIdField.getText());
             int bookID = Integer.parseInt(bookIDField.getText());
@@ -74,8 +78,8 @@ public class AddBookLendingDialogController {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+            Stage stage = (Stage) confirmButton.getScene().getWindow();
+            stage.close();
         }
-        Stage stage = (Stage) confirmButton.getScene().getWindow();
-        stage.close();
     }
 }

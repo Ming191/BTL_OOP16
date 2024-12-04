@@ -25,7 +25,6 @@ import java.util.*;
 
 public class BookLoanDBConnector extends DBConnector<BookLoans> {
     private static BookLoanDBConnector instance;
-    private static final Object lock = new Object();
     private static final SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
 
@@ -33,9 +32,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
 
     public static BookLoanDBConnector getInstance() {
         if (instance == null) {
-            synchronized (lock) {
-                instance = new BookLoanDBConnector();
-            }
+            instance = new BookLoanDBConnector();
         }
         return instance;
     }
@@ -175,7 +172,6 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
                     ActivitiesDBConnector activitiesDB = ActivitiesDBConnector.getInstance();
                     activitiesDB.logActivity( "User " + userName + " returned '" + bookTitle + "'");
                 }
-                ApplicationAlert.exportSuccess();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -195,7 +191,6 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         try (Connection con = DBConnector.getConnection()) {
             PreparedStatement ps = con.prepareStatement(query);
             ps.executeUpdate();
-            ApplicationAlert.exportSuccess();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -212,7 +207,6 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
             ps.setInt(1, bookLoan.getAmount());
             ps.setString(2, bookLoan.getBookTitle());
             ps.executeUpdate();
-            ApplicationAlert.exportSuccess();
         } catch (SQLException e) {
             e.printStackTrace();
         }

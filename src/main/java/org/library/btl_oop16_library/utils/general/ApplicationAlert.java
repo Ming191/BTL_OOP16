@@ -129,7 +129,7 @@ public class ApplicationAlert {
     }
 
     public static void deleteSuccess() {
-        showAlert("Deleted!","", INFORMATION_ICON, false);
+        showAlert("Action success!","Data has been deleted", INFORMATION_ICON, false);
     }
 
     public static void invalidPhoneNumber() {
@@ -145,7 +145,7 @@ public class ApplicationAlert {
     }
 
     public static void addSuccess() {
-        showAlert("Added!","", INFORMATION_ICON, false);
+        showAlert("Action success!","Data has been added", INFORMATION_ICON, false);
     }
 
     public static void showFullDetails(String logEntry) {
@@ -153,10 +153,14 @@ public class ApplicationAlert {
     }
 
     public static void emailSent() {
-        showAlert("Email Sent!","", INFORMATION_ICON, false);
+        showAlert("Action success!","Email has been sent", INFORMATION_ICON, false);
     }
 
     public static void emailFailed() {
-        showAlert("Can not send emails!","Try again -_-!", ERROR_ICON, false);
+        showAlert("Can not send emails!","Try again -_-", ERROR_ICON, false);
+    }
+
+    public static void preorderSuccess() {
+        showAlert("Action success!","You have pre-ordered this book.", INFORMATION_ICON, false);
     }
 }

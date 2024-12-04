@@ -54,6 +54,7 @@ public class PreorderDialogController {
                            bookId, startDate, dueDate, quantity, "pre-ordered");
         try {
             BookLoanDBConnector.getInstance().addToDB(bookLoan);
+            ApplicationAlert.preorderSuccess();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

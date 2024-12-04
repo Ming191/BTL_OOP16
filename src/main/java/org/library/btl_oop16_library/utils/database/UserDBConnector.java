@@ -26,9 +26,7 @@ public class UserDBConnector extends DBConnector<User> {
 
     public static UserDBConnector getInstance() {
         if (instance == null) {
-            synchronized (lock) {
-                instance = new UserDBConnector();
-            }
+            instance = new UserDBConnector();
         }
         return instance;
     }
@@ -134,7 +132,7 @@ public class UserDBConnector extends DBConnector<User> {
                 int rowsAffected = stmt.executeUpdate();
                 if (rowsAffected > 0) {
                     String adminName = SessionManager.getInstance().getCurrentUser().getName();
-                    activitiesDB.logActivity(adminName + " deleted user " + userName + ".");
+                    activitiesDB.logActivity(adminName + " deleted user " + userName );
                     System.out.println("User deleted successfully.");
                 } else {
                     throw new RuntimeException("User with ID '" + id + "' does not exist.");
@@ -293,7 +291,7 @@ public class UserDBConnector extends DBConnector<User> {
 
             System.out.println("Data successfully imported from Excel file: " + filePath);
             String adminName = SessionManager.getInstance().getCurrentUser().getName();
-            activitiesDB.logActivity( "Admin" + adminName + " imported file: " + new File(filePath).getName() + " to user table.");
+            activitiesDB.logActivity( "Admin" + adminName + " imported file: " + new File(filePath).getName() + " to user table");
             ApplicationAlert.importSuccess();
 
         } catch (IOException e) {

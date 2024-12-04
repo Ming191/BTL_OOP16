@@ -12,14 +12,11 @@ import java.util.List;
 public class CommentsDBConnector extends DBConnector<Comment> {
 
     private static CommentsDBConnector instance;
-    private static final Object lock = new Object();
     private CommentsDBConnector() {}
 
     public static CommentsDBConnector getInstance() {
         if (instance == null) {
-            synchronized (lock) {
-                instance = new CommentsDBConnector();
-            }
+            instance = new CommentsDBConnector();
         }
         return instance;
     }

@@ -113,7 +113,7 @@ public class SignUpController {
             activitiesDBConnector.logActivity(String.format("New user signed up: %s", newUser.getName()));
 
             ApplicationAlert.signUpSuccess();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/library/btl_oop16_library/fxml/authentication/Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGIN_PATH));
             Scene loginScene = new Scene(loader.load());
             Motion.fadeTransition((Stage) signInButton.getScene().getWindow(), signInButton.getScene(), loginScene);
         } else {

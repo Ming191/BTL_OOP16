@@ -11,16 +11,13 @@ import java.util.List;
 public class ActivitiesDBConnector extends DBConnector<Activity> {
 
     private static ActivitiesDBConnector instance;
-    private static final Object lock = new Object();
     private ActivitiesDBConnector() {
 
     }
 
     public static ActivitiesDBConnector getInstance() {
         if (instance == null) {
-            synchronized (lock) {
-                instance = new ActivitiesDBConnector();
-            }
+            instance = new ActivitiesDBConnector();
         }
         return instance;
     }

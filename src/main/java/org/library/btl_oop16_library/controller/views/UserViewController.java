@@ -197,7 +197,7 @@ public class UserViewController {
             UpdateUserDialogForAdminController controller = fxmlLoader.getController();
             controller.setSelectedUser(selectedUser);
             updateUserStage.setScene(new Scene(root));
-            Image favicon = new Image(getClass().getResource("/img/logo.png").toExternalForm())   ;
+            Image favicon = new Image(getClass().getResource(ICON_PATH).toExternalForm())   ;
             updateUserStage.getIcons().add(favicon);
             updateUserStage.showAndWait();
 

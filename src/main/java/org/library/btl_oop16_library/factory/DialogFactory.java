@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import org.library.btl_oop16_library.controller.views.AddBookDialogController;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import static org.library.btl_oop16_library.utils.general.GlobalVariables.ICON_PATH;
 
@@ -29,7 +28,7 @@ public class DialogFactory {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Add Book");
         stage.setScene(new Scene(root));
-        Image favicon = new Image(Objects.requireNonNull(DialogFactory.class.getResource(ICON_PATH)).toExternalForm());
+        Image favicon = new Image(DialogFactory.class.getResource(ICON_PATH).toExternalForm());
         stage.getIcons().add(favicon);
         stage.showAndWait();
 
