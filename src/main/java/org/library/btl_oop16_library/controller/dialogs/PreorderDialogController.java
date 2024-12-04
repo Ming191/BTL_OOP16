@@ -36,7 +36,13 @@ public class PreorderDialogController {
     @FXML
     private void onConfirmButtonClick(ActionEvent event) {
         int bookId = currentBook.getId();
-        int quantity = Integer.parseInt(quantityField.getText());
+        int quantity;
+        try {
+            quantity = Integer.parseInt(quantityField.getText());
+        } catch (NumberFormatException e) {
+            ApplicationAlert.invalidQuantity();
+            return;
+        }
         int bookAvailable = BookLoanDBConnector.getInstance().getBookAvailable(String.valueOf(bookId));
 
         if (quantity <= 0 || quantity > bookAvailable) {
