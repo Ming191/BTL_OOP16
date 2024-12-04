@@ -97,7 +97,7 @@ public class ApplicationAlert {
     }
 
     public static void overMaxQuantity() {
-        showAlert("Can not lending!", "Can not borrowed more than 20 books at a time!", ERROR_ICON, false);
+        showAlert("Can not lending!", "Can not borrowed more than 5 books at a time!", ERROR_ICON, false);
     }
 
     public static void passwordMismatch() {

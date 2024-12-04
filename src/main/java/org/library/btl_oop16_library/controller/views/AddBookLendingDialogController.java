@@ -60,7 +60,7 @@ public class AddBookLendingDialogController {
             ApplicationAlert.invalidQuantity();
         }
 
-        if (quantity > 20 || quantity + bookLentAmount > 20 || bookAvailable - quantity < 0) {
+        if (quantity > 5 || quantity + bookLentAmount > 5 || bookAvailable - quantity < 0) {
             ApplicationAlert.overMaxQuantity();
 
         } else {

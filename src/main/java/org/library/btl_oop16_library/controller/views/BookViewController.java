@@ -165,6 +165,7 @@ public class BookViewController {
 
         typeSearchBox.getItems().addAll("id", "title", "author", "category");
         typeSearchBox.setValue("title");
+        updateBookButton.disableProperty().bind(table.getSelectionModel().selectedItemProperty().isNull());
 
         Platform.runLater(() -> {
             setupViewDetailsButton();

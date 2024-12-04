@@ -106,6 +106,7 @@ public class UserViewController {
         });
 
         deleteUserButton.disableProperty().bind(table.getSelectionModel().selectedItemProperty().isNull());
+        updateUserButton.disableProperty().bind(table.getSelectionModel().selectedItemProperty().isNull());
 
         typeSearchBox.getItems().addAll("id", "name", "email", "phoneNumber");
         typeSearchBox.setValue("name");

@@ -212,11 +212,28 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
         }
     }
 
+    public void changeToPreordered(BookLoans bookLoan) {
+        String query = "update bookLoans set status = 'pre-ordered' where id = " + bookLoan.getId();
+        try (Connection con = DBConnector.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.executeUpdate();
+
+            String updateBook = "update book set quantity = quantity - ? WHERE title = ?";
+            ps = con.prepareStatement(updateBook);
+            ps.setInt(1, bookLoan.getAmount());
+            ps.setString(2, bookLoan.getBookTitle());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void updateStatus(BookLoans bookLoan, String status) {
         switch (status) {
             case "Returned" -> changeToReturned(bookLoan);
             case "Not returned" -> changeToNotReturned(bookLoan);
             case "Cancelled" -> changeToCancelled(bookLoan);
+            case "Pre-ordered" -> changeToPreordered(bookLoan);
             default -> System.out.println("can not update status " + status);
         }
     }
@@ -573,7 +590,7 @@ public class BookLoanDBConnector extends DBConnector<BookLoans> {
 
     public boolean canLendBook(User user, int limit) {
         String query = "select ifnull(sum(amount),0) as quantity from bookLoans "
-                     + "where status not in('returned','pre-ordered') and userId = ?";
+                     + "where status not in('returned','cancelled') and userId = ?";
         try (Connection con = DBConnector.getConnection()) {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, user.getId());
