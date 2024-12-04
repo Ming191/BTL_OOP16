@@ -108,11 +108,7 @@ public class UserViewController {
         switch (selectedType) {
             case "id":
                 if (searchInput.isEmpty()) {
-                    try {
-                        refresh();
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
+                    refresh();
                 } else {
                     int id = Integer.parseInt(searchInput);
                     userList = UserDBConnector.getInstance().searchById(id);
