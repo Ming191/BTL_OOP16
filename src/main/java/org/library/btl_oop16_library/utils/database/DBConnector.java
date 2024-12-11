@@ -1,6 +1,10 @@
 package org.library.btl_oop16_library.utils.database;
 
+import javafx.util.Pair;
+import org.library.btl_oop16_library.services.HashPassword;
+
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DBConnector<T> {
