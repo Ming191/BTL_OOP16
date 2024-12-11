@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import org.library.btl_oop16_library.model.User;
+import org.library.btl_oop16_library.services.HashPassword;
 import org.library.btl_oop16_library.utils.general.ApplicationAlert;
 import org.library.btl_oop16_library.utils.general.SessionManager;
 import org.library.btl_oop16_library.utils.general.Motion;
@@ -48,7 +49,7 @@ public class LoginController {
             ApplicationAlert.emptyAccountOrPassword();
             return;
         } else {
-            User user = UserDBConnector.getInstance().getUser(usernameField.getText(), passwordField.getText());
+            User user = UserDBConnector.getInstance().getUser(usernameField.getText(), HashPassword.hashPassword(passwordField.getText()));
             if (user != null) {
                 SessionManager.getInstance().setCurrentUser(user);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(MAINMENU_PATH));

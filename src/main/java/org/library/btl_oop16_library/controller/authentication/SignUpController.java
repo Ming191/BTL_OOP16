@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.library.btl_oop16_library.model.User;
+import org.library.btl_oop16_library.services.HashPassword;
 import org.library.btl_oop16_library.utils.database.ActivitiesDBConnector;
 import org.library.btl_oop16_library.utils.database.UserDBConnector;
 import org.library.btl_oop16_library.utils.general.Motion;
@@ -90,7 +91,7 @@ public class SignUpController {
             ApplicationAlert.weakPassword();
             return;
         }
-
+        password = HashPassword.hashPassword(passwordField.getText());
         if (UserDBConnector.isAlreadyExist(usernameField.getText())) {
             ApplicationAlert.userAlreadyExists();
             return;
@@ -106,7 +107,6 @@ public class SignUpController {
                     usernameField.getText(),
                     password
             );
-
             UserDBConnector.getInstance().addToDB(newUser);
 
             ActivitiesDBConnector activitiesDBConnector = ActivitiesDBConnector.getInstance();
